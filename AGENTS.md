@@ -6,14 +6,17 @@ Entry point for any model working in this repository. Read this file, then the d
 
 **UltraBlade 2** is the next UltraBlade game project. Its **production pipeline is Unity 6000.6.7f1 on Windows PC**:
 the new Unity project lives at [unity/UBlade2](./unity/UBlade2) and is pinned by
-[project.gypsy.json](./project.gypsy.json) (engine unity, version 6000.6.7f1, adapter unity-6, targets pc).
+[project.gypsy.json](./project.gypsy.json) (engine unity, version 6000.6.7f1, adapter unity-6, targets pc and mobile).
 
 The first game — a modern remake of the 1996 future-sport classic *HyperBlade*, built with Godot 4.7.2 — lives in
 ProjectGypsy and remains the **legacy/reference implementation**. It was not deleted, modified or "migrated": this is
 a port with acceptance evidence, recorded in [docs/UNITY-PORT.md](./docs/UNITY-PORT.md).
 
-**Mobile is not available.** Unity Android Build Support is not installed; do not build, claim or imply an APK or a
-device pass until it is installed (DEFERRED UB2-D13).
+**Mobile is partially verified.** Unity Android Build Support is installed and a signed debug APK is built,
+installed and launched on the local API 35 emulator; on-device logcat shows `UBLADE2_START`, `UBLADE_HERO_OK` and the
+deterministic `GYPSY_DEMO_OK collected=3`. The emulator's Vulkan surface returns a near-black frame to `adb screencap`,
+so a clear mobile visual capture and physical-device launch are outstanding (UB2-D15). Do not claim a full mobile pass
+until that is captured.
 
 ## What governs your work, in this order
 
@@ -99,9 +102,10 @@ re-bootstrap this repository.
 - **This is a game, not a web app.** No design-language, mockup-first, visual-bar, viewport, token-lint,
   accessibility-pass or browser-gate rule applies until the addendum is restored or replaced by a recorded decision
   (Part 11.1, UB2-D3).
-- **Mobile is blocked, not "almost done".** No Android Build Support, no APK, no device screenshot, no logcat claim
-  until the module is installed and a real run happens (UB2-D13). The blocked state is recorded in
-  `capabilities/engine.unity.port.mobile.json`; it is not a pass.
+- **Mobile is partially verified, not a full pass.** Android Build Support is installed; a signed debug APK builds,
+  installs and launches on the local API 35 emulator, and on-device logcat shows `UBLADE2_START`, `UBLADE_HERO_OK` and
+  `GYPSY_DEMO_OK collected=3`. The emulator's Vulkan surface returns a near-black `adb screencap`, so a clear mobile
+  visual capture and a physical-device run are outstanding (UB2-D15). Do not claim a full mobile visual pass.
 - **Do not modify the Gypsy checkout.** It is a read-only peer for this repository; work only here. Its records and
   its Godot game stay as they are.
 - **Record the work.** A change is not finished until its [Retrace.md](./Retrace.md) and
@@ -131,12 +135,13 @@ re-bootstrap this repository.
 
 ## What exists, and what does not
 
-**Exists:** the Unity 6000.6.7f1 project `unity/UBlade2`, the three-collectible gameplay demo, the Wayfarer hero port
+**Exists:** the Unity 6000.6.7f1 project `unity/UBlade2`, Android Build Support with a signed debug APK installed and
+launched on a local API 35 emulator (on-device markers verified), the three-collectible gameplay demo, the Wayfarer hero port
 (23 bones, three clips, Smile, three 512² maps, LODGroup, generated hero prefab `WayfarerLOD.prefab`, spring cape), the Windows player build, the headless demo
 marker, the inspected 1280x720 capture, the Gypsy toolpack/slice/capability manifests, the port acceptance record,
 the working rules, the records, the fast check list, the tracked hook and the CI workflow.
 
-**Does not exist:** Android Build Support, an APK, device/emulator evidence, the full production game surface (HUD,
-menu, pause/settings, audio, combat, teams, league content), a published contract artefact, rollback documents for a
-configurable layer, deploy preflight, a secret scanner, or a mechanised peer-project boundary guard. Do not claim any
+**Does not exist:** a clear mobile visual capture, a physical-device run (UB2-D15), the full production game surface
+(HUD, menu, pause/settings, audio, combat, teams, league content), a published contract artefact, rollback documents
+for a configurable layer, deploy preflight, a secret scanner, or a mechanised peer-project boundary guard. Do not claim any
 of them; the missing ones are in [DEFERRED.md](./DEFERRED.md) with the condition that unblocks them.

@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using UnityEditor;
 using UnityEditor.Animations;
+using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -129,6 +130,81 @@ public static class BuildUBlade2
         catch (Exception exception)
         {
             Debug.LogError("UBLADE2_BUILD FAILED " + exception);
+            EditorApplication.Exit(1);
+        }
+    }
+
+
+    [MenuItem("UBlade2/Build Android APK")]
+    public static void BuildAndroid()
+    {
+        try
+        {
+            if (EditorUserBuildSettings.activeBuildTarget != BuildTarget.Android)
+            {
+                if (!EditorUserBuildSettings.SwitchActiveBuildTarget(BuildTargetGroup.Android, BuildTarget.Android))
+                {
+                    throw new Exception("could not switch the active build target to Android");
+                }
+            }
+            foreach (var architectureName in System.Enum.GetNames(typeof(AndroidArchitecture)))
+            {
+                Debug.Log("UBLADE2_ANDROID_ARCH " + architectureName);
+            }
+            Debug.Log("UBLADE2_ANDROID_SDKROOT " + EditorPrefs.GetString("AndroidSdkRoot", "(bundled)"));
+            Debug.Log("UBLADE2_ANDROID_JDKROOT " + EditorPrefs.GetString("AndroidJdkRoot", "(bundled)"));
+            Debug.Log("UBLADE2_ANDROID_NDKROOT " + EditorPrefs.GetString("AndroidNdkRoot", "(bundled)"));
+
+            PlayerSettings.productName = "UBlade2";
+            PlayerSettings.companyName = "C7-IMI";
+            PlayerSettings.SetApplicationIdentifier(NamedBuildTarget.Android, "com.c7imi.ublade2");
+            PlayerSettings.SetScriptingBackend(NamedBuildTarget.Android, ScriptingImplementation.IL2CPP);
+            PlayerSettings.Android.targetArchitectures = AndroidArchitecture.ARM64 | AndroidArchitecture.X86_64;
+            PlayerSettings.Android.minSdkVersion = AndroidSdkVersions.AndroidApiLevel26;
+            PlayerSettings.Android.useCustomKeystore = false;
+            PlayerSettings.defaultInterfaceOrientation = UIOrientation.LandscapeLeft;
+            PlayerSettings.allowedAutorotateToPortrait = false;
+            PlayerSettings.allowedAutorotateToPortraitUpsideDown = false;
+            PlayerSettings.allowedAutorotateToLandscapeLeft = true;
+            PlayerSettings.allowedAutorotateToLandscapeRight = true;
+            EditorUserBuildSettings.buildAppBundle = false;
+            PlayerSettings.SetUseDefaultGraphicsAPIs(BuildTarget.Android, false);
+            PlayerSettings.SetGraphicsAPIs(BuildTarget.Android, new[] { UnityEngine.Rendering.GraphicsDeviceType.Vulkan });
+
+            Directory.CreateDirectory("Assets/Scenes");
+            if (!File.Exists(ScenePath))
+            {
+                var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
+                var host = new GameObject("UBlade2");
+                host.AddComponent<UBlade2Game>();
+                EditorSceneManager.SaveScene(scene, ScenePath);
+            }
+            EditorBuildSettings.scenes = new[] { new EditorBuildSettingsScene(ScenePath, true) };
+            Directory.CreateDirectory("Build/Android");
+            var options = new BuildPlayerOptions
+            {
+                scenes = new[] { ScenePath },
+                locationPathName = "Build/Android/UBlade2.apk",
+                target = BuildTarget.Android,
+                options = BuildOptions.None
+            };
+            var build = BuildPipeline.BuildPlayer(options);
+            Debug.Log("UBLADE2_ANDROID_BUILD " + build.summary.result + " bytes=" + build.summary.totalSize);
+            if (build.summary.result != BuildResult.Succeeded)
+            {
+                throw new Exception("android build result " + build.summary.result);
+            }
+            var artifact = Path.Combine(RepoRoot, "artifacts", "ublade2-android");
+            Directory.CreateDirectory(artifact);
+            File.WriteAllText(
+                Path.Combine(artifact, "build.json"),
+                "{\"schema\":\"ublade2.android.build/v1\",\"passed\":true,\"result\":\"" + build.summary.result +
+                "\",\"bytes\":" + build.summary.totalSize + ",\"apk\":\"unity/UBlade2/Build/Android/UBlade2.apk\"}\n");
+            EditorApplication.Exit(0);
+        }
+        catch (Exception exception)
+        {
+            Debug.LogError("UBLADE2_ANDROID_BUILD FAILED " + exception);
             EditorApplication.Exit(1);
         }
     }

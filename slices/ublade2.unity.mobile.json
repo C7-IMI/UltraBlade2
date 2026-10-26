@@ -1,0 +1,39 @@
+{
+  "schema": "gypsy.slice/v1",
+  "id": "ublade2.unity.mobile",
+  "project": ".",
+  "description": "UltraBlade 2 Unity Android mobile slice: build the signed debug APK, install and launch it on the local API 35 emulator, capture the device frame and logcat, validate the on-device hero markers and the deterministic demo marker, then run the repository check list.",
+  "artifacts": [
+    "unity/UBlade2/Build/Android/UBlade2.apk",
+    "artifacts/ublade2-android/build.log",
+    "artifacts/ublade2-android/build.json",
+    "artifacts/ublade2-mobile/device-info.txt",
+    "artifacts/ublade2-mobile/screen.png",
+    "artifacts/ublade2-mobile/logcat-launch.txt",
+    "artifacts/ublade2-mobile/logcat-demo.txt",
+    "artifacts/ublade2-mobile/capture-check.json"
+  ],
+  "steps": [
+    {
+      "id": "mobile",
+      "kind": "toolpack",
+      "needs": [],
+      "required": true,
+      "timeout": 3000,
+      "args": {
+        "toolpack": "ublade2.unity.mobile",
+        "path": "toolpacks/ublade2.unity.mobile.json"
+      }
+    },
+    {
+      "id": "pack",
+      "kind": "check_all",
+      "needs": [
+        "mobile"
+      ],
+      "required": true,
+      "timeout": 180,
+      "args": {}
+    }
+  ]
+}

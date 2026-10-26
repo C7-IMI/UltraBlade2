@@ -1,9 +1,11 @@
 # UNITY PORT - Stage B acceptance record
 
 **Status: the gameplay, hero, build, demo and capture gates pass on Unity 6000.6.7f1 (Windows PC), and the
-port evidence is committed and pushed. Mobile is blocked because Android Build Support is not installed, and is not
-claimed. The ProjectGypsy Godot implementation was neither modified nor deleted; it remains the legacy/reference
-implementation.**
+port evidence is committed and pushed. Mobile is **partially verified**: Android Build Support is installed, a signed
+debug APK is built and apksigner-verified, and it installs, launches and produces the on-device UBlade2 and
+deterministic demo markers on a local API 35 emulator; a clear mobile visual capture and a physical-device run are
+outstanding (UB2-D15) and no full mobile visual pass is claimed. The ProjectGypsy Godot implementation was neither
+modified nor deleted; it remains the legacy/reference implementation.**
 
 This is a port with real acceptance evidence, not an engine toggle. Every claim below is attached to a command, a
 marker, a measurement or a file hash. What was not verified is named in "Limits".
@@ -15,8 +17,8 @@ marker, a measurement or a file hash. What was not verified is named in "Limits"
 | Source of truth | ProjectGypsy at `C:\OneDrive\OneDrive - Cyber 7 Group\GHRepo\Games\ProjectGypsy` (read-only for this work) |
 | Destination | this repository (UltraBlade 2) |
 | Unity editor | `C:\Program Files\Unity\Hub\Editor\6000.6.7f1\Editor\Unity.exe`, version `6000.6.7f1_b22767f04f04` |
-| Installed build support | `windowsstandalonesupport`, `WebGLSupport` |
-| Android Build Support | **not installed** — `PlaybackEngines` contains only the two modules above |
+| Installed build support | `windowsstandalonesupport`, `WebGLSupport`, `AndroidPlayer` |
+| Android Build Support | **installed 2026-10-26** through the Unity CLI (module + SDK/NDK/OpenJDK/command-line tools) |
 | Licence | active; proven by a real batchmode Windows player build (see section 5) |
 | Gypsy Studio | `Gypsy Studio 0.1.0` at the source path above; imported read-only, never modified |
 
@@ -175,7 +177,8 @@ schemas and orchestrator are Gypsy's; none of them is reimplemented.
 | Capability manifests | `capabilities/engine.unity.port.build.json`, `...demo.json`, `...capture.json`, `...mobile.json` (blocked, not a pass), `capabilities/art.hero.wayfarer.unity.json` | `UBLADE2_CAPABILITIES count=5 errors=0`, `UBLADE2_CAPABILITIES_OK` |
 | Toolpack | `toolpacks/ublade2.unity.json` | `UBLADE2_TOOLPACKS count=1 errors=0`; run: `passed=True artifacts=10 validators=8` |
 | Slice | `slices/ublade2.unity.json` | run: `passed=True steps=2 artifacts=8` in 23.4 s (run `20261026T214139Z-518818`); state `workstream/state/slices/ublade2.unity.json` |
-| Project check | `project.gypsy.json` | `checks: PASS, capabilities 50, tools 16, project UBlade2` |
+| Project check | `project.gypsy.json` | `checks: PASS, capabilities 50, tools 16, project UBlade2` (targets pc, mobile) |
+| Mobile toolpack/slice | `toolpacks/ublade2.unity.mobile.json`, `slices/ublade2.unity.mobile.json` | Android build + adb install/launch + screenshot/logcat validators; added and manifest-validated, exercised manually on the emulator (section 7) |
 
 Toolpack state (Gypsy schema `gypsy.toolpack-state/v1`): `workstream/state/toolpacks/ublade2.unity-*.json`.
 The toolpack's validators check the executable, the build marker, the hero import JSON (bones=23, smile=Smile, maps=3,
@@ -183,7 +186,7 @@ prefabLodLevels=3, LOD triangles 1126/615/306), the demo marker, the hero runtim
 the 1280x720 PNG and the capture-check JSON.
 
 The repository's own check list now includes a `manifests` check that validates these local Gypsy manifests
-(schemas, ids, argv/artifact paths, validator kinds, step kinds, capability fields) — 7 manifests (1 toolpack, 1 slice, 5 capabilities):
+(schemas, ids, argv/artifact paths, validator kinds, step kinds, capability fields) — 9 manifests (2 toolpacks, 2 slices, 5 capabilities):
 
     python scripts/check_all.py
     -> checks: PASS (5/5)
@@ -191,15 +194,44 @@ The repository's own check list now includes a `manifests` check that validates 
 Committed and pushed: `afae4804690a0d1356ca981f02d047d3c75c418c` (`origin/main`, public); GitHub Actions
 `checks` run `40408803952` succeeded in 14 s.
 
-## 7. Mobile: blocked, not claimed
+## 7. Mobile: partial — module, APK, install, launch and on-device markers verified
 
-Unity Android Build Support is **not installed**. The editor has only `windowsstandalonesupport` and `WebGLSupport`
-under `PlaybackEngines`. The operator said to install Android support only if mobile is required; it is not required
-for this port, so no APK was built, no emulator or device was launched, and no screenshot or logcat was produced.
-A capability manifest, `capabilities/engine.unity.port.mobile.json`, records this blocked state with maturity `blocked`
-and its unblock conditions; it is not a pass. Mobile remains deferred (`DEFERRED.md` UB2-D13) with the exact unblock condition: install Unity Android Build Support
-(SDK/NDK/JDK) through Unity Hub, add the Android target to `project.gypsy.json`, build a signed debug APK, and
-launch it on a clean host/device with screenshot and logcat evidence.
+Unity **Android Build Support is installed** (2026-10-26) through the Unity CLI:
+
+    "C:\Program Files\Unity Hub\resources\unity.exe" editors module add 6000.6.7f1 --module android \
+        --child-modules --accept-eula --non-interactive
+
+which installed `AndroidPlayer`, OpenJDK 17.0.18, SDK build-tools 36.0.0, platform-tools 37.0.1, platforms 34/36/37,
+NDK r27c and command-line tools 16.0. The Android player settings set the bundle to `com.c7imi.ublade2`, IL2CPP,
+Vulkan, ARM64, minSdk 26, target 36 and debug signing.
+
+The batchmode build printed `UBLADE2_ANDROID_BUILD Succeeded bytes=121948467`; the APK is 15,398,546 bytes,
+SHA-256 `894795f2672e639ae3502c86715a8d254f08cdcd087c90f35be70605cb349046`, and `apksigner verify` reports APK
+Signature Scheme v2 verified with the `CN=Android Debug` certificate.
+
+Device: AVD `UBlade2_API35` (google_apis x86_64, API 35) on emulator 37.2.12 with WHPX. This host excludes the
+5554–5586 TCP range, so the emulator was started with `-ports 40000,40001` and adb connected to
+`127.0.0.1:40001` (serial `emulator-40000`). The ARM64-only Unity 6 player runs through the image's
+`libndk_translation.so` (`ro.product.cpu.abilist=x86_64,arm64-v8a`). The APK installed (`Success`) and launched; the
+on-device logcat contains:
+
+    UBLADE2_START demo=False crystals=3 unity=6000.6.7f1 screen=2400x1080 capture=none
+    UBLADE_HERO_OK lodLevels=3 bones=23 smile=Smile cape=3 lod0Tris=1126 lod1Tris=615 lod2Tris=306 animators=3 prefab=WayfarerLOD
+    UBLADE2_WORLD crystals=3 speed=6 hero=Wayfarer
+
+The deterministic demo also runs on the device (launched with `--ez ublade2_demo true`):
+
+    UBLADE2_START demo=True crystals=3 unity=6000.6.7f1 screen=2400x1080 capture=none
+    GYPSY_DEMO_OK collected=3 frames=66
+
+Reproduce: `powershell -File scripts/ublade2_android.ps1 -Mode device` -> `UBLADE2_ANDROID_DEVICE_OK`;
+`-Mode demo` -> `UBLADE2_ANDROID_DEMO_OK`. Evidence: `artifacts/ublade2-mobile/screen.png` (2400x1080),
+`logcat-launch.txt`, `logcat-demo.txt`, `device-info.txt`; APK evidence in `artifacts/ublade2-android/`
+(`build.log`, `build.json`, `apk-hash.txt`, `apksignature.txt`, `apk-badging.txt`).
+
+**Outstanding (UB2-D15):** `adb shell screencap` returns a near-black frame for the emulator's Vulkan swapchain on
+this host — the hero silhouette is only faintly visible. The app is launched and every marker above is real, but a
+clear mobile visual capture and a physical-device run are not available, so **no full mobile visual pass is claimed**.
 
 ## 8. Limits and things deliberately not done
 
@@ -211,8 +243,9 @@ launch it on a clean host/device with screenshot and logcat evidence.
   moving away); the prefab now rotates the visual and the final capture was re-taken. The earlier frame is not cited.
 - The FBX LOD clips imported into Unity are named `Wayfarer_Rig|idle` etc.; the runtime animator uses the LOD0 FBX
   clips (`idle`/`run`/`reach`), so the naming does not affect the port. Recorded for a future cleanup.
-- No device or mobile evidence exists (section 7). The port is committed and pushed (`afae480`, records close-out
-  `abd433a`); the working tree is clean and the CI gate is green.
+- Mobile is partially verified (section 7): Android Build Support installed, signed debug APK built and verified,
+  installed/launched on an API 35 emulator, and on-device UBLADE2/hero/demo markers captured. A clear mobile visual
+  capture and a physical-device run are outstanding (UB2-D15) and are not claimed.
 - The Unity player window is closed by the player itself (`Application.Quit(0)`); no process, browser or temp file was
   left running. The capture frame was written to a temp path by the player and copied into `artifacts/ublade2/` by the
   wrapper.
@@ -221,14 +254,14 @@ launch it on a clean host/device with screenshot and logcat evidence.
 
 | Gate | Required evidence | Status |
 | --- | --- | --- |
-| Project | `project.gypsy.json` pins Unity 6000.6.7f1/unity-6 and target pc | **PASS** — section 2 |
+| Project | `project.gypsy.json` pins Unity 6000.6.7f1/unity-6 and targets pc, mobile | **PASS** — section 2 |
 | Build | Windows player built by batchmode, build log success | **PASS** — `UBLADE2_BUILD Succeeded bytes=97467934` |
 | Demo | exact `GYPSY_DEMO_OK collected=3` marker, exit 0 | **PASS** — `frames=67`, exit 0 |
 | Gameplay | 3 collectibles, movement/autopilot, no regression | **PASS** — three collects at frames 15/33/67 |
 | Hero | 23 bones, 3 clips, Smile, 512² maps, LODs, visible capture | **PASS** — section 4 |
 | Capture | 1280x720 frame inspected | **PASS** — 90.7% non-background in hero rect, inspected |
-| Mobile | module installed, APK built, launched, screenshot/logcat | **BLOCKED** — Android module absent; blocked capability manifest recorded; not claimed |
-| Records | Gypsy checks pass and evidence is committed | **PASS** — Gypsy checks pass; the records and the acceptance evidence artifacts are committed in `afae480`, pushed to `origin/main`, and the GitHub Actions `checks` run `40408803952` succeeded (14 s). BuildNotes 2026.10.26.005 records the close-out |
+| Mobile | module installed, APK built, launched, screenshot/logcat | **PARTIAL** — module installed; debug APK built/apksigner-verified; installed and launched on an API 35 emulator with on-device UBLADE2_START, UBLADE_HERO_OK and GYPSY_DEMO_OK collected=3 in logcat; the emulator Vulkan surface returns a near-black adb screencap, so a clear visual mobile pass is not claimed (UB2-D15) |
+| Records | Gypsy checks pass and evidence is committed | **PASS** — Gypsy checks pass; the port and its acceptance evidence are committed and pushed, the GitHub Actions `checks` gate is green, and the mobile follow-up evidence is in BuildNotes 2026.10.26.007 |
 
 ## 10. Reproduce
 
@@ -237,10 +270,13 @@ launch it on a clean host/device with screenshot and logcat evidence.
     python scripts/gypsy_unity.py toolpacks check
     python scripts/gypsy_unity.py toolpacks run ublade2.unity
     python scripts/gypsy_unity.py slice run ublade2.unity
+    python scripts/gypsy_unity.py toolpacks run ublade2.unity.mobile   # requires the emulator
+    python scripts/gypsy_unity.py slice run ublade2.unity.mobile
     python scripts/check_all.py
 
 Expected markers: `WAYFARER_IMPORT_OK`, `WAYFARER_PREFAB_OK`, `UBLADE2_BUILD Succeeded`, `GYPSY_DEMO_OK collected=3`,
-`UBLADE_HERO_RUNTIME_OK`, `CAPTURE_CHECK_OK`, `UBLADE2_GYPSY_CHECK exit=0`, `checks: PASS (5/5)`.
+`UBLADE_HERO_RUNTIME_OK`, `CAPTURE_CHECK_OK`, `UBLADE2_SLICE_OK`, `UBLADE2_ANDROID_DEVICE_OK`,
+`UBLADE2_ANDROID_DEMO_OK`, `UBLADE2_GYPSY_CHECK exit=0`, `checks: PASS (5/5)`.
 
 ## 11. Provenance
 
@@ -252,5 +288,9 @@ Expected markers: `WAYFARER_IMPORT_OK`, `WAYFARER_PREFAB_OK`, `UBLADE2_BUILD Suc
 | `artifacts/ublade2/frame.png` | `50c0c8735c9ef46ff265d01bd21006588ab3a30c35b1a0e37d57cbb349982d1b` |
 | `artifacts/ublade2/hero-import.json` | `dbd934dda6fd6b3501d5795c4203fef4e4845722ab8611dbaa2ca7bab114b2f1` |
 | `artifacts/hero/lod-conversion.json` | `f0fd927f6ed5dbf2db366d3a0240544a5bc2ada7d33f1bf911965662ed2e1c43` |
+| `unity/UBlade2/Build/Android/UBlade2.apk` | `894795f2672e639ae3502c86715a8d254f08cdcd087c90f35be70605cb349046` |
+| `artifacts/ublade2-mobile/screen.png` | `f3ca3df3770291f84fed9c2369de462d3641442c3637094042094113cd68bf70` |
+| `artifacts/ublade2-mobile/logcat-launch.txt` | `91108e4b52c1689c66e81fc6adeacb9c76ec321759fd6293d6ee1b35b81915fd` |
+| `artifacts/ublade2-mobile/logcat-demo.txt` | `86ffc98d52653fc46d607b960a4fea126dac368fc8ea449548500cafb4bf879a` |
 
 Unity build: `6000.6.7f1 (b22767f04f04)`; Blender: `5.2.3 LTS`; Python: `3.14.2`; Pillow: `12.0.0`.

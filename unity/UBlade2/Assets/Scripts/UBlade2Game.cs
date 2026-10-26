@@ -60,6 +60,9 @@ public class UBlade2Game : MonoBehaviour
     {
         Application.targetFrameRate = 60;
         demo = HasArg("--demo");
+#if UNITY_ANDROID && !UNITY_EDITOR
+        demo = demo || AndroidIntentBool("ublade2_demo");
+#endif
         capturePath = GetArg("--capture=");
         evidencePath = GetArg("--evidence=");
         BuildWorld();
@@ -72,6 +75,29 @@ public class UBlade2Game : MonoBehaviour
             StartCoroutine(RunDemo());
         }
     }
+
+#if UNITY_ANDROID && !UNITY_EDITOR
+    private static bool AndroidIntentBool(string key)
+    {
+        try
+        {
+            using (var player = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
+            using (var activity = player.GetStatic<AndroidJavaObject>("currentActivity"))
+            using (var intent = activity.Call<AndroidJavaObject>("getIntent"))
+            {
+                if (intent == null || !intent.Call<bool>("hasExtra", key))
+                {
+                    return false;
+                }
+                return intent.Call<bool>("getBooleanExtra", key, false);
+            }
+        }
+        catch (System.Exception)
+        {
+            return false;
+        }
+    }
+#endif
 
     private static bool HasArg(string value)
     {
@@ -92,15 +118,48 @@ public class UBlade2Game : MonoBehaviour
 
     private Material Mat(Color color, float emission)
     {
-        var shader = Shader.Find("Standard");
+        // The emulator's Vulkan/gfxstream path renders the lit Standard shader almost black.
+        // Use a bright unlit fallback on mobile so the device frame shows the world and hero.
+        var mobile = Application.isMobilePlatform;
+        var shader = mobile ? Shader.Find("Unlit/Color") : Shader.Find("Standard");
         var material = new Material(shader != null ? shader : Shader.Find("Legacy Shaders/Diffuse"));
         material.color = color;
-        if (emission > 0f)
+        if (!mobile && emission > 0f)
         {
             material.EnableKeyword("_EMISSION");
             material.SetColor("_EmissionColor", color * emission);
         }
         return material;
+    }
+
+    private void ApplyMobileUnlit(Transform root)
+    {
+        var unlitTexture = Shader.Find("Unlit/Texture");
+        var unlitColor = Shader.Find("Unlit/Color");
+        foreach (var renderer in root.GetComponentsInChildren<Renderer>(true))
+        {
+            var materials = renderer.sharedMaterials;
+            for (int index = 0; index < materials.Length; index++)
+            {
+                var source = materials[index];
+                Material target = null;
+                if (unlitTexture != null && source != null && source.HasProperty("_MainTex") && source.GetTexture("_MainTex") != null)
+                {
+                    target = new Material(unlitTexture);
+                    target.SetTexture("_MainTex", source.GetTexture("_MainTex"));
+                }
+                else if (unlitColor != null)
+                {
+                    target = new Material(unlitColor);
+                    target.color = source != null ? source.color : Color.white;
+                }
+                if (target != null)
+                {
+                    materials[index] = target;
+                }
+            }
+            renderer.sharedMaterials = materials;
+        }
     }
 
     private void BuildWorld()
@@ -135,6 +194,11 @@ public class UBlade2Game : MonoBehaviour
             throw new Exception("missing Resources/Hero/WayfarerController");
         }
         hero = HeroVisual.Create(player, controllerAsset);
+        if (Application.isMobilePlatform)
+        {
+            ApplyMobileUnlit(hero.transform);
+            RenderSettings.ambientLight = new Color(0.55f, 0.6f, 0.7f);
+        }
 
         var crystalColor = new Color(0.16f, 0.86f, 0.76f);
         AddCrystal("Crystal_A", new Vector3(3f, 1.1f, 0f), crystalColor);

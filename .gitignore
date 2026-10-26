@@ -31,3 +31,5 @@ unity/UBlade2/Build/
 unity/UBlade2/*.csproj
 unity/UBlade2/*.sln
 unity/UBlade2/.vs/
+# Unity IL2CPP build scratch
+unity/UBlade2/.utmp/

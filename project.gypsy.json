@@ -7,7 +7,8 @@
     "adapter": "unity-6"
   },
   "targets": [
-    "pc"
+    "pc",
+    "mobile"
   ],
   "paths": {
     "game": "unity/UBlade2",
@@ -58,6 +59,11 @@
       "date": "2026-10-26T16:45:00-05:00",
       "decision": "Unity 6000.6.7f1 port accepted the gameplay, hero, build, demo and capture gates; the Godot implementation stays as the reference",
       "reason": "Build log UBLADE2_BUILD Succeeded bytes=97444534; demo GYPSY_DEMO_OK collected=3 frames=67 exit 0; 1280x720 capture inspected and pixel-checked; hero import 23 bones/clips idle,run,reach/Smile/512 maps; Gypsy toolpack passed=True. Mobile is not available (Android Build Support absent) and is not claimed."
+    },
+    {
+      "date": "2026-10-26T18:27:00-05:00",
+      "decision": "Add the mobile target: Unity Android Build Support installed and a signed debug APK built, installed and launched on the local API 35 emulator",
+      "reason": "Unity CLI installed the Android module and child modules; BuildUBlade2.BuildAndroid produced com.c7imi.ublade2 (ARM64 IL2CPP, Vulkan, debug-signed, minSdk 26, target 36); on-device logcat shows UBLADE2_START, UBLADE_HERO_OK and GYPSY_DEMO_OK collected=3. A clear mobile visual capture is outstanding (UB2-D15)."
     }
   ]
 }

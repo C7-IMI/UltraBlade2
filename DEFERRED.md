@@ -19,7 +19,6 @@ slice of the gameplay contract and the hero — not the full production game. No
 | **UB2-D10** | Machine-level automation: scheduled tasks, boot scripts, runner shims | scripts or startup | nothing runs on the operator's machine as part of this project yet | something needs to run on a schedule or at boot | automation registered without its script is a machine-level orphan | the change that needs it |
 | **UB2-D11** | Stamped distributable artefacts | build | nothing is distributed | the first installer or client build | shipping a changed payload under an old identity (§2.8) | the release slice |
 | **UB2-D12** | Deploy preflight, environment contract and workflow-shell checks | .github, scripts | nothing is deployed and there is no infrastructure | the first deployable service or template exists | a preflight for a deploy that does not exist is decoration | the change that adds a deployment |
-| **UB2-D13** | Unity Android Build Support, a signed debug APK and a launched device/emulator pass | Unity editor install, `project.gypsy.json` targets | Android Build Support is **not installed**; `Editor/Data/PlaybackEngines` contains only `windowsstandalonesupport` and `WebGLSupport`. Mobile was not required for this port, so no APK was built and no device evidence exists | install Unity Android Build Support (SDK/NDK/JDK) through Unity Hub, add the Android target, build a signed debug APK, launch it on a clean host/device and capture a screenshot plus logcat | claiming a mobile pass from a manifest, a build alone or an emulator that never launched is false evidence (the LeftBehind work recorded exactly that emulator failure). The blocked state is recorded in `capabilities/engine.unity.port.mobile.json`, maturity `blocked` | operator |
 | **UB2-D14** | The rest of the production game: HUD, menu, pause/settings, audio, combat/teams, league content and arena art | `unity/UBlade2` | the instruction was the three-collectible contract and the hero with acceptance evidence; the Unity project is that vertical slice, not a port of every Godot feature | the next production slice is planned against the reference game | porting surface features before the movement/collect/hero contract is stable multiplies rework and hides the port's real gaps | operator / next slice |
 
 ## Standing note
@@ -30,7 +29,11 @@ game-side standard, or leaves it parked longer. Do not treat "parked" as "forgot
 The Unity port is **not** "mobile ready" and the Godot implementation is **not** "migrated": it remains in
 ProjectGypsy as the reference.
 
+| **UB2-D15** | Clear mobile visual capture and physical-device verification | `artifacts/ublade2-mobile/`, a physical Android device | the local emulator's Vulkan/gfxstream surface returns a near-black frame to `adb screencap`; no physical device is attached on this host | a clear emulator/host-side capture or a real device is available | claiming a visible mobile pass from a dark frame would be false evidence | operator / next mobile pass |
+
 ## Closed
+
+| **UB2-D13** Android Build Support, a signed debug APK and a launched device/emulator pass | 2026-10-26 | Unity CLI installed Android Build Support + SDK/NDK/OpenJDK. `BuildUBlade2.BuildAndroid` produced `com.c7imi.ublade2` (15,398,546 bytes, SHA-256 `894795f2672e639ae3502c86715a8d254f08cdcd087c90f35be70605cb349046`, debug-signed, minSdk 26, target 36, ARM64 IL2CPP, Vulkan). Installed and launched on AVD `UBlade2_API35` (x86_64 API 35 with `libndk_translation.so`); logcat shows `UBLADE2_START`, `UBLADE_HERO_OK` and `GYPSY_DEMO_OK collected=3 frames=66`. The clear visual capture remains open as UB2-D15. |
 
 | ID | Closed on | Evidence |
 | --- | --- | --- |

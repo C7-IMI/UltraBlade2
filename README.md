@@ -19,10 +19,13 @@ build, demo and capture gates; the full acceptance record, commands and measured
   1126/615/306 triangles, a generated hero prefab (`WayfarerLOD.prefab`) and spring cape.
 - **Evidence:** Windows player build, headless demo, windowed 1280x720 capture inspected visually and measured by
   pixel analysis.
-- **Mobile:** not available — Unity Android Build Support is not installed; the blocked state is recorded in
-  `capabilities/engine.unity.port.mobile.json` and no APK is claimed (DEFERRED UB2-D13).
-- **Work state:** committed and pushed as `afae480` (the port) and `abd433a` (records close-out); GitHub
-  Actions `checks` runs `40408803952` and `40408942482` both succeeded, and the working tree is clean.
+- **Mobile:** Android Build Support is installed; a signed debug APK (`com.c7imi.ublade2`, ARM64, Vulkan) is
+  built, installed and launched on a local API 35 emulator, and on-device logcat shows `UBLADE2_START`,
+  `UBLADE_HERO_OK` and `GYPSY_DEMO_OK collected=3`. The emulator's Vulkan surface returns a near-black frame to
+  `adb screencap`, so a clear mobile visual capture is still outstanding (UB2-D15); see
+  [docs/UNITY-PORT.md](./docs/UNITY-PORT.md) and `capabilities/engine.unity.port.mobile.json`.
+- **Work state:** committed and pushed; GitHub Actions `checks` is green and the working tree is clean. The current
+  commit hashes and CI runs are recorded in [Retrace.md](./Retrace.md) and [BuildNotes.md](./BuildNotes.md).
 
 ## Unity port at a glance
 

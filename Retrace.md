@@ -289,3 +289,19 @@ Each entry has:
   completed success in 14 s; the same commit's pre-commit hook ran the fast check list (PASS 5/5). This records/CI
   close-out is committed as "this change" (2026.10.26.005).
 
+## 6 - 2026-10-26
+
+- Request: "keep going. install whatever you need to. elevate as necessary. full approval"
+- Status: Completed, with the mobile limitation stated rather than faked: Unity Android Build Support was installed;
+  a signed debug APK was built, installed and launched on a local API 35 emulator; on-device logcat shows
+  `UBLADE2_START`, `UBLADE_HERO_OK` and `GYPSY_DEMO_OK collected=3 frames=66`. A clear mobile visual capture and a
+  physical-device run are outstanding (UB2-D15).
+- Version: 2026.10.26.007
+- Commit/evidence: this change (commit hash and CI run in the final report). Evidence:
+  `artifacts/ublade2-android/build.log` (`UBLADE2_ANDROID_BUILD Succeeded bytes=121948467`), `build.json`,
+  `apk-hash.txt` (`894795f2672e639ae3502c86715a8d254f08cdcd087c90f35be70605cb349046`), `apksignature.txt`,
+  `apk-badging.txt`; `artifacts/ublade2-mobile/logcat-launch.txt`, `logcat-demo.txt`, `device-info.txt`,
+  `screen.png` (near-black, UB2-D15); `toolpacks/ublade2.unity.mobile.json`, `slices/ublade2.unity.mobile.json`,
+  `capabilities/engine.unity.port.mobile.json` (partial), `docs/UNITY-PORT.md` section 7, `DEFERRED.md` UB2-D13
+  closed / UB2-D15 open.
+

@@ -1,5 +1,5 @@
 param(
-  [ValidateSet("inspect","build","demo","capture")]
+  [ValidateSet("inspect","build","demo","capture","android")]
   [string]$Mode = "build",
   [string]$Evidence = "artifacts/ublade2/hero-runtime.json"
 )
@@ -29,6 +29,20 @@ if ($Mode -eq "inspect" -or $Mode -eq "build") {
   python scripts/normalize_evidence.py --paths artifacts/ublade2 artifacts/hero 2>&1 | Out-Null
   if (-not (Select-String -Path $logPath -Pattern "UBLADE2_BUILD Succeeded" -Quiet)) { Write-Error "build success marker missing"; exit 1 }
   Write-Output "UBLADE2_BUILD_OK path=unity/UBlade2/Build/UBlade2.exe editorExit=$editorExit"
+  exit 0
+}
+
+if ($Mode -eq "android") {
+  $androidLog = Join-Path $repo "artifacts/ublade2-android/build.log"
+  New-Item -ItemType Directory -Force -Path (Split-Path $androidLog) | Out-Null
+  Remove-Item $androidLog -Force -ErrorAction SilentlyContinue
+  & $unity -batchmode -quit -nographics -projectPath (Join-Path $repo $quest) -buildTarget Android -executeMethod BuildUBlade2.BuildAndroid -logFile $androidLog 2>&1 | Select-Object -Last 6
+  $androidExit = $LASTEXITCODE
+  $apk = Join-Path $repo "unity/UBlade2/Build/Android/UBlade2.apk"
+  if (-not (Test-Path $apk)) { Write-Error "UBlade2.apk missing"; exit 1 }
+  if (-not (Select-String -Path $androidLog -Pattern "UBLADE2_ANDROID_BUILD Succeeded" -Quiet)) { Write-Error "android build success marker missing"; exit 1 }
+  python scripts/normalize_evidence.py --paths artifacts/ublade2-android 2>&1 | Out-Null
+  Write-Output "UBLADE2_ANDROID_OK apk=unity/UBlade2/Build/Android/UBlade2.apk editorExit=$androidExit"
   exit 0
 }
 

@@ -1,0 +1,139 @@
+{
+  "schema": "gypsy.toolpack/v1",
+  "id": "ublade2.unity.mobile",
+  "name": "UltraBlade 2 Unity 6 Android debug APK on the local emulator",
+  "tools": [
+    "Unity 6000.6.7f1",
+    "Android Build Support (SDK/NDK/OpenJDK)",
+    "Android emulator 37.2.12 / AVD UBlade2_API35 (google_apis x86_64, API 35)",
+    "Windows Hypervisor Platform"
+  ],
+  "license": "Unity licence proven; the debug APK uses the Android debug key; game/hero assets are the ProjectGypsy prototype the operator asked to port",
+  "actions": [
+    {
+      "id": "build",
+      "argv": [
+        "powershell",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "scripts/ublade2_unity.ps1",
+        "-Mode",
+        "android"
+      ],
+      "cwd": ".",
+      "timeout": 1800,
+      "artifacts": [
+        "unity/UBlade2/Build/Android/UBlade2.apk",
+        "artifacts/ublade2-android/build.log",
+        "artifacts/ublade2-android/build.json"
+      ],
+      "args": {
+        "note": "Unity batchmode BuildUBlade2.BuildAndroid; IL2CPP, Vulkan, ARM64, debug signing"
+      }
+    },
+    {
+      "id": "device",
+      "argv": [
+        "powershell",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "scripts/ublade2_android.ps1",
+        "-Mode",
+        "device"
+      ],
+      "cwd": ".",
+      "timeout": 600,
+      "artifacts": [
+        "artifacts/ublade2-mobile/screen.png",
+        "artifacts/ublade2-mobile/logcat-launch.txt",
+        "artifacts/ublade2-mobile/device-info.txt",
+        "artifacts/ublade2-mobile/device-info.txt"
+      ],
+      "args": {
+        "note": "adb install + launch on the running emulator, screenshot and logcat"
+      }
+    },
+    {
+      "id": "demo",
+      "argv": [
+        "powershell",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "scripts/ublade2_android.ps1",
+        "-Mode",
+        "demo"
+      ],
+      "cwd": ".",
+      "timeout": 600,
+      "artifacts": [
+        "artifacts/ublade2-mobile/logcat-demo.txt"
+      ],
+      "args": {
+        "note": "launch with the ublade2_demo intent extra and validate GYPSY_DEMO_OK on-device"
+      }
+    }
+  ],
+  "validators": [
+    {
+      "id": "apk",
+      "kind": "file",
+      "artifact": "unity/UBlade2/Build/Android/UBlade2.apk",
+      "minBytes": 10000000
+    },
+    {
+      "id": "build-ok",
+      "kind": "text",
+      "artifact": "artifacts/ublade2-android/build.log",
+      "contains": "UBLADE2_ANDROID_BUILD Succeeded"
+    },
+    {
+      "id": "screenshot",
+      "kind": "png",
+      "artifact": "artifacts/ublade2-mobile/screen.png",
+      "minWidth": 1000,
+      "minHeight": 1000
+    },
+    {
+      "id": "launch-marker",
+      "kind": "text",
+      "artifact": "artifacts/ublade2-mobile/logcat-launch.txt",
+      "contains": "UBLADE2_START"
+    },
+    {
+      "id": "hero-marker",
+      "kind": "text",
+      "artifact": "artifacts/ublade2-mobile/logcat-launch.txt",
+      "contains": "UBLADE_HERO_OK"
+    },
+    {
+      "id": "demo-marker",
+      "kind": "text",
+      "artifact": "artifacts/ublade2-mobile/logcat-demo.txt",
+      "contains": "GYPSY_DEMO_OK collected=3"
+    },
+    {
+      "id": "apk-hash",
+      "kind": "text",
+      "artifact": "artifacts/ublade2-android/apk-hash.txt",
+      "contains": "sha256="
+    },
+    {
+      "id": "apk-signature",
+      "kind": "text",
+      "artifact": "artifacts/ublade2-android/apksignature.txt",
+      "contains": "Verifies"
+    },
+    {
+      "id": "apk-package",
+      "kind": "text",
+      "artifact": "artifacts/ublade2-android/apk-badging.txt",
+      "contains": "package: name='com.c7imi.ublade2'"
+    }
+  ]
+}

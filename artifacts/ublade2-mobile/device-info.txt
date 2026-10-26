@@ -1,0 +1,6 @@
+serial=emulator-40000
+abilist=x86_64,arm64-v8a
+release=15
+sdk=35
+native_bridge=libndk_translation.so
+wm_size=Physical size: 1080x2400

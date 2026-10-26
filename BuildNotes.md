@@ -1,6 +1,6 @@
 # BuildNotes - the changelog
 
-Current version: 2026.10.26.006
+Current version: 2026.10.26.007
 
 BuildNotes is UltraBlade 2's dated, versioned changelog (`<CHANGELOG>` in the pack). Newest entry first; versions
 are `YYYY.M.D.NNN` with a zero-padded sequence, and the next one is computed by
@@ -8,19 +8,55 @@ are `YYYY.M.D.NNN` with a zero-padded sequence, and the next one is computed by
 log these entries answer. Records are guarded by [`scripts/records_check.py`](./scripts/records_check.py) and run by
 [`scripts/check_all.py`](./scripts/check_all.py).
 
-## How versions 001-006 were assigned
+## How versions 001-007 were assigned
 
 No changelog existed before this bootstrap, so the bootstrap assigned `2026.10.26.001` to the repository-creation
 commit (the only commit already in `git log`) and `2026.10.26.002` to the pack application. `2026.10.26.003` (the
 Unity port) was computed by `scripts/next-version.py` from the previous date, and `2026.10.26.004` (the
 Stage B completion pass) was computed the same way, and `2026.10.26.005` (the commit/push close-out) by the
 script. `2026.10.26.006` (status-line correction after the push) is computed the same way; from then on the number is
-computed by the script.
+computed by the script. `2026.10.26.007` (the Android module install and mobile launch) is computed the same way.
 
 This changelog has **no generated documentation copies yet**. There is no generated documentation artefact to
 regenerate; when the game arrives, its export and captures will be generated artefacts under gitignored `build/` and
 `artifacts/`. [`scripts/records_check.py`](./scripts/records_check.py) checks the source, its `Current version:` header
 and [`Retrace.md`](./Retrace.md); it will compare generated copies when they exist.
+
+## 2026.10.26.007
+
+**Install Unity Android Build Support, build and sign a debug APK, launch it on an emulator, and verify the mobile
+markers (clear mobile visual capture still outstanding).**
+
+- Date: 2026-10-26
+- Commit: this change.
+- Change: installed **Unity Android Build Support** with the Unity CLI
+  (`editors module add 6000.6.7f1 --module android --child-modules --accept-eula --non-interactive`): AndroidPlayer,
+  OpenJDK 17.0.18, SDK build-tools 36.0.0, platform-tools 37.0.1, platforms 34/36/37, NDK r27c and command-line
+  tools 16.0. Added the Android build path to `BuildUBlade2.BuildAndroid` (bundle `com.c7imi.ublade2`, IL2CPP, Vulkan,
+  ARM64, minSdk 26, target 36, debug signing), an Android intent-extra demo hook to the player, and the Android/mobile
+  scripts `scripts/ublade2_android.ps1` and `scripts/check_mobile_capture.py`. Added `toolpacks/ublade2.unity.mobile.json`,
+  `slices/ublade2.unity.mobile.json` and the `engine.unity.port.mobile` capability (maturity **partial**); added the
+  mobile target to `project.gypsy.json`; updated README, AGENTS, DEFERRED (closed UB2-D13, opened UB2-D15),
+  ProjectPack-NOTES and `docs/UNITY-PORT.md` section 7. Stopped and cleaned the emulators afterwards; the copied
+  editor and download leftovers were deleted.
+- Verification: Unity CLI reported all Android modules `status: installed` and `AndroidPlayer` is present. Build:
+  `UBLADE2_ANDROID_BUILD Succeeded bytes=121948467`; APK 15,398,546 bytes, SHA-256
+  `894795f2672e639ae3502c86715a8d254f08cdcd087c90f35be70605cb349046`; `apksigner verify` reports v2 scheme verified
+  with the Android Debug certificate; `aapt2 dump badging` reports package `com.c7imi.ublade2`, minSdk 26, target 36,
+  compileSdk 36. Device: AVD `UBlade2_API35` (google_apis x86_64, API 35) ran under emulator 37.2.12 with WHPX. The
+  host excludes the 5554-5586 TCP range, so the emulator was started with `-ports 40000,40001` and adb connected to
+  `127.0.0.1:40001`; the ARM64 APK runs through `libndk_translation.so` (`abilist=x86_64,arm64-v8a`). `adb install`
+  reported `Success`; logcat contains `UBLADE2_START demo=False`, `UBLADE_HERO_OK lodLevels=3 bones=23 smile=Smile
+  cape=3 prefab=WayfarerLOD` and `UBLADE2_WORLD crystals=3`; the on-device deterministic demo (intent extra
+  `ublade2_demo`) printed `GYPSY_DEMO_OK collected=3 frames=66`. Screenshot `artifacts/ublade2-mobile/screen.png`
+  (2400x1080, SHA-256 `f3ca3df3770291f84fed9c2369de462d3641442c3637094042094113cd68bf70`) is **near-black** because
+  `adb screencap` does not capture the emulator's Vulkan swapchain on this host — recorded as **UB2-D15**, not faked.
+  Gypsy: `UBLADE2_CAPABILITIES count=5 errors=0`, `UBLADE2_TOOLPACKS count=2 errors=0`, two slices listed,
+  `checks: PASS (5/5)` with 9 local manifests (2 toolpacks, 2 slices, 5 capabilities). The desktop PC gates and their
+  committed evidence are unchanged; the Android changes do not affect the Windows player path.
+- Not verified, and not claimed: a clear mobile visual capture and a physical-device run (UB2-D15); the full
+  production game surface (UB2-D14); the desktop PC artifacts were not regenerated after the Android-only changes.
+
 
 ## 2026.10.26.006
 
