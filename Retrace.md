@@ -273,6 +273,9 @@ Each entry has:
 
   Never substitute "it should work" for a run. Never mark Stage B complete from a passing manifest alone.
   ```
+- Follow-up: `2026.10.26.006` corrected the stale "uncommitted" status lines in README and docs/UNITY-PORT.md
+  after the push; no new prompt, and the committed evidence is unchanged.
+
 
 ## 5 - 2026-10-26
 

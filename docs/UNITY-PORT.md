@@ -211,8 +211,8 @@ launch it on a clean host/device with screenshot and logcat evidence.
   moving away); the prefab now rotates the visual and the final capture was re-taken. The earlier frame is not cited.
 - The FBX LOD clips imported into Unity are named `Wayfarer_Rig|idle` etc.; the runtime animator uses the LOD0 FBX
   clips (`idle`/`run`/`reach`), so the naming does not affect the port. Recorded for a future cleanup.
-- No device or mobile evidence exists (section 7). Nothing was committed or pushed (operator instruction); the
-  working tree carries the port and is described in the records.
+- No device or mobile evidence exists (section 7). The port is committed and pushed (`afae480`, records close-out
+  `abd433a`); the working tree is clean and the CI gate is green.
 - The Unity player window is closed by the player itself (`Application.Quit(0)`); no process, browser or temp file was
   left running. The capture frame was written to a temp path by the player and copied into `artifacts/ublade2/` by the
   wrapper.

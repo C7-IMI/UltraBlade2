@@ -1,6 +1,6 @@
 # BuildNotes - the changelog
 
-Current version: 2026.10.26.005
+Current version: 2026.10.26.006
 
 BuildNotes is UltraBlade 2's dated, versioned changelog (`<CHANGELOG>` in the pack). Newest entry first; versions
 are `YYYY.M.D.NNN` with a zero-padded sequence, and the next one is computed by
@@ -8,18 +8,34 @@ are `YYYY.M.D.NNN` with a zero-padded sequence, and the next one is computed by
 log these entries answer. Records are guarded by [`scripts/records_check.py`](./scripts/records_check.py) and run by
 [`scripts/check_all.py`](./scripts/check_all.py).
 
-## How versions 001-005 were assigned
+## How versions 001-006 were assigned
 
 No changelog existed before this bootstrap, so the bootstrap assigned `2026.10.26.001` to the repository-creation
 commit (the only commit already in `git log`) and `2026.10.26.002` to the pack application. `2026.10.26.003` (the
 Unity port) was computed by `scripts/next-version.py` from the previous date, and `2026.10.26.004` (the
 Stage B completion pass) was computed the same way, and `2026.10.26.005` (the commit/push close-out) by the
-script; from then on the number is computed by the script.
+script. `2026.10.26.006` (status-line correction after the push) is computed the same way; from then on the number is
+computed by the script.
 
 This changelog has **no generated documentation copies yet**. There is no generated documentation artefact to
 regenerate; when the game arrives, its export and captures will be generated artefacts under gitignored `build/` and
 `artifacts/`. [`scripts/records_check.py`](./scripts/records_check.py) checks the source, its `Current version:` header
 and [`Retrace.md`](./Retrace.md); it will compare generated copies when they exist.
+
+## 2026.10.26.006
+
+**Correct stale "uncommitted" status lines after the port push.**
+
+- Date: 2026-10-26
+- Commit: this change.
+- Change: README's "Work state" line and the limits bullet in `docs/UNITY-PORT.md` still described the port as
+  uncommitted after it was committed and pushed as `afae480` (close-out `abd433a`). Both now state the committed
+  hashes and the two successful GitHub Actions runs. Historical entries (2026.10.26.003/004 and Retrace 3/4) keep
+  their statements about the state at the time they were written; 2026.10.26.005 records the commit/push close-out.
+- Verification: `python scripts/check_all.py` -> `checks: PASS (5/5)` on this tree; the change is documentation text
+  only, no engine artifact was regenerated, and the pushed evidence is unchanged. The commit and its CI run are in
+  the GitHub history for this change.
+
 
 ## 2026.10.26.005
 

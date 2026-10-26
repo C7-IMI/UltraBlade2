@@ -21,7 +21,8 @@ build, demo and capture gates; the full acceptance record, commands and measured
   pixel analysis.
 - **Mobile:** not available — Unity Android Build Support is not installed; the blocked state is recorded in
   `capabilities/engine.unity.port.mobile.json` and no APK is claimed (DEFERRED UB2-D13).
-- **Work state:** the port is uncommitted by operator instruction; no commit or push has been made.
+- **Work state:** committed and pushed as `afae480` (the port) and `abd433a` (records close-out); GitHub
+  Actions `checks` runs `40408803952` and `40408942482` both succeeded, and the working tree is clean.
 
 ## Unity port at a glance
 
