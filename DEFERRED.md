@@ -21,22 +21,22 @@ slice of the gameplay contract and the hero — not the full production game. No
 | **UB2-D12** | Deploy preflight, environment contract and workflow-shell checks | .github, scripts | nothing is deployed and there is no infrastructure | the first deployable service or template exists | a preflight for a deploy that does not exist is decoration | the change that adds a deployment |
 | **UB2-D14** | The rest of the production game: HUD, menu, pause/settings, audio, combat/teams, league content and arena art | `unity/UBlade2` | the instruction was the three-collectible contract and the hero with acceptance evidence; the Unity project is that vertical slice, not a port of every Godot feature | the next production slice is planned against the reference game | porting surface features before the movement/collect/hero contract is stable multiplies rework and hides the port's real gaps | operator / next slice |
 
+| **UB2-D15** | Clear mobile visual capture and physical-device verification | `artifacts/ublade2-mobile/`, a physical Android device | the local emulator's Vulkan/gfxstream surface returns a near-black frame to `adb screencap`; no physical device is attached on this host | a clear emulator/host-side capture or a real device is available | claiming a visible mobile pass from a dark frame would be false evidence | operator / next mobile pass |
+
 ## Standing note
 
 The interface design/redesign material is **parked, not deferred work to complete**: it is complete and preserved
 verbatim in `ProjectPack-ADDENDUM-Interface.md`. UB2-D3 is the decision that either restores it, replaces it with a
 game-side standard, or leaves it parked longer. Do not treat "parked" as "forgotten", and do not partially apply it.
-The Unity port is **not** "mobile ready" and the Godot implementation is **not** "migrated": it remains in
+The Unity port is **partially mobile-verified** (the APK builds, installs and launches with the on-device markers, but
+a clear visual capture is outstanding, UB2-D15) and the Godot implementation is **not** "migrated": it remains in
 ProjectGypsy as the reference.
-
-| **UB2-D15** | Clear mobile visual capture and physical-device verification | `artifacts/ublade2-mobile/`, a physical Android device | the local emulator's Vulkan/gfxstream surface returns a near-black frame to `adb screencap`; no physical device is attached on this host | a clear emulator/host-side capture or a real device is available | claiming a visible mobile pass from a dark frame would be false evidence | operator / next mobile pass |
 
 ## Closed
 
-| **UB2-D13** Android Build Support, a signed debug APK and a launched device/emulator pass | 2026-10-26 | Unity CLI installed Android Build Support + SDK/NDK/OpenJDK. `BuildUBlade2.BuildAndroid` produced `com.c7imi.ublade2` (15,398,546 bytes, SHA-256 `894795f2672e639ae3502c86715a8d254f08cdcd087c90f35be70605cb349046`, debug-signed, minSdk 26, target 36, ARM64 IL2CPP, Vulkan). Installed and launched on AVD `UBlade2_API35` (x86_64 API 35 with `libndk_translation.so`); logcat shows `UBLADE2_START`, `UBLADE_HERO_OK` and `GYPSY_DEMO_OK collected=3 frames=66`. The clear visual capture remains open as UB2-D15. |
-
 | ID | Closed on | Evidence |
 | --- | --- | --- |
-| **UB2-D1** the engine/target decision and the project manifest | 2026-10-26 | `project.gypsy.json` pins engine unity 6000.6.7f1 (adapter unity-6) and target pc; `python scripts/gypsy_unity.py check` prints `checks: PASS, capabilities 50, tools 16, project UBlade2` (exit 0). Mobile is deliberately absent (UB2-D13). |
+| **UB2-D13** Android Build Support, a signed debug APK and a launched device/emulator pass | 2026-10-26 | Unity CLI installed Android Build Support + SDK/NDK/OpenJDK. `BuildUBlade2.BuildAndroid` produced `com.c7imi.ublade2` (15,398,546 bytes, SHA-256 `894795f2672e639ae3502c86715a8d254f08cdcd087c90f35be70605cb349046`, debug-signed, minSdk 26, target 36, ARM64 IL2CPP, Vulkan). Installed and launched on AVD `UBlade2_API35` (x86_64 API 35 with `libndk_translation.so`); logcat shows `UBLADE2_START`, `UBLADE_HERO_OK` and `GYPSY_DEMO_OK collected=3 frames=66`. The clear visual capture remains open as UB2-D15. |
+| **UB2-D1** the engine/target decision and the project manifest | 2026-10-26 | `project.gypsy.json` pins engine unity 6000.6.7f1 (adapter unity-6) and target pc; `python scripts/gypsy_unity.py check` prints `checks: PASS, capabilities 50, tools 16, project UBlade2` (exit 0). The manifest targets are pc and mobile (mobile only partially verified, UB2-D15). |
 | **UB2-D2** the game tree, build, demo and capture verification | 2026-10-26 | `unity/UBlade2` builds and runs: `UBLADE2_BUILD Succeeded bytes=97444534`, demo `GYPSY_DEMO_OK collected=3 frames=67` exit 0, 1280x720 capture inspected and pixel-checked. Evidence in `docs/UNITY-PORT.md` and `artifacts/ublade2/`. |
 | **UB2-D4** generated documentation copies and the game's generated artefacts | 2026-10-26 | the Unity build, demo log and capture are generated by scripts (`scripts/ublade2_unity.ps1`, `scripts/check_hero_capture.py`) into `artifacts/ublade2/` (acceptance evidence committed; transient Unity output ignored) and validated by the Gypsy toolpack; there is still no generated documentation artefact to copy. |
