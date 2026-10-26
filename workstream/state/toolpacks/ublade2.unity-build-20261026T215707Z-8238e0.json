@@ -1,0 +1,110 @@
+{
+  "schema": "gypsy.toolpack-state/v1",
+  "scope": "action",
+  "toolpack": "ublade2.unity",
+  "toolpackName": "UltraBlade 2 Unity 6000.6.7f1 Windows player",
+  "action": "build",
+  "runId": "20261026T215707Z-8238e0",
+  "manifestSha256": "684cbefeac2cc88aee86b8e6d98e3c59f45cda77caf4d94f261a74a5d42045be",
+  "generated": "2026-10-26T21:57:16+00:00",
+  "startedAt": "2026-10-26T21:57:07+00:00",
+  "finishedAt": "2026-10-26T21:57:16+00:00",
+  "durationSeconds": 9.073,
+  "passed": true,
+  "timedOut": false,
+  "seconds": 9.056,
+  "timeoutSeconds": 1800.0,
+  "command": {
+    "argv": [
+      "powershell",
+      "-NoProfile",
+      "-ExecutionPolicy",
+      "Bypass",
+      "-File",
+      "scripts/ublade2_unity.ps1",
+      "-Mode",
+      "build"
+    ],
+    "cwd": "."
+  },
+  "exit": 0,
+  "stdout": "VBCSCompilerPreWarmer: watching VBCSCompiler (PID 3320)\nVBCSCompilerPreWarmer: pre-warm launched (dotnet PID 21744)\nVBCSCompiler prewarm took 19.55 ms\nUBLADE2_BUILD_OK path=unity/UBlade2/Build/UBlade2.exe editorExit=0\n",
+  "stderr": "",
+  "args": {
+    "note": "Unity batchmode BuildUBlade2.Build -> Build/UBlade2.exe"
+  },
+  "artifacts": [
+    {
+      "path": "unity/UBlade2/Build/UBlade2.exe",
+      "declaredAs": "unity/UBlade2/Build/UBlade2.exe",
+      "exists": true,
+      "sha256": "9806abde4a406ed68647e9505852c49f6aa72a372f4f084e2aa2821affea57a2",
+      "bytes": 667136
+    },
+    {
+      "path": "artifacts/ublade2/build.log",
+      "declaredAs": "artifacts/ublade2/build.log",
+      "exists": true,
+      "sha256": "66194162719e888760f1bdcddec37a8f64628ef3839e843c95698c4779bfd148",
+      "bytes": 240166
+    },
+    {
+      "path": "artifacts/ublade2/hero-import.json",
+      "declaredAs": "artifacts/ublade2/hero-import.json",
+      "exists": true,
+      "sha256": "1c60efe173d35c0b0a87890bfff8dfe797c8ce0ab9e45c8f4d1d6accde88722b",
+      "bytes": 614
+    },
+    {
+      "path": "artifacts/ublade2/build.json",
+      "declaredAs": "artifacts/ublade2/build.json",
+      "exists": true,
+      "sha256": "cd3a03bb7ebadf1fa9426490916d9167393c7a91b6d5ded806abf58a87542f00",
+      "bytes": 122
+    }
+  ],
+  "validators": [
+    {
+      "id": "exe",
+      "kind": "file",
+      "artifact": "unity/UBlade2/Build/UBlade2.exe",
+      "target": "unity/UBlade2/Build/UBlade2.exe",
+      "passed": true,
+      "error": null,
+      "details": {
+        "bytes": 667136,
+        "minBytes": 500000
+      }
+    },
+    {
+      "id": "build-ok",
+      "kind": "text",
+      "artifact": "artifacts/ublade2/build.log",
+      "target": "artifacts/ublade2/build.log",
+      "passed": true,
+      "error": null,
+      "details": {
+        "chars": 240166,
+        "contains": "UBLADE2_BUILD Succeeded"
+      }
+    },
+    {
+      "id": "hero-import",
+      "kind": "json",
+      "artifact": "artifacts/ublade2/hero-import.json",
+      "target": "artifacts/ublade2/hero-import.json",
+      "passed": true,
+      "error": null,
+      "details": {
+        "checks": 8,
+        "failed": 0
+      }
+    }
+  ],
+  "license": "Unity licence proven by batchmode; game and hero assets are the ProjectGypsy prototype the operator asked to port; rights review remains the operator's responsibility",
+  "tools": [
+    "Unity 6000.6.7f1",
+    "Windows Standalone Build Support"
+  ],
+  "errors": []
+}

@@ -1,0 +1,47 @@
+{
+  "schema": "gypsy.capability/v1",
+  "id": "art.hero.wayfarer.unity",
+  "layer": "art",
+  "kind": "import",
+  "maturity": "stable",
+  "description": "Wayfarer hero imported into Unity 6000.6.7f1 from ProjectGypsy's wayfarer.fbx and converted LOD1/LOD2 FBX: 23 bones including cape_a/b/c, idle/run/reach clips, Smile blend shape, three 512x512 maps, LOD triangle counts 1126/615/306.",
+  "requires": [
+    "hero.wayfarer.fbx",
+    "hero.wayfarer.lod.fbx",
+    "unity.installed"
+  ],
+  "inputs": [
+    {
+      "name": "fbx",
+      "type": "file"
+    },
+    {
+      "name": "textures",
+      "type": "directory"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "import-report",
+      "type": "file"
+    }
+  ],
+  "checks": [
+    "23 bones",
+    "clips idle/run/reach",
+    "Smile blend shape present",
+    "three 512x512 maps",
+    "LOD triangles 1126/615/306"
+  ],
+  "provenance": {
+    "record": [
+      "wayfarer.fbx sha256",
+      "wayfarer_lod1.fbx sha256",
+      "wayfarer_lod2.fbx sha256",
+      "hero-import.json"
+    ]
+  },
+  "notes": [
+    "LOD GLBs were converted to FBX with Blender 5.2.3; conversion provenance artifacts/hero/lod-conversion.json."
+  ]
+}

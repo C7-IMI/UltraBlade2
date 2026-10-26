@@ -1,0 +1,100 @@
+{
+  "schema": "gypsy.slice-state/v1",
+  "slice": "ublade2.unity",
+  "project": ".",
+  "runId": "20261026T215755Z-e6e9b2",
+  "manifestSha256": "9eb90815ab2e20f152469a8a61a714357b6e2ffc6a85a6dd7f46b0eb0cbe62ce",
+  "startedAt": "2026-10-26T21:57:55+00:00",
+  "finishedAt": "2026-10-26T21:58:18+00:00",
+  "durationSeconds": 22.89,
+  "passed": true,
+  "timeoutScale": 1.0,
+  "resumed": false,
+  "resumeIgnored": null,
+  "stepOrder": [
+    "unity",
+    "pack"
+  ],
+  "steps": [
+    {
+      "id": "unity",
+      "kind": "toolpack",
+      "status": "passed",
+      "required": true,
+      "attempted": true,
+      "cached": false,
+      "seconds": 22.484,
+      "startedAt": "2026-10-26T21:57:55+00:00",
+      "finishedAt": "2026-10-26T21:58:17+00:00",
+      "output": "{\n  \"toolpack\": \"ublade2.unity\",\n  \"action\": null,\n  \"passed\": true,\n  \"artifacts\": [\n    {\n      \"action\": \"build\",\n      \"path\": \"unity/UBlade2/Build/UBlade2.exe\",\n      \"declaredAs\": \"unity/UBlade2/Build/UBlade2.exe\",\n      \"exists\": true,\n      \"sha256\": \"9806abde4a406ed68647e9505852c49f6aa72a372f4f084e2aa2821affea57a2\",\n      \"bytes\": 667136\n    },\n    {\n      \"action\": \"build\",\n      \"path\": \"artifacts/ublade2/build.log\",\n      \"declaredAs\": \"artifacts/ublade2/build.log\",\n      \"exists\": true,\n      \"sha256\": \"e481ab68c92f19329598f7a84344eff3c0869ae6fa802f4972d6bab402f1cfb0\",\n      \"bytes\": 240177\n    },\n    {\n      \"action\": \"build\",\n      \"path\": \"artifacts/ublade2/hero-import.json\",\n      \"declaredAs\": \"artifacts/ublade2/hero-import.json\",\n      \"exists\": true,\n      \"sha256\": \"dbd934dda6fd6b3501d5795c4203fef4e4845722ab8611dbaa2ca7bab114b2f1\",\n      \"bytes\": 614\n    },\n    {\n      \"action\": \"build\",\n      \"path\": \"artifacts/ublade2/build.json\",\n      \"declaredAs\": \"artifacts/ublade2/build.json\",\n      \"exists\": true,\n      \"sha256\": \"cd3a03bb7ebadf1fa9426490916d9167393c7a91b6d5ded806abf58a87542f00\",\n      \"bytes\": 122\n    },\n    {\n      \"action\": \"demo\",\n      \"path\": \"artifacts/ublade2/demo.log\",\n      \"declaredAs\": \"artifacts/ublade2/demo.log\",\n      \"exists\": true,\n      \"sha256\": \"9e40ac518ca942cddec1a6ce24dc8b4a39b65a5f62107bf7c502caa33c5aa95c\",\n      \"bytes\": 2371\n    },\n    {\n      \"action\": \"demo\",\n      \"path\": \"artifacts/ublade2/hero-runtime.json\",\n      \"declaredAs\": \"artifacts/ublade2/hero-runtime.json\",\n      \"exists\": true,\n      \"sha256\": \"ae449ca6dd75c521533cc92633231aef912e957a1becbcb8873ac73907c1da20\",\n      \"bytes\": 538\n    },\n    {\n      \"action\": \"capture\",\n      \"path\": \"artifacts/ublade2/capture.log\",\n      \"declaredAs\": \"artifacts/ublade2/capture.log\",\n      \"exists\": true,\n      \"sha256\": \"8e31e95564db5daa67b0e9ed4ffcf264137212a27ce2546c41fc7e20527db6b1\",\n      \"bytes\": 2863\n    },\n    {\n      \"action\": \"capture\",\n      \"path\": \"artifacts/ublade2/frame.png\",\n      \"declaredAs\": \"artifacts/ublade2/frame.png\",\n      \"exists\": true,\n      \"sha256\": \"50c0c8735c9ef46ff265d01bd21006588ab3a30c35b1a0e37d57cbb349982d1b\",\n      \"bytes\": 176670\n    },\n    {\n      \"action\": \"capture\",\n      \"path\": \"artifacts/ublade2/hero-runtime.json\",\n      \"declaredAs\": \"artifacts/ublade2/hero-runtime.json\",\n      \"exists\": true,\n      \"sha256\": \"404f7c17548fa6f62041e5d177b700feac570920d7e47858358c296dd31533ec\",\n      \"bytes\": 603\n    },\n    {\n      \"action\": \"capture-check\",\n      \"path\": \"artifacts/ublade2/capture-check.json\",\n      \"declaredAs\": \"artifacts/ublade2/capture-check.json\",\n      \"exists\": true,\n      \"sha256\": \"91e58d26e9abec67de9c18015333f3da23289f5448944e9fbb123591784a74d3\",\n      \"bytes\": 442\n    }\n  ],\n  \"validators\": [\n    {\n      \"action\": \"build\",\n      \"id\": \"exe\",\n      \"kind\": \"file\",\n      \"artifact\": \"unity/UBlade2/Build/UBlade2.exe\",\n      \"target\": \"unity/UBlade2/Build/UBlade2.exe\",\n      \"passed\": true,\n      \"error\": null,\n      \"details\": {\n        \"bytes\": 667136,\n        \"minBytes\": 500000\n      }\n    },\n    {\n      \"action\": \"build\",\n      \"id\": \"build-ok\",\n      \"kind\": \"text\",\n      \"artifact\": \"artifacts/ublade2/build.log\",\n      \"target\": \"artifacts/ublade2/build.log\",\n      \"passed\": true,\n      \"error\": null,\n      \"details\": {\n        \"chars\": 240177,\n        \"contains\": \"UBLADE2_BUILD Succeeded\"\n      }\n    },\n    {\n      \"action\": \"build\",\n      \"id\": \"hero-import\",\n      \"kind\": \"json\",\n      \"artifact\": \"artifacts/ublade2/hero-import.json\",\n      \"target\": \"artifacts/ublade2/hero-import.json\",\n      \"passed\": true,\n      \"error\": null,\n      \"details\": {\n        \"checks\": 8,\n        \"failed\": 0\n      }\n    },\n    {\n      \"action\": \"demo\",\n      \"id\": \"demo-ok\",\n      \"kind\": \"text\",\n      \"artifact\": \"artifacts/ublade2/demo.log\",\n      \"target\": \"artifacts/ublade2/demo.log\",\n      \"passed\": true,\n      \"error\": null,\n      \"details\": {\n        \"chars\": 2371,\n        \"contai",
+      "error": null,
+      "exit": null
+    },
+    {
+      "id": "pack",
+      "kind": "check_all",
+      "status": "passed",
+      "required": true,
+      "attempted": true,
+      "cached": false,
+      "seconds": 0.396,
+      "startedAt": "2026-10-26T21:58:17+00:00",
+      "finishedAt": "2026-10-26T21:58:18+00:00",
+      "output": "checklist: 5 checks\nPASS records - BuildNotes 4 versions newest-first (2026.10.26.004 first), header matches; Retrace 4 prompts contiguous, every entry has a Status\nPASS encoding - 124 tracked text files (index content): UTF-8, no BOM, no CR; 7 binary files skipped\nPASS links - 69 relative links in 11 tracked Markdown files resolve\nPASS manifests - 7 manifests parse and satisfy the local schema (1 toolpacks, 1 slices, 5 capabilities)\nPASS callers - the .githooks/pre-commit hook and .github/workflows/checks.yml both run scripts/check_all.py with no arguments\nchecks: PASS (5/5)",
+      "error": null,
+      "exit": 0
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "artifacts/ublade2/build.log",
+      "exists": true,
+      "sha256": "e481ab68c92f19329598f7a84344eff3c0869ae6fa802f4972d6bab402f1cfb0",
+      "bytes": 240177
+    },
+    {
+      "path": "artifacts/ublade2/hero-import.json",
+      "exists": true,
+      "sha256": "dbd934dda6fd6b3501d5795c4203fef4e4845722ab8611dbaa2ca7bab114b2f1",
+      "bytes": 614
+    },
+    {
+      "path": "artifacts/ublade2/demo.log",
+      "exists": true,
+      "sha256": "9e40ac518ca942cddec1a6ce24dc8b4a39b65a5f62107bf7c502caa33c5aa95c",
+      "bytes": 2371
+    },
+    {
+      "path": "artifacts/ublade2/capture.log",
+      "exists": true,
+      "sha256": "8e31e95564db5daa67b0e9ed4ffcf264137212a27ce2546c41fc7e20527db6b1",
+      "bytes": 2863
+    },
+    {
+      "path": "artifacts/ublade2/frame.png",
+      "exists": true,
+      "sha256": "50c0c8735c9ef46ff265d01bd21006588ab3a30c35b1a0e37d57cbb349982d1b",
+      "bytes": 176670
+    },
+    {
+      "path": "artifacts/ublade2/hero-runtime.json",
+      "exists": true,
+      "sha256": "404f7c17548fa6f62041e5d177b700feac570920d7e47858358c296dd31533ec",
+      "bytes": 603
+    },
+    {
+      "path": "artifacts/ublade2/capture-check.json",
+      "exists": true,
+      "sha256": "91e58d26e9abec67de9c18015333f3da23289f5448944e9fbb123591784a74d3",
+      "bytes": 442
+    },
+    {
+      "path": "unity/UBlade2/Build/UBlade2.exe",
+      "exists": true,
+      "sha256": "9806abde4a406ed68647e9505852c49f6aa72a372f4f084e2aa2821affea57a2",
+      "bytes": 667136
+    }
+  ],
+  "ledgerPath": "C:\\OneDrive\\OneDrive - Cyber 7 Group\\GHRepo\\Games\\UBlade2\\workstream\\state\\artifacts\\ublade2.unity-20261026T215755Z-e6e9b2.json",
+  "errors": []
+}

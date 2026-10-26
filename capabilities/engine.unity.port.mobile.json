@@ -1,0 +1,51 @@
+{
+  "schema": "gypsy.capability/v1",
+  "id": "engine.unity.port.mobile",
+  "layer": "engine",
+  "engine": "unity",
+  "kind": "mobile",
+  "maturity": "blocked",
+  "description": "Unity Android build, APK and device/emulator path for UltraBlade 2 is blocked: Android Build Support is not installed (PlaybackEngines contains only windowsstandalonesupport and WebGLSupport). Mobile is not claimed.",
+  "requires": [
+    "engine.unity.port.build",
+    "unity.android.buildsupport"
+  ],
+  "inputs": [
+    {
+      "name": "apk",
+      "type": "file"
+    },
+    {
+      "name": "device",
+      "type": "string"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "screenshot",
+      "type": "file"
+    },
+    {
+      "name": "logcat",
+      "type": "file"
+    }
+  ],
+  "checks": [
+    "Android Build Support installed",
+    "signed debug APK built",
+    "emulator or device launched",
+    "screenshot and logcat captured"
+  ],
+  "provenance": {
+    "record": [
+      "apk",
+      "screenshot",
+      "logcat",
+      "device",
+      "unity.version"
+    ]
+  },
+  "notes": [
+    "Deferred UB2-D13. Measured 2026-10-26: Editor/Data/PlaybackEngines = windowsstandalonesupport, WebGLSupport. No APK, emulator launch, screenshot or logcat exists."
+  ]
+}

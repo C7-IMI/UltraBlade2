@@ -1,0 +1,27 @@
+{
+    "schema": "ublade2.hero.import/v1",
+    "generatedAt": "2026-10-26T21:58:00Z",
+    "bones": 23,
+    "clips": [
+        "idle",
+        "reach",
+        "run"
+    ],
+    "smile": "Smile",
+    "blendShapes": 1,
+    "maps": 3,
+    "lod0Triangles": 1126,
+    "lod1Triangles": 615,
+    "lod2Triangles": 306,
+    "lod0Height": 2.0225777626037598,
+    "prefabLodLevels": 3,
+    "prefabPath": "Assets/Resources/Hero/WayfarerLOD.prefab",
+    "lod0MaterialNames": [
+        "Wayfarer_Cloth",
+        "Wayfarer_Skin",
+        "Wayfarer_Leather",
+        "Wayfarer_Accent"
+    ],
+    "missing": [],
+    "passed": true
+}

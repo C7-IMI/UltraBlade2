@@ -1,0 +1,44 @@
+{
+  "schema": "gypsy.capability/v1",
+  "id": "engine.unity.port.capture",
+  "layer": "engine",
+  "engine": "unity",
+  "kind": "capture",
+  "maturity": "stable",
+  "description": "UltraBlade 2 windowed 1280x720 ScreenCapture frame taken after the third crystal, with the Wayfarer hero visible in Reach/Smile with cape motion and LODGroup level 0.",
+  "requires": [
+    "engine.unity.port.build",
+    "display"
+  ],
+  "inputs": [
+    {
+      "name": "capture",
+      "type": "path"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "png",
+      "type": "file"
+    }
+  ],
+  "checks": [
+    "process exits 0",
+    "PNG 1280x720",
+    "hero screen rect non-empty",
+    "capture-check pixel analysis passed"
+  ],
+  "provenance": {
+    "record": [
+      "frame.png",
+      "sha256",
+      "width",
+      "height",
+      "player.log",
+      "hero-runtime.json"
+    ]
+  },
+  "notes": [
+    "Requires a visible window; hidden-window capture made ScreenCapture fail in the LeftBehind work."
+  ]
+}

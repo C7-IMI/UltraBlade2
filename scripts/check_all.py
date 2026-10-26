@@ -21,6 +21,7 @@ Usage:
 """
 
 import argparse
+import json
 import re
 import subprocess
 import sys
@@ -205,6 +206,142 @@ def check_links():
     return "{} relative links in {} tracked Markdown files resolve".format(checked, len(files))
 
 
+TOOLPACK_VALIDATOR_KINDS = {"file", "json", "text", "wav", "png", "glb"}
+SLICE_STEP_KINDS = {"game.demo", "game.build", "game.capture", "check_all", "tests", "records", "command", "toolpack"}
+CAPABILITY_MATURITY = {"stable", "partial", "experimental", "planned", "blocked"}
+CAPABILITY_REQUIRED = {
+    "id", "layer", "kind", "maturity", "description",
+    "requires", "inputs", "outputs", "checks", "provenance",
+}
+
+
+def _artifact_path_errors(value, label):
+    if not isinstance(value, str) or not value.strip():
+        return [label + " must be a non-empty repo-relative path string"]
+    path = Path(value)
+    if path.is_absolute() or path.anchor:
+        return [label + " must be repo-relative: " + str(value)]
+    if ".." in path.parts:
+        return [label + " must not escape the repository: " + str(value)]
+    return []
+
+
+def _load_manifest(path, problems):
+    try:
+        document = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError) as exc:
+        problems.append(path.name + ": unreadable JSON: " + str(exc))
+        return None
+    if not isinstance(document, dict):
+        problems.append(path.name + ": not a JSON object")
+        return None
+    return document
+
+
+def check_manifests():
+    problems = []
+    totals = {"toolpacks": 0, "slices": 0, "capabilities": 0}
+    seen = {"toolpacks": set(), "slices": set(), "capabilities": set()}
+
+    for path in sorted((ROOT / "toolpacks").glob("*.json")):
+        totals["toolpacks"] += 1
+        label = "toolpacks/" + path.name
+        document = _load_manifest(path, problems)
+        if document is None:
+            continue
+        if document.get("schema") != "gypsy.toolpack/v1":
+            problems.append(label + ": schema must be gypsy.toolpack/v1")
+        if not document.get("id"):
+            problems.append(label + ": missing id")
+        elif document["id"] in seen["toolpacks"]:
+            problems.append(label + ": duplicate toolpack id " + str(document["id"]))
+        seen["toolpacks"].add(document.get("id"))
+        actions = document.get("actions")
+        if not isinstance(actions, list) or not actions:
+            problems.append(label + ": actions must be a non-empty list")
+            actions = []
+        for index, action in enumerate(actions):
+            item = "{} actions[{}]".format(label, index)
+            if not action.get("id"):
+                problems.append(item + ": missing id")
+            argv = action.get("argv")
+            if not isinstance(argv, list) or not argv or not all(isinstance(part, str) for part in argv):
+                problems.append(item + ": argv must be a non-empty list of strings")
+            for artifact in action.get("artifacts") or []:
+                problems.extend(_artifact_path_errors(artifact, item + " artifact"))
+        validators = document.get("validators")
+        if not isinstance(validators, list) or not validators:
+            problems.append(label + ": validators must be a non-empty list")
+            validators = []
+        for index, validator in enumerate(validators):
+            item = "{} validators[{}]".format(label, index)
+            for field in ("id", "kind", "artifact"):
+                if field not in validator:
+                    problems.append(item + ": missing " + field)
+            if validator.get("kind") not in TOOLPACK_VALIDATOR_KINDS:
+                problems.append(item + ": unknown validator kind " + repr(validator.get("kind")))
+            problems.extend(_artifact_path_errors(validator.get("artifact"), item + " artifact"))
+
+    for path in sorted((ROOT / "slices").glob("*.json")):
+        totals["slices"] += 1
+        label = "slices/" + path.name
+        document = _load_manifest(path, problems)
+        if document is None:
+            continue
+        if document.get("schema") != "gypsy.slice/v1":
+            problems.append(label + ": schema must be gypsy.slice/v1")
+        if not document.get("id"):
+            problems.append(label + ": missing id")
+        elif document["id"] in seen["slices"]:
+            problems.append(label + ": duplicate slice id " + str(document["id"]))
+        seen["slices"].add(document.get("id"))
+        steps = document.get("steps")
+        if not isinstance(steps, list) or not steps:
+            problems.append(label + ": steps must be a non-empty list")
+            steps = []
+        for index, step in enumerate(steps):
+            item = "{} steps[{}]".format(label, index)
+            if not step.get("id"):
+                problems.append(item + ": missing id")
+            if step.get("kind") not in SLICE_STEP_KINDS:
+                problems.append(item + ": unknown step kind " + repr(step.get("kind")))
+            if step.get("kind") == "toolpack":
+                args = step.get("args") or {}
+                if not args.get("toolpack"):
+                    problems.append(item + ": toolpack step needs args.toolpack")
+                path_arg = args.get("path")
+                if path_arg:
+                    problems.extend(_artifact_path_errors(path_arg, item + " args.path"))
+        for artifact in document.get("artifacts") or []:
+            problems.extend(_artifact_path_errors(artifact, label + " artifact"))
+
+    for path in sorted((ROOT / "capabilities").glob("*.json")):
+        totals["capabilities"] += 1
+        label = "capabilities/" + path.name
+        document = _load_manifest(path, problems)
+        if document is None:
+            continue
+        if document.get("schema") != "gypsy.capability/v1":
+            problems.append(label + ": schema must be gypsy.capability/v1")
+        missing = CAPABILITY_REQUIRED - set(document)
+        if missing:
+            problems.append(label + ": missing fields " + str(sorted(missing)))
+        if document.get("maturity") not in CAPABILITY_MATURITY:
+            problems.append(label + ": unknown maturity " + repr(document.get("maturity")))
+        identifier = document.get("id")
+        if identifier in seen["capabilities"]:
+            problems.append(label + ": duplicate capability id " + str(identifier))
+        seen["capabilities"].add(identifier)
+
+    if problems:
+        raise CheckFailed(_summarise(problems))
+    return (
+        "{} manifests parse and satisfy the local schema ({} toolpacks, {} slices, {} capabilities)".format(
+            sum(totals.values()), totals["toolpacks"], totals["slices"], totals["capabilities"]
+        )
+    )
+
+
 def _invocations(path, label, problems):
     relative = path.relative_to(ROOT)
     if not path.is_file():
@@ -271,6 +408,11 @@ CHECKS = [
         check_encoding,
     ),
     ("links", "every relative Markdown link resolves", check_links),
+    (
+        "manifests",
+        "toolpacks, slices and capabilities parse and satisfy the local Gypsy schemas",
+        check_manifests,
+    ),
     (
         "callers",
         "the hook and CI run this same list (coverage guard, rules 2.22-2.23)",

@@ -1,0 +1,57 @@
+# Wayfarer LOD GLB -> FBX conversion log
+# blender : Blender 5.2.3 LTS
+# exe     : C:\Program Files\Blender Foundation\Blender 5.2\blender.exe
+# script  : C:\OneDrive\OneDrive - Cyber 7 Group\GHRepo\Games\UBlade2\scripts\hero\glb_to_fbx.py
+# cwd     : C:\OneDrive\OneDrive - Cyber 7 Group\GHRepo\Games\UBlade2
+# note    : importer helper objects from the hidden glTF_not_exported collection (bone
+#           display icospheres) are stripped before export; they are not asset content.
+
+=== RUN 1/2 : wayfarer_lod1 ===
+timestamp  2026-10-26T16:29:02.7254946-05:00
+cwd        C:\OneDrive\OneDrive - Cyber 7 Group\GHRepo\Games\UBlade2
+command    "C:\Program Files\Blender Foundation\Blender 5.2\blender.exe" --background --factory-startup --python "C:\OneDrive\OneDrive - Cyber 7 Group\GHRepo\Games\UBlade2\scripts\hero\glb_to_fbx.py" -- --input "C:\OneDrive\OneDrive - Cyber 7 Group\GHRepo\Games\ProjectGypsy\assets\hero\wayfarer_lod1.glb" --output "C:\OneDrive\OneDrive - Cyber 7 Group\GHRepo\Games\UBlade2\unity\UBlade2\Assets\Resources\Hero\wayfarer_lod1.fbx"
+exit code  0   (elapsed 2.79s)
+--- combined stdout+stderr ---
+[glb_to_fbx] blender 5.2.3 LTS
+[glb_to_fbx] scene cleared: objects=0 actions=0 armatures=0
+16:29:02 | INFO: Data are loaded, start creating Blender stuff
+16:29:02 | INFO: Blender create Mesh node Wayfarer_Mesh_LOD1_mesh
+16:29:02 | INFO: glTF import finished in 0.04s
+[glb_to_fbx] imported 3 objects from wayfarer_lod1.glb (kwargs accepted: bone_heuristic,filepath,guess_original_bind_pose,import_pack_images,import_shading,merge_vertices)
+[glb_to_fbx] stripped importer helper objects (bone display shapes): Icosphere
+[glb_to_fbx] actions available: idle, reach, run
+[glb_to_fbx] pre-export: bones=23 actions=idle,reach,run meshes=1 skinned=1 triangles=615
+[glb_to_fbx] pre-export mesh 'Wayfarer_Mesh_LOD1' tris=615 vgroups=23 armature_mod=True materials=Wayfarer_Cloth,Wayfarer_Leather,Wayfarer_Skin,Wayfarer_Accent
+
+FBX export starting... 'C:\\OneDrive\\OneDrive - Cyber 7 Group\\GHRepo\\Games\\UBlade2\\unity\\UBlade2\\Assets\\Resources\\Hero\\wayfarer_lod1.fbx'
+(bpy.data.armatures['Wayfarer_Rig'], 'POSE')
+export finished in 0.1818 sec.
+[glb_to_fbx] wrote C:\OneDrive\OneDrive - Cyber 7 Group\GHRepo\Games\UBlade2\unity\UBlade2\Assets\Resources\Hero\wayfarer_lod1.fbx (716636 bytes); export kwargs: add_leaf_bones,apply_scale_options,apply_unit_scale,armature_nodetype,axis_forward,axis_up,bake_anim,bake_anim_force_startend_keying,bake_anim_simplify_factor,bake_anim_step,bake_anim_use_all_actions,bake_anim_use_all_bones,bake_anim_use_nla_strips,bake_space_transform,embed_textures,filepath,global_scale,mesh_smooth_type,object_types,path_mode,primary_bone_axis,secondary_bone_axis,use_active_collection,use_armature_deform_only,use_custom_props,use_mesh_modifiers,use_selection,use_tspace,use_visible
+LOD_FBX_OK C:\OneDrive\OneDrive - Cyber 7 Group\GHRepo\Games\UBlade2\unity\UBlade2\Assets\Resources\Hero\wayfarer_lod1.fbx
+Blender 5.2.3 LTS (hash e13b728c6880 built 2026-10-22 01:37:16)
+--- end of run 1 ---
+
+=== RUN 2/2 : wayfarer_lod2 ===
+timestamp  2026-10-26T16:29:05.4135788-05:00
+cwd        C:\OneDrive\OneDrive - Cyber 7 Group\GHRepo\Games\UBlade2
+command    "C:\Program Files\Blender Foundation\Blender 5.2\blender.exe" --background --factory-startup --python "C:\OneDrive\OneDrive - Cyber 7 Group\GHRepo\Games\UBlade2\scripts\hero\glb_to_fbx.py" -- --input "C:\OneDrive\OneDrive - Cyber 7 Group\GHRepo\Games\ProjectGypsy\assets\hero\wayfarer_lod2.glb" --output "C:\OneDrive\OneDrive - Cyber 7 Group\GHRepo\Games\UBlade2\unity\UBlade2\Assets\Resources\Hero\wayfarer_lod2.fbx"
+exit code  0   (elapsed 2.63s)
+--- combined stdout+stderr ---
+[glb_to_fbx] blender 5.2.3 LTS
+[glb_to_fbx] scene cleared: objects=0 actions=0 armatures=0
+16:29:04 | INFO: Data are loaded, start creating Blender stuff
+16:29:04 | INFO: Blender create Mesh node Wayfarer_Mesh_LOD2_mesh
+16:29:04 | INFO: glTF import finished in 0.03s
+[glb_to_fbx] imported 3 objects from wayfarer_lod2.glb (kwargs accepted: bone_heuristic,filepath,guess_original_bind_pose,import_pack_images,import_shading,merge_vertices)
+[glb_to_fbx] stripped importer helper objects (bone display shapes): Icosphere
+[glb_to_fbx] actions available: idle, reach, run
+[glb_to_fbx] pre-export: bones=23 actions=idle,reach,run meshes=1 skinned=1 triangles=306
+[glb_to_fbx] pre-export mesh 'Wayfarer_Mesh_LOD2' tris=306 vgroups=23 armature_mod=True materials=Wayfarer_Cloth,Wayfarer_Leather,Wayfarer_Skin,Wayfarer_Accent
+
+FBX export starting... 'C:\\OneDrive\\OneDrive - Cyber 7 Group\\GHRepo\\Games\\UBlade2\\unity\\UBlade2\\Assets\\Resources\\Hero\\wayfarer_lod2.fbx'
+(bpy.data.armatures['Wayfarer_Rig'], 'POSE')
+export finished in 0.1761 sec.
+[glb_to_fbx] wrote C:\OneDrive\OneDrive - Cyber 7 Group\GHRepo\Games\UBlade2\unity\UBlade2\Assets\Resources\Hero\wayfarer_lod2.fbx (700188 bytes); export kwargs: add_leaf_bones,apply_scale_options,apply_unit_scale,armature_nodetype,axis_forward,axis_up,bake_anim,bake_anim_force_startend_keying,bake_anim_simplify_factor,bake_anim_step,bake_anim_use_all_actions,bake_anim_use_all_bones,bake_anim_use_nla_strips,bake_space_transform,embed_textures,filepath,global_scale,mesh_smooth_type,object_types,path_mode,primary_bone_axis,secondary_bone_axis,use_active_collection,use_armature_deform_only,use_custom_props,use_mesh_modifiers,use_selection,use_tspace,use_visible
+LOD_FBX_OK C:\OneDrive\OneDrive - Cyber 7 Group\GHRepo\Games\UBlade2\unity\UBlade2\Assets\Resources\Hero\wayfarer_lod2.fbx
+Blender 5.2.3 LTS (hash e13b728c6880 built 2026-10-22 01:37:16)
+--- end of run 2 ---

@@ -1,0 +1,44 @@
+# Wayfarer LOD FBX independent re-import verification log
+# blender : Blender 5.2.3 LTS
+# script  : C:\OneDrive\OneDrive - Cyber 7 Group\GHRepo\Games\UBlade2\scripts\hero\verify_fbx.py
+# method  : each FBX is re-imported into a fresh factory scene; bones / actions /
+#           skinned meshes are counted from scratch, never from the exporter state.
+# expected: bones=23, actions idle+run+reach, >=1 skinned mesh (armature modifier + vertex groups)
+
+=== VERIFY 1/2 : wayfarer_lod1 ===
+timestamp  2026-10-26T16:29:10.9481172-05:00
+command    "C:\Program Files\Blender Foundation\Blender 5.2\blender.exe" --background --factory-startup --python "C:\OneDrive\OneDrive - Cyber 7 Group\GHRepo\Games\UBlade2\scripts\hero\verify_fbx.py" -- --input "C:\OneDrive\OneDrive - Cyber 7 Group\GHRepo\Games\UBlade2\unity\UBlade2\Assets\Resources\Hero\wayfarer_lod1.fbx" --expect-bones 23 --expect-actions idle,run,reach
+exit code  0
+--- combined stdout+stderr ---
+[verify_fbx] blender 5.2.3 LTS
+FBX version: 7400
+[verify_fbx] armature 'Wayfarer_Rig' bones=23 :: cape_a, cape_b, cape_c, chest, foot.L, foot.R, forearm.L, forearm.R, hand.L, hand.R, head, hips, neck, root, shin.L, shin.R, shoulder.L, shoulder.R, spine, thigh.L, thigh.R, upper_arm.L, upper_arm.R
+[verify_fbx] action 'Wayfarer_Rig|Wayfarer_Rig|idle' (short='idle') frames=1.0..73.0 fcurves=239
+[verify_fbx] action 'Wayfarer_Rig|Wayfarer_Rig|reach' (short='reach') frames=1.0..49.0 fcurves=239
+[verify_fbx] action 'Wayfarer_Rig|Wayfarer_Rig|run' (short='run') frames=1.0..25.0 fcurves=239
+[verify_fbx] mesh 'Wayfarer_Mesh_LOD1' verts=1734 polys=615 tris=615 vgroups=22 armature_mods=1 skinned=True parent='Wayfarer_Rig' dims=(0.637,0.532,1.907) materials=Wayfarer_Cloth,Wayfarer_Leather,Wayfarer_Skin,Wayfarer_Accent
+[verify_fbx] raw action names: Wayfarer_Rig|Wayfarer_Rig|idle, Wayfarer_Rig|Wayfarer_Rig|reach, Wayfarer_Rig|Wayfarer_Rig|run
+[verify_fbx] summary: bones=23 actions=3 skinned_meshes=1 tris=615
+LOD_FBX_VERIFY_DETAIL {"actions": ["idle", "reach", "run"], "actions_raw": ["Wayfarer_Rig|Wayfarer_Rig|idle", "Wayfarer_Rig|Wayfarer_Rig|reach", "Wayfarer_Rig|Wayfarer_Rig|run"], "armatures": ["Wayfarer_Rig:23"], "bones": 23, "file": "C:\\OneDrive\\OneDrive - Cyber 7 Group\\GHRepo\\Games\\UBlade2\\unity\\UBlade2\\Assets\\Resources\\Hero\\wayfarer_lod1.fbx", "meshes": [{"armature_modifiers": 1, "name": "Wayfarer_Mesh_LOD1", "skinned": true, "triangles": 615, "vertex_groups": 22, "vertices": 1734}], "passed": true, "problems": [], "skinned_meshes": ["Wayfarer_Mesh_LOD1"], "triangles_total": 615}
+LOD_FBX_VERIFY_OK file=C:\OneDrive\OneDrive - Cyber 7 Group\GHRepo\Games\UBlade2\unity\UBlade2\Assets\Resources\Hero\wayfarer_lod1.fbx bones=23 actions=idle,reach,run meshes=1
+Blender 5.2.3 LTS (hash e13b728c6880 built 2026-10-22 01:37:16)
+--- end of verify 1 ---
+
+=== VERIFY 2/2 : wayfarer_lod2 ===
+timestamp  2026-10-26T16:29:16.3144568-05:00
+command    "C:\Program Files\Blender Foundation\Blender 5.2\blender.exe" --background --factory-startup --python "C:\OneDrive\OneDrive - Cyber 7 Group\GHRepo\Games\UBlade2\scripts\hero\verify_fbx.py" -- --input "C:\OneDrive\OneDrive - Cyber 7 Group\GHRepo\Games\UBlade2\unity\UBlade2\Assets\Resources\Hero\wayfarer_lod2.fbx" --expect-bones 23 --expect-actions idle,run,reach
+exit code  0
+--- combined stdout+stderr ---
+[verify_fbx] blender 5.2.3 LTS
+FBX version: 7400
+[verify_fbx] armature 'Wayfarer_Rig' bones=23 :: cape_a, cape_b, cape_c, chest, foot.L, foot.R, forearm.L, forearm.R, hand.L, hand.R, head, hips, neck, root, shin.L, shin.R, shoulder.L, shoulder.R, spine, thigh.L, thigh.R, upper_arm.L, upper_arm.R
+[verify_fbx] action 'Wayfarer_Rig|Wayfarer_Rig|idle' (short='idle') frames=1.0..73.0 fcurves=239
+[verify_fbx] action 'Wayfarer_Rig|Wayfarer_Rig|reach' (short='reach') frames=1.0..49.0 fcurves=239
+[verify_fbx] action 'Wayfarer_Rig|Wayfarer_Rig|run' (short='run') frames=1.0..25.0 fcurves=239
+[verify_fbx] mesh 'Wayfarer_Mesh_LOD2' verts=894 polys=306 tris=306 vgroups=22 armature_mods=1 skinned=True parent='Wayfarer_Rig' dims=(0.617,0.532,1.907) materials=Wayfarer_Cloth,Wayfarer_Leather,Wayfarer_Skin,Wayfarer_Accent
+[verify_fbx] raw action names: Wayfarer_Rig|Wayfarer_Rig|idle, Wayfarer_Rig|Wayfarer_Rig|reach, Wayfarer_Rig|Wayfarer_Rig|run
+[verify_fbx] summary: bones=23 actions=3 skinned_meshes=1 tris=306
+LOD_FBX_VERIFY_DETAIL {"actions": ["idle", "reach", "run"], "actions_raw": ["Wayfarer_Rig|Wayfarer_Rig|idle", "Wayfarer_Rig|Wayfarer_Rig|reach", "Wayfarer_Rig|Wayfarer_Rig|run"], "armatures": ["Wayfarer_Rig:23"], "bones": 23, "file": "C:\\OneDrive\\OneDrive - Cyber 7 Group\\GHRepo\\Games\\UBlade2\\unity\\UBlade2\\Assets\\Resources\\Hero\\wayfarer_lod2.fbx", "meshes": [{"armature_modifiers": 1, "name": "Wayfarer_Mesh_LOD2", "skinned": true, "triangles": 306, "vertex_groups": 22, "vertices": 894}], "passed": true, "problems": [], "skinned_meshes": ["Wayfarer_Mesh_LOD2"], "triangles_total": 306}
+LOD_FBX_VERIFY_OK file=C:\OneDrive\OneDrive - Cyber 7 Group\GHRepo\Games\UBlade2\unity\UBlade2\Assets\Resources\Hero\wayfarer_lod2.fbx bones=23 actions=idle,reach,run meshes=1
+Blender 5.2.3 LTS (hash e13b728c6880 built 2026-10-22 01:37:16)
+--- end of verify 2 ---

@@ -1,0 +1,268 @@
+{
+  "schema": "gypsy.toolpack-state/v1",
+  "scope": "toolpack",
+  "toolpack": "ublade2.unity",
+  "toolpackName": "UltraBlade 2 Unity 6000.6.7f1 Windows player",
+  "runId": "20261026T213632Z-12daf5",
+  "manifestSha256": "111719477226e17b489e64519ee95cae79ac7a9f5123337a228c64710c34b21a",
+  "generated": "2026-10-26T21:36:54+00:00",
+  "startedAt": "2026-10-26T21:36:32+00:00",
+  "finishedAt": "2026-10-26T21:36:54+00:00",
+  "durationSeconds": 21.991,
+  "passed": true,
+  "timeoutScale": 1.0,
+  "actionOrder": [
+    "build",
+    "demo",
+    "capture",
+    "capture-check"
+  ],
+  "actions": [
+    {
+      "action": "build",
+      "status": "passed",
+      "passed": true,
+      "exit": 0,
+      "seconds": 8.742,
+      "timedOut": false,
+      "statePath": "C:\\OneDrive\\OneDrive - Cyber 7 Group\\GHRepo\\Games\\UBlade2\\workstream\\state\\toolpacks\\ublade2.unity-build-20261026T213632Z-a2df5e.json",
+      "artifacts": 4,
+      "validators": 3,
+      "label": null,
+      "errors": []
+    },
+    {
+      "action": "demo",
+      "status": "passed",
+      "passed": true,
+      "exit": 0,
+      "seconds": 4.443,
+      "timedOut": false,
+      "statePath": "C:\\OneDrive\\OneDrive - Cyber 7 Group\\GHRepo\\Games\\UBlade2\\workstream\\state\\toolpacks\\ublade2.unity-demo-20261026T213641Z-d507b4.json",
+      "artifacts": 2,
+      "validators": 2,
+      "label": null,
+      "errors": []
+    },
+    {
+      "action": "capture",
+      "status": "passed",
+      "passed": true,
+      "exit": 0,
+      "seconds": 8.546,
+      "timedOut": false,
+      "statePath": "C:\\OneDrive\\OneDrive - Cyber 7 Group\\GHRepo\\Games\\UBlade2\\workstream\\state\\toolpacks\\ublade2.unity-capture-20261026T213645Z-b75213.json",
+      "artifacts": 3,
+      "validators": 2,
+      "label": null,
+      "errors": []
+    },
+    {
+      "action": "capture-check",
+      "status": "passed",
+      "passed": true,
+      "exit": 0,
+      "seconds": 0.182,
+      "timedOut": false,
+      "statePath": "C:\\OneDrive\\OneDrive - Cyber 7 Group\\GHRepo\\Games\\UBlade2\\workstream\\state\\toolpacks\\ublade2.unity-capture-check-20261026T213654Z-8c9be5.json",
+      "artifacts": 1,
+      "validators": 1,
+      "label": null,
+      "errors": []
+    }
+  ],
+  "artifacts": [
+    {
+      "action": "build",
+      "path": "unity/UBlade2/Build/UBlade2.exe",
+      "declaredAs": "unity/UBlade2/Build/UBlade2.exe",
+      "exists": true,
+      "sha256": "9806abde4a406ed68647e9505852c49f6aa72a372f4f084e2aa2821affea57a2",
+      "bytes": 667136
+    },
+    {
+      "action": "build",
+      "path": "artifacts/ublade2/build.log",
+      "declaredAs": "artifacts/ublade2/build.log",
+      "exists": true,
+      "sha256": "609d51e9431a1f64b47208189327f33ab8add665248dc1becc0ef9c006830718",
+      "bytes": 242317
+    },
+    {
+      "action": "build",
+      "path": "artifacts/ublade2/hero-import.json",
+      "declaredAs": "artifacts/ublade2/hero-import.json",
+      "exists": true,
+      "sha256": "0a9b8db6007d2832ee2c2311f38335000da07adf60c2f01ae19ca9913234451d",
+      "bytes": 526
+    },
+    {
+      "action": "build",
+      "path": "artifacts/ublade2/build.json",
+      "declaredAs": "artifacts/ublade2/build.json",
+      "exists": true,
+      "sha256": "146ded4395b147391f2e2e43455a0e82cab59264a1c3b6f1f59e4833b723ff7c",
+      "bytes": 122
+    },
+    {
+      "action": "demo",
+      "path": "artifacts/ublade2/demo.log",
+      "declaredAs": "artifacts/ublade2/demo.log",
+      "exists": true,
+      "sha256": "5051ceb687f7186e648b98ec1c9b4e7448605290e0fd43a11d1fe71f9a9a3afc",
+      "bytes": 2654
+    },
+    {
+      "action": "demo",
+      "path": "artifacts/ublade2/hero-runtime.json",
+      "declaredAs": "artifacts/ublade2/hero-runtime.json",
+      "exists": true,
+      "sha256": "43479f39c42dfc7bebbd0289a3b552fbe5c95ebb48944c551750e72089aa2c84",
+      "bytes": 538
+    },
+    {
+      "action": "capture",
+      "path": "artifacts/ublade2/capture.log",
+      "declaredAs": "artifacts/ublade2/capture.log",
+      "exists": true,
+      "sha256": "2db4d519de412a082683de9279fbb1c9ad1b73d7ff7b18298e21a24755f3f18c",
+      "bytes": 3364
+    },
+    {
+      "action": "capture",
+      "path": "artifacts/ublade2/frame.png",
+      "declaredAs": "artifacts/ublade2/frame.png",
+      "exists": true,
+      "sha256": "f4acdd3c8e8d9b01f579c467737e88a70ea8a1a0227d21a2796eeb347bb494cc",
+      "bytes": 180563
+    },
+    {
+      "action": "capture",
+      "path": "artifacts/ublade2/hero-runtime.json",
+      "declaredAs": "artifacts/ublade2/hero-runtime.json",
+      "exists": true,
+      "sha256": "1ad226d96f56caeea0e43976bcc9c0bf98579a1ed8ea87997fce08e58a0d0534",
+      "bytes": 603
+    },
+    {
+      "action": "capture-check",
+      "path": "artifacts/ublade2/capture-check.json",
+      "declaredAs": "artifacts/ublade2/capture-check.json",
+      "exists": true,
+      "sha256": "5c534296541327a0d5d809f1ebebce0a2ed97132c72b0fe25c75549cb7ba56e8",
+      "bytes": 466
+    }
+  ],
+  "validators": [
+    {
+      "action": "build",
+      "id": "exe",
+      "kind": "file",
+      "artifact": "unity/UBlade2/Build/UBlade2.exe",
+      "target": "unity/UBlade2/Build/UBlade2.exe",
+      "passed": true,
+      "error": null,
+      "details": {
+        "bytes": 667136,
+        "minBytes": 500000
+      }
+    },
+    {
+      "action": "build",
+      "id": "build-ok",
+      "kind": "text",
+      "artifact": "artifacts/ublade2/build.log",
+      "target": "artifacts/ublade2/build.log",
+      "passed": true,
+      "error": null,
+      "details": {
+        "chars": 237948,
+        "contains": "UBLADE2_BUILD Succeeded"
+      }
+    },
+    {
+      "action": "build",
+      "id": "hero-import",
+      "kind": "json",
+      "artifact": "artifacts/ublade2/hero-import.json",
+      "target": "artifacts/ublade2/hero-import.json",
+      "passed": true,
+      "error": null,
+      "details": {
+        "checks": 7,
+        "failed": 0
+      }
+    },
+    {
+      "action": "demo",
+      "id": "demo-ok",
+      "kind": "text",
+      "artifact": "artifacts/ublade2/demo.log",
+      "target": "artifacts/ublade2/demo.log",
+      "passed": true,
+      "error": null,
+      "details": {
+        "chars": 2609,
+        "contains": "GYPSY_DEMO_OK collected=3"
+      }
+    },
+    {
+      "action": "demo",
+      "id": "hero-runtime",
+      "kind": "json",
+      "artifact": "artifacts/ublade2/hero-runtime.json",
+      "target": "artifacts/ublade2/hero-runtime.json",
+      "passed": true,
+      "error": null,
+      "details": {
+        "checks": 6,
+        "failed": 0
+      }
+    },
+    {
+      "action": "capture",
+      "id": "hero-runtime",
+      "kind": "json",
+      "artifact": "artifacts/ublade2/hero-runtime.json",
+      "target": "artifacts/ublade2/hero-runtime.json",
+      "passed": true,
+      "error": null,
+      "details": {
+        "checks": 6,
+        "failed": 0
+      }
+    },
+    {
+      "action": "capture",
+      "id": "frame",
+      "kind": "png",
+      "artifact": "artifacts/ublade2/frame.png",
+      "target": "artifacts/ublade2/frame.png",
+      "passed": true,
+      "error": null,
+      "details": {
+        "width": 1280,
+        "height": 720
+      }
+    },
+    {
+      "action": "capture-check",
+      "id": "capture-check",
+      "kind": "json",
+      "artifact": "artifacts/ublade2/capture-check.json",
+      "target": "artifacts/ublade2/capture-check.json",
+      "passed": true,
+      "error": null,
+      "details": {
+        "checks": 1,
+        "failed": 0
+      }
+    }
+  ],
+  "license": "Unity licence proven by batchmode; game and hero assets are the ProjectGypsy prototype the operator asked to port; rights review remains the operator's responsibility",
+  "tools": [
+    "Unity 6000.6.7f1",
+    "Windows Standalone Build Support"
+  ],
+  "errors": []
+}

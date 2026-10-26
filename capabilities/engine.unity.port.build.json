@@ -1,0 +1,53 @@
+{
+  "schema": "gypsy.capability/v1",
+  "id": "engine.unity.port.build",
+  "layer": "engine",
+  "engine": "unity",
+  "kind": "build",
+  "maturity": "stable",
+  "description": "Unity 6000.6.7f1 batchmode Windows player build for UltraBlade 2 (unity/UBlade2), verified with a real build on this machine.",
+  "requires": [
+    "unity.installed",
+    "unity.licence",
+    "unity.windows.standalone"
+  ],
+  "inputs": [
+    {
+      "name": "project",
+      "type": "path"
+    },
+    {
+      "name": "target",
+      "type": "string"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "build",
+      "type": "directory"
+    },
+    {
+      "name": "log",
+      "type": "file"
+    }
+  ],
+  "checks": [
+    "batchmode exits 0",
+    "UBLADE2_BUILD Succeeded marker in the build log",
+    "unity/UBlade2/Build/UBlade2.exe exists",
+    "hero import report passed"
+  ],
+  "provenance": {
+    "record": [
+      "unity.version",
+      "target",
+      "command",
+      "exitCode",
+      "logHash",
+      "exeHash"
+    ]
+  },
+  "notes": [
+    "UltraBlade 2: BuildUBlade2.Build -> unity/UBlade2/Build/UBlade2.exe; build log artifacts/ublade2/build.log."
+  ]
+}

@@ -1,0 +1,54 @@
+Mono path[0] = 'C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Build/UBlade2_Data/Managed'
+Mono config path = 'C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Build/MonoBleedingEdge/etc'
+CodeReloadManager initialized
+Input System module state changed to: Initialized.
+[Physics::Module] Initialized fallback backend.
+[Physics::Module] Id: 0xdecafbad
+Initialize engine version: 6000.6.7f1 (b22767f04f04)
+[EntityIdStore] init: VM path (explicit commit), pageSize=4096, blockCount=262144, entitiesPerBlock=1024, blocksPerSlotPage=0, slots reserved=4294967296 bytes
+[Subsystems] Discovering subsystems at path C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Build/UBlade2_Data/UnitySubsystems
+[D3D12 Device Filter] Vendor Name: NVIDIA
+[D3D12 Device Filter] Device Name: NVIDIA T600 Laptop GPU
+[D3D12 Device Filter] Driver Version: 32.0.15.9730
+[D3D12 Device Filter] Feature Level: 12.1
+[D3D12 Device Filter] Graphics Memory: 3938 MB
+[D3D12 Device Filter] Processor Count: 20
+[D3D12 Device Filter] Device Type: Discrete
+GfxDevice: creating device client; kGfxThreadingModeSplitJobs
+d3d12: failed to query info queue interface (0x80004002).
+Direct3D:
+    Version:         Direct3D 12 [level 12.1]
+    Renderer:        NVIDIA T600 Laptop GPU (ID=0x1fb6)
+    Vendor:          NVIDIA
+    VRAM:            3938 MB
+    App VRAM Budget: 3347 MB
+    Driver:          32.0.15.9730
+Begin MonoManager ReloadAssembly
+- Finished resetting the current domain, in  0.007 seconds
+[Physics::Module] Selected backend (deferred post-plugins).
+[Physics::Module] Name: PhysX
+[Physics::Module] Id: 0xf2b8ea05
+[Physics::Module] SDK Version: 4.1.2
+[Physics::Module] Integration Version: 1.0.0
+[Physics::Module] Threading Mode: Multi-Threaded
+<RI> Initializing input.
+
+<RI> Input initialized.
+
+UnloadTime: 0.749800 ms
+UBLADE_HERO_OK lodLevels=3 bones=23 smile=Smile cape=3 lod0Tris=1126 lod1Tris=615 lod2Tris=306 animators=3 prefab=WayfarerLOD
+UBLADE2_WORLD crystals=3 speed=6 hero=Wayfarer
+UBLADE2_START demo=True crystals=3 unity=6000.6.7f1 screen=1280x720 capture=C:\Users\STEPHE~1\AppData\Local\Temp\ublade2-capture-frame.png
+UBLADE_LOD level=0 distance=5.17 height=0.376 transitionHeights=0.30/0.12/0.04
+UBLADE2_COLLECT collected=1 frames=15
+UBLADE2_COLLECT collected=2 frames=33
+UBLADE2_COLLECT collected=3 frames=67
+GYPSY_DEMO_OK collected=3 frames=67
+UBLADE2_CAPTURE_WRITTEN path=C:\Users\STEPHE~1\AppData\Local\Temp\ublade2-capture-frame.png
+UBLADE_HERO_RUNTIME_OK visible=True lod=0 smile=100.0 cape=3 rect=547,237,185x315 bones=23 lod0Tris=1126 lod1Tris=615 lod2Tris=306
+[Physics::Module] Cleanup current backend.
+[Physics::Module] Id: 0xf2b8ea05
+Input System module state changed to: ShutdownInProgress.
+Input Polling Thread exited.
+Input System module state changed to: Shutdown.
+CodeReloadManager destroyed

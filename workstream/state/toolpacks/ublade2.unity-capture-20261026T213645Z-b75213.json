@@ -1,0 +1,91 @@
+{
+  "schema": "gypsy.toolpack-state/v1",
+  "scope": "action",
+  "toolpack": "ublade2.unity",
+  "toolpackName": "UltraBlade 2 Unity 6000.6.7f1 Windows player",
+  "action": "capture",
+  "runId": "20261026T213645Z-b75213",
+  "manifestSha256": "111719477226e17b489e64519ee95cae79ac7a9f5123337a228c64710c34b21a",
+  "generated": "2026-10-26T21:36:54+00:00",
+  "startedAt": "2026-10-26T21:36:45+00:00",
+  "finishedAt": "2026-10-26T21:36:54+00:00",
+  "durationSeconds": 8.572,
+  "passed": true,
+  "timedOut": false,
+  "seconds": 8.546,
+  "timeoutSeconds": 300.0,
+  "command": {
+    "argv": [
+      "powershell",
+      "-NoProfile",
+      "-ExecutionPolicy",
+      "Bypass",
+      "-File",
+      "scripts/ublade2_unity.ps1",
+      "-Mode",
+      "capture"
+    ],
+    "cwd": "."
+  },
+  "exit": 0,
+  "stdout": "UBLADE2_CAPTURE_OK frame=artifacts/ublade2/frame.png\n",
+  "stderr": "",
+  "args": {
+    "note": "windowed 1280x720 ScreenCapture with the hero visible"
+  },
+  "artifacts": [
+    {
+      "path": "artifacts/ublade2/capture.log",
+      "declaredAs": "artifacts/ublade2/capture.log",
+      "exists": true,
+      "sha256": "2db4d519de412a082683de9279fbb1c9ad1b73d7ff7b18298e21a24755f3f18c",
+      "bytes": 3364
+    },
+    {
+      "path": "artifacts/ublade2/frame.png",
+      "declaredAs": "artifacts/ublade2/frame.png",
+      "exists": true,
+      "sha256": "f4acdd3c8e8d9b01f579c467737e88a70ea8a1a0227d21a2796eeb347bb494cc",
+      "bytes": 180563
+    },
+    {
+      "path": "artifacts/ublade2/hero-runtime.json",
+      "declaredAs": "artifacts/ublade2/hero-runtime.json",
+      "exists": true,
+      "sha256": "1ad226d96f56caeea0e43976bcc9c0bf98579a1ed8ea87997fce08e58a0d0534",
+      "bytes": 603
+    }
+  ],
+  "validators": [
+    {
+      "id": "hero-runtime",
+      "kind": "json",
+      "artifact": "artifacts/ublade2/hero-runtime.json",
+      "target": "artifacts/ublade2/hero-runtime.json",
+      "passed": true,
+      "error": null,
+      "details": {
+        "checks": 6,
+        "failed": 0
+      }
+    },
+    {
+      "id": "frame",
+      "kind": "png",
+      "artifact": "artifacts/ublade2/frame.png",
+      "target": "artifacts/ublade2/frame.png",
+      "passed": true,
+      "error": null,
+      "details": {
+        "width": 1280,
+        "height": 720
+      }
+    }
+  ],
+  "license": "Unity licence proven by batchmode; game and hero assets are the ProjectGypsy prototype the operator asked to port; rights review remains the operator's responsibility",
+  "tools": [
+    "Unity 6000.6.7f1",
+    "Windows Standalone Build Support"
+  ],
+  "errors": []
+}

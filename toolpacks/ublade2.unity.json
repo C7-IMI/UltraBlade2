@@ -1,0 +1,210 @@
+{
+  "schema": "gypsy.toolpack/v1",
+  "id": "ublade2.unity",
+  "name": "UltraBlade 2 Unity 6000.6.7f1 Windows player",
+  "tools": [
+    "Unity 6000.6.7f1",
+    "Windows Standalone Build Support"
+  ],
+  "license": "Unity licence proven by batchmode; game and hero assets are the ProjectGypsy prototype the operator asked to port; rights review remains the operator's responsibility",
+  "actions": [
+    {
+      "id": "build",
+      "argv": [
+        "powershell",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "scripts/ublade2_unity.ps1",
+        "-Mode",
+        "build"
+      ],
+      "cwd": ".",
+      "timeout": 1800,
+      "artifacts": [
+        "unity/UBlade2/Build/UBlade2.exe",
+        "artifacts/ublade2/build.log",
+        "artifacts/ublade2/hero-import.json",
+        "artifacts/ublade2/build.json"
+      ],
+      "args": {
+        "note": "Unity batchmode BuildUBlade2.Build -> Build/UBlade2.exe"
+      }
+    },
+    {
+      "id": "demo",
+      "argv": [
+        "powershell",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "scripts/ublade2_unity.ps1",
+        "-Mode",
+        "demo"
+      ],
+      "cwd": ".",
+      "timeout": 300,
+      "artifacts": [
+        "artifacts/ublade2/demo.log",
+        "artifacts/ublade2/hero-runtime.json"
+      ],
+      "args": {
+        "note": "headless deterministic acceptance marker"
+      }
+    },
+    {
+      "id": "capture",
+      "argv": [
+        "powershell",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "scripts/ublade2_unity.ps1",
+        "-Mode",
+        "capture"
+      ],
+      "cwd": ".",
+      "timeout": 300,
+      "artifacts": [
+        "artifacts/ublade2/capture.log",
+        "artifacts/ublade2/frame.png",
+        "artifacts/ublade2/hero-runtime.json"
+      ],
+      "args": {
+        "note": "windowed 1280x720 ScreenCapture with the hero visible"
+      }
+    },
+    {
+      "id": "capture-check",
+      "argv": [
+        "python",
+        "scripts/check_hero_capture.py",
+        "--frame",
+        "artifacts/ublade2/frame.png",
+        "--evidence",
+        "artifacts/ublade2/hero-runtime.json",
+        "--out",
+        "artifacts/ublade2/capture-check.json"
+      ],
+      "cwd": ".",
+      "timeout": 120,
+      "artifacts": [
+        "artifacts/ublade2/capture-check.json"
+      ],
+      "args": {
+        "note": "PNG pixel analysis of the hero screen rect"
+      }
+    }
+  ],
+  "validators": [
+    {
+      "id": "exe",
+      "kind": "file",
+      "artifact": "unity/UBlade2/Build/UBlade2.exe",
+      "minBytes": 500000
+    },
+    {
+      "id": "build-ok",
+      "kind": "text",
+      "artifact": "artifacts/ublade2/build.log",
+      "contains": "UBLADE2_BUILD Succeeded"
+    },
+    {
+      "id": "hero-import",
+      "kind": "json",
+      "artifact": "artifacts/ublade2/hero-import.json",
+      "checks": [
+        {
+          "path": "passed",
+          "equals": true
+        },
+        {
+          "path": "bones",
+          "equals": 23
+        },
+        {
+          "path": "smile",
+          "equals": "Smile"
+        },
+        {
+          "path": "maps",
+          "equals": 3
+        },
+        {
+          "path": "prefabLodLevels",
+          "equals": 3
+        },
+        {
+          "path": "lod0Triangles",
+          "equals": 1126
+        },
+        {
+          "path": "lod1Triangles",
+          "equals": 615
+        },
+        {
+          "path": "lod2Triangles",
+          "equals": 306
+        }
+      ]
+    },
+    {
+      "id": "demo-ok",
+      "kind": "text",
+      "artifact": "artifacts/ublade2/demo.log",
+      "contains": "GYPSY_DEMO_OK collected=3"
+    },
+    {
+      "id": "hero-runtime",
+      "kind": "json",
+      "artifact": "artifacts/ublade2/hero-runtime.json",
+      "checks": [
+        {
+          "path": "passed",
+          "equals": true
+        },
+        {
+          "path": "heroVisible",
+          "equals": true
+        },
+        {
+          "path": "bones",
+          "equals": 23
+        },
+        {
+          "path": "capeBones",
+          "equals": 3
+        },
+        {
+          "path": "lodLevel",
+          "gte": 0
+        },
+        {
+          "path": "heroScreenPixels",
+          "gte": 3000
+        }
+      ]
+    },
+    {
+      "id": "frame",
+      "kind": "png",
+      "artifact": "artifacts/ublade2/frame.png",
+      "minWidth": 1280,
+      "minHeight": 720
+    },
+    {
+      "id": "capture-check",
+      "kind": "json",
+      "artifact": "artifacts/ublade2/capture-check.json",
+      "checks": [
+        {
+          "path": "passed",
+          "equals": true
+        }
+      ]
+    }
+  ]
+}

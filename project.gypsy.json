@@ -1,0 +1,63 @@
+{
+  "schema": "gypsy.project/v1",
+  "name": "UBlade2",
+  "engine": {
+    "id": "unity",
+    "version": "6000.6.7f1",
+    "adapter": "unity-6"
+  },
+  "targets": [
+    "pc"
+  ],
+  "paths": {
+    "game": "unity/UBlade2",
+    "artifacts": "artifacts/ublade2"
+  },
+  "created": "2026-10-26T16:25:03-05:00",
+  "hardware": {
+    "os": "Windows",
+    "arch": "AMD64",
+    "ram_gb": 63.7,
+    "gpu": {
+      "name": "NVIDIA T600 Laptop GPU",
+      "vram_gb": 4,
+      "driver": "597.30"
+    },
+    "disks": {
+      "C": {
+        "free_gb": 207.7,
+        "total_gb": 928.6
+      },
+      "D": {
+        "free_gb": 60,
+        "total_gb": 3815.3
+      }
+    }
+  },
+  "hardwareGate": {
+    "ok": true,
+    "reasons": [],
+    "requirements": {
+      "min_vram_gb": 2,
+      "min_free_gb": 10,
+      "disk": "C"
+    }
+  },
+  "decisions": [
+    {
+      "date": "2026-10-26T16:25:03-05:00",
+      "decision": "engine unity 6000.6.7f1 (unity-6)",
+      "reason": "operator selected the engine when creating the project"
+    },
+    {
+      "date": "2026-10-26T16:25:00-05:00",
+      "decision": "Unity project UBlade2 under unity/UBlade2; Godot implementation remains the reference until Unity accepts the gameplay/hero/capture gates",
+      "reason": "Operator instruction: migrate the proven ProjectGypsy game/hero to Unity 6000.6.7f1 as the production pipeline. This is a port with acceptance evidence, not an engine toggle."
+    },
+    {
+      "date": "2026-10-26T16:45:00-05:00",
+      "decision": "Unity 6000.6.7f1 port accepted the gameplay, hero, build, demo and capture gates; the Godot implementation stays as the reference",
+      "reason": "Build log UBLADE2_BUILD Succeeded bytes=97444534; demo GYPSY_DEMO_OK collected=3 frames=67 exit 0; 1280x720 capture inspected and pixel-checked; hero import 23 bones/clips idle,run,reach/Smile/512 maps; Gypsy toolpack passed=True. Mobile is not available (Android Build Support absent) and is not claimed."
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "schema": "gypsy.toolpack-state/v1",
+  "scope": "action",
+  "toolpack": "ublade2.unity",
+  "toolpackName": "UltraBlade 2 Unity 6000.6.7f1 Windows player",
+  "action": "demo",
+  "runId": "20261026T215804Z-3a0e91",
+  "manifestSha256": "684cbefeac2cc88aee86b8e6d98e3c59f45cda77caf4d94f261a74a5d42045be",
+  "generated": "2026-10-26T21:58:08+00:00",
+  "startedAt": "2026-10-26T21:58:04+00:00",
+  "finishedAt": "2026-10-26T21:58:08+00:00",
+  "durationSeconds": 4.614,
+  "passed": true,
+  "timedOut": false,
+  "seconds": 4.603,
+  "timeoutSeconds": 300.0,
+  "command": {
+    "argv": [
+      "powershell",
+      "-NoProfile",
+      "-ExecutionPolicy",
+      "Bypass",
+      "-File",
+      "scripts/ublade2_unity.ps1",
+      "-Mode",
+      "demo"
+    ],
+    "cwd": "."
+  },
+  "exit": 0,
+  "stdout": "UBLADE2_DEMO_OK exit=0\n",
+  "stderr": "",
+  "args": {
+    "note": "headless deterministic acceptance marker"
+  },
+  "artifacts": [
+    {
+      "path": "artifacts/ublade2/demo.log",
+      "declaredAs": "artifacts/ublade2/demo.log",
+      "exists": true,
+      "sha256": "9e40ac518ca942cddec1a6ce24dc8b4a39b65a5f62107bf7c502caa33c5aa95c",
+      "bytes": 2371
+    },
+    {
+      "path": "artifacts/ublade2/hero-runtime.json",
+      "declaredAs": "artifacts/ublade2/hero-runtime.json",
+      "exists": true,
+      "sha256": "ae449ca6dd75c521533cc92633231aef912e957a1becbcb8873ac73907c1da20",
+      "bytes": 538
+    }
+  ],
+  "validators": [
+    {
+      "id": "demo-ok",
+      "kind": "text",
+      "artifact": "artifacts/ublade2/demo.log",
+      "target": "artifacts/ublade2/demo.log",
+      "passed": true,
+      "error": null,
+      "details": {
+        "chars": 2371,
+        "contains": "GYPSY_DEMO_OK collected=3"
+      }
+    },
+    {
+      "id": "hero-runtime",
+      "kind": "json",
+      "artifact": "artifacts/ublade2/hero-runtime.json",
+      "target": "artifacts/ublade2/hero-runtime.json",
+      "passed": true,
+      "error": null,
+      "details": {
+        "checks": 6,
+        "failed": 0
+      }
+    }
+  ],
+  "license": "Unity licence proven by batchmode; game and hero assets are the ProjectGypsy prototype the operator asked to port; rights review remains the operator's responsibility",
+  "tools": [
+    "Unity 6000.6.7f1",
+    "Windows Standalone Build Support"
+  ],
+  "errors": []
+}

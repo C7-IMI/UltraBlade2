@@ -1,0 +1,206 @@
+{
+  "schema": "ublade2.hero.lod-conversion/v1",
+  "generated_at": "2026-10-26T16:30:52-05:00",
+  "blender": "Blender 5.2.3 LTS",
+  "inputs": [
+    {
+      "level": "lod1",
+      "path": "C:\\OneDrive\\OneDrive - Cyber 7 Group\\GHRepo\\Games\\ProjectGypsy\\assets\\hero\\wayfarer_lod1.glb",
+      "exists": true,
+      "bytes": 877796,
+      "sha256": "0b08182c2d41eeb6ea2f8df27038156a4bbabe0b6096a9cc52a4978eaf27d2e5",
+      "triangles": 615,
+      "vertices": 449,
+      "triangles_source": "artifacts/hero/source/wayfarer_lods.json",
+      "sha256_matches_manifest": true
+    },
+    {
+      "level": "lod2",
+      "path": "C:\\OneDrive\\OneDrive - Cyber 7 Group\\GHRepo\\Games\\ProjectGypsy\\assets\\hero\\wayfarer_lod2.glb",
+      "exists": true,
+      "bytes": 832252,
+      "sha256": "03a97c0139428dc57b4d37baef7d753d32ff389034ba34c24af02890ceb53688",
+      "triangles": 306,
+      "vertices": 271,
+      "triangles_source": "artifacts/hero/source/wayfarer_lods.json",
+      "sha256_matches_manifest": true
+    }
+  ],
+  "outputs": [
+    {
+      "level": "lod1",
+      "path": "C:\\OneDrive\\OneDrive - Cyber 7 Group\\GHRepo\\Games\\UBlade2\\unity\\UBlade2\\Assets\\Resources\\Hero\\wayfarer_lod1.fbx",
+      "exists": true,
+      "bytes": 716636,
+      "sha256": "f31201462e0a318d3ef59ef741eaba2fba64bfc8895f797d834f5ced4671357f"
+    },
+    {
+      "level": "lod2",
+      "path": "C:\\OneDrive\\OneDrive - Cyber 7 Group\\GHRepo\\Games\\UBlade2\\unity\\UBlade2\\Assets\\Resources\\Hero\\wayfarer_lod2.fbx",
+      "exists": true,
+      "bytes": 700188,
+      "sha256": "857ad41fdb0897da18dda98db1b6ba0a1234600b159be46707a23d69c69924bf"
+    }
+  ],
+  "commands": [
+    {
+      "level": "lod1",
+      "stage": "convert",
+      "argv": [
+        "C:\\Program Files\\Blender Foundation\\Blender 5.2\\blender.exe",
+        "--background",
+        "--factory-startup",
+        "--python",
+        "C:\\OneDrive\\OneDrive - Cyber 7 Group\\GHRepo\\Games\\UBlade2\\scripts\\hero\\glb_to_fbx.py",
+        "--",
+        "--input",
+        "C:\\OneDrive\\OneDrive - Cyber 7 Group\\GHRepo\\Games\\ProjectGypsy\\assets\\hero\\wayfarer_lod1.glb",
+        "--output",
+        "C:\\OneDrive\\OneDrive - Cyber 7 Group\\GHRepo\\Games\\UBlade2\\unity\\UBlade2\\Assets\\Resources\\Hero\\wayfarer_lod1.fbx"
+      ],
+      "command_line": "\"C:\\Program Files\\Blender Foundation\\Blender 5.2\\blender.exe\" --background --factory-startup --python \"C:\\OneDrive\\OneDrive - Cyber 7 Group\\GHRepo\\Games\\UBlade2\\scripts\\hero\\glb_to_fbx.py\" -- --input \"C:\\OneDrive\\OneDrive - Cyber 7 Group\\GHRepo\\Games\\ProjectGypsy\\assets\\hero\\wayfarer_lod1.glb\" --output \"C:\\OneDrive\\OneDrive - Cyber 7 Group\\GHRepo\\Games\\UBlade2\\unity\\UBlade2\\Assets\\Resources\\Hero\\wayfarer_lod1.fbx\"",
+      "exit_code": 0,
+      "log": "artifacts/hero/lod-conversion.log"
+    },
+    {
+      "level": "lod1",
+      "stage": "verify",
+      "argv": [
+        "C:\\Program Files\\Blender Foundation\\Blender 5.2\\blender.exe",
+        "--background",
+        "--factory-startup",
+        "--python",
+        "C:\\OneDrive\\OneDrive - Cyber 7 Group\\GHRepo\\Games\\UBlade2\\scripts\\hero\\verify_fbx.py",
+        "--",
+        "--input",
+        "C:\\OneDrive\\OneDrive - Cyber 7 Group\\GHRepo\\Games\\UBlade2\\unity\\UBlade2\\Assets\\Resources\\Hero\\wayfarer_lod1.fbx",
+        "--expect-bones",
+        "23",
+        "--expect-actions",
+        "idle,run,reach"
+      ],
+      "command_line": "\"C:\\Program Files\\Blender Foundation\\Blender 5.2\\blender.exe\" --background --factory-startup --python \"C:\\OneDrive\\OneDrive - Cyber 7 Group\\GHRepo\\Games\\UBlade2\\scripts\\hero\\verify_fbx.py\" -- --input \"C:\\OneDrive\\OneDrive - Cyber 7 Group\\GHRepo\\Games\\UBlade2\\unity\\UBlade2\\Assets\\Resources\\Hero\\wayfarer_lod1.fbx\" --expect-bones 23 --expect-actions idle,run,reach",
+      "exit_code": 0,
+      "log": "artifacts/hero/lod-fbx-verify.log"
+    },
+    {
+      "level": "lod2",
+      "stage": "convert",
+      "argv": [
+        "C:\\Program Files\\Blender Foundation\\Blender 5.2\\blender.exe",
+        "--background",
+        "--factory-startup",
+        "--python",
+        "C:\\OneDrive\\OneDrive - Cyber 7 Group\\GHRepo\\Games\\UBlade2\\scripts\\hero\\glb_to_fbx.py",
+        "--",
+        "--input",
+        "C:\\OneDrive\\OneDrive - Cyber 7 Group\\GHRepo\\Games\\ProjectGypsy\\assets\\hero\\wayfarer_lod2.glb",
+        "--output",
+        "C:\\OneDrive\\OneDrive - Cyber 7 Group\\GHRepo\\Games\\UBlade2\\unity\\UBlade2\\Assets\\Resources\\Hero\\wayfarer_lod2.fbx"
+      ],
+      "command_line": "\"C:\\Program Files\\Blender Foundation\\Blender 5.2\\blender.exe\" --background --factory-startup --python \"C:\\OneDrive\\OneDrive - Cyber 7 Group\\GHRepo\\Games\\UBlade2\\scripts\\hero\\glb_to_fbx.py\" -- --input \"C:\\OneDrive\\OneDrive - Cyber 7 Group\\GHRepo\\Games\\ProjectGypsy\\assets\\hero\\wayfarer_lod2.glb\" --output \"C:\\OneDrive\\OneDrive - Cyber 7 Group\\GHRepo\\Games\\UBlade2\\unity\\UBlade2\\Assets\\Resources\\Hero\\wayfarer_lod2.fbx\"",
+      "exit_code": 0,
+      "log": "artifacts/hero/lod-conversion.log"
+    },
+    {
+      "level": "lod2",
+      "stage": "verify",
+      "argv": [
+        "C:\\Program Files\\Blender Foundation\\Blender 5.2\\blender.exe",
+        "--background",
+        "--factory-startup",
+        "--python",
+        "C:\\OneDrive\\OneDrive - Cyber 7 Group\\GHRepo\\Games\\UBlade2\\scripts\\hero\\verify_fbx.py",
+        "--",
+        "--input",
+        "C:\\OneDrive\\OneDrive - Cyber 7 Group\\GHRepo\\Games\\UBlade2\\unity\\UBlade2\\Assets\\Resources\\Hero\\wayfarer_lod2.fbx",
+        "--expect-bones",
+        "23",
+        "--expect-actions",
+        "idle,run,reach"
+      ],
+      "command_line": "\"C:\\Program Files\\Blender Foundation\\Blender 5.2\\blender.exe\" --background --factory-startup --python \"C:\\OneDrive\\OneDrive - Cyber 7 Group\\GHRepo\\Games\\UBlade2\\scripts\\hero\\verify_fbx.py\" -- --input \"C:\\OneDrive\\OneDrive - Cyber 7 Group\\GHRepo\\Games\\UBlade2\\unity\\UBlade2\\Assets\\Resources\\Hero\\wayfarer_lod2.fbx\" --expect-bones 23 --expect-actions idle,run,reach",
+      "exit_code": 0,
+      "log": "artifacts/hero/lod-fbx-verify.log"
+    }
+  ],
+  "verification": [
+    {
+      "level": "lod1",
+      "bones": 23,
+      "actions": [
+        "idle",
+        "reach",
+        "run"
+      ],
+      "actions_raw": [
+        "Wayfarer_Rig|Wayfarer_Rig|idle",
+        "Wayfarer_Rig|Wayfarer_Rig|reach",
+        "Wayfarer_Rig|Wayfarer_Rig|run"
+      ],
+      "expected_actions_present": true,
+      "skinned_meshes": [
+        "Wayfarer_Mesh_LOD1"
+      ],
+      "meshes": [
+        {
+          "armature_modifiers": 1,
+          "name": "Wayfarer_Mesh_LOD1",
+          "skinned": true,
+          "triangles": 615,
+          "vertex_groups": 22,
+          "vertices": 1734
+        }
+      ],
+      "triangles_total": 615,
+      "passed": true,
+      "command_line": "\"C:\\Program Files\\Blender Foundation\\Blender 5.2\\blender.exe\" --background --factory-startup --python \"C:\\OneDrive\\OneDrive - Cyber 7 Group\\GHRepo\\Games\\UBlade2\\scripts\\hero\\verify_fbx.py\" -- --input \"C:\\OneDrive\\OneDrive - Cyber 7 Group\\GHRepo\\Games\\UBlade2\\unity\\UBlade2\\Assets\\Resources\\Hero\\wayfarer_lod1.fbx\" --expect-bones 23 --expect-actions idle,run,reach",
+      "log": "artifacts/hero/lod-fbx-verify.log"
+    },
+    {
+      "level": "lod2",
+      "bones": 23,
+      "actions": [
+        "idle",
+        "reach",
+        "run"
+      ],
+      "actions_raw": [
+        "Wayfarer_Rig|Wayfarer_Rig|idle",
+        "Wayfarer_Rig|Wayfarer_Rig|reach",
+        "Wayfarer_Rig|Wayfarer_Rig|run"
+      ],
+      "expected_actions_present": true,
+      "skinned_meshes": [
+        "Wayfarer_Mesh_LOD2"
+      ],
+      "meshes": [
+        {
+          "armature_modifiers": 1,
+          "name": "Wayfarer_Mesh_LOD2",
+          "skinned": true,
+          "triangles": 306,
+          "vertex_groups": 22,
+          "vertices": 894
+        }
+      ],
+      "triangles_total": 306,
+      "passed": true,
+      "command_line": "\"C:\\Program Files\\Blender Foundation\\Blender 5.2\\blender.exe\" --background --factory-startup --python \"C:\\OneDrive\\OneDrive - Cyber 7 Group\\GHRepo\\Games\\UBlade2\\scripts\\hero\\verify_fbx.py\" -- --input \"C:\\OneDrive\\OneDrive - Cyber 7 Group\\GHRepo\\Games\\UBlade2\\unity\\UBlade2\\Assets\\Resources\\Hero\\wayfarer_lod2.fbx\" --expect-bones 23 --expect-actions idle,run,reach",
+      "log": "artifacts/hero/lod-fbx-verify.log"
+    }
+  ],
+  "checks": {
+    "outputs_over_100000_bytes": true,
+    "bones_23_per_lod": true,
+    "actions_idle_run_reach_per_lod": true,
+    "skinned_mesh_per_lod": true,
+    "all_commands_exit_zero": true
+  },
+  "failures": [],
+  "passed": true,
+  "notes": [
+    "FBX animation take names are Blender's '<object>|<action>' form ('Wayfarer_Rig|idle', 'Wayfarer_Rig|run', 'Wayfarer_Rig|reach'); a re-import prefixes the armature name again, so Blender action datablocks read 'Wayfarer_Rig|Wayfarer_Rig|idle'. Unity shows the take name, i.e. 'Wayfarer_Rig|idle'.",
+    "The glTF importer's hidden 'glTF_not_exported' bone-display icosphere is stripped before export so the FBX contains exactly one skinned mesh."
+  ]
+}

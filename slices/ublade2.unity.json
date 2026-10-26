@@ -1,0 +1,39 @@
+{
+  "schema": "gypsy.slice/v1",
+  "id": "ublade2.unity",
+  "project": ".",
+  "description": "UltraBlade 2 Unity port: build the Windows player, run the deterministic three-crystal demo, capture a 1280x720 frame with the Wayfarer hero visible, validate the capture pixels, then run the repository check list.",
+  "artifacts": [
+    "artifacts/ublade2/build.log",
+    "artifacts/ublade2/hero-import.json",
+    "artifacts/ublade2/demo.log",
+    "artifacts/ublade2/capture.log",
+    "artifacts/ublade2/frame.png",
+    "artifacts/ublade2/hero-runtime.json",
+    "artifacts/ublade2/capture-check.json",
+    "unity/UBlade2/Build/UBlade2.exe"
+  ],
+  "steps": [
+    {
+      "id": "unity",
+      "kind": "toolpack",
+      "needs": [],
+      "required": true,
+      "timeout": 2400,
+      "args": {
+        "toolpack": "ublade2.unity",
+        "path": "toolpacks/ublade2.unity.json"
+      }
+    },
+    {
+      "id": "pack",
+      "kind": "check_all",
+      "needs": [
+        "unity"
+      ],
+      "required": true,
+      "timeout": 180,
+      "args": {}
+    }
+  ]
+}

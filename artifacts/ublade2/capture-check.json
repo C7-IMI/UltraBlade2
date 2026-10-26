@@ -1,0 +1,22 @@
+{
+  "schema": "ublade2.capture.check/v1",
+  "frame": "artifacts/ublade2/frame.png",
+  "passed": true,
+  "errors": [],
+  "warnings": [],
+  "generatedAt": "2026-10-26T21:58:17+00:00",
+  "width": 1280,
+  "height": 720,
+  "heroVisibleFromEvidence": true,
+  "heroRect": [
+    547,
+    237,
+    185,
+    315
+  ],
+  "pixels": 58275,
+  "nonBackgroundPixels": 52858,
+  "nonBackgroundRatio": 0.907,
+  "saturatedPixels": 50548,
+  "distinctColors": 82
+}

@@ -1,0 +1,65 @@
+{
+  "schema": "gypsy.toolpack-state/v1",
+  "scope": "action",
+  "toolpack": "ublade2.unity",
+  "toolpackName": "UltraBlade 2 Unity 6000.6.7f1 Windows player",
+  "action": "capture-check",
+  "runId": "20261026T215729Z-b13055",
+  "manifestSha256": "684cbefeac2cc88aee86b8e6d98e3c59f45cda77caf4d94f261a74a5d42045be",
+  "generated": "2026-10-26T21:57:29+00:00",
+  "startedAt": "2026-10-26T21:57:29+00:00",
+  "finishedAt": "2026-10-26T21:57:29+00:00",
+  "durationSeconds": 0.19,
+  "passed": true,
+  "timedOut": false,
+  "seconds": 0.18,
+  "timeoutSeconds": 120.0,
+  "command": {
+    "argv": [
+      "python",
+      "scripts/check_hero_capture.py",
+      "--frame",
+      "artifacts/ublade2/frame.png",
+      "--evidence",
+      "artifacts/ublade2/hero-runtime.json",
+      "--out",
+      "artifacts/ublade2/capture-check.json"
+    ],
+    "cwd": "."
+  },
+  "exit": 0,
+  "stdout": "CAPTURE_CHECK_OK frame=artifacts/ublade2/frame.png heroRect=185x315 nonBg=90.7% colours=82\n",
+  "stderr": "",
+  "args": {
+    "note": "PNG pixel analysis of the hero screen rect"
+  },
+  "artifacts": [
+    {
+      "path": "artifacts/ublade2/capture-check.json",
+      "declaredAs": "artifacts/ublade2/capture-check.json",
+      "exists": true,
+      "sha256": "56c0e0838fea39ff8b0b4e6bbd8c4c19bd8ca862e92ca10f44f2c0e5a67bfe5d",
+      "bytes": 442
+    }
+  ],
+  "validators": [
+    {
+      "id": "capture-check",
+      "kind": "json",
+      "artifact": "artifacts/ublade2/capture-check.json",
+      "target": "artifacts/ublade2/capture-check.json",
+      "passed": true,
+      "error": null,
+      "details": {
+        "checks": 1,
+        "failed": 0
+      }
+    }
+  ],
+  "license": "Unity licence proven by batchmode; game and hero assets are the ProjectGypsy prototype the operator asked to port; rights review remains the operator's responsibility",
+  "tools": [
+    "Unity 6000.6.7f1",
+    "Windows Standalone Build Support"
+  ],
+  "errors": []
+}

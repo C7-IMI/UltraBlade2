@@ -1,0 +1,42 @@
+{
+  "schema": "gypsy.capability/v1",
+  "id": "engine.unity.port.demo",
+  "layer": "engine",
+  "engine": "unity",
+  "kind": "run",
+  "maturity": "stable",
+  "description": "UltraBlade 2 Unity Windows player deterministic demo: headless batchmode/nographics run with CharacterController autopilot, three crystals collected, GYPSY_DEMO_OK collected=3 printed, exit 0.",
+  "requires": [
+    "engine.unity.port.build"
+  ],
+  "inputs": [
+    {
+      "name": "log",
+      "type": "path"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "marker",
+      "type": "text"
+    }
+  ],
+  "checks": [
+    "exit 0",
+    "GYPSY_DEMO_OK collected=3",
+    "frames bounded by 900",
+    "hero runtime evidence heroVisible true"
+  ],
+  "provenance": {
+    "record": [
+      "player.log",
+      "exit",
+      "marker",
+      "engine.version",
+      "buildHash"
+    ]
+  },
+  "notes": [
+    "Demo log artifacts/ublade2/demo.log; hero runtime evidence artifacts/ublade2/hero-runtime.json."
+  ]
+}
