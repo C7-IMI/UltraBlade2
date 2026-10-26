@@ -188,6 +188,9 @@ The repository's own check list now includes a `manifests` check that validates 
     python scripts/check_all.py
     -> checks: PASS (5/5)
 
+Committed and pushed: `afae4804690a0d1356ca981f02d047d3c75c418c` (`origin/main`, public); GitHub Actions
+`checks` run `40408803952` succeeded in 14 s.
+
 ## 7. Mobile: blocked, not claimed
 
 Unity Android Build Support is **not installed**. The editor has only `windowsstandalonesupport` and `WebGLSupport`
@@ -225,7 +228,7 @@ launch it on a clean host/device with screenshot and logcat evidence.
 | Hero | 23 bones, 3 clips, Smile, 512² maps, LODs, visible capture | **PASS** — section 4 |
 | Capture | 1280x720 frame inspected | **PASS** — 90.7% non-background in hero rect, inspected |
 | Mobile | module installed, APK built, launched, screenshot/logcat | **BLOCKED** — Android module absent; blocked capability manifest recorded; not claimed |
-| Records | Gypsy checks pass and evidence is committed | **PASS** — Gypsy checks pass; the records and the acceptance evidence artifacts are committed and pushed at the operator's explicit request (prompt 5), with the commit hash and CI run recorded in BuildNotes 2026.10.26.005 |
+| Records | Gypsy checks pass and evidence is committed | **PASS** — Gypsy checks pass; the records and the acceptance evidence artifacts are committed in `afae480`, pushed to `origin/main`, and the GitHub Actions `checks` run `40408803952` succeeded (14 s). BuildNotes 2026.10.26.005 records the close-out |
 
 ## 10. Reproduce
 

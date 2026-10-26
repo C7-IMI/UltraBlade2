@@ -273,3 +273,16 @@ Each entry has:
 
   Never substitute "it should work" for a run. Never mark Stage B complete from a passing manifest alone.
   ```
+
+## 5 - 2026-10-26
+
+- Request: "keep going. and make sure to push it to the repo"
+- Status: Completed - committed the staged Stage B port as `afae480`, pushed it to `origin/main`, verified the CI run,
+  and moved the acceptance matrix "Records: evidence is committed" row from PARTIAL to PASS.
+- Version: 2026.10.26.005
+- Commit/evidence: `afae4804690a0d1356ca981f02d047d3c75c418c` ("Port UltraBlade 2 to Unity 6000.6.7f1 with acceptance
+  evidence", 128 files, +19,183/-114); `git push` output `3809c2c..afae480 main -> main` (exit 0); local HEAD =
+  origin/main = `afae480`; `gh repo view C7-IMI/UltraBlade2` -> PUBLIC; GitHub Actions run `40408803952` ("checks")
+  completed success in 14 s; the same commit's pre-commit hook ran the fast check list (PASS 5/5). This records/CI
+  close-out is committed as "this change" (2026.10.26.005).
+

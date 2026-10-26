@@ -1,6 +1,6 @@
 # BuildNotes - the changelog
 
-Current version: 2026.10.26.004
+Current version: 2026.10.26.005
 
 BuildNotes is UltraBlade 2's dated, versioned changelog (`<CHANGELOG>` in the pack). Newest entry first; versions
 are `YYYY.M.D.NNN` with a zero-padded sequence, and the next one is computed by
@@ -8,17 +8,41 @@ are `YYYY.M.D.NNN` with a zero-padded sequence, and the next one is computed by
 log these entries answer. Records are guarded by [`scripts/records_check.py`](./scripts/records_check.py) and run by
 [`scripts/check_all.py`](./scripts/check_all.py).
 
-## How versions 001-004 were assigned
+## How versions 001-005 were assigned
 
 No changelog existed before this bootstrap, so the bootstrap assigned `2026.10.26.001` to the repository-creation
 commit (the only commit already in `git log`) and `2026.10.26.002` to the pack application. `2026.10.26.003` (the
 Unity port) was computed by `scripts/next-version.py` from the previous date, and `2026.10.26.004` (the
-Stage B completion pass) was computed the same way; from then on the number is computed by the script.
+Stage B completion pass) was computed the same way, and `2026.10.26.005` (the commit/push close-out) by the
+script; from then on the number is computed by the script.
 
 This changelog has **no generated documentation copies yet**. There is no generated documentation artefact to
 regenerate; when the game arrives, its export and captures will be generated artefacts under gitignored `build/` and
 `artifacts/`. [`scripts/records_check.py`](./scripts/records_check.py) checks the source, its `Current version:` header
 and [`Retrace.md`](./Retrace.md); it will compare generated copies when they exist.
+
+## 2026.10.26.005
+
+**Commit and push the Unity port, verify CI, and close the Stage B Records acceptance row.**
+
+- Date: 2026-10-26
+- Commit: this change - the records/CI close-out commit, pushed after the port commit `afae480`.
+- Change: committed the Stage B port as `afae480` (128 files, +19,183/-114) including the Unity project, hero
+  prefab, scripts, the Gypsy toolpack/slice/capability manifests, the port records and docs, and the acceptance
+  evidence artifacts force-added under `artifacts/ublade2/` and `artifacts/hero/`; pushed origin/main
+  `3809c2c..afae480` and recorded the CI result; documented the commit/push evidence here and in
+  `docs/UNITY-PORT.md`; the acceptance matrix row "Records: evidence is committed" moved from PARTIAL to PASS.
+  `scripts/normalize_evidence.py` keeps text evidence UTF-8/LF so committed evidence hashes equal the hashes Gypsy
+  recorded at run time.
+- Verification: `git push` exit 0 (`3809c2c..afae480`); local HEAD = origin/main =
+  `afae4804690a0d1356ca981f02d047d3c75c418c`; repository visibility PUBLIC; GitHub Actions run `40408803952`
+  ("checks") completed **success** in 14 s; fast check list `checks: PASS (5/5)` on the committed tree; final Gypsy
+  slice state `workstream/state/slices/ublade2.unity.json` (run `20261026T215755Z-e6e9b2`) passed=True, steps=2,
+  artifacts=8 in 22.89 s; toolpack aggregate state `workstream/state/toolpacks/ublade2.unity-20261026T215755Z-bfefd4.json`
+  passed=True, artifacts=10, validators=8.
+- Not verified, and not claimed: mobile - Android Build Support absent, blocked capability manifest, no APK/device
+  evidence (UB2-D13); the rest of the production game (HUD, menu, audio, combat, teams) is not ported (UB2-D14).
+
 
 ## 2026.10.26.004
 
