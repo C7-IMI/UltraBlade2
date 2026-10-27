@@ -11,8 +11,8 @@ team and drome catalogs are generated into `TeamCatalog.cs` and `ArenaCatalog.cs
 - One **rok** (the ball/head) is carried on the jak and thrown into a small goal cut into the **elliptical drome**
   wall at each long end. A normal goal is **1 point**; scoring through the **multiplier** is **2 or 4 points**.
   The multiplier can be nullified by the opposing team carrying the rok back through the gate.
-- A match is **3 periods** (the original help file defaults to 5:00; the code supports 3/5/7 minute options; this
-  slice uses 5:00 for a real match and a short 20 s period for the headless gate).
+- A match is **3 periods** (the original help file defaults to 5:00 and offers 3/5/7 minute options; this slice uses
+  **3:00** periods, one of the original options, and a short 20 s period for the headless gate).
 - No referees, no penalties, no offside, no overtime; ties are possible. The slice tracks **injuries** and
   **fatalities** and keeps downed dromers out until the next goal or period, approximated for a bench that is not
   visually fielded.

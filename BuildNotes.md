@@ -1,6 +1,6 @@
 # BuildNotes - the changelog
 
-Current version: 2026.10.26.010
+Current version: 2026.10.26.011
 
 BuildNotes is UltraBlade 2's dated, versioned changelog (`<CHANGELOG>` in the pack). Newest entry first; versions
 are `YYYY.M.D.NNN` with a zero-padded sequence, and the next one is computed by
@@ -8,7 +8,7 @@ are `YYYY.M.D.NNN` with a zero-padded sequence, and the next one is computed by
 log these entries answer. Records are guarded by [`scripts/records_check.py`](./scripts/records_check.py) and run by
 [`scripts/check_all.py`](./scripts/check_all.py).
 
-## How versions 001-010 were assigned
+## How versions 001-011 were assigned
 
 No changelog existed before this bootstrap, so the bootstrap assigned `2026.10.26.001` to the repository-creation
 commit (the only commit already in `git log`) and `2026.10.26.002` to the pack application. `2026.10.26.003` (the
@@ -21,6 +21,19 @@ This changelog has **no generated documentation copies yet**. There is no genera
 regenerate; when the game arrives, its export and captures will be generated artefacts under gitignored `build/` and
 `artifacts/`. [`scripts/records_check.py`](./scripts/records_check.py) checks the source, its `Current version:` header
 and [`Retrace.md`](./Retrace.md); it will compare generated copies when they exist.
+
+## 2026.10.26.011
+
+**Correct the documented period length after the HyperBlade fidelity pass.**
+
+- Date: 2026-10-26
+- Commit: this change.
+- Change: the playable HyperBlade slice uses 3:00 periods (one of the original game's 3/5/7 minute options; the 1996
+  help file's default is 5:00). `docs/GAME-DESIGN.md` incorrectly said 5:00 for a real match; it now states the
+  shipped 3:00 and the original 5:00 default correctly. No code, release artefact or acceptance evidence changed.
+- Verification: text-only change; `python scripts/check_all.py` passes 7/7 on the index, and the E2E code/release
+  evidence from 2026.10.26.010 (build, 7-2 match, captures, release) is unchanged.
+- Not verified, and not claimed: no new engine run was needed for this documentation correction.
 
 ## 2026.10.26.010
 
