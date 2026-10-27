@@ -76,6 +76,11 @@
       "date": "2026-10-26T19:30:00-05:00",
       "decision": "Park the mobile target: UltraBlade 2 is a PC-only game for this milestone",
       "reason": "The operator directed that the current game be PC only. The Android build/launch evidence and the partial mobile capability are preserved for a later decision, but mobile is not part of the playable release and is not claimed as complete."
+    },
+    {
+      "date": "2026-10-26T20:00:00-05:00",
+      "decision": "Make UltraBlade 2 a HyperBlade-fidelity recreation based on research of the 1996 PC game",
+      "reason": "Operator asked to clone HyperBlade's mechanics, gameplay and look from articles, the manual/help data, the shipped CD data and three YouTube references. The slice now uses an elliptical drome, rok/multiplier scoring, 2 forwards + AI goalie with bench, three periods, 14 teams/dromes from DATA/*.HTM and DATA/*.ENV, Gauntlet progression, and the HyperBlade HUD. Reference: docs/HYPERBLADE-REFERENCE.md."
     }
   ]
 }

@@ -1,14 +1,14 @@
 ULTRABLADE 2 - playable slice release
-Version: 2026.10.26.008
-Generated: 2026-10-27T00:22:09Z
+Version: 2026.10.26.010
+Generated: 2026-10-27T01:11:48Z
 Platform: Windows PC only (mobile parked by operator)
 Unity: 6000.6.7f1
-Git: 03d60a5562ffb87a8cf4b83f329c95b3b7e718f5
+Git: 717c5251ae0f92996cda98a9b5b5ad457705c607
 
 Windows player: unity/UBlade2/Build/UBlade2.exe
   exe sha256: 9806abde4a406ed68647e9505852c49f6aa72a372f4f084e2aa2821affea57a2
-Windows ZIP: dist/UBlade2-2026.10.26.008-win64.zip
-  bytes:  50871958
-  sha256: fef1d1b4be9c23f38633ffd568f8d81a6b0e43d6ae0c916112ec0d0cf80d7355
+Windows ZIP: dist/UBlade2-2026.10.26.010-win64.zip
+  bytes:  50909631
+  sha256: 2bb791a82f72f4c6f1c79bbdccb734aff0b55a074271cd079cbbc01e33054b1d
 
 This is an unsigned development build of the playable slice. Mobile/Android is not part of this release.

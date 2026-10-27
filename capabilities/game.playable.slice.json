@@ -5,7 +5,7 @@
   "engine": "unity",
   "kind": "playable",
   "maturity": "stable",
-  "description": "UltraBlade 2 playable production slice: main menu, league match against AI, crystal scoring, strikes/stuns, arenas, procedural audio, settings, pause, results and a four-round season on the Unity 6 Windows player; the legacy three-crystal demo and hero capture remain green.",
+  "description": "HyperBlade-fidelity playable slice: elliptical drome, carried/thrown rok, 1/2/4-point multiplier goals, 2 forwards + AI goalie and a bench, jak attacks, speedburst, drome hazards, three periods, 14 teams/dromes reconstructed from the 1996 HyperBlade DATA/*.HTM and DATA/*.ENV, Gauntlet progression, HyperBlade HUD and stat screen, on the Unity 6 Windows player.",
   "requires": [
     "engine.unity.port.build",
     "engine.unity.port.capture"
@@ -35,23 +35,27 @@
     }
   ],
   "checks": [
-    "Windows player builds with the game modules",
-    "legacy GYPSY_DEMO_OK collected=3 marker still passes",
-    "headless match prints UBLADE2_MATCH_OK and passes the match evidence",
-    "1280x720 match capture shows the world and HUD (pixel check)",
-    "1280x720 menu capture shows the neon UI (pixel check)",
-    "menu/settings/league/pause/result paths are real UI state, no dead controls"
+    "Windows player builds with the HyperBlade systems",
+    "legacy GYPSY_DEMO_OK collected=3 and hero capture remain green",
+    "headless 3-period match scores and prints UBLADE2_MATCH_OK with a v2 evidence JSON",
+    "14 teams and 14 dromes generated from the original game data",
+    "1280x720 match capture shows the elliptical drome, HUD and players",
+    "six UI screenshots show menu, league, settings, match HUD, pause and result/stats",
+    "league/Gauntlet save-load runtime check passes"
   ],
   "provenance": {
     "record": [
+      "docs/HYPERBLADE-REFERENCE.md",
+      "docs/GAME-DESIGN.md",
       "artifacts/ublade2-pro/match-runtime.json",
       "artifacts/ublade2-pro/match.png",
-      "artifacts/ublade2-pro/menu.png",
-      "artifacts/ublade2-pro/match-capture.json",
-      "docs/GAME-DESIGN.md"
+      "artifacts/ublade2-pro/ui/",
+      "unity/UBlade2/Assets/Scripts/TeamCatalog.cs",
+      "unity/UBlade2/Assets/Scripts/ArenaCatalog.cs"
     ]
   },
   "notes": [
-    "Offline prototype slice: arena art, roster depth and licensed media remain deferred."
+    "Original assets are not shipped; dromes/players are runtime low-poly reconstructions in the original proportions and livery logic.",
+    "Killball/swarf/mine weapon economy, bench fatigue/death bookkeeping and wall-riding tricks are approximated or not implemented; see DEFERRED and docs/GAME-DESIGN.md."
   ]
 }

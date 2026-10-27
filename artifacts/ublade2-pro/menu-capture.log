@@ -24,7 +24,7 @@ Direct3D:
     App VRAM Budget: 3347 MB
     Driver:          32.0.15.9730
 Begin MonoManager ReloadAssembly
-- Finished resetting the current domain, in  0.006 seconds
+- Finished resetting the current domain, in  0.007 seconds
 [Physics::Module] Selected backend (deferred post-plugins).
 [Physics::Module] Name: PhysX
 [Physics::Module] Id: 0xf2b8ea05
@@ -35,13 +35,9 @@ Begin MonoManager ReloadAssembly
 
 <RI> Input initialized.
 
-UnloadTime: 0.740600 ms
-UBLADE_HERO_OK lodLevels=3 bones=23 smile=Smile cape=3 lod0Tris=1126 lod1Tris=615 lod2Tris=306 animators=3 prefab=WayfarerLOD
-UBLADE_HERO_OK lodLevels=3 bones=23 smile=Smile cape=3 lod0Tris=1126 lod1Tris=615 lod2Tris=306 animators=3 prefab=WayfarerLOD
-UBLADE2_WORLD crystals=3 speed=6 hero=Wayfarer
-UBLADE2_START demo=False crystals=3 unity=6000.6.7f1 screen=1280x720 capture=none mode=play
-UBLADE_LOD level=0 distance=5.17 height=0.353 transitionHeights=0.30/0.12/0.04
-UBLADE_LOD level=0 distance=5.25 height=0.348 transitionHeights=0.30/0.12/0.04
+UnloadTime: 0.764200 ms
+UBLADE2_START demo=False crystals=0 unity=6000.6.7f1 screen=1280x720 capture=none mode=play
+UBLADE2_HYPERBLADE_WORLD team=tokyo opponent=chico arena=CHIDRO props=31
 UBLADE2_MENU_CAPTURE_OK path=C:\Users\STEPHE~1\AppData\Local\Temp\ublade2-menu-capture-frame.png screen=1280x720
 [Physics::Module] Cleanup current backend.
 [Physics::Module] Id: 0xf2b8ea05

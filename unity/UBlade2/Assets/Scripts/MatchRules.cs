@@ -1,275 +1,170 @@
 using System;
-using UnityEngine;
 
+// HyperBlade-fidelity match rules: three periods (3/5/7 minute options), goals worth 2 points
+// (4 through the multiplier), a carried/flying rok, and kickoff resets after every goal.
 public enum MatchPhase
 {
     Kickoff,
     Playing,
-    PointFlash,
+    GoalFlash,
+    PeriodBreak,
     Ended
 }
 
 public sealed class MatchConfig
 {
-    public string playerTeam = "WAYFARERS";
-    public string aiTeam = "VOID";
-    public Color playerColor = new Color(0.2f, 0.75f, 1f);
-    public Color aiColor = new Color(1f, 0.35f, 0.3f);
-    public string arenaName = "Neon Rink";
-    public float duration = 120f;
-    public int targetScore = 5;
+    public TeamDefinition homeTeam;
+    public TeamDefinition awayTeam;
+    public ArenaDefinition arena;
+    public int periods = 3;
+    public float periodSeconds = 120f;
     public int difficulty = 2;
-    public int round = 1;
-    public int totalRounds = 3;
-
-    public MatchConfig Clone()
-    {
-        return new MatchConfig
-        {
-            playerTeam = playerTeam,
-            aiTeam = aiTeam,
-            playerColor = playerColor,
-            aiColor = aiColor,
-            arenaName = arenaName,
-            duration = duration,
-            targetScore = targetScore,
-            difficulty = difficulty,
-            round = round,
-            totalRounds = totalRounds
-        };
-    }
 }
 
-// Pure match state for the crystal-collection duel. It owns no scene objects and
-// raises events only; the game host applies movement, presentation and persistence.
 public sealed class MatchRules
 {
-    public const float KickoffSeconds = 2f;
-    public const float PointFlashSeconds = 1f;
-    public const float CrystalRespawnSeconds = 2.5f;
+    public const float KickoffSeconds = 2.0f;
+    public const float GoalFlashSeconds = 1.6f;
+    public const float PeriodBreakSeconds = 2.0f;
 
-    private static readonly Vector3[] DefaultCrystalPositions =
-    {
-        new Vector3(3f, 1.1f, 0f),
-        new Vector3(-3f, 1.1f, 2f),
-        new Vector3(0f, 1.1f, -3f)
-    };
+    public MatchConfig Config { get; private set; }
+    public MatchPhase Phase { get; private set; }
+    public float PhaseTimer { get; private set; }
+    public int Period { get; private set; }
+    public float PeriodTime { get; private set; }
+    public int HomeScore { get; private set; }
+    public int AwayScore { get; private set; }
+    public int HomeGoals { get; private set; }
+    public int AwayGoals { get; private set; }
+    public int Winner { get; private set; }
+    public bool MatchOver { get { return Phase == MatchPhase.Ended; } }
 
-    private readonly MatchConfig config;
-    private readonly Vector3[] crystalPositions;
-    private readonly bool[] crystalActive;
-    private readonly float[] respawnTimers;
-
-    private MatchPhase phase;
-    private float phaseTimer;
-    private float timeLeft;
-    private int playerScore;
-    private int aiScore;
-    private int winner;
-    private bool matchEndedRaised;
-
-    public event Action<int, bool> CrystalCollected;
+    public event Action<bool, int> GoalScored;
+    public event Action<int> PeriodEnded;
     public event Action<int> MatchEnded;
 
-    public MatchRules(MatchConfig config, Vector3[] crystalPositions)
+    public MatchRules(MatchConfig config)
     {
-        this.config = config != null ? config.Clone() : new MatchConfig();
-        Vector3[] source = crystalPositions != null ? crystalPositions : DefaultCrystalPositions;
-        this.crystalPositions = new Vector3[source.Length];
-        Array.Copy(source, this.crystalPositions, source.Length);
-        crystalActive = new bool[this.crystalPositions.Length];
-        respawnTimers = new float[this.crystalPositions.Length];
-        Reset();
-    }
-
-    public MatchConfig Config
-    {
-        get { return config; }
-    }
-
-    public MatchPhase Phase
-    {
-        get { return phase; }
-    }
-
-    public float PhaseTimer
-    {
-        get { return phaseTimer; }
-    }
-
-    public float TimeLeft
-    {
-        get { return timeLeft; }
-    }
-
-    public int PlayerScore
-    {
-        get { return playerScore; }
-    }
-
-    public int AiScore
-    {
-        get { return aiScore; }
-    }
-
-    // 0 = no winner yet / draw, 1 = player, 2 = AI. The final value is fixed when
-    // the point flash finishes, not when the target score is reached.
-    public int Winner
-    {
-        get { return winner; }
-    }
-
-    public bool[] CrystalActive
-    {
-        get { return crystalActive; }
-    }
-
-    public Vector3[] CrystalPositions
-    {
-        get { return crystalPositions; }
-    }
-
-    // Returns the rules to the kickoff state without raising events. BeginMatch is
-    // the explicit match-start entry point and resets the same state.
-    public void Reset()
-    {
-        phase = MatchPhase.Kickoff;
-        phaseTimer = KickoffSeconds;
-        float duration = config.duration;
-        timeLeft = duration > 0f && !float.IsInfinity(duration) ? duration : 0f;
-        playerScore = 0;
-        aiScore = 0;
-        winner = 0;
-        matchEndedRaised = false;
-        for (int i = 0; i < crystalActive.Length; i++)
-        {
-            crystalActive[i] = true;
-            respawnTimers[i] = 0f;
-        }
+        Config = config;
     }
 
     public void BeginMatch()
     {
-        Reset();
-        phase = MatchPhase.Kickoff;
-        phaseTimer = KickoffSeconds;
+        Period = 1;
+        HomeScore = 0;
+        AwayScore = 0;
+        HomeGoals = 0;
+        AwayGoals = 0;
+        Winner = 0;
+        PeriodTime = Config.periodSeconds;
+        Phase = MatchPhase.Kickoff;
+        PhaseTimer = KickoffSeconds;
     }
 
     public void Update(float dt)
     {
-        if (!(dt > 0f) || float.IsInfinity(dt))
+        if (Phase == MatchPhase.Ended)
         {
             return;
         }
-
-        TickRespawns(dt);
-
-        if (phase == MatchPhase.Kickoff)
+        if (Phase == MatchPhase.Kickoff || Phase == MatchPhase.GoalFlash || Phase == MatchPhase.PeriodBreak)
         {
-            phaseTimer = Mathf.Max(0f, phaseTimer - dt);
-            if (phaseTimer <= 0f)
+            PhaseTimer -= dt;
+            if (PhaseTimer > 0f)
             {
-                phase = MatchPhase.Playing;
-                phaseTimer = 0f;
+                return;
             }
-        }
-        else if (phase == MatchPhase.Playing)
-        {
-            timeLeft = Mathf.Max(0f, timeLeft - dt);
-            if (timeLeft <= 0f || TargetReached())
+            if (Phase == MatchPhase.PeriodBreak)
             {
-                EnterPointFlash();
-            }
-        }
-        else if (phase == MatchPhase.PointFlash)
-        {
-            phaseTimer = Mathf.Max(0f, phaseTimer - dt);
-            if (phaseTimer <= 0f)
-            {
-                EnterEnded();
-            }
-        }
-    }
-
-    // Score changes are only accepted during live play. Reaching the target score
-    // does not change the phase here; Update performs the point flash and ending.
-    public bool CollectCrystal(int index, bool byPlayer)
-    {
-        if (phase != MatchPhase.Playing)
-        {
-            return false;
-        }
-        if (index < 0 || index >= crystalActive.Length || !crystalActive[index])
-        {
-            return false;
-        }
-
-        crystalActive[index] = false;
-        respawnTimers[index] = CrystalRespawnSeconds;
-        if (byPlayer)
-        {
-            playerScore++;
-        }
-        else
-        {
-            aiScore++;
-        }
-
-        Action<int, bool> handler = CrystalCollected;
-        if (handler != null)
-        {
-            handler(index, byPlayer);
-        }
-        return true;
-    }
-
-    private void TickRespawns(float dt)
-    {
-        for (int i = 0; i < crystalActive.Length; i++)
-        {
-            if (crystalActive[i])
-            {
-                continue;
-            }
-            float remaining = respawnTimers[i] - dt;
-            if (remaining <= 0f)
-            {
-                crystalActive[i] = true;
-                respawnTimers[i] = 0f;
+                Period++;
+                PeriodTime = Config.periodSeconds;
+                Phase = MatchPhase.Kickoff;
+                PhaseTimer = KickoffSeconds;
             }
             else
             {
-                respawnTimers[i] = remaining;
+                Phase = MatchPhase.Playing;
+                PhaseTimer = 0f;
+            }
+            return;
+        }
+
+        PeriodTime -= dt;
+        if (PeriodTime <= 0f)
+        {
+            PeriodTime = 0f;
+            if (Period >= Config.periods)
+            {
+                EndMatch();
+                return;
+            }
+            Phase = MatchPhase.PeriodBreak;
+            PhaseTimer = PeriodBreakSeconds;
+            if (PeriodEnded != null)
+            {
+                PeriodEnded(Period);
             }
         }
     }
 
-    private bool TargetReached()
+    public int Goal(bool homeScored, int points)
     {
-        return playerScore >= config.targetScore || aiScore >= config.targetScore;
+        if (Phase == MatchPhase.Ended)
+        {
+            return 0;
+        }
+        int awarded = points == 4 ? 4 : (points == 2 ? 2 : 1);
+        if (homeScored)
+        {
+            HomeScore += awarded;
+            HomeGoals++;
+        }
+        else
+        {
+            AwayScore += awarded;
+            AwayGoals++;
+        }
+        Phase = MatchPhase.GoalFlash;
+        PhaseTimer = GoalFlashSeconds;
+        if (GoalScored != null)
+        {
+            GoalScored(homeScored, awarded);
+        }
+        return awarded;
     }
 
-    private void EnterPointFlash()
+    public void ForceEnd(int winner)
     {
-        phase = MatchPhase.PointFlash;
-        phaseTimer = PointFlashSeconds;
-    }
-
-    private void EnterEnded()
-    {
-        phase = MatchPhase.Ended;
-        phaseTimer = 0f;
-        winner = playerScore > aiScore ? 1 : (aiScore > playerScore ? 2 : 0);
-        if (matchEndedRaised)
+        if (Phase == MatchPhase.Ended)
         {
             return;
         }
-        matchEndedRaised = true;
-
-        Action<int> handler = MatchEnded;
-        if (handler != null)
+        Winner = winner;
+        Phase = MatchPhase.Ended;
+        if (MatchEnded != null)
         {
-            handler(winner);
+            MatchEnded(Winner);
+        }
+    }
+
+    private void EndMatch()
+    {
+        if (HomeScore > AwayScore)
+        {
+            Winner = 1;
+        }
+        else if (AwayScore > HomeScore)
+        {
+            Winner = 2;
+        }
+        else
+        {
+            Winner = 0;
+        }
+        Phase = MatchPhase.Ended;
+        if (MatchEnded != null)
+        {
+            MatchEnded(Winner);
         }
     }
 }

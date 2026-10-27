@@ -6,40 +6,40 @@
     "menu.png": {
       "width": 1280,
       "height": 720,
-      "nonBackgroundRatio": 0.0746,
-      "distinctColors": 97
+      "nonBackgroundRatio": 0.1639,
+      "distinctColors": 168
     },
     "league.png": {
       "width": 1280,
       "height": 720,
-      "nonBackgroundRatio": 0.059,
-      "distinctColors": 75
+      "nonBackgroundRatio": 0.1432,
+      "distinctColors": 117
     },
     "settings.png": {
       "width": 1280,
       "height": 720,
-      "nonBackgroundRatio": 0.0656,
-      "distinctColors": 78
+      "nonBackgroundRatio": 0.1296,
+      "distinctColors": 112
     },
     "match.png": {
       "width": 1280,
       "height": 720,
-      "nonBackgroundRatio": 0.7453,
-      "distinctColors": 248
+      "nonBackgroundRatio": 0.5035,
+      "distinctColors": 232
     },
     "pause.png": {
       "width": 1280,
       "height": 720,
-      "nonBackgroundRatio": 0.1067,
-      "distinctColors": 96
+      "nonBackgroundRatio": 0.4992,
+      "distinctColors": 262
     },
     "result.png": {
       "width": 1280,
       "height": 720,
-      "nonBackgroundRatio": 0.0647,
-      "distinctColors": 113
+      "nonBackgroundRatio": 0.3265,
+      "distinctColors": 217
     }
   },
   "errors": [],
-  "generatedAt": "2026-10-27T00:23:26+00:00"
+  "generatedAt": "2026-10-27T01:11:18+00:00"
 }

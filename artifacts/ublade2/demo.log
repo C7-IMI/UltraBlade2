@@ -22,17 +22,13 @@ Begin MonoManager ReloadAssembly
 [Physics::Module] Integration Version: 1.0.0
 [Physics::Module] Threading Mode: Multi-Threaded
 Microsoft Media Foundation video decoding to texture disabled: graphics device is Null, only Direct3D 11 and Direct3D 12 (only on desktop) are supported for hardware-accelerated video decoding.
-UnloadTime: 0.417000 ms
-UBLADE_HERO_OK lodLevels=3 bones=23 smile=Smile cape=3 lod0Tris=1126 lod1Tris=615 lod2Tris=306 animators=3 prefab=WayfarerLOD
-UBLADE_HERO_OK lodLevels=3 bones=23 smile=Smile cape=3 lod0Tris=1126 lod1Tris=615 lod2Tris=306 animators=3 prefab=WayfarerLOD
-UBLADE2_WORLD crystals=3 speed=6 hero=Wayfarer
+UnloadTime: 0.610100 ms
 UBLADE2_START demo=True crystals=3 unity=6000.6.7f1 screen=2854x1440 capture=none mode=demo
-UBLADE_LOD level=0 distance=5.17 height=0.353 transitionHeights=0.30/0.12/0.04
-UBLADE2_COLLECT collected=1 frames=8
-UBLADE2_COLLECT collected=2 frames=35
-UBLADE2_COLLECT collected=3 frames=59
-GYPSY_DEMO_OK collected=3 frames=59
-UBLADE_HERO_RUNTIME_OK visible=True lod=0 smile=100.0 cape=3 rect=1245,488,352x593 bones=23 lod0Tris=1126 lod1Tris=615 lod2Tris=306
+UBLADE_HERO_OK lodLevels=3 bones=23 smile=Smile cape=3 lod0Tris=1126 lod1Tris=615 lod2Tris=306 animators=3 prefab=WayfarerLOD
+UBLADE2_WORLD crystals=3 speed=7.2 hero=Wayfarer
+UBLADE_LOD level=0 distance=5.53 height=0.330 transitionHeights=0.30/0.12/0.04
+GYPSY_DEMO_OK collected=3 frames=56
+UBLADE_HERO_RUNTIME_OK visible=True lod=0 bones=23 rect=1263,503,328x553
 [Physics::Module] Cleanup current backend.
 [Physics::Module] Id: 0xf2b8ea05
 Input System module state changed to: ShutdownInProgress.

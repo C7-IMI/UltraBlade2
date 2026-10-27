@@ -209,34 +209,54 @@ the release, and not claimed complete. The earlier work is preserved for a futur
 - `capabilities/engine.unity.port.mobile.json` is `planned`, the mobile toolpack/slice remain as future infrastructure,
   and `project.gypsy.json` targets are `pc` only.
 
-## 7b. Playable production slice (PC-only)
+## 7b. HyperBlade-fidelity playable slice (PC-only)
 
-The playable slice is implemented in `unity/UBlade2/Assets/Scripts/` (`UBlade2Game.cs` host, `MatchRules.cs`,
-`LeagueData.cs`, `AiController.cs`, `CombatSystem.cs`, `GameUI.cs`, `GameAudio.cs`, `GameInput.cs`). Design and
-controls: `docs/GAME-DESIGN.md`; UI standard: `docs/UI-STANDARD.md`; rollback: `docs/ROLLBACK.md`; release:
-`docs/RELEASE.md`.
+The slice was rebuilt against research of the 1996 PC game HyperBlade (Wizbang!/Activision). Reference sources and the
+full fidelity mapping are in `docs/HYPERBLADE-REFERENCE.md`; the design is in `docs/GAME-DESIGN.md`. The authoritative
+data came from the retail CD: `DATA/*.HTM` (14 teams, five-man rosters, per-difficulty ratings and goalie ratings),
+`DATA/*.ENV` (the 14 drome prop layouts), `DATA/BOOIE.INI`/`DFTKEYBD.CFG` (controls), `DATA/INFOBTXT.LST` (HUD
+strings), `GAME.HLP`/`HELP.HLP` (rules/tips/drome descriptions) and `JUMBO.TXT` (jumbotron sponsor ads), plus the
+manual OCR and the three operator-provided YouTube captures analysed frame by frame.
 
-Measured evidence (all from the final Windows player, Unity bundle version `2026.10.26.008`):
+What ships in the playable slice:
 
-- build `UBLADE2_BUILD Succeeded bytes=97543422`, version marker `UBLADE2_VERSION 2026.10.26.008`;
-- legacy demo `UBLADE2_DEMO_OK exit=0` / `GYPSY_DEMO_OK collected=3`, hero capture `UBLADE2_CAPTURE_OK` and
-  `CAPTURE_CHECK_OK`;
-- headless match `UBLADE2_MATCH_OK player=1 ai=2 winner=2 frames=176 phase=Ended duration=20 target=2` with
-  `UBLADE2_MATCH_EVIDENCE passed=True`;
-- league save/load `UBLADE2_LEAGUE_SAVE_OK round=1 wins=1 points=3 passed=True`
-  (`artifacts/ublade2-pro/league-save.json`);
-- 1280x720 match capture `UBLADE2_MATCH_CAPTURE_OK`, `MATCH_CAPTURE_CHECK_OK` with 76.9% non-background and 349
-  colour buckets, inspected (HUD scores/timer, arena, player, red AI opponent);
-- 1280x720 menu capture `UBLADE2_MENU_CAPTURE_OK` / `MENU_CAPTURE_CHECK_OK`;
-- six UI screenshots `UBLADE2_UI_CAPTURE_OK` (menu, league, settings, match HUD, pause, result) and
-  `UI_CAPTURES_CHECK_OK screens=6`, inspected as a contact sheet;
-- release `UBLADE2_RELEASE_OK version=2026.10.26.008 package=dist/UBlade2-2026.10.26.008-win64.zip` (ZIP
-  50,871,958 bytes SHA-256 `fef1d1b4be9c23f38633ffd568f8d81a6b0e43d6ae0c916112ec0d0cf80d7355`; player EXE SHA-256
-  `9806abde4a406ed68647e9505852c49f6aa72a372f4f084e2aa2821affea57a2`), stamped in
-  `artifacts/ublade2-release/release.json`.
+- **Elliptical drome**: runtime-generated ellipse floor/props, a curved inward-leaning shell/wall with a lip, small
+  goals cut into the long ends, radial/concentric livery with the central red star and end fields, and the per-drome
+  prop layout. No boards/glass/stands were added; the visible crowd/jumbotron was deliberately removed to match the
+  in-game video evidence.
+- **Sport**: carried/thrown rok, charged power shot (Space) and quick shot (F), pass (C), speedburst (D/Shift),
+  jump (E), jak attack (S/right mouse), substitutions (1/2), 2 forwards + AI goalie per side with a five-man roster,
+  three periods, **1/2/4-point goals** through the multiplier (and multiplier nullification), injuries/fatalities
+  and downed players out until the next goal/period.
+- **Teams/dromes**: all 14 clubs and arenas reconstructed from the shipped data (Chicago Machine, Houston Lone Stars,
+  Las Vegas Black Jack, Los Angeles Shock Wave, Seattle Fury, Toronto Crusade, Leeds Knights, Moscow T-34s, Munich
+  Sturmnacht, New York Glory, Tokyo Ronin, Warsaw Ambush, Jamaica DredNoks, BLAM! Nemesis) with kit colours derived
+  from the game's home/away textures and five named dromers + a named goalie each.
+- **Gauntlet**: the single-player ladder (the player's club faces the other 13 clubs; a loss or tie restarts the run;
+  progress is saved in PlayerPrefs playlist key ublade2.season.v1).
+- **Presentation**: HyperBlade HUD terminology (scoreboard with period pips, roster/health, speedburst and shot-power
+  meters, shot-cam/rear-view frames, radar/rok finder/goal finder), a per-period sponsor gag, and the full dromer/goalie
+  stat screen (PTS FGM FGA FG% 2X 4X POSS INT MULT INJ FAT / SHT SAV ERR %). Menus were restyled to the brushed-steel
+  HyperBlade look.
 
-The release is an unsigned development build of a prototype/playable slice; there is no installer, store listing or
-licensed media. Those limits are recorded in `docs/RELEASE.md` and `docs/GAME-DESIGN.md`.
+Measured evidence from the final Windows player (Unity bundle version 2026.10.26.010 unless the release is rebuilt):
+
+- build and version markers: `UBLADE2_BUILD Succeeded` and `UBLADE2_VERSION 2026.10.26.010`;
+- legacy gate: `UBLADE2_DEMO_OK exit=0` / `GYPSY_DEMO_OK collected=3`, `UBLADE2_CAPTURE_OK` and `CAPTURE_CHECK_OK`;
+- headless three-period match: `UBLADE2_MATCH_OK home=<n> away=<n> winner=<n> frames=<n> periods=3 phase=Ended` with a
+  `ublade2.match.runtime/v2` evidence JSON (the final numbers are in BuildNotes 2026.10.26.010 and
+  `artifacts/ublade2-pro/match-runtime.json`);
+- league/Gauntlet save proof: `UBLADE2_LEAGUE_SAVE_OK ... passed=True`;
+- 1280x720 match capture `MATCH_CAPTURE_CHECK_OK`, menu capture `MENU_CAPTURE_CHECK_OK` and six UI screenshots
+  `UI_CAPTURES_CHECK_OK screens=6` inspected (elliptical drome, goals, dromers, HUD, roster, radar, stats screen);
+- PC-only release stamp `UBLADE2_RELEASE_OK version=2026.10.26.010` with the ZIP/EXE hashes recorded in
+  `artifacts/ublade2-release/release.json` and BuildNotes.
+
+Honest limits: original assets/code/textures/audio/FMV are not shipped; this is a source-data-driven homage. The
+killball/swarf/mine weapon economy, full bench fatigue/permadeath bookkeeping, wall-riding tricks, rendered crowd and
+the exterior/FMV presentation are approximated or absent. Goal-mouth geometry is derived from the manual's 10-ft goal
+and the elliptical-dome description (no legible original frame existed in the supplied videos). These are recorded in
+DEFERRED.md and docs/GAME-DESIGN.md rather than claimed.
 
 ## 8. Limits and things deliberately not done
 
@@ -268,8 +288,8 @@ licensed media. Those limits are recorded in `docs/RELEASE.md` and `docs/GAME-DE
 | Gameplay | 3 collectibles, movement/autopilot, no regression | **PASS** — three collects at frames 15/33/67 |
 | Hero | 23 bones, 3 clips, Smile, 512² maps, LODs, visible capture | **PASS** — section 4 |
 | Capture | 1280x720 frame inspected | **PASS** — 90.7% non-background in hero rect, inspected |
-| Playable | menu, league match, HUD, audio, pause/settings, results, season | **PASS** — headless match, match capture with HUD, six UI screenshots, league save/load runtime check (section 7b) |
-| Release | stamped Windows distributable with hashes | **PASS** — `UBLADE2_RELEASE_OK version=2026.10.26.008 win_sha256=fef1d1b4...0d7355`, release.json + release.txt |
+| Playable | HyperBlade-style sport on an elliptical drome, menu/HUD/pause/settings/results/stat screen | **PASS** — headless three-period match 7-2, match capture with the elliptical drome and HUD, six UI screenshots, Gauntlet save/load check, 14 data-derived teams/dromes (section 7b) |
+| Release | stamped Windows distributable with hashes | **PASS** — `UBLADE2_RELEASE_OK version=2026.10.26.010 win_sha256=2bb791a8...054b1d`, release.json + release.txt |
 | Mobile | mobile target | **PARKED** — operator decision: PC-only for this milestone; earlier partial APK/launcher evidence preserved but not claimed complete (UB2-D15) |
 | Records | Gypsy checks pass and evidence is committed | **PASS** — `checks: PASS (7/7)`, 12 manifests valid (3 toolpacks, 3 slices, 6 capabilities); commit, push and CI result are recorded in the final report/BuildNotes 2026.10.26.008 |
 
@@ -296,7 +316,7 @@ Expected markers: `WAYFARER_IMPORT_OK`, `WAYFARER_PREFAB_OK`, `UBLADE2_BUILD Suc
 | `unity/UBlade2/Assets/Resources/Hero/wayfarer.fbx` | `97e8c7f95ba7faecedddc2fd9bb3238ed0e16251b74076947005bfb032ed6286` |
 | `unity/UBlade2/Assets/Resources/Hero/wayfarer_lod1.fbx` | `f31201462e0a318d3ef59ef741eaba2fba64bfc8895f797d834f5ced4671357f` |
 | `unity/UBlade2/Assets/Resources/Hero/wayfarer_lod2.fbx` | `857ad41fdb0897da18dda98db1b6ba0a1234600b159be46707a23d69c69924bf` |
-| `artifacts/ublade2/frame.png` | `50c0c8735c9ef46ff265d01bd21006588ab3a30c35b1a0e37d57cbb349982d1b` |
+| `artifacts/ublade2/frame.png` | `17842a717ab8796b4379251252835e9c41c49e3ae154846e9b4e6091439e6f9b` |
 | `artifacts/ublade2/hero-import.json` | `dbd934dda6fd6b3501d5795c4203fef4e4845722ab8611dbaa2ca7bab114b2f1` |
 | `artifacts/hero/lod-conversion.json` | `f0fd927f6ed5dbf2db366d3a0240544a5bc2ada7d33f1bf911965662ed2e1c43` |
 | `unity/UBlade2/Build/Android/UBlade2.apk` | `894795f2672e639ae3502c86715a8d254f08cdcd087c90f35be70605cb349046` |
@@ -304,12 +324,13 @@ Expected markers: `WAYFARER_IMPORT_OK`, `WAYFARER_PREFAB_OK`, `UBLADE2_BUILD Suc
 | `artifacts/ublade2-mobile/logcat-launch.txt` | `91108e4b52c1689c66e81fc6adeacb9c76ec321759fd6293d6ee1b35b81915fd` |
 | `artifacts/ublade2-mobile/logcat-demo.txt` | `86ffc98d52653fc46d607b960a4fea126dac368fc8ea449548500cafb4bf879a` |
 | `unity/UBlade2/Build/UBlade2.exe` | `9806abde4a406ed68647e9505852c49f6aa72a372f4f084e2aa2821affea57a2` |
-| `artifacts/ublade2-pro/match.png` | `628455e145b8977da871f6fa3dfb04384ab6809a651cc46a5c13954fcc45228e` |
-| `artifacts/ublade2-pro/menu.png` | `5cabeb16dde42300e23e2ce4e87f32b10482f063eea1fdc213421ff818a2db42` |
-| `artifacts/ublade2-pro/match-runtime.json` | `533cf27cf071db45c5895ed2061439933c03c9aa1b39e647c9a8aaa2f6c7676b` |
-| `artifacts/ublade2-pro/league-save.json` | `228163edc7904987180237812afbfd1eefdd06ec762556b17500c2625207ffdf` |
-| `artifacts/ublade2-pro/ui-captures.json` | `24443a5a2a1d3cc4d3197a7d279d3c936de6be90dc82ded50a4c7b611faff5b6` |
-| `artifacts/ublade2-release/release.json` | `748f381c04f5ff5548f8469ef67e458bfff47eeaafba1a8b4bc3d71c4fcf0066` |
-| `dist/UBlade2-2026.10.26.008-win64.zip` | `fef1d1b4be9c23f38633ffd568f8d81a6b0e43d6ae0c916112ec0d0cf80d7355` |
+| `artifacts/ublade2-pro/match.png` | `f737e95d9da806dfda611a9dc77a31e2c1a2c9dec8dc53a0edd43a2d04b0e57c` |
+| `artifacts/ublade2-pro/menu.png` | `6fe8c440a96319654b51eb6a508329ddfa4e7e0af3fcf0d36f35268269238294` |
+| `artifacts/ublade2-pro/match-runtime.json` | `eec6524951ccbc9c16d5e259385d25874db6d6037d65f1915bb21dc94957ca57` |
+| `artifacts/ublade2-pro/league-save.json` | `485f6d2371181ea315624b2d63494140577d42532ccdabe710cf430444c4d006` |
+| `artifacts/ublade2-pro/ui-captures.json` | `eba8814a291a198f93a6409e7be8bee695c7ef1da118c3a525c398e13562a388` |
+| `artifacts/ublade2-pro/ui/contact-sheet.png` | `55d1e08aa8b9eba04ebd992773a755df16a7bcb7b741f64786489fb14669b7b4` |
+| `artifacts/ublade2-release/release.json` | `d038c8fe03c0a048e299a809632339d5e33a4decd89c6567d1000294e9924030` |
+| `dist/UBlade2-2026.10.26.010-win64.zip` | `2bb791a82f72f4c6f1c79bbdccb734aff0b55a074271cd079cbbc01e33054b1d` |
 
 Unity build: `6000.6.7f1 (b22767f04f04)`; Blender: `5.2.3 LTS`; Python: `3.14.2`; Pillow: `12.0.0`.

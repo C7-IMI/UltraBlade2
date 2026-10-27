@@ -10,14 +10,14 @@
     "lod1Triangles": 615,
     "lod2Triangles": 306,
     "collected": 3,
-    "frames": 59,
-    "heroRectX": 549,
-    "heroRectY": 244,
-    "heroRectWidth": 176,
-    "heroRectHeight": 296,
-    "heroScreenPixels": 52096,
+    "frames": 56,
+    "heroRectX": 558,
+    "heroRectY": 251,
+    "heroRectWidth": 164,
+    "heroRectHeight": 276,
+    "heroScreenPixels": 45264,
     "screen": "1280x720",
     "unity": "6000.6.7f1",
     "captureFile": "C:\\Users\\STEPHE~1\\AppData\\Local\\Temp\\ublade2-capture-frame.png",
-    "generatedAt": "2026-10-27T00:22:41Z"
+    "generatedAt": "2026-10-27T01:09:09Z"
 }

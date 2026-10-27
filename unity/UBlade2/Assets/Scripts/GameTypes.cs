@@ -98,6 +98,23 @@ public sealed class HudSnapshot
     public bool matchOver;
     public string resultText = "";
     public int difficulty = 2;
+
+    // HyperBlade-fidelity match presentation fields.
+    public int period = 1;
+    public int totalPeriods = 3;
+    public float periodTime = 120f;
+    public string rokCarrier = "";
+    public bool playerHasRok;
+    public float shotPower;
+    public float speedBurst = 1f;
+    public int multiplier = 1;
+    public bool goalieSaved;
+    public string[] rosterNames = new string[0];
+    public float[] rosterHealth = new float[0];
+    public int activePlayer;
+    public string[] eventFeed = new string[0];
+    public string[] statsLines = new string[0];
+    public string[] goalieStatsLines = new string[0];
 }
 
 public sealed class UiModel
@@ -108,7 +125,7 @@ public sealed class UiModel
     public string[] leagueLines = new string[0];
     public bool seasonComplete;
     public string title = "ULTRABLADE 2";
-    public string subtitle = "WAYFARER PROTOCOL";
+    public string subtitle = "TRANSNATIONAL HYPERBLADE LEAGUE 2065";
     public string nextOpponent = "";
     public int seasonWins;
     public int seasonLosses;

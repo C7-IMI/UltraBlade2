@@ -133,7 +133,8 @@ if ($Mode -eq "match" -or $Mode -eq "match-capture" -or $Mode -eq "menu-capture"
   Copy-Item $tempLog $playerLog -Force
   if (-not (Select-String -Path $playerLog -Pattern $marker -Quiet)) { Write-Error ($marker + " missing from player log"); exit 1 }
   if ($exitCode -ne 0) { Write-Error "player exited $exitCode"; exit 1 }
-  if (Test-Path $tempEvidence) { Copy-Item $tempEvidence (Join-Path $gameDir "match-runtime.json") -Force }
+  if ($Mode -eq "match") { if (Test-Path $tempEvidence) { Copy-Item $tempEvidence (Join-Path $gameDir "match-runtime.json") -Force } }
+  else { if (Test-Path $tempEvidence) { Copy-Item $tempEvidence (Join-Path $gameDir "match-capture-runtime.json") -Force } }
   if ($Mode -eq "match") {
     Write-Output "UBLADE2_GAME_MATCH_OK log=artifacts/ublade2-pro/match.log evidence=artifacts/ublade2-pro/match-runtime.json exit=0"
     python scripts/normalize_evidence.py --paths artifacts/ublade2-pro 2>&1 | Out-Null

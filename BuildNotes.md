@@ -1,6 +1,6 @@
 # BuildNotes - the changelog
 
-Current version: 2026.10.26.009
+Current version: 2026.10.26.010
 
 BuildNotes is UltraBlade 2's dated, versioned changelog (`<CHANGELOG>` in the pack). Newest entry first; versions
 are `YYYY.M.D.NNN` with a zero-padded sequence, and the next one is computed by
@@ -8,7 +8,7 @@ are `YYYY.M.D.NNN` with a zero-padded sequence, and the next one is computed by
 log these entries answer. Records are guarded by [`scripts/records_check.py`](./scripts/records_check.py) and run by
 [`scripts/check_all.py`](./scripts/check_all.py).
 
-## How versions 001-009 were assigned
+## How versions 001-010 were assigned
 
 No changelog existed before this bootstrap, so the bootstrap assigned `2026.10.26.001` to the repository-creation
 commit (the only commit already in `git log`) and `2026.10.26.002` to the pack application. `2026.10.26.003` (the
@@ -21,6 +21,46 @@ This changelog has **no generated documentation copies yet**. There is no genera
 regenerate; when the game arrives, its export and captures will be generated artefacts under gitignored `build/` and
 `artifacts/`. [`scripts/records_check.py`](./scripts/records_check.py) checks the source, its `Current version:` header
 and [`Retrace.md`](./Retrace.md); it will compare generated copies when they exist.
+
+## 2026.10.26.010
+
+**Rebuild the playable PC slice as a HyperBlade (1996) fidelity pass: research, elliptical drome, rok/multiplier
+sport, 14 data-derived teams and dromes, HyperBlade HUD, and a new stamped release.**
+
+- Date: 2026-10-26
+- Commit: this change (commit hash, push and CI in the final report).
+- Change: researched the original 1996 PC game HyperBlade from the Wikipedia article, the retail manual and quick
+  reference, the CD's own help/data files (`DATA/*.HTM` team/ratings, `DATA/*.ENV` drome layouts, `DATA/BOOIE.INI`
+  and `DFTKEYBD.CFG` controls, `DATA/INFOBTXT.LST` HUD strings, `GAME.HLP`/`HELP.HLP`, `JUMBO.TXT` sponsor ads),
+  and the three operator-provided YouTube videos analysed frame by frame. Rebuilt the game around that research:
+  elliptical runtime drome with wall goals and per-drome props; carried/thrown rok with charged power shot, quick
+  shot, pass, speedburst, jump, jak attacks, substitutions, AI goalie, bench roster, three periods, multiplier
+  1/2/4-point goals with nullification, hazards, and the Gauntlet ladder; 14 teams with five-man rosters, per-player
+  ratings and per-team dromes generated from the original data; HyperBlade HUD/stat screen and controls. Added
+  `docs/HYPERBLADE-REFERENCE.md` and rewrote `docs/GAME-DESIGN.md`; updated README/AGENTS/NOTES/DEFERRED, the game
+  toolpack/capability and the project decision. Mobile remains parked (PC-only operator decision).
+- Verification: build `UBLADE2_BUILD Succeeded bytes=97660318` with `UBLADE2_VERSION 2026.10.26.010`. Legacy gate
+  `UBLADE2_DEMO_OK exit=0` / `GYPSY_DEMO_OK collected=3` and `UBLADE2_CAPTURE_OK`/`CAPTURE_CHECK_OK` still pass.
+  Headless HyperBlade match: `UBLADE2_MATCH_OK home=7 away=2 winner=1 frames=4234 periods=3 phase=Ended`
+  (`match-runtime.json` schema v2, passed true, 7 goals to 2). Gauntlet save/load `UBLADE2_LEAGUE_SAVE_OK ... passed=True`.
+  Match capture `MATCH_CAPTURE_CHECK_OK` (42.0% non-background, 378 colours, 1280x720, elliptical drome/goals/HUD
+  inspected), menu capture `MENU_CAPTURE_CHECK_OK`, six UI screenshots `UI_CAPTURES_CHECK_OK screens=6` (menu, league,
+  settings, match HUD, pause, result/stats) inspected; legacy hero capture still green. Release:
+  `UBLADE2_RELEASE_OK version=2026.10.26.010 package=dist/UBlade2-2026.10.26.010-win64.zip`; ZIP 50,909,631 bytes
+  SHA-256 `2bb791a82f72f4c6f1c79bbdccb734aff0b55a074271cd079cbbc01e33054b1d`; player EXE SHA-256
+  `9806abde4a406ed68647e9505852c49f6aa72a372f4f084e2aa2821affea57a2`. Fast list `checks: PASS (7/7)`, 12 manifests
+  valid (3 toolpacks, 3 slices, 6 capabilities).
+- Not copied/claimed: no original textures, models, audio, FMV, code or sound recordings are shipped - this is a
+  source-data-driven homage. The full killball/swarf/mine weapon economy, permadeath bench bookkeeping, wall-riding
+  trick repertoire, rendered crowd/exterior/FMV presentation and network play are approximated or absent; goal-mouth
+  geometry is derived from the manual's 10-ft goal and the dome description because no legible original frame existed
+  in the supplied videos. Those limits are in `docs/GAME-DESIGN.md` and `DEFERRED.md`.
+- Note: the release was built from the working tree immediately before this commit; `release.json` records the prior
+  commit (`717c525...`). Final commit/push/CI are in the final report.
+- Method: two research subagents (rules/teams/dromes/HUD and video/visual analysis) and three implementation
+  subagents (DromeBuilder, Rok/Goalie/MatchStats, HyperBlade GameUI) worked from the extracted game data; the Lead
+  wired the game host, fixed integration issues, ran every gate and recorded the work.
+
 
 ## 2026.10.26.009
 

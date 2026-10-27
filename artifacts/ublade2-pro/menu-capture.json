@@ -5,21 +5,21 @@
   "passed": true,
   "errors": [],
   "warnings": [],
-  "generatedAt": "2026-10-27T00:23:13+00:00",
+  "generatedAt": "2026-10-27T01:11:06+00:00",
   "width": 1280,
   "height": 720,
   "whole": {
     "pixels": 921600,
-    "nonBackground": 59887,
-    "nonBackgroundRatio": 0.065,
-    "saturated": 55750,
-    "distinctColors": 145
+    "nonBackground": 192682,
+    "nonBackgroundRatio": 0.2091,
+    "saturated": 60547,
+    "distinctColors": 302
   },
   "accentRegion": {
     "pixels": 138240,
-    "nonBackground": 3913,
-    "nonBackgroundRatio": 0.0283,
-    "saturated": 2233,
-    "distinctColors": 87
+    "nonBackground": 18881,
+    "nonBackgroundRatio": 0.1366,
+    "saturated": 2803,
+    "distinctColors": 80
   }
 }

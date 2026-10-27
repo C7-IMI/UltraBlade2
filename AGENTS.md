@@ -12,10 +12,13 @@ The first game — a modern remake of the 1996 future-sport classic *HyperBlade*
 ProjectGypsy and remains the **legacy/reference implementation**. It was not deleted, modified or "migrated": this is
 a port with acceptance evidence, recorded in [docs/UNITY-PORT.md](./docs/UNITY-PORT.md).
 
-The playable production slice is the current game (menu, league match against an AI, scoring, strikes/stuns, arenas,
-procedural audio, settings, pause, results, season) with a stamped PC release. **Mobile is parked by operator
-decision** (2026-10-26, PC-only milestone): earlier Android build/launcher evidence is preserved but the target is not
-in the release and is not claimed complete (UB2-D15).
+The playable slice is now a HyperBlade-fidelity recreation: elliptical drome, carried/thrown rok, 1/2/4-point
+multiplier goals, 2 forwards + AI goalie plus bench, jak attacks, speedburst, three periods, 14 data-derived teams and
+dromes, Gauntlet progression and a stamped PC release. The reference evidence is in
+[docs/HYPERBLADE-REFERENCE.md](./docs/HYPERBLADE-REFERENCE.md) and the design in
+[docs/GAME-DESIGN.md](./docs/GAME-DESIGN.md). **Mobile is parked by operator decision** (2026-10-26, PC-only
+milestone): earlier Android build/launcher evidence is preserved but the target is not in the release and is not
+claimed complete (UB2-D15).
 
 ## What governs your work, in this order
 
@@ -134,16 +137,17 @@ re-bootstrap this repository.
 
 ## What exists, and what does not
 
-**Exists:** the Unity 6000.6.7f1 project `unity/UBlade2`, the playable production slice (menu, league match against an
-AI, HUD/score/timer, settings, pause, results, season, four arenas, procedural audio, strike/stun combat), the
-three-collectible legacy demo and the Wayfarer hero port (23 bones, three clips, Smile, three 512² maps, LODGroup,
-generated hero prefab `WayfarerLOD.prefab`, spring cape), the Windows player build, the headless demo marker, the
-inspected 1280x720 capture, the six-screen UI capture set, the stamped PC release, the Gypsy toolpack/slice/capability
-manifests, the acceptance record, the working rules, the records, the fast check list (7 checks, including secrets and
-peer boundary), the tracked hook, the CI workflow and the dispatch-only engine workflow.
+**Exists:** the Unity 6000.6.7f1 project `unity/UBlade2`, the HyperBlade-fidelity playable slice (elliptical drome,
+rok possession/power shots/passes, 1/2/4-point multiplier goals, 2 forwards + AI goalies and bench, jak combat,
+speedburst, drome hazards, 3 periods, 14 data-derived teams and dromes, Gauntlet, stats screen), the three-collectible
+legacy demo and the Wayfarer hero port, the Windows player build, the headless demo marker, the inspected 1280x720
+capture, the six-screen UI capture set, the stamped PC release, the Gypsy toolpack/slice/capability manifests, the
+acceptance record, the working rules, the records, the fast check list (7 checks), the tracked hook, the CI workflow
+and the dispatch-only engine workflow.
 
-**Does not exist:** a mobile release (parked, UB2-D15), imported arena/character art beyond the Wayfarer hero, online
-play, a deeper roster/league, licensed music/commentary, a gamepad mapping screen, an installer, a release code-signing
-certificate, or an activated self-hosted Unity runner for the dispatch-only engine workflow. Do not claim any of them;
+**Does not exist:** a mobile release (parked, UB2-D15), imported original art/audio beyond the reconstructed
+low-poly dromes/dromers and the Wayfarer hero, online play, a full 12-club conference league season beyond the
+Gauntlet, the full killball/swarf/mine weapon economy, licensed music/commentary, an installer, a release
+code-signing certificate, or an activated self-hosted Unity runner for the dispatch-only engine workflow. Do not claim any of them;
 the limits are recorded in [DEFERRED.md](./DEFERRED.md), [docs/UNITY-PORT.md](./docs/UNITY-PORT.md) and
 [docs/RELEASE.md](./docs/RELEASE.md).

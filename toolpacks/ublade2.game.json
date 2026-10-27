@@ -138,7 +138,7 @@
       "artifacts": [
         "artifacts/ublade2-pro/match-capture.log",
         "artifacts/ublade2-pro/match.png",
-        "artifacts/ublade2-pro/match-runtime.json",
+        "artifacts/ublade2-pro/match-capture-runtime.json",
         "artifacts/ublade2-pro/match-capture.json"
       ],
       "args": {
@@ -267,6 +267,10 @@
         {
           "path": "phase",
           "equals": "Ended"
+        },
+        {
+          "path": "periods",
+          "equals": 3
         },
         {
           "path": "frames",

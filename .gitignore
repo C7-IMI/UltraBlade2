@@ -36,3 +36,6 @@ unity/UBlade2/.utmp/
 
 # release packaging output
 dist/
+
+# local research workspace (references, video frames, extracted files)
+.work/

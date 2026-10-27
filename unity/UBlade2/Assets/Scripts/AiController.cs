@@ -1,210 +1,118 @@
-using System;
 using UnityEngine;
 
-// Deterministic crystal-seeking duel AI. Movement is a world-space velocity built
-// from BaseSpeed and the difficulty multiplier; reaction delay gates combat and dash
-// decisions so lower difficulties commit to decisions more slowly.
+// Team AI for the rok sport: chase a loose rok, carry it to the opponent goal and shoot,
+// or defend/chase the carrier when the other team has it. Difficulty scales speed/reaction.
 public sealed class AiController
 {
-    public const float AttackRange = 2.4f;
-    public const float DashDistance = 6f;
-    public const float BaseSpeed = 5f;
-    public const float AttackCooldownSeconds = 1.1f;
-    public const float DashCooldownSeconds = 2f;
-
-    private readonly float speedMultiplier;
-    private readonly float reactionDelay;
-
-    private System.Random random;
-    private float stunRemaining;
-    private float reactionTimer;
+    public int Difficulty { get; private set; }
+    private float reaction;
     private float attackCooldown;
+    private float shootCooldown;
+    private float stun;
     private float dashCooldown;
+    private readonly System.Random random;
 
     public AiController(int difficulty)
     {
         Difficulty = Mathf.Clamp(difficulty, 1, 3);
-        if (Difficulty == 1)
-        {
-            speedMultiplier = 1f;
-            reactionDelay = 0.35f;
-        }
-        else if (Difficulty == 2)
-        {
-            speedMultiplier = 1.15f;
-            reactionDelay = 0.2f;
-        }
-        else
-        {
-            speedMultiplier = 1.3f;
-            reactionDelay = 0.08f;
-        }
+        random = new System.Random(9137 + Difficulty * 31);
         Reset();
     }
 
-    public int Difficulty { get; private set; }
-
     public void Reset()
     {
-        random = new System.Random(1234 + Difficulty);
-        stunRemaining = 0f;
-        reactionTimer = reactionDelay;
+        reaction = ReactionDelay();
         attackCooldown = 0f;
+        shootCooldown = 0f;
         dashCooldown = 0f;
+        stun = 0f;
     }
 
     public void SetStunned(float seconds)
     {
-        if (!(seconds > 0f) || float.IsInfinity(seconds))
-        {
-            return;
-        }
-        stunRemaining = Mathf.Max(stunRemaining, seconds);
-        reactionTimer = reactionDelay;
+        stun = Mathf.Max(stun, seconds);
     }
 
-    public void Think(float dt, Vector3 self, Vector3 player, Vector3[] crystalPositions, bool[] crystalActive,
-        out Vector3 move, out bool attack, out bool dash)
+    private float ReactionDelay()
+    {
+        if (Difficulty <= 1) return 0.35f;
+        if (Difficulty == 2) return 0.2f;
+        return 0.08f;
+    }
+
+    public float SpeedFactor()
+    {
+        if (Difficulty <= 1) return 1.0f;
+        if (Difficulty == 2) return 1.15f;
+        return 1.3f;
+    }
+
+    // selfHasRok: this skater is the rok carrier. rokLoose: nobody carries it.
+    public void Think(float dt, Vector3 self, Vector3 attackGoal, Vector3 ownGoal, Vector3 rokPosition,
+        bool rokLoose, bool selfHasRok, bool opponentHasRok, Vector3 opponentCarrier,
+        out Vector3 move, out bool attack, out bool shoot, out bool dash)
     {
         move = Vector3.zero;
         attack = false;
+        shoot = false;
         dash = false;
-
-        if (!(dt > 0f) || float.IsInfinity(dt))
+        if (stun > 0f)
         {
-            dt = 0f;
-        }
-        if (!IsFinite(self))
-        {
+            stun -= dt;
             return;
         }
-
-        if (stunRemaining > 0f)
-        {
-            stunRemaining = Mathf.Max(0f, stunRemaining - dt);
-            return;
-        }
-
-        attackCooldown = Mathf.Max(0f, attackCooldown - dt);
-        dashCooldown = Mathf.Max(0f, dashCooldown - dt);
-        reactionTimer -= dt;
-
-        bool hasPlayer = IsFinite(player);
-        Vector3 safePlayer = hasPlayer ? player : Vector3.zero;
-        float playerDistance = hasPlayer ? Vector3.Distance(self, safePlayer) : float.PositiveInfinity;
+        attackCooldown -= dt;
+        shootCooldown -= dt;
+        dashCooldown -= dt;
+        reaction -= dt;
 
         Vector3 target;
-        float targetDistance;
-        bool hasTarget = false;
-        int crystalIndex = FindNearestCrystal(self, crystalPositions, crystalActive);
-        if (crystalIndex >= 0)
+        if (selfHasRok)
         {
-            target = crystalPositions[crystalIndex];
-            targetDistance = PlanarDistance(self, target);
-            hasTarget = true;
+            target = attackGoal;
+            var distanceToGoal = HorizontalDistance(self, attackGoal);
+            if (reaction <= 0f && distanceToGoal < 17f && shootCooldown <= 0f)
+            {
+                shoot = true;
+                shootCooldown = 1.4f - Difficulty * 0.2f;
+            }
         }
-        else if (hasPlayer)
+        else if (rokLoose)
         {
-            target = safePlayer;
-            targetDistance = PlanarDistance(self, safePlayer);
-            hasTarget = true;
+            target = rokPosition;
+        }
+        else if (opponentHasRok)
+        {
+            target = opponentCarrier;
+            if (HorizontalDistance(self, opponentCarrier) < 2.5f && attackCooldown <= 0f && reaction <= 0f)
+            {
+                attack = true;
+                attackCooldown = 1.1f;
+            }
         }
         else
         {
-            target = Vector3.zero;
-            targetDistance = 0f;
+            var defensePoint = Vector3.Lerp(ownGoal, rokPosition, 0.45f);
+            target = defensePoint;
         }
 
-        if (hasTarget)
+        var direction = target - self;
+        direction.y = 0f;
+        if (direction.sqrMagnitude > 0.05f)
         {
-            Vector3 delta = target - self;
-            delta.y = 0f;
-            float length = delta.magnitude;
-            if (length > 0.05f && !float.IsNaN(length) && !float.IsInfinity(length))
-            {
-                move = delta * ((BaseSpeed * speedMultiplier) / length);
-            }
+            move = direction.normalized;
         }
-
-        if (reactionTimer <= 0.0001f)
+        if (dashCooldown <= 0f && move.sqrMagnitude > 0.5f && HorizontalDistance(self, target) > 9f && random.NextDouble() < 0.01 + Difficulty * 0.004)
         {
-            reactionTimer = reactionDelay;
-
-            if (hasPlayer && playerDistance <= AttackRange && attackCooldown <= 0f)
-            {
-                attack = true;
-                attackCooldown = AttackCooldownSeconds;
-            }
-
-            if (hasTarget && targetDistance > DashDistance && dashCooldown <= 0f)
-            {
-                dash = true;
-                dashCooldown = DashCooldownSeconds;
-            }
-        }
-
-        if (!IsFinite(move))
-        {
-            move = Vector3.zero;
+            dash = true;
+            dashCooldown = 2.2f;
         }
     }
 
-    private int FindNearestCrystal(Vector3 self, Vector3[] positions, bool[] active)
+    private static float HorizontalDistance(Vector3 a, Vector3 b)
     {
-        if (positions == null || random == null)
-        {
-            return -1;
-        }
-
-        int count = positions.Length;
-        if (active != null && active.Length < count)
-        {
-            count = active.Length;
-        }
-
-        int bestIndex = -1;
-        float bestDistance = float.PositiveInfinity;
-        for (int i = 0; i < count; i++)
-        {
-            if (active != null && !active[i])
-            {
-                continue;
-            }
-            Vector3 position = positions[i];
-            if (!IsFinite(position))
-            {
-                continue;
-            }
-
-            float distance = PlanarDistance(self, position);
-            if (bestIndex < 0 || distance < bestDistance - 0.001f)
-            {
-                bestIndex = i;
-                bestDistance = distance;
-            }
-            else if (Mathf.Abs(distance - bestDistance) <= 0.001f && random.Next(2) == 0)
-            {
-                bestIndex = i;
-                bestDistance = distance;
-            }
-        }
-        return bestIndex;
-    }
-
-    private static float PlanarDistance(Vector3 a, Vector3 b)
-    {
-        float dx = a.x - b.x;
-        float dz = a.z - b.z;
-        return Mathf.Sqrt(dx * dx + dz * dz);
-    }
-
-    private static bool IsFinite(Vector3 value)
-    {
-        return IsFinite(value.x) && IsFinite(value.y) && IsFinite(value.z);
-    }
-
-    private static bool IsFinite(float value)
-    {
-        return !float.IsNaN(value) && !float.IsInfinity(value);
+        var delta = a - b;
+        delta.y = 0f;
+        return delta.magnitude;
     }
 }

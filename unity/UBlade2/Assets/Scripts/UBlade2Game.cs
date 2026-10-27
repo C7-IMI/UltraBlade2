@@ -4,86 +4,85 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
+// UltraBlade 2 - HyperBlade-fidelity playable slice.
+// The match is a 2-vs-2 skater sport (plus goalies) on an elliptical drome: pick up the rok,
+// carry/pass/shoot it into the small wall goal, hit opponents with the jak, avoid the drome
+// hazards, score 2 (or 4 through the multiplier) across three periods.
 public class UBlade2Game : MonoBehaviour
 {
-    private readonly List<GameObject> crystals = new List<GameObject>();
-    private readonly List<GameObject> arenaDecor = new List<GameObject>();
-    private CharacterController controller;
-    private Transform player;
+    private const float BaseSpeed = 7.2f;
+
+    private GameSettings settings;
+    private LeagueData league;
+    private UiModel uiModel = new UiModel();
+    private GameScreen screen = GameScreen.MainMenu;
+    private GameScreen previousScreen = GameScreen.MainMenu;
+
+    private MatchRules match;
+    private RokSystem rok;
+    private MatchStats stats;
+    private GoalieSystem homeGoalie;
+    private GoalieSystem awayGoalie;
+    private GameObject homeGoalieVisual;
+    private GameObject awayGoalieVisual;
+    private DromeInstance drome;
+    private TeamDefinition homeTeam;
+    private TeamDefinition awayTeam;
+    private ArenaDefinition arena;
+
+    private Skater[] homeSkaters = new Skater[4];
+    private Skater[] awaySkaters = new Skater[4];
+    private readonly List<GameObject> worldObjects = new List<GameObject>();
+    private GameObject dromeRoot;
+
     private Camera cam;
-    private HeroVisual hero;
-    private GameObject aiObject;
-    private Transform aiTransform;
-    private HeroVisual aiHero;
-    private Renderer floorRenderer;
-    private int collected;
-    private int frames;
+    private Transform camPivot;
     private bool demo;
     private bool matchMode;
-    private bool leagueTest;
-    private bool autoplay;
     private bool captureAutoplay;
-    private bool mobileCapture;
+    private bool leagueTest;
     private string capturePath;
     private string evidencePath;
     private string menuCapturePath;
     private string matchCapturePath;
     private string uiCaptureDir;
     private string mobileCapturePath;
-    private float vy;
-    private const float Speed = 6f;
-    private const int MaxDemoFrames = 900;
-
-    private MatchRules match;
-    private CombatSystem combat;
-    private AiController aiController;
-    private LeagueData league;
-    private GameSettings settings;
-    private UiModel uiModel = new UiModel();
-    private GameScreen screen = GameScreen.MainMenu;
-    private GameScreen previousScreen = GameScreen.MainMenu;
-    private int matchFrames;
-    private bool resultResolved;
-    private bool matchRanked;
-    private bool leaguePersist = true;
-    private LeagueOpponent currentOpponent;
-    private int arenaIndex;
-    private string banner = "";
-    private float bannerTimer;
-    private int collectFlash;
-    private float collectFlashTimer;
-    private bool audioReady;
+    private bool mobileCapture;
     private bool worldReady;
-    private int stunFlash;
+    private bool audioReady;
+    private bool resultResolved;
+    private bool ranked = true;
+    private int matchFrames;
+    private int legacyCollected;
+    private int legacyFrames;
+    private float vy;
+    private float bannerTimer;
+    private string banner = "";
+    private readonly List<string> feed = new List<string>();
+    private float attackCooldown;
+    private float playerPower;
+    private bool chargingShot;
+    private float speedBurstMeter = 1f;
+    private bool speedburst;
+    private int multiplierLevel = 1;
+    private bool multiplierArmed;
+    private float hazardCooldown;
+    private int multiplierOwner;
+    private float savedFlashTimer;
+    private MatchPhase lastPhase;
+    private AiController homeAi;
+    private AiController awayAi0;
+    private AiController awayAi1;
+    private AiController autopilotAi;
 
-    private static readonly string[] ArenaNames = { "Neon Rink", "Sky Deck", "Foundry", "Void Dome" };
-
-    private static readonly Color[] ArenaFloorColors =
-    {
-        new Color(0.06f, 0.12f, 0.16f),
-        new Color(0.07f, 0.08f, 0.16f),
-        new Color(0.14f, 0.08f, 0.06f),
-        new Color(0.10f, 0.05f, 0.12f)
-    };
-
-    private static readonly Color[] ArenaAccentColors =
-    {
-        new Color(0.15f, 0.85f, 0.85f),
-        new Color(0.35f, 0.55f, 1.0f),
-        new Color(1.0f, 0.55f, 0.2f),
-        new Color(0.75f, 0.35f, 1.0f)
-    };
-
-    private static readonly Vector3[][] ArenaCrystals =
-    {
-        new[] { new Vector3(3f, 1.1f, 0f), new Vector3(-3f, 1.1f, 2f), new Vector3(0f, 1.1f, -3f) },
-        new[] { new Vector3(5f, 1.1f, 3f), new Vector3(-5f, 1.1f, -2f), new Vector3(1f, 1.1f, -5f) },
-        new[] { new Vector3(-4f, 1.1f, 4f), new Vector3(4f, 1.1f, 4f), new Vector3(0f, 1.1f, -4f) },
-        new[] { new Vector3(6f, 1.1f, 0f), new Vector3(-6f, 1.1f, 1f), new Vector3(0f, 1.1f, 6f) }
-    };
+    private readonly List<GameObject> legacyCrystals = new List<GameObject>();
+    private Transform legacyPlayer;
+    private CharacterController legacyController;
+    private HeroVisual legacyHero;
+    private Transform legacyCamera;
 
     [Serializable]
-    private class RuntimeEvidence
+    private class LegacyEvidence
     {
         public string schema = "ublade2.hero.runtime/v1";
         public bool passed;
@@ -111,21 +110,19 @@ public class UBlade2Game : MonoBehaviour
     [Serializable]
     private class MatchEvidence
     {
-        public string schema = "ublade2.match.runtime/v1";
+        public string schema = "ublade2.match.runtime/v2";
         public bool passed;
-        public int playerScore;
-        public int aiScore;
+        public int homeScore;
+        public int awayScore;
+        public int homeGoals;
+        public int awayGoals;
         public int winner;
         public int frames;
+        public int periods;
         public string phase;
-        public float duration;
-        public int targetScore;
-        public int difficulty;
+        public string homeTeam;
+        public string awayTeam;
         public string arena;
-        public int round;
-        public int totalRounds;
-        public string playerTeam;
-        public string aiTeam;
         public string screen;
         public string unity;
         public string generatedAt;
@@ -134,13 +131,31 @@ public class UBlade2Game : MonoBehaviour
     [Serializable]
     private class LeagueEvidence
     {
-        public string schema = "ublade2.league.save/v1";
+        public string schema = "ublade2.season.save/v1";
         public bool passed;
         public int round;
         public int wins;
         public int points;
+        public string playerTeam;
         public string saveKey;
         public string generatedAt;
+    }
+
+    private sealed class Skater
+    {
+        public GameObject go;
+        public Transform transform;
+        public CharacterController controller;
+        public DromerRig rig;
+        public bool home;
+        public int rosterIndex;
+        public string name;
+        public float health = 150f;
+        public float stun;
+        public float attackCooldown;
+        public float hitCooldown;
+        public bool downed;
+        public bool active;
     }
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
@@ -162,6 +177,8 @@ public class UBlade2Game : MonoBehaviour
         matchCapturePath = GetArg("--match-capture=");
         menuCapturePath = GetArg("--menu-capture=");
         uiCaptureDir = GetArg("--ui-capture=");
+        capturePath = GetArg("--capture=");
+        evidencePath = GetArg("--evidence=");
 #if UNITY_ANDROID && !UNITY_EDITOR
         demo = demo || AndroidIntentBool("ublade2_demo");
         if (AndroidIntentBool("ublade2_capture"))
@@ -170,33 +187,18 @@ public class UBlade2Game : MonoBehaviour
             mobileCapturePath = Path.Combine(Application.persistentDataPath, "ublade2-mobile-frame.png");
         }
 #endif
-        capturePath = GetArg("--capture=");
-        evidencePath = GetArg("--evidence=");
-        autoplay = matchMode || !string.IsNullOrEmpty(matchCapturePath) || mobileCapture;
         captureAutoplay = !string.IsNullOrEmpty(matchCapturePath) || mobileCapture;
-
         settings = GameSettings.Load("ublade2.settings.");
         if (!Application.isMobilePlatform && !PlayerPrefs.HasKey("ublade2.settings.touch"))
         {
             settings.touchControls = false;
         }
-        if (autoplay)
+        league = LeagueData.Load();
+        if (league.SeasonComplete)
         {
-            league = new LeagueData();
             league.ResetSeason();
             league.BeginSeason();
-            leaguePersist = false;
         }
-        else
-        {
-            league = LeagueData.Load();
-            leaguePersist = true;
-        }
-
-        BuildWorld();
-        aiObject.SetActive(!(demo || !string.IsNullOrEmpty(capturePath)));
-        worldReady = true;
-
         audioReady = !Application.isBatchMode;
         if (audioReady)
         {
@@ -204,52 +206,56 @@ public class UBlade2Game : MonoBehaviour
             GameAudio.ApplySettings(settings);
         }
 
-        Debug.Log("UBLADE2_START demo=" + demo + " crystals=" + crystals.Count +
+        Debug.Log("UBLADE2_START demo=" + demo + " crystals=" + (demo ? 3 : 0) +
                   " unity=" + Application.unityVersion +
                   " screen=" + Screen.width + "x" + Screen.height +
                   " capture=" + (string.IsNullOrEmpty(capturePath) ? "none" : capturePath) +
                   " mode=" + (demo ? "demo" : matchMode ? "match" : captureAutoplay ? "capture" : "play"));
 
-        if (leagueTest)
-        {
-            StartCoroutine(RunLeagueSelfTest());
-            return;
-        }
         if (demo)
         {
-            StartCoroutine(RunDemo());
+            BuildLegacyWorld();
+            worldReady = true;
+            StartCoroutine(RunLegacyDemo());
             return;
         }
+        if (leagueTest)
+        {
+            worldReady = true;
+            StartCoroutine(RunLeagueTest());
+            return;
+        }
+        BuildMenuWorld();
+        worldReady = true;
+
         if (matchMode)
         {
+            league.ResetSeason();
+            league.BeginSeason();
             StartCoroutine(RunHeadlessMatch());
             return;
         }
         if (captureAutoplay)
         {
-            string captureOut = mobileCapture ? mobileCapturePath : matchCapturePath;
-            StartCoroutine(RunMatchCapture(captureOut, mobileCapture));
+            league.ResetSeason();
+            league.BeginSeason();
+            StartCoroutine(RunMatchCapture(mobileCapture ? mobileCapturePath : matchCapturePath, mobileCapture));
             return;
         }
-        if (!string.IsNullOrEmpty(menuCapturePath))
+        if (!string.IsNullOrEmpty(menuCapturePath) || !string.IsNullOrEmpty(uiCaptureDir))
         {
             screen = GameScreen.MainMenu;
-            StartCoroutine(RunMenuCapture());
-            return;
-        }
-        if (!string.IsNullOrEmpty(uiCaptureDir))
-        {
-            screen = GameScreen.MainMenu;
-            StartCoroutine(RunUiCapture());
+            UpdateMenuModel();
+            StartCoroutine(!string.IsNullOrEmpty(menuCapturePath) ? RunMenuCapture() : RunUiCapture());
             return;
         }
         screen = GameScreen.MainMenu;
+        UpdateMenuModel();
         if (audioReady)
         {
             GameAudio.StartMusic(0);
             GameAudio.PlayWhistle();
         }
-        UpdateUiModel();
     }
 
 #if UNITY_ANDROID && !UNITY_EDITOR
@@ -268,38 +274,29 @@ public class UBlade2Game : MonoBehaviour
                 return intent.Call<bool>("getBooleanExtra", key, false);
             }
         }
-        catch (System.Exception)
+        catch (Exception)
         {
             return false;
         }
     }
 #endif
 
-    private static bool HasArg(string value)
-    {
-        return Array.Exists(Environment.GetCommandLineArgs(), argument => argument == value);
-    }
-
+    private static bool HasArg(string value) { return Array.Exists(Environment.GetCommandLineArgs(), a => a == value); }
     private static string GetArg(string prefix)
     {
         foreach (var value in Environment.GetCommandLineArgs())
         {
-            if (value.StartsWith(prefix, StringComparison.Ordinal))
-            {
-                return value.Substring(prefix.Length);
-            }
+            if (value.StartsWith(prefix, StringComparison.Ordinal)) return value.Substring(prefix.Length);
         }
         return null;
     }
+
+    // ---------------------------------------------------------------- world
 
     private Material Mat(Color color, float emission)
     {
         var mobile = Application.isMobilePlatform;
         var shader = mobile ? Shader.Find("Unlit/Color") : Shader.Find("Standard");
-        if (mobile)
-        {
-            color = new Color(Mathf.Clamp01(color.r * 2.4f + 0.06f), Mathf.Clamp01(color.g * 2.4f + 0.06f), Mathf.Clamp01(color.b * 2.4f + 0.06f));
-        }
         var material = new Material(shader != null ? shader : Shader.Find("Legacy Shaders/Diffuse"));
         material.color = color;
         if (!mobile && emission > 0f)
@@ -310,687 +307,892 @@ public class UBlade2Game : MonoBehaviour
         return material;
     }
 
-    private void ApplyMobileUnlit(Transform root)
+    private void TintActor(Transform root, Color primary, Color secondary)
     {
-        var unlitTexture = Shader.Find("Unlit/Texture");
-        var unlitColor = Shader.Find("Unlit/Color");
-        foreach (var renderer in root.GetComponentsInChildren<Renderer>(true))
-        {
-            var materials = renderer.sharedMaterials;
-            for (int index = 0; index < materials.Length; index++)
-            {
-                var source = materials[index];
-                Material target = null;
-                if (unlitTexture != null && source != null && source.HasProperty("_MainTex") && source.GetTexture("_MainTex") != null)
-                {
-                    target = new Material(unlitTexture);
-                    target.SetTexture("_MainTex", source.GetTexture("_MainTex"));
-                }
-                else if (unlitColor != null)
-                {
-                    target = new Material(unlitColor);
-                    target.color = source != null ? source.color : Color.white;
-                }
-                if (target != null)
-                {
-                    materials[index] = target;
-                }
-            }
-            renderer.sharedMaterials = materials;
-        }
-    }
-
-
-    private void ApplyMobileSolid(Transform root, Color color)
-    {
-        var unlitColor = Shader.Find("Unlit/Color");
-        if (unlitColor == null)
-        {
-            return;
-        }
-        foreach (var renderer in root.GetComponentsInChildren<Renderer>(true))
-        {
-            var materials = renderer.sharedMaterials;
-            for (int index = 0; index < materials.Length; index++)
-            {
-                var solid = new Material(unlitColor);
-                solid.color = color;
-                materials[index] = solid;
-            }
-            renderer.sharedMaterials = materials;
-        }
-    }
-
-    private GameObject AddBox(string name, Vector3 position, Vector3 scale, Color color)
-    {
-        var box = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        box.name = name;
-        box.transform.position = position;
-        box.transform.localScale = scale;
-        box.GetComponent<Renderer>().sharedMaterial = Mat(color, 0f);
-        return box;
-    }
-
-    private void BuildWorld()
-    {
-        RenderSettings.ambientLight = new Color(0.24f, 0.28f, 0.34f);
-        RenderSettings.fog = true;
-        RenderSettings.fogColor = new Color(0.03f, 0.04f, 0.06f);
-        RenderSettings.fogMode = FogMode.ExponentialSquared;
-        RenderSettings.fogDensity = 0.010f;
-
-        var floor = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        floor.name = "Floor";
-        floor.transform.position = new Vector3(0f, -0.5f, 0f);
-        floor.transform.localScale = new Vector3(44f, 1f, 44f);
-        floorRenderer = floor.GetComponent<Renderer>();
-        floorRenderer.sharedMaterial = Mat(ArenaFloorColors[0], 0f);
-
-        var playerObject = new GameObject("Player");
-        playerObject.transform.position = new Vector3(-2f, 0.05f, 0f);
-        player = playerObject.transform;
-        controller = playerObject.AddComponent<CharacterController>();
-        controller.height = 1.8f;
-        controller.radius = 0.4f;
-        controller.center = new Vector3(0f, 0.9f, 0f);
-
-        var controllerAsset = Resources.Load<RuntimeAnimatorController>("Hero/WayfarerController");
-        if (controllerAsset == null)
-        {
-            throw new Exception("missing Resources/Hero/WayfarerController");
-        }
-        hero = HeroVisual.Create(player, controllerAsset);
-        if (Application.isMobilePlatform)
-        {
-            ApplyMobileUnlit(hero.transform);
-            ApplyMobileSolid(hero.transform, new Color(0.35f, 0.85f, 1f));
-            RenderSettings.ambientLight = new Color(0.75f, 0.8f, 0.9f);
-        }
-
-        aiObject = new GameObject("Opponent");
-        aiObject.transform.position = new Vector3(2f, 0.05f, 0f);
-        aiTransform = aiObject.transform;
-        aiHero = HeroVisual.Create(aiTransform, controllerAsset);
-        TintOpponent(aiTransform);
-        if (Application.isMobilePlatform)
-        {
-            ApplyMobileSolid(aiTransform, new Color(1f, 0.35f, 0.3f));
-        }
-        var aiLight = new GameObject("Opponent Light").AddComponent<Light>();
-        aiLight.type = LightType.Point;
-        aiLight.color = new Color(1f, 0.3f, 0.25f);
-        aiLight.range = 5f;
-        aiLight.intensity = 1.6f;
-        aiLight.transform.position = new Vector3(2f, 2.4f, 0f);
-        aiLight.transform.SetParent(aiTransform, true);
-
-        var crystalColor = new Color(0.16f, 0.86f, 0.76f);
-        for (int index = 0; index < 3; index++)
-        {
-            AddCrystal("Crystal_" + index, ArenaCrystals[0][index], crystalColor);
-        }
-
-        var cameraObject = new GameObject("Main Camera");
-        cameraObject.tag = "MainCamera";
-        cam = cameraObject.AddComponent<Camera>();
-        cam.clearFlags = CameraClearFlags.SolidColor;
-        cam.backgroundColor = new Color(0.02f, 0.03f, 0.05f);
-        cam.fieldOfView = 58f;
-        cam.nearClipPlane = 0.1f;
-        cam.farClipPlane = 220f;
-        cameraObject.transform.position = new Vector3(2.3f, 2.5f, -4.8f);
-
-        var lightObject = new GameObject("Key Light");
-        var light = lightObject.AddComponent<Light>();
-        light.type = LightType.Directional;
-        light.color = new Color(0.82f, 0.91f, 1f);
-        light.intensity = 1.15f;
-        lightObject.transform.rotation = Quaternion.Euler(48f, -28f, 0f);
-
-        var rimObject = new GameObject("Rim Light");
-        var rim = rimObject.AddComponent<Light>();
-        rim.type = LightType.Directional;
-        rim.color = new Color(0.30f, 0.62f, 0.95f);
-        rim.intensity = 0.5f;
-        rimObject.transform.rotation = Quaternion.Euler(20f, 140f, 0f);
-
-        BuildArena(0);
-        Debug.Log("UBLADE2_WORLD crystals=" + crystals.Count + " speed=" + Speed + " hero=Wayfarer");
-    }
-
-    private void TintOpponent(Transform root)
-    {
-        var tint = new Color(1f, 0.32f, 0.28f);
         foreach (var renderer in root.GetComponentsInChildren<Renderer>(true))
         {
             var materials = renderer.materials;
             for (int index = 0; index < materials.Length; index++)
             {
-                if (materials[index] == null)
-                {
-                    continue;
-                }
-                materials[index].color = tint;
+                if (materials[index] == null) continue;
+                materials[index].color = index % 2 == 0 ? primary : secondary;
                 if (materials[index].HasProperty("_EmissionColor"))
                 {
                     materials[index].EnableKeyword("_EMISSION");
-                    materials[index].SetColor("_EmissionColor", tint * 0.35f);
+                    materials[index].SetColor("_EmissionColor", primary * 0.15f);
                 }
             }
             renderer.materials = materials;
         }
     }
 
-    private void BuildArena(int index)
+    private void ClearWorld()
     {
-        arenaIndex = index;
-        foreach (var decor in arenaDecor)
+        if (dromeRoot != null) Destroy(dromeRoot);
+        dromeRoot = null;
+        drome = null;
+        foreach (var obj in worldObjects)
         {
-            if (decor != null)
-            {
-                Destroy(decor);
-            }
+            if (obj != null) Destroy(obj);
         }
-        arenaDecor.Clear();
+        worldObjects.Clear();
+        homeSkaters = new Skater[4];
+        awaySkaters = new Skater[4];
+    }
 
-        if (floorRenderer != null)
+    private void BuildMenuWorld()
+    {
+        ClearWorld();
+        var next = league.NextOpponent;
+        homeTeam = league.PlayerTeam;
+        awayTeam = next != null ? next : TeamCatalog.Teams[0];
+        arena = ArenaCatalog.ForTeam(awayTeam);
+        drome = DromeBuilder.Build(transform, arena, homeTeam.primary, awayTeam.primary);
+        dromeRoot = drome.root != null ? drome.root.gameObject : null;
+        cam = Camera.main;
+        if (cam != null) cam.transform.position = new Vector3(0f, 13f, -30f);
+        RenderSettings.ambientLight = new Color(0.36f, 0.38f, 0.42f);
+        SimulateMenuCamera();
+        Debug.Log("UBLADE2_HYPERBLADE_WORLD team=" + homeTeam.id + " opponent=" + awayTeam.id + " arena=" + arena.env + " props=" + (drome.props != null ? drome.props.Length : 0));
+    }
+
+    private void BeginMatch(bool autoplay, float periodSeconds)
+    {
+        ClearWorld();
+        var next = ranked ? league.NextOpponent : null;
+        homeTeam = league.PlayerTeam;
+        awayTeam = next != null ? next : TeamCatalog.Teams[(Array.IndexOf(TeamCatalog.Teams, homeTeam) + 1) % TeamCatalog.Teams.Length];
+        arena = ArenaCatalog.ForTeam(awayTeam);
+        drome = DromeBuilder.Build(transform, arena, homeTeam.primary, awayTeam.primary);
+        dromeRoot = drome.root != null ? drome.root.gameObject : null;
+        cam = Camera.main;
+        if (cam == null)
         {
-            floorRenderer.sharedMaterial = Mat(ArenaFloorColors[index], 0f);
+            var camObject = new GameObject("Main Camera");
+            camObject.tag = "MainCamera";
+            cam = camObject.AddComponent<Camera>();
+            cam.clearFlags = CameraClearFlags.SolidColor;
         }
-        RenderSettings.fogColor = ArenaFloorColors[index] * 0.45f;
-        if (cam != null)
+        cam.backgroundColor = new Color(0.02f, 0.02f, 0.03f);
+        cam.fieldOfView = 72f;
+        cam.nearClipPlane = 0.1f;
+        cam.farClipPlane = 300f;
+        cam.transform.position = new Vector3(0f, 6f, -18f);
+        RenderSettings.ambientLight = new Color(0.42f, 0.44f, 0.48f);
+
+        var matchConfig = new MatchConfig
         {
-            cam.backgroundColor = Application.isMobilePlatform
-                ? new Color(0.10f, 0.16f, 0.24f)
-                : ArenaFloorColors[index] * 0.35f;
+            homeTeam = homeTeam,
+            awayTeam = awayTeam,
+            arena = arena,
+            periods = 3,
+            periodSeconds = periodSeconds,
+            difficulty = 2
+        };
+        match = new MatchRules(matchConfig);
+        homeAi = new AiController(2);
+        awayAi0 = new AiController(2);
+        awayAi1 = new AiController(2);
+        autopilotAi = new AiController(2);
+        match.GoalScored += OnGoalScored;
+        match.MatchEnded += OnMatchEnded;
+        match.PeriodEnded += OnPeriodEnded;
+        rok = new RokSystem(drome.rokSpawn);
+        stats = new MatchStats(homeTeam, awayTeam);
+        var homeGoalPosition = new Vector3(0f, 0.05f, drome != null ? drome.goalSouthMouth.z + 0.7f : -arena.radiusZ + 2.0f);
+        var awayGoalPosition = new Vector3(0f, 0.05f, drome != null ? drome.goalNorthMouth.z - 0.7f : arena.radiusZ - 2.0f);
+        homeGoalie = new GoalieSystem(homeTeam.goalie, true, homeGoalPosition, 4.2f);
+        awayGoalie = new GoalieSystem(awayTeam.goalie, false, awayGoalPosition, 4.2f);
+        homeGoalie.SaveMade += saved => OnSave(saved, true);
+        awayGoalie.SaveMade += saved => OnSave(saved, false);
+
+        var homeGoal = homeGoalPosition;
+        var awayGoal = awayGoalPosition;
+        for (int i = 0; i < 4; i++)
+        {
+            homeSkaters[i] = CreateSkater(true, i);
+            awaySkaters[i] = CreateSkater(false, i);
         }
-
-        var accent = ArenaAccentColors[index];
-        var wallColor = ArenaFloorColors[index] * 1.5f;
-        arenaDecor.Add(AddBox("Wall North", new Vector3(0f, 1.5f, 21f), new Vector3(44f, 3f, 0.8f), wallColor));
-        arenaDecor.Add(AddBox("Wall South", new Vector3(0f, 1.5f, -21f), new Vector3(44f, 3f, 0.8f), wallColor));
-        arenaDecor.Add(AddBox("Wall East", new Vector3(21f, 1.5f, 0f), new Vector3(0.8f, 3f, 44f), wallColor));
-        arenaDecor.Add(AddBox("Wall West", new Vector3(-21f, 1.5f, 0f), new Vector3(0.8f, 3f, 44f), wallColor));
-
-        switch (index)
+        ActivateLine(homeSkaters, 0, 1);
+        ActivateLine(awaySkaters, 0, 1);
+        homeGoalieVisual = CreateGoalieVisual(true, homeTeam.goalie, homeGoal);
+        awayGoalieVisual = CreateGoalieVisual(false, awayTeam.goalie, awayGoal);
+        ResetKickoffPositions();
+        match.BeginMatch();
+        lastPhase = match.Phase;
+        matchFrames = 0;
+        resultResolved = false;
+        feed.Clear();
+        banner = "PERIOD 1";
+        bannerTimer = 1.5f;
+        screen = GameScreen.Match;
+        if (audioReady)
         {
-            case 0:
-                arenaDecor.Add(AddBox("Goal A", new Vector3(0f, 1.2f, 12f), new Vector3(8f, 2.4f, 0.5f), accent));
-                arenaDecor.Add(AddBox("Goal B", new Vector3(0f, 1.2f, -12f), new Vector3(8f, 2.4f, 0.5f), accent));
-                arenaDecor.Add(AddBox("Platform A", new Vector3(-8f, 0.5f, 6f), new Vector3(4f, 1f, 4f), accent * 0.35f));
-                arenaDecor.Add(AddBox("Platform B", new Vector3(8f, 0.5f, -6f), new Vector3(4f, 1f, 4f), accent * 0.35f));
-                break;
-            case 1:
-                arenaDecor.Add(AddBox("Tower A", new Vector3(-7f, 1.5f, 7f), new Vector3(2f, 3f, 2f), accent));
-                arenaDecor.Add(AddBox("Tower B", new Vector3(7f, 1.5f, 7f), new Vector3(2f, 3f, 2f), accent));
-                arenaDecor.Add(AddBox("Tower C", new Vector3(-7f, 1.5f, -7f), new Vector3(2f, 3f, 2f), accent));
-                arenaDecor.Add(AddBox("Tower D", new Vector3(7f, 1.5f, -7f), new Vector3(2f, 3f, 2f), accent));
-                break;
-            case 2:
-                arenaDecor.Add(AddBox("Forge A", new Vector3(-6f, 0.75f, 0f), new Vector3(3f, 1.5f, 8f), accent * 0.5f));
-                arenaDecor.Add(AddBox("Forge B", new Vector3(6f, 0.75f, 0f), new Vector3(3f, 1.5f, 8f), accent * 0.5f));
-                arenaDecor.Add(AddBox("Beam A", new Vector3(0f, 2f, 0f), new Vector3(1f, 4f, 1f), accent));
-                break;
-            default:
-                arenaDecor.Add(AddBox("Pylon A", new Vector3(-9f, 2f, 0f), new Vector3(1.5f, 4f, 1.5f), accent));
-                arenaDecor.Add(AddBox("Pylon B", new Vector3(9f, 2f, 0f), new Vector3(1.5f, 4f, 1.5f), accent));
-                arenaDecor.Add(AddBox("Pylon C", new Vector3(0f, 2f, 9f), new Vector3(1.5f, 4f, 1.5f), accent));
-                arenaDecor.Add(AddBox("Pylon D", new Vector3(0f, 2f, -9f), new Vector3(1.5f, 4f, 1.5f), accent));
-                break;
+            GameAudio.ApplySettings(settings);
+            GameAudio.StartMusic(Array.IndexOf(ArenaCatalog.Arenas, arena));
+            GameAudio.PlayWhistle();
         }
+        UpdateHud();
+        Debug.Log("UBLADE2_MATCH_START home=" + homeTeam.id + " away=" + awayTeam.id + " arena=" + arena.env +
+                  " periods=3 periodSeconds=" + periodSeconds + " ranked=" + ranked + " autoplay=" + autoplay);
+        if (!autoplay) screen = GameScreen.Match;
+    }
 
-        for (int crystalIndex = 0; crystalIndex < crystals.Count && crystalIndex < 3; crystalIndex++)
+    private Skater CreateSkater(bool home, int rosterIndex)
+    {
+        var team = home ? homeTeam : awayTeam;
+        var definition = team.skaters[rosterIndex % team.skaters.Length];
+        var go = new GameObject((home ? "Home_" : "Away_") + definition.name);
+        go.transform.position = new Vector3(home ? -7f : 7f, 0.05f, home ? -6f : 6f);
+        worldObjects.Add(go);
+        var skater = new Skater
         {
-            if (crystals[crystalIndex] != null)
-            {
-                crystals[crystalIndex].transform.position = ArenaCrystals[index][crystalIndex];
-                crystals[crystalIndex].SetActive(true);
-            }
+            go = go,
+            transform = go.transform,
+            home = home,
+            rosterIndex = rosterIndex,
+            name = definition.name,
+            active = false
+        };
+        skater.rig = DromerModel.Build(go.transform, team.primary, team.secondary, false);
+        go.SetActive(false);
+        return skater;
+    }
+
+    private void ActivateLine(Skater[] line, int first, int second)
+    {
+        for (int i = 0; i < line.Length; i++)
+        {
+            if (line[i] == null) continue;
+            line[i].active = i == first || i == second;
+            if (line[i].go != null) line[i].go.SetActive(line[i].active);
         }
     }
 
-    private void AddCrystal(string name, Vector3 position, Color color)
+    private GameObject CreateGoalieVisual(bool home, GoalieDefinition goalie, Vector3 position)
     {
-        var crystal = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        crystal.name = name;
-        crystal.transform.position = position;
-        crystal.transform.localScale = new Vector3(0.45f, 0.9f, 0.45f);
-        crystal.transform.rotation = Quaternion.Euler(0f, 45f, 45f);
-        crystal.GetComponent<Renderer>().sharedMaterial = Mat(color, 2.2f);
-        crystals.Add(crystal);
+        var go = new GameObject((home ? "HomeGoalie_" : "AwayGoalie_") + goalie.name);
+        go.transform.position = position;
+        DromerModel.Build(go.transform, home ? homeTeam.primary : awayTeam.primary, home ? homeTeam.secondary : awayTeam.secondary, true);
+        worldObjects.Add(go);
+        return go;
     }
+
+    private void ResetKickoffPositions()
+    {
+        if (homeAi != null) homeAi.Reset();
+        if (awayAi0 != null) awayAi0.Reset();
+        if (awayAi1 != null) awayAi1.Reset();
+        if (autopilotAi != null) autopilotAi.Reset();
+        if (homeGoalieVisual != null && arena != null) homeGoalieVisual.transform.position = new Vector3(0f, 0.05f, -arena.radiusZ + 2f);
+        if (awayGoalieVisual != null && arena != null) awayGoalieVisual.transform.position = new Vector3(0f, 0.05f, arena.radiusZ - 2f);
+        if (homeSkaters[0] != null) PlaceSkater(homeSkaters[0], new Vector3(-4f, 0.05f, -9f));
+        if (homeSkaters[1] != null) PlaceSkater(homeSkaters[1], new Vector3(4f, 0.05f, -11f));
+        if (awaySkaters[0] != null) PlaceSkater(awaySkaters[0], new Vector3(-4f, 0.05f, 9f));
+        if (awaySkaters[1] != null) PlaceSkater(awaySkaters[1], new Vector3(4f, 0.05f, 11f));
+        foreach (var skater in homeSkaters) if (skater != null) { skater.health = 150f; skater.stun = 0f; skater.downed = false; if (skater.go != null && skater.active) skater.go.SetActive(true); }
+        foreach (var skater in awaySkaters) if (skater != null) { skater.health = 150f; skater.stun = 0f; skater.downed = false; if (skater.go != null && skater.active) skater.go.SetActive(true); }
+        if (rok != null) rok.Reset(drome != null ? drome.rokSpawn : new Vector3(0f, 0.5f, 0f));
+        if (homeGoalie != null) homeGoalie.Reset(new Vector3(0f, 0.05f, -arena.radiusZ + 2.0f));
+        if (awayGoalie != null) awayGoalie.Reset(new Vector3(0f, 0.05f, arena.radiusZ - 2.0f));
+        multiplierLevel = 1;
+        multiplierArmed = false;
+        multiplierOwner = 0;
+        chargingShot = false;
+        playerPower = 0f;
+    }
+
+    private void PlaceSkater(Skater skater, Vector3 position)
+    {
+        if (skater.controller != null) skater.controller.enabled = false;
+        skater.transform.position = position;
+        if (skater.controller != null) skater.controller.enabled = true;
+    }
+
+    // ---------------------------------------------------------------- update
 
     private void Update()
     {
-        if (!worldReady)
-        {
-            return;
-        }
-        if (demo)
-        {
-            if (hero != null)
-            {
-                hero.SetMotion(0f);
-            }
-            return;
-        }
-        if (matchMode || captureAutoplay)
-        {
-            return;
-        }
-        GameInput.Update();
+        if (!worldReady) return;
+        if (demo) return;
+        if (matchMode || captureAutoplay) return;
         if (screen == GameScreen.Match)
         {
-            if (GameInput.PausePressed)
+            GameInput.Update();
+            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))
             {
                 screen = GameScreen.Paused;
                 return;
             }
-            StepMatch(Time.deltaTime);
+            StepMatch(Time.deltaTime, false);
         }
-        else if (screen == GameScreen.Paused && GameInput.PausePressed)
+        else if (screen == GameScreen.Paused && (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P)))
         {
             screen = GameScreen.Match;
         }
-        else if (hero != null)
+        else
         {
-            hero.SetMotion(0f);
-            if (aiHero != null)
-            {
-                aiHero.SetMotion(0f);
-            }
+            GameInput.Update();
+            SimulateMenuCamera();
         }
     }
 
-    private void StepMatch(float dt)
+    private void SimulateMenuCamera()
     {
-        if (match == null || match.Phase == MatchPhase.Ended)
-        {
-            UpdateHud();
-            return;
-        }
+        if (cam == null) return;
+        var t = Time.time * 0.05f;
+        cam.transform.position = new Vector3(Mathf.Sin(t) * 16f, 11f, -28f);
+        cam.transform.LookAt(Vector3.zero);
+        cam.fieldOfView = 62f;
+    }
+
+    private void StepMatch(float dt, bool autopilot)
+    {
+        if (match == null) return;
         matchFrames++;
         match.Update(dt);
-        combat.Update(dt);
-        if (combat.PlayerStunned && stunFlash <= 0)
+        if (match.Phase == MatchPhase.Kickoff && lastPhase != MatchPhase.Kickoff)
         {
-            stunFlash = 2;
+            ResetKickoffPositions();
+            banner = match.Period > 1 ? "PERIOD " + match.Period : "KICKOFF";
+            bannerTimer = 1.2f;
         }
-        else if (stunFlash > 0)
+        lastPhase = match.Phase;
+
+        if (match.Phase == MatchPhase.Playing || match.Phase == MatchPhase.GoalFlash)
         {
-            stunFlash--;
+            UpdateSkaterInput(dt, autopilot, autopilotAi);
+            UpdateAiSkater(homeSkaters[1], dt, true, 1, homeAi);
+            UpdateAiSkater(awaySkaters[0], dt, false, 0, awayAi0);
+            UpdateAiSkater(awaySkaters[1], dt, false, 1, awayAi1);
+            foreach (var skater in homeSkaters) if (skater != null && skater.hitCooldown > 0f) skater.hitCooldown -= dt;
+            foreach (var skater in awaySkaters) if (skater != null && skater.hitCooldown > 0f) skater.hitCooldown -= dt;
+            UpdateRokPlay(dt);
+            UpdateGoalie(homeGoalie, dt, true);
+            UpdateGoalie(awayGoalie, dt, false);
+            CheckGoal();
+            UpdateHazards(dt);
+            if (speedBurstMeter < 1f && !speedburst)
+            {
+                speedBurstMeter = Mathf.Min(1f, speedBurstMeter + dt * 0.18f);
+            }
         }
 
-        if (match.Phase == MatchPhase.Playing)
+        if (matchFrames % 240 == 0 && rok != null)
         {
-            Vector3 move;
-            bool attack;
-            bool dash;
-            if (autoplay)
+            var carrier = CarrierSkater(rok.CarrierIndex);
+            Debug.Log("UBLADE2_DEBUG_STATE frame=" + matchFrames + " phase=" + match.Phase + " rokState=" + rok.State + " carrier=" + (carrier != null ? carrier.name : "-") + " score=" + match.HomeScore + "-" + match.AwayScore);
+        }
+        if (screen == GameScreen.Match && match.MatchOver && !resultResolved)
+        {
+            FinishMatch();
+        }
+        UpdateHud();
+    }
+
+    private void UpdateSkaterInput(float dt, bool autopilot, AiController ai)
+    {
+        var skater = homeSkaters[0];
+        if (skater == null || skater.downed) return;
+        var definition = homeTeam.skaters[0];
+        if (autopilot)
+        {
+            Vector3 move; bool attack; bool shoot; bool dash;
+            var homeGoal = new Vector3(0f, 0.05f, -arena.radiusZ + 2f);
+            var awayGoal = new Vector3(0f, 0.05f, arena.radiusZ - 2f);
+            ai.Think(dt, skater.transform.position, awayGoal, homeGoal, rok != null ? rok.Position : Vector3.zero,
+                rok != null && rok.State == RokState.Loose, HasRok(skater), OpponentHasRok(),
+                OpponentCarrierPosition(), out move, out attack, out shoot, out dash);
+            MovePlayer(skater, move, dt);
+            if (attack) TryAttack(skater, FindOpponentNear(skater));
+            if (shoot) ShootRok(skater, awayGoal);
+            return;
+        }
+        var horizontal = new Vector3(GameInput.Move.x, 0f, GameInput.Move.y);
+        var hasRok = HasRok(skater);
+        if (hasRok)
+        {
+            horizontal *= 0.85f;
+            if (Input.GetKey(KeyCode.Space))
             {
-                move = AutopilotDirection(out attack, out dash);
+                chargingShot = true;
+                playerPower = Mathf.Min(1f, playerPower + dt * 1.4f);
+            }
+            if (chargingShot && Input.GetKeyUp(KeyCode.Space))
+            {
+                var target = new Vector3(UnityEngine.Random.Range(-2.2f, 2.2f), 0.05f, arena.radiusZ - 2f);
+                ShootRok(skater, target);
+                chargingShot = false;
+                playerPower = 0f;
+            }
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                PassRok(skater, homeSkaters[1]);
+            }
+        }
+        if ((Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.D)) && speedBurstMeter > 0.05f)
+        {
+            speedburst = true;
+            speedBurstMeter = Mathf.Max(0f, speedBurstMeter - dt * 0.9f);
+        }
+        else
+        {
+            speedburst = false;
+        }
+        if (Input.GetKeyDown(KeyCode.S) || Input.GetMouseButtonDown(1))
+        {
+            TryAttack(skater, FindOpponentNear(skater));
+        }
+        if (Input.GetKeyDown(KeyCode.F) && HasRok(skater) && !chargingShot)
+        {
+            var quickTarget = new Vector3(UnityEngine.Random.Range(-2.2f, 2.2f), 0.05f, arena.radiusZ - 2f);
+            ShootRok(skater, quickTarget);
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (skater.controller != null && skater.controller.isGrounded) vy = 6.2f;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            Substitute(2);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            Substitute(3);
+        }
+        MovePlayer(skater, horizontal, dt);
+        if (skater.rig != null) skater.rig.SetMotion(horizontal.magnitude * BaseSpeed);
+    }
+
+    private void MovePlayer(Skater skater, Vector3 direction, float dt)
+    {
+        if (skater == null || skater.downed) return;
+        var definition = homeTeam.skaters[0];
+        var speed = BaseSpeed * (0.7f + definition.speed * 0.05f) * (speedburst ? 1.55f : 1f);
+        var planar = new Vector3(direction.x, 0f, direction.z);
+        if (planar.sqrMagnitude > 0.0001f)
+        {
+            planar.Normalize();
+            skater.transform.rotation = Quaternion.LookRotation(planar, Vector3.up);
+        }
+        if (skater.controller != null && skater.controller.enabled)
+        {
+            if (skater.controller.isGrounded && vy < 0f) vy = -2f;
+            vy -= 9.81f * dt;
+            skater.controller.Move(planar * speed * dt + Vector3.up * vy * dt);
+        }
+        else
+        {
+            skater.transform.position += planar * speed * dt;
+        }
+        ClampToDrome(skater.transform);
+    }
+
+    private void ClampToDrome(Transform target)
+    {
+        if (arena == null) return;
+        var position = target.position;
+        var nx = position.x / (arena.radiusX - 1.3f);
+        var nz = position.z / (arena.radiusZ - 1.8f);
+        var length = Mathf.Sqrt(nx * nx + nz * nz);
+        if (length > 1f)
+        {
+            nx /= length;
+            nz /= length;
+            position.x = nx * (arena.radiusX - 1.3f);
+            position.z = nz * (arena.radiusZ - 1.8f);
+            target.position = position;
+        }
+    }
+
+    private void UpdateAiSkater(Skater skater, float dt, bool isHome, int index, AiController ai)
+    {
+        if (skater == null || skater.downed || !skater.active) return;
+        var homeGoal = new Vector3(0f, 0.05f, -arena.radiusZ + 2f);
+        var awayGoal = new Vector3(0f, 0.05f, arena.radiusZ - 2f);
+        var attackGoal = isHome ? awayGoal : homeGoal;
+        var ownGoal = isHome ? homeGoal : awayGoal;
+        Vector3 move; bool attack; bool shoot; bool dash;
+        ai.Think(dt, skater.transform.position, attackGoal, ownGoal, rok != null ? rok.Position : Vector3.zero,
+            rok != null && rok.State == RokState.Loose, HasRok(skater), OpponentHasRok(),
+            OpponentCarrierPosition(), out move, out attack, out shoot, out dash);
+        var definition = (isHome ? homeTeam : awayTeam).skaters[index % 4];
+        var speed = BaseSpeed * (0.65f + definition.speed * 0.05f) * (dash ? 1.35f : 1f);
+        if (move.sqrMagnitude > 0.001f && skater.transform != null)
+        {
+            skater.transform.position += move * speed * dt;
+            skater.transform.rotation = Quaternion.LookRotation(move, Vector3.up);
+            ClampToDrome(skater.transform);
+        }
+        if (skater.rig != null) skater.rig.SetMotion(move.magnitude * speed);
+        if (attack) TryAttack(skater, FindOpponentNear(skater));
+        if (shoot) ShootRok(skater, attackGoal);
+    }
+
+    private bool HasRok(Skater skater)
+    {
+        return rok != null && rok.State == RokState.Carried && rok.CarrierIndex >= 0 && CarrierSkater(rok.CarrierIndex) == skater;
+    }
+
+    private bool OpponentHasRok()
+    {
+        return rok != null && rok.State == RokState.Carried && CarrierSkater(rok.CarrierIndex) != null;
+    }
+
+    private Vector3 OpponentCarrierPosition()
+    {
+        var carrier = CarrierSkater(rok != null ? rok.CarrierIndex : -1);
+        return carrier != null ? carrier.transform.position : Vector3.zero;
+    }
+
+    private Skater CarrierSkater(int carrierIndex)
+    {
+        if (carrierIndex < 0) return null;
+        if (carrierIndex < 4) return homeSkaters[carrierIndex];
+        return awaySkaters[carrierIndex - 4];
+    }
+
+    private Skater FindOpponentNear(Skater attacker)
+    {
+        Skater best = null;
+        var bestDistance = float.MaxValue;
+        foreach (var other in attacker.home ? awaySkaters : homeSkaters)
+        {
+            if (other == null || other.downed || !other.active) continue;
+            var distance = HorizontalDistance(attacker.transform.position, other.transform.position);
+            if (distance < 2.6f && distance < bestDistance) { bestDistance = distance; best = other; }
+        }
+        return best;
+    }
+
+    private void TryAttack(Skater attacker, Skater target)
+    {
+        if (attacker == null || target == null || attacker.attackCooldown > 0f || target.downed) return;
+        attacker.attackCooldown = 0.9f;
+        var team = attacker.home ? homeTeam : awayTeam;
+        var definition = team.skaters[attacker.rosterIndex % 4];
+        var damage = 8f + definition.checking * 0.4f + definition.damage * 0.015f;
+        target.health -= damage;
+        target.stun = 0.7f + definition.checking * 0.02f;
+        if (target.go != null) target.transform.position += (target.transform.position - attacker.transform.position).normalized * 0.9f;
+        if (target.rig != null) target.rig.Slash();
+        ClampToDrome(target.transform);
+        banner = "JAK HIT!";
+        bannerTimer = 0.7f;
+        if (audioReady) GameAudio.PlayHit(!attacker.home);
+        stats.RecordInjury(attacker.home);
+        if (target.health <= 0f)
+        {
+            target.health = 0f;
+            target.downed = true;
+            if (target.go != null) target.go.SetActive(false);
+            if (HasRok(target)) rok.Drop();
+            stats.RecordFatal(attacker.home);
+            AddFeed((attacker.home ? "WAYFARERS" : "RIVALS") + " downed " + target.name);
+        }
+    }
+
+    private void UpdateRokPlay(float dt)
+    {
+        if (rok == null) return;
+        rok.Update(dt, true, arena.radiusX, arena.radiusZ);
+        if (rok.State == RokState.Loose || rok.State == RokState.InFlight)
+        {
+            var homeWasFlying = rok.State == RokState.InFlight;
+            foreach (var skater in homeSkaters)
+            {
+                if (skater == null || skater.downed || !skater.active) continue;
+                if (rok.TryPickup(skater.rosterIndex, true, skater.transform.position, 2.0f))
+                {
+                    Debug.Log("UBLADE2_DEBUG_PICKUP home index=" + skater.rosterIndex + " name=" + skater.name + " frame=" + matchFrames);
+                    if (audioReady) GameAudio.PlayCollect(1);
+                    banner = "ROK: " + skater.name;
+                    bannerTimer = 0.8f;
+                    stats.homeActiveDromer = skater.rosterIndex;
+                    if (homeWasFlying && !rok.CarrierIsPlayerTeam) stats.RecordInterception(true);
+                    break;
+                }
+            }
+            if (rok.State == RokState.Loose || rok.State == RokState.InFlight)
+            {
+                var awayWasFlying = rok.State == RokState.InFlight;
+                foreach (var skater in awaySkaters)
+                {
+                    if (skater == null || skater.downed || !skater.active) continue;
+                    if (rok.TryPickup(4 + skater.rosterIndex, false, skater.transform.position, 2.0f))
+                    {
+                        Debug.Log("UBLADE2_DEBUG_PICKUP away index=" + skater.rosterIndex + " name=" + skater.name + " frame=" + matchFrames);
+                        banner = "ROK: " + skater.name;
+                        bannerTimer = 0.8f;
+                        stats.awayActiveDromer = skater.rosterIndex;
+                        if (awayWasFlying && rok.CarrierIsPlayerTeam) stats.RecordInterception(false);
+                        break;
+                    }
+                }
+            }
+        }
+        var carrier = CarrierSkater(rok.CarrierIndex);
+        if (carrier != null)
+        {
+            if (carrier.downed || !carrier.active)
+            {
+                rok.Drop();
             }
             else
             {
-                move = new Vector3(GameInput.Move.x, 0f, GameInput.Move.y);
-                attack = GameInput.AttackPressed;
-                dash = GameInput.DashPressed;
-            }
-            if (combat.PlayerStunned)
-            {
-                move = Vector3.zero;
-                attack = false;
-                dash = false;
-            }
-            var playerPosition = player.position;
-            MovePlayer(move, dt * (combat.PlayerDashing ? 2.2f : 1f));
-            hero.SetMotion(move.magnitude * Speed);
-            if (attack && combat.PlayerTryAttack(playerPosition, aiTransform.position))
-            {
-                HandleHit(true);
-            }
-            if (dash && combat.PlayerTryDash())
-            {
-                if (audioReady) GameAudio.PlayDash();
-            }
-
-            var aiPosition = aiTransform.position;
-            aiController.SetStunned(combat.AiStunRemaining);
-            Vector3 aiMove;
-            bool aiAttack;
-            bool aiDash;
-            aiController.Think(dt, aiPosition, player.position, match.CrystalPositions, match.CrystalActive, out aiMove, out aiAttack, out aiDash);
-            if (!combat.AiStunned && aiMove.sqrMagnitude > 0.0001f)
-            {
-                var speed = 4.4f + match.Config.difficulty * 0.7f;
-                var next = Vector3.MoveTowards(aiPosition, aiPosition + aiMove.normalized * 10f, speed * dt);
-                next.y = 0.05f;
-                aiTransform.position = next;
-                var face = next - aiPosition;
-                face.y = 0f;
-                if (face.sqrMagnitude > 0.0001f)
-                {
-                    aiTransform.rotation = Quaternion.LookRotation(face, Vector3.up);
-                }
-            }
-            aiHero.SetMotion(aiMove.magnitude * 5f);
-            if (aiAttack && combat.AiTryAttack(aiTransform.position, player.position))
-            {
-                HandleHit(false);
-            }
-            if (aiDash)
-            {
-                combat.AiTryDash();
-            }
-
-            for (int index = 0; index < 3; index++)
-            {
-                if (!match.CrystalActive[index])
-                {
-                    continue;
-                }
-                if (!combat.PlayerStunned && PlanarDistance(player.position, match.CrystalPositions[index]) < 1.35f)
-                {
-                    match.CollectCrystal(index, true);
-                }
-                else if (!combat.AiStunned && PlanarDistance(aiTransform.position, match.CrystalPositions[index]) < 1.35f)
-                {
-                    match.CollectCrystal(index, false);
-                }
+                rok.TrackCarrier(carrier.transform.position, carrier.transform.forward);
+                stats.UpdatePossession(carrier.home, dt);
             }
         }
-
-        SyncCrystals();
-        UpdateHud();
     }
 
-    private Vector3 AutopilotDirection(out bool attack, out bool dash)
+    private void ShootRok(Skater skater, Vector3 target)
     {
-        attack = false;
-        dash = false;
-        var playerPosition = player.position;
-        if (PlanarDistance(playerPosition, aiTransform.position) < 2.2f && combat.PlayerAttackCooldown <= 0f)
+        if (skater == null || rok == null || !HasRok(skater)) return;
+        var team = skater.home ? homeTeam : awayTeam;
+        var definition = team.skaters[skater.rosterIndex % 4];
+        var power = 0.55f + definition.shotPower * 0.035f;
+        var accuracy = 0.4f + definition.shotAccuracy * 0.05f;
+        rok.Shoot(skater.transform.position, target, power, accuracy);
+        Debug.Log("UBLADE2_DEBUG_SHOT by=" + skater.name + " home=" + skater.home + " power=" + power + " frame=" + matchFrames);
+        if (skater.home) { stats.homeActiveDromer = skater.rosterIndex; stats.awayActiveDromer = -1; }
+        else { stats.awayActiveDromer = skater.rosterIndex; stats.homeActiveDromer = -1; }
+        stats.RecordShot(skater.home, false, 1, multiplierArmed);
+        stats.RecordSave(!skater.home, false);
+        if (audioReady) GameAudio.PlayHit(false);
+        banner = "SHOT!";
+        bannerTimer = 0.6f;
+        chargingShot = false;
+        playerPower = 0f;
+    }
+
+    private void PassRok(Skater skater, Skater teammate)
+    {
+        if (skater == null || teammate == null || !HasRok(skater)) return;
+        var team = skater.home ? homeTeam : awayTeam;
+        var definition = team.skaters[skater.rosterIndex % 4];
+        rok.Pass(skater.transform.position, teammate.transform.position, 0.5f + definition.passAccuracy * 0.05f);
+        if (multiplierArmed) stats.RecordMultiplierPass(skater.home);
+        banner = "PASS";
+        bannerTimer = 0.5f;
+    }
+
+    private void CheckGoal()
+    {
+        if (rok == null) return;
+        bool northGoal;
+        int scoringTeam;
+        var northMouth = drome != null ? new Vector3(drome.goalNorthMouth.x, 1.0f, drome.goalNorthMouth.z) : new Vector3(0f, 1.0f, arena.radiusZ - 2f);
+        var southMouth = drome != null ? new Vector3(drome.goalSouthMouth.x, 1.0f, drome.goalSouthMouth.z) : new Vector3(0f, 1.0f, -arena.radiusZ + 2f);
+        if (rok.TryGoal(northMouth, southMouth, out northGoal, out scoringTeam))
         {
-            attack = true;
+            var homeScored = northGoal;
+            Debug.Log("UBLADE2_DEBUG_GOAL north=" + northGoal + " scoringTeam=" + scoringTeam + " rok=" + rok.Position);
+            var points = multiplierLevel;
+            stats.RecordGoal(homeScored, points, multiplierArmed);
+            match.Goal(homeScored, points);
+            AddFeed((homeScored ? "WAYFARERS" : "RIVALS") + " GOAL +" + points);
+            banner = homeScored ? "GOAL! WAYFARERS +" + points : "GOAL! RIVALS +" + points;
+            bannerTimer = 1.4f;
+            if (audioReady) GameAudio.PlayVictory();
+            multiplierLevel = 1;
+            multiplierArmed = false;
+            StartCoroutine(ResetAfterGoal());
+            // NOTE: the original Wipe Out Rule needs all four opposing forwards killed. This slice
+            // keeps the downed players out until the next goal/period instead of ending the match early.
+
         }
-        var target = Vector3.zero;
-        var bestDistance = float.MaxValue;
-        for (int index = 0; index < 3; index++)
+    }
+
+    private IEnumerator ResetAfterGoal()
+    {
+        yield return new WaitForSeconds(MatchRules.GoalFlashSeconds);
+        ResetKickoffPositions();
+    }
+
+    private void UpdateGoalie(GoalieSystem goalie, float dt, bool home)
+    {
+        if (goalie == null || rok == null) return;
+        var ownGoal = new Vector3(0f, 0.05f, home ? -arena.radiusZ + 2f : arena.radiusZ - 2f);
+        goalie.Update(dt, rok.Position, rok.State, home ? rok.Position.z < 0f : rok.Position.z > 0f);
+        var visual = home ? homeGoalieVisual : awayGoalieVisual;
+        if (visual != null) visual.transform.position = new Vector3(goalie.Position.x, 0.05f, goalie.Position.z);
+        if (rok.State == RokState.InFlight)
         {
-            if (!match.CrystalActive[index])
+            var headingHome = home ? rok.Velocity.z < 0f : rok.Velocity.z > 0f;
+            if (headingHome && HorizontalDistance(rok.Position, goalie.Position) < 3.8f)
+            {
+                if (goalie.TrySave(rok.Position, ownGoal, rok.Velocity.magnitude))
+                {
+                    rok.Reset(goalie.Position + new Vector3(0f, 0.4f, home ? 1.2f : -1.2f));
+                    savedFlashTimer = 1.0f;
+                }
+            }
+        }
+    }
+
+    private void OnSave(bool saved, bool home)
+    {
+        if (!saved) return;
+        if (stats != null)
+        {
+            if (home && stats.HomeGoalie != null) stats.HomeGoalie.saves++;
+            else if (!home && stats.AwayGoalie != null) stats.AwayGoalie.saves++;
+        }
+        banner = "SAVE!";
+        bannerTimer = 0.9f;
+        savedFlashTimer = 1.0f;
+    }
+
+    private void OnPeriodEnded(int period)
+    {
+        var ads = new[] { "NoBones: NoBones About It!", "SPECSAVERS: See More", "HUGE! for men", "HELLMET: Pain Is Pleasure" };
+        banner = "END OF PERIOD " + period + " - " + ads[(period - 1) % ads.Length];
+        bannerTimer = 2.5f;
+        AddFeed("END OF PERIOD " + period);
+        if (audioReady) GameAudio.PlayWhistle();
+        StartCoroutine(ResetAfterGoal());
+    }
+
+    private bool AllActiveDowned(bool home)
+    {
+        var line = home ? homeSkaters : awaySkaters;
+        foreach (var skater in line)
+        {
+            if (skater != null && skater.active && !skater.downed) return false;
+        }
+        return true;
+    }
+
+    private void Substitute(int benchRosterIndex)
+    {
+        var skater = homeSkaters[0];
+        if (skater == null || skater.downed) return;
+        if (benchRosterIndex < 0 || benchRosterIndex >= homeTeam.skaters.Length) return;
+        skater.rosterIndex = benchRosterIndex;
+        skater.name = homeTeam.skaters[benchRosterIndex].name;
+        skater.health = 150f;
+        banner = "SUB: " + skater.name;
+        bannerTimer = 1f;
+        AddFeed("SUB " + skater.name);
+    }
+
+    private void UpdateHazards(float dt)
+    {
+        hazardCooldown -= dt;
+        if (hazardCooldown > 0f) return;
+        if (drome == null || drome.props == null) return;
+        foreach (var prop in drome.props)
+        {
+            var position = new Vector3(prop.position.x, 0.05f, prop.position.y);
+            if (prop.kind == DromePropKind.Multiplier)
+            {
+                if (rok != null && rok.State == RokState.Carried)
+                {
+                    var carrier = CarrierSkater(rok.CarrierIndex);
+                    if (carrier != null && HorizontalDistance(carrier.transform.position, position) < 2.2f)
+                    {
+                        var owner = carrier.home ? 1 : 2;
+                        if (multiplierLevel > 1 && multiplierOwner != 0 && owner != multiplierOwner)
+                        {
+                            multiplierLevel = 1;
+                            multiplierArmed = false;
+                            banner = "MULTIPLIER NULLIFIED";
+                        }
+                        else
+                        {
+                            multiplierLevel = multiplierLevel < 2 ? 2 : 4;
+                            multiplierOwner = owner;
+                            multiplierArmed = true;
+                            banner = "MULTIPLIER x" + multiplierLevel;
+                        }
+                        multiplierOwner = owner;
+                        bannerTimer = 1.2f;
+                        stats.RecordMultiplierPass(carrier.home);
+                    }
+                }
+                continue;
+            }
+            if (prop.kind == DromePropKind.Randomizer || prop.kind == DromePropKind.RedRandomizer)
             {
                 continue;
             }
-            var distance = PlanarDistance(playerPosition, match.CrystalPositions[index]);
-            if (distance < bestDistance)
-            {
-                bestDistance = distance;
-                target = match.CrystalPositions[index];
-            }
-            if (PlanarDistance(match.CrystalPositions[index], aiTransform.position) < 1.5f)
-            {
-                attack = PlanarDistance(playerPosition, aiTransform.position) < 2.4f;
-            }
-        }
-        if (bestDistance > 7f && matchFrames % 90 == 0)
-        {
-            dash = true;
-        }
-        var direction = target - playerPosition;
-        direction.y = 0f;
-        if (direction.sqrMagnitude > 0.0001f)
-        {
-            direction.Normalize();
-        }
-        return direction;
-    }
-
-    private void HandleHit(bool playerHitAi)
-    {
-        if (audioReady)
-        {
-            GameAudio.PlayHit(!playerHitAi);
-        }
-        banner = playerHitAi ? "STRIKE!" : "HIT!";
-        bannerTimer = 0.8f;
-        if (playerHitAi)
-        {
-            if (aiTransform != null)
-            {
-                aiTransform.position += new Vector3(0f, 0f, 0f) + aiTransform.forward * 0.9f;
-            }
-            if (aiHero != null)
-            {
-                aiHero.PlayReach();
-            }
-        }
-        else
-        {
-            controller.Move(player.forward * -0.9f);
-            if (hero != null)
-            {
-                hero.PlayReach();
-            }
-        }
-    }
-
-    private void SyncCrystals()
-    {
-        if (match == null)
-        {
-            return;
-        }
-        for (int index = 0; index < crystals.Count && index < 3; index++)
-        {
-            var crystal = crystals[index];
-            if (crystal == null)
+            if (prop.kind == DromePropKind.Ramp || prop.kind == DromePropKind.Armory)
             {
                 continue;
             }
-            var active = index < match.CrystalActive.Length && match.CrystalActive[index];
-            if (crystal.activeSelf != active)
+            foreach (var skater in homeSkaters)
             {
-                crystal.SetActive(active);
+                if (skater == null || skater.downed || !skater.active) continue;
+                if (skater.hitCooldown > 0f) continue;
+                if (HorizontalDistance(skater.transform.position, position) < 1.8f)
+                {
+                    skater.health -= 6f;
+                    skater.stun = 0.6f;
+                    skater.hitCooldown = 1.4f;
+                    hazardCooldown = 0.8f;
+                    banner = "DROME HAZARD";
+                    bannerTimer = 0.7f;
+                    if (skater.health <= 0f)
+                    {
+                        skater.downed = true;
+                        if (skater.go != null) skater.go.SetActive(false);
+                        stats.RecordInjury(true);
+                    }
+                    break;
+                }
             }
         }
     }
 
-    private void UpdateHud()
+    private void OnGoalScored(bool homeScored, int points)
     {
-        if (match == null)
-        {
-            return;
-        }
-        var config = match.Config;
-        var hud = uiModel.hud;
-        hud.playerScore = match.PlayerScore;
-        hud.aiScore = match.AiScore;
-        hud.timeLeft = match.TimeLeft;
-        hud.targetScore = config.targetScore;
-        hud.round = config.round;
-        hud.totalRounds = config.totalRounds;
-        hud.arenaName = config.arenaName;
-        hud.playerTeam = config.playerTeam;
-        hud.aiTeam = config.aiTeam;
-        hud.playerColor = config.playerColor;
-        hud.aiColor = config.aiColor;
-        hud.kickoff = match.Phase == MatchPhase.Kickoff;
-        hud.playerStunned = combat != null && combat.PlayerStunned;
-        hud.aiStunned = combat != null && combat.AiStunned;
-        hud.attackCooldown = combat != null ? combat.PlayerAttackCooldown : 0f;
-        hud.dashCooldown = combat != null ? combat.PlayerDashRemaining : 0f;
-        hud.collectFlash = collectFlash;
-        hud.banner = banner;
-        hud.matchOver = match.Phase == MatchPhase.Ended;
-        hud.difficulty = config.difficulty;
-        if (bannerTimer > 0f)
-        {
-            bannerTimer -= Time.deltaTime;
-            if (bannerTimer <= 0f && match.Phase != MatchPhase.PointFlash)
-            {
-                banner = "";
-            }
-        }
-        if (collectFlashTimer > 0f)
-        {
-            collectFlashTimer -= Time.deltaTime;
-            if (collectFlashTimer <= 0f)
-            {
-                collectFlash = 0;
-            }
-        }
-        if (match.Phase == MatchPhase.PointFlash && string.IsNullOrEmpty(banner))
-        {
-            banner = "POINT!";
-        }
-        uiModel.seasonWins = league != null ? league.Wins : 0;
-        uiModel.seasonLosses = league != null ? league.Losses : 0;
-        uiModel.seasonPoints = league != null ? league.Points : 0;
-        uiModel.seasonComplete = league != null && league.SeasonComplete;
-        uiModel.leagueLines = league != null ? league.TableLines() : new string[0];
-        uiModel.nextOpponent = league != null && league.NextOpponent != null ? league.NextOpponent.name : "";
-        uiModel.touch = Application.isMobilePlatform;
-        uiModel.settings = settings;
-    }
-
-    private void BeginMatch(bool autopilotPlayer, float duration, int targetScore, LeagueOpponent opponentOverride = null, bool ranked = true)
-    {
-        leaguePersist = !autoplay && ranked;
-        matchRanked = ranked && leaguePersist;
-        if (opponentOverride != null)
-        {
-            currentOpponent = opponentOverride;
-            matchRanked = false;
-            leaguePersist = false;
-        }
-        else
-        {
-            if (league.SeasonComplete || league.NextOpponent == null)
-            {
-                league.ResetSeason();
-                league.BeginSeason();
-            }
-            currentOpponent = league.NextOpponent;
-        }
-        if (currentOpponent == null)
-        {
-            currentOpponent = new LeagueOpponent { name = "Razorwings", color = new Color(1f, 0.35f, 0.3f), difficulty = 2, arena = ArenaNames[0] };
-        }
-        int arena = Array.IndexOf(ArenaNames, currentOpponent.arena);
-        if (arena < 0)
-        {
-            arena = 0;
-        }
-        BuildArena(arena);
-        var effectiveDifficulty = Mathf.Clamp(currentOpponent.difficulty + settings.difficulty - 2, 1, 3);
-        var config = new MatchConfig
-        {
-            playerTeam = "WAYFARERS",
-            aiTeam = currentOpponent.name.ToUpperInvariant(),
-            playerColor = new Color(0.2f, 0.75f, 1f),
-            aiColor = currentOpponent.color,
-            arenaName = currentOpponent.arena,
-            duration = duration,
-            targetScore = targetScore,
-            difficulty = effectiveDifficulty,
-            round = Mathf.Clamp(league.Round + 1, 1, league.TotalRounds),
-            totalRounds = league.TotalRounds
-        };
-        match = new MatchRules(config, ArenaCrystals[arena]);
-        match.CrystalCollected += OnCrystalCollected;
-        match.MatchEnded += OnMatchEnded;
-        combat = new CombatSystem();
-        aiController = new AiController(effectiveDifficulty);
-        this.autoplay = autopilotPlayer || matchMode || captureAutoplay;
-        player.position = new Vector3(-2f, 0.05f, 0f);
-        controller.enabled = false;
-        controller.enabled = true;
-        aiTransform.position = new Vector3(2f, 0.05f, 0f);
-        hero.SetMotion(0f);
-        aiHero.SetMotion(0f);
-        matchFrames = 0;
-        resultResolved = false;
-        banner = "";
-        bannerTimer = 0f;
-        collectFlash = 0;
-        collectFlashTimer = 0f;
-        screen = GameScreen.Match;
-        match.BeginMatch();
-        UpdateHud();
-        if (audioReady)
-        {
-            GameAudio.ApplySettings(settings);
-            GameAudio.StartMusic(arena);
-            GameAudio.PlayWhistle();
-        }
-        Debug.Log("UBLADE2_MATCH_START opponent=" + currentOpponent.name + " arena=" + currentOpponent.arena +
-                  " difficulty=" + effectiveDifficulty + " duration=" + duration +
-                  " target=" + targetScore + " ranked=" + matchRanked + " autoplay=" + this.autoplay);
-    }
-
-    private void OnCrystalCollected(int index, bool byPlayer)
-    {
-        if (crystals != null && index >= 0 && index < crystals.Count && crystals[index] != null)
-        {
-            crystals[index].SetActive(false);
-        }
-        collectFlash = byPlayer ? 1 : 2;
-        collectFlashTimer = 0.7f;
-        if (audioReady)
-        {
-            GameAudio.PlayCollect(byPlayer ? 1 : 0);
-        }
-        if (byPlayer)
-        {
-            if (hero != null) hero.PlayReach();
-            banner = "+1 WAYFARERS";
-        }
-        else
-        {
-            if (aiHero != null) aiHero.PlayReach();
-            banner = "+1 " + (match != null ? match.Config.aiTeam : "OPPONENT");
-        }
-        bannerTimer = 1.0f;
+        if (audioReady) GameAudio.PlayWhistle();
     }
 
     private void OnMatchEnded(int winner)
     {
-        if (resultResolved)
-        {
-            return;
-        }
+        if (resultResolved) return;
         resultResolved = true;
-        if (matchRanked && league != null)
-        {
-            league.ResolveMatch(winner == 1);
-            if (leaguePersist)
-            {
-                league.Save();
-            }
-        }
         screen = GameScreen.Result;
+        var homeWon = winner == 1;
+        if (ranked && league != null)
+        {
+            if (homeWon)
+            {
+                league.ResolveMatch(true);
+            }
+            else
+            {
+                league.BeginSeason();
+            }
+            league.Save();
+        }
+        ranked = false;
         uiModel.hud.resultText = winner == 1 ? "VICTORY" : winner == 2 ? "DEFEAT" : "DRAW";
+        if (stats != null)
+        {
+            if (homeGoalie != null) { stats.HomeGoalie.shotsAgainst = homeGoalie.ShotsAgainst; stats.HomeGoalie.saves = homeGoalie.Saves; }
+            if (awayGoalie != null) { stats.AwayGoalie.shotsAgainst = awayGoalie.ShotsAgainst; stats.AwayGoalie.saves = awayGoalie.Saves; }
+        }
+        uiModel.hud.statsLines = stats != null ? stats.DromerLines() : new string[0];
+        uiModel.hud.goalieStatsLines = stats != null ? stats.GoalieLines() : new string[0];
         if (audioReady)
         {
             if (winner == 1) GameAudio.PlayVictory();
             else if (winner == 2) GameAudio.PlayDefeat();
-            GameAudio.PlayWhistle();
         }
-        Debug.Log("UBLADE2_MATCH_END player=" + match.PlayerScore + " ai=" + match.AiScore +
-                  " winner=" + winner + " frames=" + matchFrames + " phase=" + match.Phase +
-                  " ranked=" + matchRanked);
+        AddFeed("FINAL " + homeTeam.displayName + " " + match.HomeScore + " - " + match.AwayScore + " " + awayTeam.displayName);
         UpdateHud();
+        Debug.Log("UBLADE2_MATCH_END home=" + match.HomeScore + " away=" + match.AwayScore + " winner=" + winner +
+                  " frames=" + matchFrames + " periods=" + match.Period);
     }
 
-    private void UpdateUiModel()
+    private void FinishMatch()
+    {
+        if (resultResolved) return;
+        OnMatchEnded(match.Winner);
+        uiModel.hud.statsLines = stats != null ? stats.DromerLines() : new string[0];
+        uiModel.hud.goalieStatsLines = stats != null ? stats.GoalieLines() : new string[0];
+    }
+
+    private void UpdateHud()
+    {
+        if (match == null) return;
+        var hud = uiModel.hud;
+        hud.playerTeam = homeTeam.displayName;
+        hud.aiTeam = awayTeam.displayName;
+        hud.playerColor = homeTeam.primary;
+        hud.aiColor = awayTeam.primary;
+        hud.playerScore = match.HomeScore;
+        hud.aiScore = match.AwayScore;
+        hud.period = match.Period;
+        hud.totalPeriods = match.Config.periods;
+        hud.periodTime = match.PeriodTime;
+        hud.timeLeft = match.PeriodTime;
+        hud.round = match.Period;
+        hud.totalRounds = match.Config.periods;
+        hud.arenaName = arena != null ? arena.displayName : "";
+        hud.rokCarrier = rok != null && rok.State == RokState.Carried && CarrierSkater(rok.CarrierIndex) != null ? CarrierSkater(rok.CarrierIndex).name : "LOOSE";
+        hud.playerHasRok = rok != null && rok.State == RokState.Carried && rok.CarrierIndex >= 0 && rok.CarrierIndex < 4;
+        hud.shotPower = playerPower;
+        hud.speedBurst = speedBurstMeter;
+        hud.multiplier = multiplierLevel;
+        hud.goalieSaved = savedFlashTimer > 0f;
+        hud.banner = banner;
+        hud.matchOver = match.MatchOver;
+        hud.rosterNames = new string[homeTeam.skaters.Length];
+        hud.rosterHealth = new float[homeTeam.skaters.Length];
+        for (int i = 0; i < homeTeam.skaters.Length; i++)
+        {
+            hud.rosterNames[i] = homeTeam.skaters[i].name;
+            var skater = homeSkaters[i];
+            hud.rosterHealth[i] = skater != null ? Mathf.Clamp01(skater.health / 150f) : 0f;
+        }
+        hud.activePlayer = 0;
+        hud.eventFeed = feed.ToArray();
+        hud.difficulty = match.Config.difficulty;
+        if (savedFlashTimer > 0f) savedFlashTimer -= Time.deltaTime;
+        if (bannerTimer > 0f) bannerTimer -= Time.deltaTime;
+        if (bannerTimer <= 0f) banner = "";
+        uiModel.screen = screen;
+        uiModel.settings = settings;
+        uiModel.seasonWins = league.Wins;
+        uiModel.seasonLosses = league.Losses;
+        uiModel.seasonPoints = league.Points;
+        uiModel.seasonComplete = league.SeasonComplete;
+        uiModel.leagueLines = league.TableLines();
+        uiModel.nextOpponent = league.NextOpponent != null ? league.NextOpponent.displayName : "";
+        uiModel.touch = Application.isMobilePlatform;
+    }
+
+    private void AddFeed(string line)
+    {
+        feed.Add(line);
+        while (feed.Count > 6) feed.RemoveAt(0);
+    }
+
+    // ---------------------------------------------------------------- modes
+
+    private void BuildMenuUi()
     {
         uiModel.screen = screen;
         uiModel.settings = settings;
-        uiModel.hud.matchOver = match != null && match.Phase == MatchPhase.Ended;
-        if (settings != null)
+        uiModel.seasonWins = league.Wins;
+        uiModel.seasonLosses = league.Losses;
+        uiModel.seasonPoints = league.Points;
+        uiModel.seasonComplete = league.SeasonComplete;
+        uiModel.leagueLines = league.TableLines();
+        uiModel.nextOpponent = league.NextOpponent != null ? league.NextOpponent.displayName : "";
+        uiModel.hud.playerTeam = homeTeam != null ? homeTeam.displayName : "WAYFARERS";
+        uiModel.hud.aiTeam = awayTeam != null ? awayTeam.displayName : "RIVALS";
+        uiModel.hud.arenaName = arena != null ? arena.displayName : "";
+        uiModel.hud.difficulty = settings.difficulty;
+        uiModel.touch = Application.isMobilePlatform;
+    }
+
+    private void OnGUI()
+    {
+        if (!worldReady || demo || matchMode) return;
+        if (!string.IsNullOrEmpty(capturePath) && !captureAutoplay) return;
+        if (match == null) BuildMenuUi();
+        if (match == null) UpdateMenuModel();
+        var action = GameUI.Draw(uiModel);
+        if (screen == GameScreen.Match && Application.isMobilePlatform && settings.touchControls)
         {
-            uiModel.touch = Application.isMobilePlatform;
+            GameInput.DrawTouchControls(settings);
         }
+        if (action != UiAction.None)
+        {
+            if (audioReady) GameAudio.PlayClick();
+            HandleAction(action);
+        }
+    }
+
+    private void UpdateMenuModel()
+    {
+        uiModel.screen = screen;
+        uiModel.settings = settings;
         if (league != null)
         {
             uiModel.seasonWins = league.Wins;
@@ -998,49 +1200,13 @@ public class UBlade2Game : MonoBehaviour
             uiModel.seasonPoints = league.Points;
             uiModel.seasonComplete = league.SeasonComplete;
             uiModel.leagueLines = league.TableLines();
-            uiModel.nextOpponent = league.NextOpponent != null ? league.NextOpponent.name : "";
-            uiModel.hud.round = Mathf.Clamp(league.Round + 1, 1, Mathf.Max(1, league.TotalRounds));
-            uiModel.hud.totalRounds = league.TotalRounds;
+            uiModel.nextOpponent = league.NextOpponent != null ? league.NextOpponent.displayName : "";
         }
-        if (settings != null)
-        {
-            uiModel.hud.difficulty = settings.difficulty;
-            uiModel.hud.targetScore = match != null ? match.Config.targetScore : 5;
-        }
-    }
-
-    private void OnGUI()
-    {
-        if (!worldReady || demo || matchMode || !string.IsNullOrEmpty(capturePath) && !captureAutoplay)
-        {
-            return;
-        }
-        if (matchCapturePath == null && menuCapturePath == null && mobileCapture == false && string.IsNullOrEmpty(capturePath))
-        {
-            // interactive play
-        }
-        UpdateUiModel();
-        if (screen == GameScreen.Settings)
-        {
-            ApplyDisplaySettings();
-            if (audioReady)
-            {
-                GameAudio.ApplySettings(settings);
-            }
-        }
-        var action = GameUI.Draw(uiModel);
-        if (screen == GameScreen.Match && Application.isMobilePlatform && settings != null && settings.touchControls)
-        {
-            GameInput.DrawTouchControls(settings);
-        }
-        if (action != UiAction.None)
-        {
-            if (audioReady)
-            {
-                GameAudio.PlayClick();
-            }
-            HandleAction(action);
-        }
+        uiModel.hud.playerTeam = homeTeam != null ? homeTeam.displayName : "WAYFARERS";
+        uiModel.hud.aiTeam = awayTeam != null ? awayTeam.displayName : "RIVALS";
+        uiModel.hud.arenaName = arena != null ? arena.displayName : "";
+        uiModel.hud.difficulty = settings.difficulty;
+        uiModel.touch = Application.isMobilePlatform;
     }
 
     private void HandleAction(UiAction action)
@@ -1055,7 +1221,8 @@ public class UBlade2Game : MonoBehaviour
                     league.BeginSeason();
                     league.Save();
                 }
-                BeginMatch(false, 120f, 5);
+                ranked = true;
+                BeginMatch(false, 180f);
                 break;
             case UiAction.OpenLeague:
                 previousScreen = screen;
@@ -1072,14 +1239,14 @@ public class UBlade2Game : MonoBehaviour
                 screen = GameScreen.Match;
                 break;
             case UiAction.RestartMatch:
-                BeginMatch(false, 120f, 5, currentOpponent, false);
+                ranked = false;
+                BeginMatch(false, 180f);
                 break;
             case UiAction.QuitToMenu:
                 screen = GameScreen.MainMenu;
-                if (audioReady)
-                {
-                    GameAudio.StartMusic(0);
-                }
+                match = null;
+                BuildMenuWorld();
+                if (audioReady) GameAudio.StartMusic(0);
                 break;
             case UiAction.NewSeason:
                 league.ResetSeason();
@@ -1092,149 +1259,42 @@ public class UBlade2Game : MonoBehaviour
                 Application.Quit(0);
                 break;
         }
-        UpdateUiModel();
+        UpdateMenuModel();
     }
 
-    private void MovePlayer(Vector3 direction, float deltaTime)
+    private void ApplyDisplaySettings()
     {
-        if (controller == null)
-        {
-            return;
-        }
-        if (controller.isGrounded && vy < 0f)
-        {
-            vy = -2f;
-        }
-        vy -= 9.81f * deltaTime;
-        var planar = new Vector3(direction.x, 0f, direction.z);
-        if (planar.sqrMagnitude > 0.0001f)
-        {
-            planar.Normalize();
-            player.rotation = Quaternion.LookRotation(planar, Vector3.up);
-        }
-        var speed = Speed * (combat != null && combat.PlayerDashing ? 1.0f : 1.0f);
-        controller.Move(planar * speed * deltaTime + Vector3.up * vy * deltaTime);
+        if (Application.isMobilePlatform || settings == null || Application.isBatchMode) return;
+        try { Screen.fullScreen = settings.fullscreen; } catch (Exception) { }
     }
 
-    private static float PlanarDistance(Vector3 a, Vector3 b)
+    private void SaveProgress()
     {
-        var delta = a - b;
-        delta.y = 0f;
-        return delta.magnitude;
+        if (settings != null) settings.Save("ublade2.settings.");
+        if (league != null && !matchMode) league.Save();
     }
 
-    private IEnumerator RunDemo()
+    private void OnApplicationQuit()
     {
-        while (collected < 3 && frames < MaxDemoFrames)
-        {
-            frames++;
-            var target = NearestCrystal();
-            if (target != null)
-            {
-                var direction = target.transform.position - player.position;
-                direction.y = 0f;
-                MovePlayer(direction, Time.fixedDeltaTime);
-                hero.SetMotion(Speed);
-            }
-            CollectNearby();
-            if (frames % 100 == 0)
-            {
-                Debug.Log("UBLADE2_FRAME " + frames + " pos=" + player.position + " crystals=" + crystals.Count);
-            }
-            yield return new WaitForFixedUpdate();
-        }
-
-        if (collected == 3)
-        {
-            Debug.Log("GYPSY_DEMO_OK collected=3 frames=" + frames);
-            hero.PlayReach();
-            if (!string.IsNullOrEmpty(capturePath))
-            {
-                yield return new WaitForSeconds(0.7f);
-                var folder = Path.GetDirectoryName(capturePath);
-                if (!string.IsNullOrEmpty(folder))
-                {
-                    Directory.CreateDirectory(folder);
-                }
-                yield return new WaitForEndOfFrame();
-                ScreenCapture.CaptureScreenshot(capturePath);
-                Debug.Log("UBLADE2_CAPTURE_WRITTEN path=" + capturePath);
-                yield return new WaitForSeconds(0.8f);
-            }
-            WriteEvidence();
-            yield return new WaitForSeconds(0.2f);
-            Application.Quit(0);
-            yield return null;
-            ExitProcess(0);
-        }
-        else
-        {
-            Debug.Log("GYPSY_DEMO_FAIL collected=" + collected + " frames=" + frames);
-            Application.Quit(1);
-            yield return null;
-            ExitProcess(1);
-        }
+        if (demo || matchMode || captureAutoplay || leagueTest || !string.IsNullOrEmpty(capturePath) ||
+            !string.IsNullOrEmpty(menuCapturePath) || !string.IsNullOrEmpty(uiCaptureDir)) return;
+        SaveProgress();
     }
 
-    private void CollectNearby()
-    {
-        for (int index = crystals.Count - 1; index >= 0; index--)
-        {
-            var crystal = crystals[index];
-            if (crystal == null)
-            {
-                crystals.RemoveAt(index);
-                continue;
-            }
-            var delta = crystal.transform.position - player.position;
-            delta.y = 0f;
-            if (delta.magnitude < 1.35f)
-            {
-                crystals.RemoveAt(index);
-                Destroy(crystal);
-                collected++;
-                hero.PlayReach();
-                if (audioReady) GameAudio.PlayCollect(1);
-                Debug.Log("UBLADE2_COLLECT collected=" + collected + " frames=" + frames);
-            }
-        }
-    }
-
-    private GameObject NearestCrystal()
-    {
-        GameObject best = null;
-        var bestDistance = float.MaxValue;
-        foreach (var crystal in crystals)
-        {
-            if (crystal == null)
-            {
-                continue;
-            }
-            var delta = crystal.transform.position - player.position;
-            delta.y = 0f;
-            if (delta.magnitude < bestDistance)
-            {
-                bestDistance = delta.magnitude;
-                best = crystal;
-            }
-        }
-        return best;
-    }
+    // ---------------------------------------------------------------- headless/capture
 
     private IEnumerator RunHeadlessMatch()
     {
-        league.ResetSeason();
-        league.BeginSeason();
-        BeginMatch(true, 20f, 2);
+        ranked = false;
+        BeginMatch(true, 20f);
         while (screen == GameScreen.Match && matchFrames < 20000)
         {
-            StepMatch(Time.fixedDeltaTime);
+            StepMatch(Time.fixedDeltaTime, true);
             yield return new WaitForFixedUpdate();
         }
         WriteMatchEvidence();
-        Debug.Log("UBLADE2_MATCH_OK player=" + match.PlayerScore + " ai=" + match.AiScore +
-                  " winner=" + match.Winner + " frames=" + matchFrames + " phase=" + match.Phase +
-                  " duration=20 target=2");
+        Debug.Log("UBLADE2_MATCH_OK home=" + match.HomeScore + " away=" + match.AwayScore +
+                  " winner=" + match.Winner + " frames=" + matchFrames + " periods=" + match.Config.periods + " phase=" + match.Phase);
         yield return new WaitForSeconds(0.3f);
         Application.Quit(0);
         yield return null;
@@ -1243,25 +1303,18 @@ public class UBlade2Game : MonoBehaviour
 
     private IEnumerator RunMatchCapture(string path, bool keepRunning)
     {
-        league.ResetSeason();
-        league.BeginSeason();
-        BeginMatch(true, 120f, 5);
-        while (matchFrames < 240 && screen == GameScreen.Match)
+        ranked = false;
+        BeginMatch(true, 180f);
+        while (matchFrames < 430 && screen == GameScreen.Match)
         {
-            StepMatch(Time.fixedDeltaTime);
+            StepMatch(Time.fixedDeltaTime, true);
             yield return new WaitForFixedUpdate();
-        }
-        var folder = Path.GetDirectoryName(path);
-        if (!string.IsNullOrEmpty(folder))
-        {
-            Directory.CreateDirectory(folder);
         }
         WriteMatchEvidence();
         if (keepRunning)
         {
 #if UNITY_ANDROID && !UNITY_EDITOR
             yield return new WaitForEndOfFrame();
-            var written = 0;
             try
             {
                 var texture = new Texture2D(Screen.width, Screen.height, TextureFormat.RGB24, false);
@@ -1269,27 +1322,18 @@ public class UBlade2Game : MonoBehaviour
                 texture.Apply();
                 var bytes = texture.EncodeToPNG();
                 File.WriteAllBytes(path, bytes);
-                written = bytes.Length;
                 Destroy(texture);
+                Debug.Log("UBLADE2_MOBILE_CAPTURE_OK path=" + path + " bytes=" + bytes.Length + " screen=" + Screen.width + "x" + Screen.height);
             }
             catch (Exception exception)
             {
                 Debug.Log("UBLADE2_MOBILE_CAPTURE_FAIL " + exception);
             }
-            yield return new WaitForSeconds(0.3f);
-            if (File.Exists(path) && written > 0)
-            {
-                Debug.Log("UBLADE2_MOBILE_CAPTURE_OK path=" + path + " bytes=" + written + " screen=" + Screen.width + "x" + Screen.height + " frames=" + matchFrames);
-            }
-            else
-            {
-                Debug.Log("UBLADE2_MOBILE_CAPTURE_FAIL path=" + path + " bytes=" + written);
-            }
-#else
-            Debug.Log("UBLADE2_MOBILE_CAPTURE_FAIL unsupported platform");
 #endif
             yield break;
         }
+        var folder = Path.GetDirectoryName(path);
+        if (!string.IsNullOrEmpty(folder)) Directory.CreateDirectory(folder);
         yield return new WaitForEndOfFrame();
         ScreenCapture.CaptureScreenshot(path);
         yield return new WaitForSeconds(0.9f);
@@ -1300,39 +1344,40 @@ public class UBlade2Game : MonoBehaviour
         ExitProcess(0);
     }
 
+    private IEnumerator RunMenuCapture()
+    {
+        screen = GameScreen.MainMenu;
+        yield return new WaitForSeconds(1.2f);
+        var folder = Path.GetDirectoryName(menuCapturePath);
+        if (!string.IsNullOrEmpty(folder)) Directory.CreateDirectory(folder);
+        yield return new WaitForEndOfFrame();
+        ScreenCapture.CaptureScreenshot(menuCapturePath);
+        yield return new WaitForSeconds(0.9f);
+        Debug.Log("UBLADE2_MENU_CAPTURE_OK path=" + menuCapturePath + " screen=" + Screen.width + "x" + Screen.height);
+        yield return new WaitForSeconds(0.4f);
+        Application.Quit(0);
+        yield return null;
+        ExitProcess(0);
+    }
+
     private IEnumerator RunUiCapture()
     {
         var folder = uiCaptureDir;
-        if (!string.IsNullOrEmpty(folder))
-        {
-            Directory.CreateDirectory(folder);
-        }
-        screen = GameScreen.MainMenu;
-        UpdateUiModel();
+        if (!string.IsNullOrEmpty(folder)) Directory.CreateDirectory(folder);
+        screen = GameScreen.MainMenu; UpdateMenuModel();
         yield return new WaitForSeconds(0.8f);
         yield return CaptureUiFrame("menu.png");
-        screen = GameScreen.League;
-        UpdateUiModel();
-        yield return new WaitForSeconds(0.4f);
-        yield return CaptureUiFrame("league.png");
-        screen = GameScreen.Settings;
-        UpdateUiModel();
-        yield return new WaitForSeconds(0.4f);
-        yield return CaptureUiFrame("settings.png");
-        BeginMatch(false, 120f, 5);
-        for (int index = 0; index < 40; index++)
-        {
-            StepMatch(Time.fixedDeltaTime);
-        }
-        yield return new WaitForSeconds(0.3f);
-        yield return CaptureUiFrame("match.png");
-        screen = GameScreen.Paused;
-        yield return new WaitForSeconds(0.4f);
-        yield return CaptureUiFrame("pause.png");
+        screen = GameScreen.League; UpdateMenuModel(); yield return new WaitForSeconds(0.4f); yield return CaptureUiFrame("league.png");
+        screen = GameScreen.Settings; UpdateMenuModel(); yield return new WaitForSeconds(0.4f); yield return CaptureUiFrame("settings.png");
+        ranked = false;
+        BeginMatch(true, 180f);
+        for (int i = 0; i < 40; i++) StepMatch(Time.fixedDeltaTime, true);
+        yield return new WaitForSeconds(0.3f); yield return CaptureUiFrame("match.png");
+        screen = GameScreen.Paused; yield return new WaitForSeconds(0.4f); yield return CaptureUiFrame("pause.png");
         uiModel.hud.resultText = "VICTORY";
-        screen = GameScreen.Result;
-        yield return new WaitForSeconds(0.4f);
-        yield return CaptureUiFrame("result.png");
+        uiModel.hud.statsLines = stats != null ? stats.DromerLines() : new string[0];
+        uiModel.hud.goalieStatsLines = stats != null ? stats.GoalieLines() : new string[0];
+        screen = GameScreen.Result; yield return new WaitForSeconds(0.4f); yield return CaptureUiFrame("result.png");
         Debug.Log("UBLADE2_UI_CAPTURE_OK dir=" + folder + " count=6 screen=" + Screen.width + "x" + Screen.height);
         yield return new WaitForSeconds(0.3f);
         Application.Quit(0);
@@ -1347,55 +1392,34 @@ public class UBlade2Game : MonoBehaviour
         yield return new WaitForSeconds(0.6f);
     }
 
-    private IEnumerator RunMenuCapture()
-    {
-        screen = GameScreen.MainMenu;
-        yield return new WaitForSeconds(1.2f);
-        UpdateUiModel();
-        var folder = Path.GetDirectoryName(menuCapturePath);
-        if (!string.IsNullOrEmpty(folder))
-        {
-            Directory.CreateDirectory(folder);
-        }
-        yield return new WaitForEndOfFrame();
-        ScreenCapture.CaptureScreenshot(menuCapturePath);
-        yield return new WaitForSeconds(0.9f);
-        Debug.Log("UBLADE2_MENU_CAPTURE_OK path=" + menuCapturePath + " screen=" + Screen.width + "x" + Screen.height);
-        yield return new WaitForSeconds(0.4f);
-        Application.Quit(0);
-        yield return null;
-        ExitProcess(0);
-    }
-
-    private IEnumerator RunLeagueSelfTest()
+    private IEnumerator RunLeagueTest()
     {
         var probe = new LeagueData();
+        probe.SetPlayerTeam("tokyo");
         probe.ResetSeason();
         probe.BeginSeason();
         probe.ResolveMatch(true);
         probe.Save();
         var loaded = LeagueData.Load();
-        var passed = loaded.Round == probe.Round && loaded.Wins == 1 && loaded.Points >= 3;
+        var passed = loaded.Round == 1 && loaded.Wins == 1 && loaded.Points >= 3 && loaded.PlayerTeamId == "tokyo";
         var evidence = new LeagueEvidence
         {
             passed = passed,
             round = loaded.Round,
             wins = loaded.Wins,
             points = loaded.Points,
+            playerTeam = loaded.PlayerTeamId,
             saveKey = LeagueData.SaveKey,
             generatedAt = DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ssZ")
         };
         if (!string.IsNullOrEmpty(evidencePath))
         {
             var folder = Path.GetDirectoryName(evidencePath);
-            if (!string.IsNullOrEmpty(folder))
-            {
-                Directory.CreateDirectory(folder);
-            }
+            if (!string.IsNullOrEmpty(folder)) Directory.CreateDirectory(folder);
             File.WriteAllText(evidencePath, JsonUtility.ToJson(evidence, true) + "\n");
         }
-        Debug.Log("UBLADE2_LEAGUE_SAVE_OK round=" + loaded.Round + " wins=" + loaded.Wins +
-                  " points=" + loaded.Points + " key=" + LeagueData.SaveKey + " passed=" + passed);
+        Debug.Log("UBLADE2_LEAGUE_SAVE_OK round=" + loaded.Round + " wins=" + loaded.Wins + " points=" + loaded.Points +
+                  " team=" + loaded.PlayerTeamId + " key=" + LeagueData.SaveKey + " passed=" + passed);
         PlayerPrefs.DeleteKey(LeagueData.SaveKey);
         PlayerPrefs.Save();
         yield return new WaitForSeconds(0.2f);
@@ -1406,142 +1430,212 @@ public class UBlade2Game : MonoBehaviour
 
     private void WriteMatchEvidence()
     {
-        if (string.IsNullOrEmpty(evidencePath))
-        {
-            return;
-        }
+        if (string.IsNullOrEmpty(evidencePath) || match == null) return;
         var evidence = new MatchEvidence
         {
-            passed = match != null && match.Phase == MatchPhase.Ended,
-            playerScore = match != null ? match.PlayerScore : 0,
-            aiScore = match != null ? match.AiScore : 0,
-            winner = match != null ? match.Winner : 0,
+            passed = match.MatchOver,
+            homeScore = match.HomeScore,
+            awayScore = match.AwayScore,
+            homeGoals = match.HomeGoals,
+            awayGoals = match.AwayGoals,
+            winner = match.Winner,
             frames = matchFrames,
-            phase = match != null ? match.Phase.ToString() : "none",
-            duration = match != null ? match.Config.duration : 0f,
-            targetScore = match != null ? match.Config.targetScore : 0,
-            difficulty = match != null ? match.Config.difficulty : 0,
-            arena = match != null ? match.Config.arenaName : "",
-            round = match != null ? match.Config.round : 0,
-            totalRounds = match != null ? match.Config.totalRounds : 0,
-            playerTeam = match != null ? match.Config.playerTeam : "",
-            aiTeam = match != null ? match.Config.aiTeam : "",
+            periods = match.Config.periods,
+            phase = match.Phase.ToString(),
+            homeTeam = homeTeam.id,
+            awayTeam = awayTeam.id,
+            arena = arena != null ? arena.env : "",
             screen = Screen.width + "x" + Screen.height,
             unity = Application.unityVersion,
             generatedAt = DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ssZ")
         };
         var folder = Path.GetDirectoryName(evidencePath);
-        if (!string.IsNullOrEmpty(folder))
-        {
-            Directory.CreateDirectory(folder);
-        }
+        if (!string.IsNullOrEmpty(folder)) Directory.CreateDirectory(folder);
         File.WriteAllText(evidencePath, JsonUtility.ToJson(evidence, true) + "\n");
-        Debug.Log("UBLADE2_MATCH_EVIDENCE passed=" + evidence.passed + " player=" + evidence.playerScore +
-                  " ai=" + evidence.aiScore + " winner=" + evidence.winner + " frames=" + evidence.frames);
     }
 
-    private void WriteEvidence()
+    private static void ExitProcess(int code)
     {
-        if (string.IsNullOrEmpty(evidencePath))
+        try { Environment.Exit(code); } catch (Exception) { }
+    }
+
+    // ---------------------------------------------------------------- legacy demo/capture
+
+    private void BuildLegacyWorld()
+    {
+        RenderSettings.ambientLight = new Color(0.16f, 0.19f, 0.24f);
+        var floor = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        floor.transform.position = new Vector3(0f, -0.5f, 0f);
+        floor.transform.localScale = new Vector3(40f, 1f, 40f);
+        floor.GetComponent<Renderer>().sharedMaterial = Mat(new Color(0.07f, 0.10f, 0.13f), 0f);
+        var player = new GameObject("LegacyPlayer");
+        player.transform.position = new Vector3(0f, 0.05f, 0f);
+        legacyPlayer = player.transform;
+        legacyController = player.AddComponent<CharacterController>();
+        legacyController.height = 1.8f;
+        legacyController.radius = 0.4f;
+        legacyController.center = new Vector3(0f, 0.9f, 0f);
+        var controllerAsset = Resources.Load<RuntimeAnimatorController>("Hero/WayfarerController");
+        if (controllerAsset == null) throw new Exception("missing Resources/Hero/WayfarerController");
+        legacyHero = HeroVisual.Create(legacyPlayer, controllerAsset);
+        AddLegacyCrystal(new Vector3(3f, 1.1f, 0f));
+        AddLegacyCrystal(new Vector3(-3f, 1.1f, 2f));
+        AddLegacyCrystal(new Vector3(0f, 1.1f, -3f));
+        var camObject = new GameObject("Main Camera");
+        camObject.tag = "MainCamera";
+        cam = camObject.AddComponent<Camera>();
+        cam.clearFlags = CameraClearFlags.SolidColor;
+        cam.backgroundColor = new Color(0.02f, 0.03f, 0.05f);
+        cam.fieldOfView = 58f;
+        var lightObject = new GameObject("Key Light");
+        var light = lightObject.AddComponent<Light>();
+        light.type = LightType.Directional;
+        light.color = new Color(0.82f, 0.91f, 1f);
+        light.intensity = 1.15f;
+        lightObject.transform.rotation = Quaternion.Euler(48f, -28f, 0f);
+        Debug.Log("UBLADE2_WORLD crystals=" + legacyCrystals.Count + " speed=" + BaseSpeed + " hero=Wayfarer");
+    }
+
+    private void AddLegacyCrystal(Vector3 position)
+    {
+        var crystal = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        crystal.transform.position = position;
+        crystal.transform.localScale = new Vector3(0.45f, 0.9f, 0.45f);
+        crystal.transform.rotation = Quaternion.Euler(0f, 45f, 45f);
+        crystal.GetComponent<Renderer>().sharedMaterial = Mat(new Color(0.16f, 0.86f, 0.76f), 2.2f);
+        legacyCrystals.Add(crystal);
+    }
+
+    private IEnumerator RunLegacyDemo()
+    {
+        while (legacyCollected < 3 && legacyFrames < 900)
         {
-            return;
+            legacyFrames++;
+            GameObject target = null;
+            var best = float.MaxValue;
+            foreach (var crystal in legacyCrystals)
+            {
+                if (crystal == null) continue;
+                var distance = (crystal.transform.position - legacyPlayer.position).magnitude;
+                if (distance < best) { best = distance; target = crystal; }
+            }
+            if (target != null)
+            {
+                var direction = target.transform.position - legacyPlayer.position;
+                direction.y = 0f;
+                LegacyMove(direction, Time.fixedDeltaTime);
+                legacyHero.SetMotion(BaseSpeed);
+            }
+            for (int index = legacyCrystals.Count - 1; index >= 0; index--)
+            {
+                if (legacyCrystals[index] == null) { legacyCrystals.RemoveAt(index); continue; }
+                var delta = legacyCrystals[index].transform.position - legacyPlayer.position;
+                delta.y = 0f;
+                if (delta.magnitude < 1.35f)
+                {
+                    Destroy(legacyCrystals[index]);
+                    legacyCrystals.RemoveAt(index);
+                    legacyCollected++;
+                    legacyHero.PlayReach();
+                }
+            }
+            yield return new WaitForFixedUpdate();
         }
-        var evidence = new RuntimeEvidence
+        if (legacyCollected == 3)
         {
-            passed = hero != null && hero.heroVisible,
-            heroVisible = hero != null && hero.heroVisible,
-            lodLevel = hero != null ? hero.lodLevel : -1,
-            smileWeight = hero != null ? hero.smileWeight : 0f,
-            capeBones = hero != null ? hero.capeBones.Length : 0,
-            bones = hero != null ? hero.bones : 0,
-            lod0Triangles = hero != null ? hero.lod0Triangles : 0,
-            lod1Triangles = hero != null ? hero.lod1Triangles : 0,
-            lod2Triangles = hero != null ? hero.lod2Triangles : 0,
-            collected = collected,
-            frames = frames,
-            heroRectX = hero != null ? hero.heroRectX : 0,
-            heroRectY = hero != null ? hero.heroRectY : 0,
-            heroRectWidth = hero != null ? hero.heroRectWidth : 0,
-            heroRectHeight = hero != null ? hero.heroRectHeight : 0,
-            heroScreenPixels = hero != null ? hero.heroRectWidth * hero.heroRectHeight : 0,
+            Debug.Log("GYPSY_DEMO_OK collected=3 frames=" + legacyFrames);
+            legacyHero.PlayReach();
+            if (!string.IsNullOrEmpty(capturePath))
+            {
+                yield return new WaitForSeconds(0.7f);
+                var folder = Path.GetDirectoryName(capturePath);
+                if (!string.IsNullOrEmpty(folder)) Directory.CreateDirectory(folder);
+                yield return new WaitForEndOfFrame();
+                ScreenCapture.CaptureScreenshot(capturePath);
+                Debug.Log("UBLADE2_CAPTURE_WRITTEN path=" + capturePath);
+                yield return new WaitForSeconds(0.8f);
+            }
+            WriteLegacyEvidence();
+            yield return new WaitForSeconds(0.2f);
+            Application.Quit(0);
+            yield return null;
+            ExitProcess(0);
+        }
+        Debug.Log("GYPSY_DEMO_FAIL collected=" + legacyCollected + " frames=" + legacyFrames);
+        Application.Quit(1);
+        yield return null;
+        ExitProcess(1);
+    }
+
+    private void LegacyMove(Vector3 direction, float dt)
+    {
+        if (legacyController == null) return;
+        if (legacyController.isGrounded && vy < 0f) vy = -2f;
+        vy -= 9.81f * dt;
+        var planar = new Vector3(direction.x, 0f, direction.z);
+        if (planar.sqrMagnitude > 0.0001f)
+        {
+            planar.Normalize();
+            legacyPlayer.rotation = Quaternion.LookRotation(planar, Vector3.up);
+        }
+        legacyController.Move(planar * BaseSpeed * dt + Vector3.up * vy * dt);
+    }
+
+    private void WriteLegacyEvidence()
+    {
+        if (string.IsNullOrEmpty(evidencePath)) return;
+        var evidence = new LegacyEvidence
+        {
+            passed = legacyHero != null && legacyHero.heroVisible,
+            heroVisible = legacyHero != null && legacyHero.heroVisible,
+            lodLevel = legacyHero != null ? legacyHero.lodLevel : -1,
+            smileWeight = legacyHero != null ? legacyHero.smileWeight : 0f,
+            capeBones = legacyHero != null ? legacyHero.capeBones.Length : 0,
+            bones = legacyHero != null ? legacyHero.bones : 0,
+            lod0Triangles = legacyHero != null ? legacyHero.lod0Triangles : 0,
+            lod1Triangles = legacyHero != null ? legacyHero.lod1Triangles : 0,
+            lod2Triangles = legacyHero != null ? legacyHero.lod2Triangles : 0,
+            collected = legacyCollected,
+            frames = legacyFrames,
+            heroRectX = legacyHero != null ? legacyHero.heroRectX : 0,
+            heroRectY = legacyHero != null ? legacyHero.heroRectY : 0,
+            heroRectWidth = legacyHero != null ? legacyHero.heroRectWidth : 0,
+            heroRectHeight = legacyHero != null ? legacyHero.heroRectHeight : 0,
+            heroScreenPixels = legacyHero != null ? legacyHero.heroRectWidth * legacyHero.heroRectHeight : 0,
             screen = Screen.width + "x" + Screen.height,
             unity = Application.unityVersion,
             captureFile = capturePath ?? "",
             generatedAt = DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ssZ")
         };
         var folder = Path.GetDirectoryName(evidencePath);
-        if (!string.IsNullOrEmpty(folder))
-        {
-            Directory.CreateDirectory(folder);
-        }
+        if (!string.IsNullOrEmpty(folder)) Directory.CreateDirectory(folder);
         File.WriteAllText(evidencePath, JsonUtility.ToJson(evidence, true) + "\n");
-        Debug.Log("UBLADE_HERO_RUNTIME_OK visible=" + evidence.heroVisible +
-                  " lod=" + evidence.lodLevel +
-                  " smile=" + evidence.smileWeight.ToString("0.0") +
-                  " cape=" + evidence.capeBones +
-                  " rect=" + evidence.heroRectX + "," + evidence.heroRectY + "," + evidence.heroRectWidth + "x" + evidence.heroRectHeight +
-                  " bones=" + evidence.bones +
-                  " lod0Tris=" + evidence.lod0Triangles +
-                  " lod1Tris=" + evidence.lod1Triangles +
-                  " lod2Tris=" + evidence.lod2Triangles);
-    }
-
-    private void ApplyDisplaySettings()
-    {
-        if (Application.isMobilePlatform || settings == null || Application.isBatchMode)
-        {
-            return;
-        }
-        try
-        {
-            Screen.fullScreen = settings.fullscreen;
-        }
-        catch (Exception)
-        {
-        }
-    }
-
-    private void SaveProgress()
-    {
-        if (settings != null)
-        {
-            settings.Save("ublade2.settings.");
-        }
-        if (league != null && !autoplay)
-        {
-            league.Save();
-        }
-    }
-
-    private void OnApplicationQuit()
-    {
-        if (demo || matchMode || captureAutoplay || autoplay || !string.IsNullOrEmpty(capturePath) ||
-            !string.IsNullOrEmpty(menuCapturePath) || !string.IsNullOrEmpty(uiCaptureDir))
-        {
-            return;
-        }
-        SaveProgress();
-    }
-
-    private static void ExitProcess(int code)
-    {
-        try
-        {
-            Environment.Exit(code);
-        }
-        catch (Exception)
-        {
-        }
+        Debug.Log("UBLADE_HERO_RUNTIME_OK visible=" + evidence.heroVisible + " lod=" + evidence.lodLevel +
+                  " bones=" + evidence.bones + " rect=" + evidence.heroRectX + "," + evidence.heroRectY + "," + evidence.heroRectWidth + "x" + evidence.heroRectHeight);
     }
 
     private void LateUpdate()
     {
-        if (cam == null || player == null)
+        if (demo)
         {
+            if (cam != null && legacyPlayer != null)
+            {
+                cam.transform.position = legacyPlayer.position + new Vector3(2.3f, 2.5f, -4.8f);
+                cam.transform.LookAt(legacyPlayer.position + new Vector3(0f, 1.05f, 0f));
+            }
             return;
         }
-        var offset = player.rotation * new Vector3(1.9f, 2.4f, -4.6f);
-        cam.transform.position = player.position + offset;
-        cam.transform.LookAt(player.position + new Vector3(0f, 1.05f, 0f));
+        if (cam == null || homeSkaters[0] == null || screen != GameScreen.Match && screen != GameScreen.Paused) return;
+        var target = homeSkaters[0].transform;
+        var offset = target.rotation * new Vector3(1.0f, 2.1f, -4.4f);
+        cam.transform.position = Vector3.Lerp(cam.transform.position, target.position + offset, 9f * Time.deltaTime);
+        cam.transform.LookAt(target.position + new Vector3(0f, 1.35f, 0f));
+    }
+
+    private static float HorizontalDistance(Vector3 a, Vector3 b)
+    {
+        var delta = a - b;
+        delta.y = 0f;
+        return delta.magnitude;
     }
 }

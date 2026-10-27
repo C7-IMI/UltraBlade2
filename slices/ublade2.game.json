@@ -11,7 +11,7 @@
     "artifacts/ublade2/hero-runtime.json",
     "artifacts/ublade2/capture-check.json",
     "artifacts/ublade2-pro/match.log",
-    "artifacts/ublade2-pro/match-runtime.json",
+    "artifacts/ublade2-pro/match-capture-runtime.json",
     "artifacts/ublade2-pro/match.png",
     "artifacts/ublade2-pro/match-capture.json",
     "artifacts/ublade2-pro/menu.png",
@@ -19,7 +19,16 @@
     "artifacts/ublade2-pro/league-test.log",
     "artifacts/ublade2-pro/league-save.json",
     "artifacts/ublade2-pro/ui-capture.log",
-    "artifacts/ublade2-pro/ui-captures.json"
+    "artifacts/ublade2-pro/ui-captures.json",
+    "artifacts/ublade2-pro/match-runtime.json",
+    "artifacts/ublade2-pro/match-capture.log",
+    "artifacts/ublade2-pro/menu-capture.log",
+    "artifacts/ublade2-pro/ui/menu.png",
+    "artifacts/ublade2-pro/ui/pause.png",
+    "artifacts/ublade2-pro/ui/result.png",
+    "artifacts/ublade2-pro/ui/league.png",
+    "artifacts/ublade2-pro/ui/settings.png",
+    "artifacts/ublade2-pro/ui/match.png"
   ],
   "steps": [
     {

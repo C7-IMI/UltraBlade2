@@ -335,3 +335,23 @@ Each entry has:
 - Commit/evidence: included in this change; evidence paths: `artifacts/ublade2-release/release.json` (platform
   windows, mobile parked note), `docs/RELEASE.md`, `DEFERRED.md`, `docs/UNITY-PORT.md` sections 7 and 9.
 
+## 9 - 2026-10-26
+
+- Request: "The game is a clone of the 1996 PC game Hyperblade. Research that game and adjust the mechanics,
+  gameplay, look and feel as close to identical. Articles, game data/source files, wikis, screenshots, videos,
+  documentation, gifs, advertisements, etc. Everything you can find about the game, use as a reference. Also, Watch
+  these videos about the original HyperBlade and make adjustments to UltraBlade 2 (gameplay, visuals, team diversity,
+  etc) based on it. Particularly the layout of the level/playing field/drome (elliptical, not flat):
+  https://www.youtube.com/watch?v=EpScHKYEEpE, https://www.youtube.com/watch?v=FNt_1BBHiwE,
+  https://www.youtube.com/watch?v=iAJBpyQwRXo"
+- Status: Completed - researched the original game from text, shipped CD data and the three videos; rebuilt the slice
+  around a runtime elliptical drome, the rok/multiplier sport, 2 forwards + AI goalie and bench, three periods, 14
+  data-derived teams/dromes, Gauntlet progression, HyperBlade HUD and controls, and shipped a new PC release. Original
+  assets were not copied; approximations and unimplemented weapon/permadeath details are recorded honestly.
+- Version: 2026.10.26.010
+- Commit/evidence: this change (commit hash, push and CI in the final report). Evidence:
+  `docs/HYPERBLADE-REFERENCE.md`, `docs/GAME-DESIGN.md`, `artifacts/ublade2-pro/match-runtime.json` (7-2, periods=3),
+  `match.png`, `menu.png`, `ui/` and `ui-captures.json`, `league-save.json`, legacy `artifacts/ublade2/` evidence,
+  `artifacts/ublade2-release/release.json`, `dist/UBlade2-2026.10.26.010-win64.zip`; research/work data in the
+  git-ignored `.work/hyperblade-ref/` (manual OCR, CD data extraction, 2 research reports, ~450 video frames).
+

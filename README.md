@@ -9,23 +9,30 @@ gameplay contract and hero.
 ## Status
 
 **Unity 6000.6.7f1, PC only.** The Unity project is [unity/UBlade2](./unity/UBlade2), pinned by
-[project.gypsy.json](./project.gypsy.json). The original three-collectible contract and Wayfarer hero gates still pass,
-and a **playable production slice** now ships: main menu, league matches against an AI, crystal scoring, strikes and
-stuns, four arenas, procedural audio, settings, pause, results and a four-round season, with a stamped Windows release.
-The full acceptance record, commands and measured evidence are in [docs/UNITY-PORT.md](./docs/UNITY-PORT.md); the
-mobile target is parked by operator decision (PC-only milestone, UB2-D15).
+[project.gypsy.json](./project.gypsy.json). After researching the original 1996 PC game HyperBlade (manual, help file,
+shipped CD data, videos, screenshots and the three operator-provided YouTube references), the playable slice now
+follows that sport: an **elliptical drome**, a carried/thrown **rok**, 1/2/4-point goals through a **multiplier**,
+2 forwards + AI goalie with a bench, jak attacks, three periods, a **14-team Transnational HyperBlade League** and the
+Gauntlet ladder, with a stamped Windows release. The port's original three-collectible demo and Wayfarer hero capture
+remain green as the legacy gate. Reference/fidelity mapping: [docs/HYPERBLADE-REFERENCE.md](./docs/HYPERBLADE-REFERENCE.md);
+acceptance record: [docs/UNITY-PORT.md](./docs/UNITY-PORT.md). The mobile target is parked by operator decision
+(PC-only milestone, UB2-D15).
 
-- **Playable game:** main menu, settings, league table/season, AI opponent, three-crystal scoring, strike/stun combat,
-  dash, four arenas, HUD/score/timer, procedural audio, pause and result screens. Design and controls:
-  [docs/GAME-DESIGN.md](./docs/GAME-DESIGN.md); UI standard: [docs/UI-STANDARD.md](./docs/UI-STANDARD.md).
+- **Playable game:** HyperBlade-style 2-vs-2 skaters plus AI goalies on an elliptical drome, rok pickups, charged
+  power shots, quick shots, passes, jak attacks, speedburst, substitutions, drome hazards and multiplier gates;
+  3 periods, 14 teams with per-player ratings and per-team dromes, Gauntlet progression, full stats screen, HUD
+  scoreboard/period pips/roster health/shot+rear-view cams/radar. Design/controls:
+  [docs/GAME-DESIGN.md](./docs/GAME-DESIGN.md); research/fidelity:
+  [docs/HYPERBLADE-REFERENCE.md](./docs/HYPERBLADE-REFERENCE.md); UI standard:
+  [docs/UI-STANDARD.md](./docs/UI-STANDARD.md).
 - **Legacy port gate:** CharacterController movement, autopilot, three crystals, follow camera, deterministic demo
   printing `GYPSY_DEMO_OK collected=3` and exiting 0 on the final build (`UBLADE2_DEMO_OK exit=0`).
 - **Hero:** 23 bones including `cape_a/b/c`, `idle`/`run`/`reach` clips, `Smile` blend shape, 512² maps, LODGroup
   1126/615/306 triangles, a generated hero prefab (`WayfarerLOD.prefab`) and spring cape.
 - **Evidence:** Windows player build, headless demo, windowed 1280x720 capture inspected visually and measured by
   pixel analysis.
-- **Release:** **PC-only** stamped release `UBLADE2_RELEASE_OK version=2026.10.26.008` (Windows ZIP
-  `dist/UBlade2-2026.10.26.008-win64.zip`, SHA-256 `fef1d1b4be9c23f38633ffd568f8d81a6b0e43d6ae0c916112ec0d0cf80d7355`);
+- **Release:** **PC-only** stamped release `UBLADE2_RELEASE_OK version=2026.10.26.010` (Windows ZIP
+  `dist/UBlade2-2026.10.26.010-win64.zip`, SHA-256 `2bb791a82f72f4c6f1c79bbdccb734aff0b55a074271cd079cbbc01e33054b1d`);
   see [docs/RELEASE.md](./docs/RELEASE.md) and `artifacts/ublade2-release/release.json`.
 - **Mobile:** parked by operator decision (2026-10-26, PC-only milestone). Earlier partial Android build/launcher
   evidence is preserved but is not part of the release and is not claimed complete (UB2-D15); see
