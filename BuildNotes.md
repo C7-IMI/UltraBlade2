@@ -1,6 +1,6 @@
 # BuildNotes - the changelog
 
-Current version: 2026.10.26.008
+Current version: 2026.10.26.009
 
 BuildNotes is UltraBlade 2's dated, versioned changelog (`<CHANGELOG>` in the pack). Newest entry first; versions
 are `YYYY.M.D.NNN` with a zero-padded sequence, and the next one is computed by
@@ -8,7 +8,7 @@ are `YYYY.M.D.NNN` with a zero-padded sequence, and the next one is computed by
 log these entries answer. Records are guarded by [`scripts/records_check.py`](./scripts/records_check.py) and run by
 [`scripts/check_all.py`](./scripts/check_all.py).
 
-## How versions 001-008 were assigned
+## How versions 001-009 were assigned
 
 No changelog existed before this bootstrap, so the bootstrap assigned `2026.10.26.001` to the repository-creation
 commit (the only commit already in `git log`) and `2026.10.26.002` to the pack application. `2026.10.26.003` (the
@@ -21,6 +21,22 @@ This changelog has **no generated documentation copies yet**. There is no genera
 regenerate; when the game arrives, its export and captures will be generated artefacts under gitignored `build/` and
 `artifacts/`. [`scripts/records_check.py`](./scripts/records_check.py) checks the source, its `Current version:` header
 and [`Retrace.md`](./Retrace.md); it will compare generated copies when they exist.
+
+## 2026.10.26.009
+
+**Fix the peer-boundary guard in hosted CI after the playable-release push.**
+
+- Date: 2026-10-26
+- Commit: this change.
+- Change: `scripts/check_peer_boundary.py` now treats a configured peer that is absent as `PEER_ABSENT` (skip) only when
+  `GITHUB_ACTIONS=true`, because the hosted runner checks out this repository alone and cannot mount the operator's
+  sibling ProjectGypsy checkout. Locally (where the peer exists) the guard remains strict: missing, dirty or
+  unreadable peers still fail. The fast check list remains 7 checks; no other behaviour changed.
+- Verification: local `python scripts/check_all.py` -> `PASS peers - PEER_CLEAN id=ProjectGypsy`, `checks: PASS (7/7)`;
+  hosted CI for this commit is the check that previously failed with `PEER_MISSING` and is expected to pass with
+  `PEER_ABSENT ... skipped=1`.
+- Not verified, and not claimed: the peer-boundary guard cannot mechanically verify peers on a hosted runner; that
+  remains a local check. The release artifacts are unchanged by this fix.
 
 ## 2026.10.26.008
 
