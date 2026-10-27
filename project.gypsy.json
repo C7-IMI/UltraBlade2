@@ -7,8 +7,15 @@
     "adapter": "unity-6"
   },
   "targets": [
-    "pc",
-    "mobile"
+    "pc"
+  ],
+  "peers": [
+    {
+      "id": "ProjectGypsy",
+      "path": "../ProjectGypsy",
+      "role": "reference",
+      "readOnly": true
+    }
   ],
   "paths": {
     "game": "unity/UBlade2",
@@ -64,6 +71,11 @@
       "date": "2026-10-26T18:27:00-05:00",
       "decision": "Add the mobile target: Unity Android Build Support installed and a signed debug APK built, installed and launched on the local API 35 emulator",
       "reason": "Unity CLI installed the Android module and child modules; BuildUBlade2.BuildAndroid produced com.c7imi.ublade2 (ARM64 IL2CPP, Vulkan, debug-signed, minSdk 26, target 36); on-device logcat shows UBLADE2_START, UBLADE_HERO_OK and GYPSY_DEMO_OK collected=3. A clear mobile visual capture is outstanding (UB2-D15)."
+    },
+    {
+      "date": "2026-10-26T19:30:00-05:00",
+      "decision": "Park the mobile target: UltraBlade 2 is a PC-only game for this milestone",
+      "reason": "The operator directed that the current game be PC only. The Android build/launch evidence and the partial mobile capability are preserved for a later decision, but mobile is not part of the playable release and is not claimed as complete."
     }
   ]
 }

@@ -1,0 +1,57 @@
+{
+  "schema": "gypsy.capability/v1",
+  "id": "game.playable.slice",
+  "layer": "game",
+  "engine": "unity",
+  "kind": "playable",
+  "maturity": "stable",
+  "description": "UltraBlade 2 playable production slice: main menu, league match against AI, crystal scoring, strikes/stuns, arenas, procedural audio, settings, pause, results and a four-round season on the Unity 6 Windows player; the legacy three-crystal demo and hero capture remain green.",
+  "requires": [
+    "engine.unity.port.build",
+    "engine.unity.port.capture"
+  ],
+  "inputs": [
+    {
+      "name": "settings",
+      "type": "object"
+    },
+    {
+      "name": "league",
+      "type": "object"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "match-screenshot",
+      "type": "file"
+    },
+    {
+      "name": "menu-screenshot",
+      "type": "file"
+    },
+    {
+      "name": "match-evidence",
+      "type": "file"
+    }
+  ],
+  "checks": [
+    "Windows player builds with the game modules",
+    "legacy GYPSY_DEMO_OK collected=3 marker still passes",
+    "headless match prints UBLADE2_MATCH_OK and passes the match evidence",
+    "1280x720 match capture shows the world and HUD (pixel check)",
+    "1280x720 menu capture shows the neon UI (pixel check)",
+    "menu/settings/league/pause/result paths are real UI state, no dead controls"
+  ],
+  "provenance": {
+    "record": [
+      "artifacts/ublade2-pro/match-runtime.json",
+      "artifacts/ublade2-pro/match.png",
+      "artifacts/ublade2-pro/menu.png",
+      "artifacts/ublade2-pro/match-capture.json",
+      "docs/GAME-DESIGN.md"
+    ]
+  },
+  "notes": [
+    "Offline prototype slice: arena art, roster depth and licensed media remain deferred."
+  ]
+}

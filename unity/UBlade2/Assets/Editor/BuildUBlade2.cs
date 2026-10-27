@@ -48,6 +48,82 @@ public static class BuildUBlade2
         public bool passed;
     }
 
+
+    private static string ReadVersion()
+    {
+        try
+        {
+            var path = Path.Combine(RepoRoot, "BuildNotes.md");
+            if (File.Exists(path))
+            {
+                foreach (var line in File.ReadAllLines(path))
+                {
+                    if (line.StartsWith("Current version:", StringComparison.Ordinal))
+                    {
+                        return line.Substring("Current version:".Length).Trim();
+                    }
+                }
+            }
+        }
+        catch (Exception)
+        {
+        }
+        return "0.0.0";
+    }
+
+
+    private static bool ContainsShader(SerializedProperty array, Shader shader)
+    {
+        for (int index = 0; index < array.arraySize; index++)
+        {
+            if (array.GetArrayElementAtIndex(index).objectReferenceValue == shader)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static void AddAlwaysIncludedShader(SerializedProperty array, Shader shader)
+    {
+        if (shader == null || ContainsShader(array, shader))
+        {
+            return;
+        }
+        int index = array.arraySize;
+        array.InsertArrayElementAtIndex(index);
+        array.GetArrayElementAtIndex(index).objectReferenceValue = shader;
+    }
+
+    private static void EnsureMobileShaders()
+    {
+        var unlitColor = Shader.Find("Unlit/Color");
+        var unlitTexture = Shader.Find("Unlit/Texture");
+        if (unlitColor == null || unlitTexture == null)
+        {
+            Debug.LogWarning("UBLADE2_MOBILE_SHADER_WARN missing unlit shader");
+            return;
+        }
+        var asset = AssetDatabase.LoadAssetAtPath<UnityEngine.Object>("ProjectSettings/GraphicsSettings.asset");
+        if (asset == null)
+        {
+            Debug.LogWarning("UBLADE2_MOBILE_SHADER_WARN missing GraphicsSettings.asset");
+            return;
+        }
+        var serialized = new SerializedObject(asset);
+        var array = serialized.FindProperty("m_AlwaysIncludedShaders");
+        if (array == null)
+        {
+            Debug.LogWarning("UBLADE2_MOBILE_SHADER_WARN missing always-included list");
+            return;
+        }
+        AddAlwaysIncludedShader(array, unlitColor);
+        AddAlwaysIncludedShader(array, unlitTexture);
+        serialized.ApplyModifiedProperties();
+        AssetDatabase.SaveAssets();
+        Debug.Log("UBLADE2_MOBILE_SHADER_OK unlit-color unlit-texture always-included");
+    }
+
     [MenuItem("UBlade2/Inspect hero import")]
     public static void Inspect()
     {
@@ -75,6 +151,7 @@ public static class BuildUBlade2
     {
         try
         {
+            EnsureMobileShaders();
             EnsureClipLoopSettings();
             EnsureModelReadable("wayfarer");
             EnsureModelReadable("wayfarer_lod1");
@@ -93,6 +170,8 @@ public static class BuildUBlade2
 
             PlayerSettings.productName = "UBlade2";
             PlayerSettings.companyName = "C7-IMI";
+            PlayerSettings.bundleVersion = ReadVersion();
+            Debug.Log("UBLADE2_VERSION " + PlayerSettings.bundleVersion);
             PlayerSettings.defaultScreenWidth = 1280;
             PlayerSettings.defaultScreenHeight = 720;
             PlayerSettings.fullScreenMode = FullScreenMode.Windowed;
@@ -140,6 +219,7 @@ public static class BuildUBlade2
     {
         try
         {
+            EnsureMobileShaders();
             if (EditorUserBuildSettings.activeBuildTarget != BuildTarget.Android)
             {
                 if (!EditorUserBuildSettings.SwitchActiveBuildTarget(BuildTargetGroup.Android, BuildTarget.Android))
@@ -157,6 +237,8 @@ public static class BuildUBlade2
 
             PlayerSettings.productName = "UBlade2";
             PlayerSettings.companyName = "C7-IMI";
+            PlayerSettings.bundleVersion = ReadVersion();
+            Debug.Log("UBLADE2_VERSION " + PlayerSettings.bundleVersion);
             PlayerSettings.SetApplicationIdentifier(NamedBuildTarget.Android, "com.c7imi.ublade2");
             PlayerSettings.SetScriptingBackend(NamedBuildTarget.Android, ScriptingImplementation.IL2CPP);
             PlayerSettings.Android.targetArchitectures = AndroidArchitecture.ARM64 | AndroidArchitecture.X86_64;

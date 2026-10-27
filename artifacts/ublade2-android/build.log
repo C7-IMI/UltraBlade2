@@ -1,6 +1,6 @@
-VBCSCompilerPreWarmer: watching VBCSCompiler (PID 32808)
-VBCSCompilerPreWarmer: pre-warm launched (dotnet PID 43200)
-VBCSCompiler prewarm took 30.88 ms
+VBCSCompilerPreWarmer: watching VBCSCompiler (PID 42244)
+VBCSCompilerPreWarmer: pre-warm launched (dotnet PID 32068)
+VBCSCompiler prewarm took 27.23 ms
 [Licensing::Module] Trying to connect to existing licensing client channel...
 Built from '6000.6/staging' branch; Version is '6000.6.7f1 (b22767f04f04) revision 11675495'; Using compiler version '194234433'; Build Type 'Release'
 [Licensing::IpcConnector] Channel LicenseClient-StephenSimmons doesn't exist
@@ -8,8 +8,8 @@ OS: 'Windows 11  (10.0.26300) Professional' Language: 'en' Physical Memory: 6522
 BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1
 System  architecture: x64
 Process architecture: x64
-Date: 2026-10-26T23:22:31Z
-[Licensing::Module] Successfully launched the LicensingClient (PId: 42236)
+Date: 2026-10-27T00:19:49Z
+[Licensing::Module] Successfully launched the LicensingClient (PId: 22372)
 
 COMMAND LINE ARGUMENTS:
 C:\Program Files\Unity\Hub\Editor\6000.6.7f1\Editor\Unity.exe
@@ -64,37 +64,37 @@ C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2
     "memorysetup-job-temp-allocator-block-size-background=1048576"
     "memorysetup-job-temp-allocator-reduction-small-platforms=262144"
 Logging is directed to a specific file, skipping project log.
-Player connection [34192]  Target information:
+Player connection [9120]  Target information:
 
-Player connection [34192]  * "[IP] 192.168.56.1 [Port] 55504 [Flags] 2 [Guid] 3467216372 [EditorId] 3467216372 [Version] 1048832 [Id] WindowsEditor(7,PREC-3571) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
+Player connection [9120]  * "[IP] 192.168.56.1 [Port] 55504 [Flags] 2 [Guid] 603706957 [EditorId] 603706957 [Version] 1048832 [Id] WindowsEditor(7,PREC-3571) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
 
-Player connection [34192]  * "[IP] 172.27.16.1 [Port] 55504 [Flags] 2 [Guid] 3467216372 [EditorId] 3467216372 [Version] 1048832 [Id] WindowsEditor(7,PREC-3571) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
+Player connection [9120]  * "[IP] 172.27.16.1 [Port] 55504 [Flags] 2 [Guid] 603706957 [EditorId] 603706957 [Version] 1048832 [Id] WindowsEditor(7,PREC-3571) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
 
-Player connection [34192]  * "[IP] 172.29.224.1 [Port] 55504 [Flags] 2 [Guid] 3467216372 [EditorId] 3467216372 [Version] 1048832 [Id] WindowsEditor(7,PREC-3571) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
+Player connection [9120]  * "[IP] 172.29.224.1 [Port] 55504 [Flags] 2 [Guid] 603706957 [EditorId] 603706957 [Version] 1048832 [Id] WindowsEditor(7,PREC-3571) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
 
-Player connection [34192]  * "[IP] 172.16.4.25 [Port] 55504 [Flags] 2 [Guid] 3467216372 [EditorId] 3467216372 [Version] 1048832 [Id] WindowsEditor(7,PREC-3571) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
+Player connection [9120]  * "[IP] 172.16.4.25 [Port] 55504 [Flags] 2 [Guid] 603706957 [EditorId] 603706957 [Version] 1048832 [Id] WindowsEditor(7,PREC-3571) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
 
-Player connection [34192] Host joined multi-casting on [225.0.0.222:54997]...
-Player connection [34192] Host joined alternative multi-casting on [225.0.0.222:34997]...
+Player connection [9120] Host joined multi-casting on [225.0.0.222:54997]...
+Player connection [9120] Host joined alternative multi-casting on [225.0.0.222:34997]...
 Input System module state changed to: Initialized.
 [Physics::Module] Initialized fallback backend.
 [Physics::Module] Id: 0xdecafbad
 Starting IPC server.
 Waiting for clients to connect on \\.\pipe\Unity-LicenseClient-StephenSimmons, press Ctrl-C to exit.
-[Licensing::IpcConnector] Successfully connected to: "LicenseClient-StephenSimmons" at "2026-10-26T23:22:32.1743154Z"
-[Licensing::Client] Code 10 while verifying Licensing Client signature (process Id: 42236, path: "C:/Program Files/Unity/Hub/Editor/6000.6.7f1/Editor/Data/Resources/Licensing/Client/Unity.Licensing.Client.exe")
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-StephenSimmons" at "2026-10-27T00:19:50.3728394Z"
+[Licensing::Client] Code 10 while verifying Licensing Client signature (process Id: 22372, path: "C:/Program Files/Unity/Hub/Editor/6000.6.7f1/Editor/Data/Resources/Licensing/Client/Unity.Licensing.Client.exe")
 [Licensing::Module] LicensingClient has failed validation; ignoring
 [Licensing::Client] Handshaking with LicensingClient:
   Version:                 1.18.3+d7ffd15
-  Session Id:              aff032d5981948259417fb413adaa285
-  Correlation Id:          3d07a4bbcf287648969fff1358d1dead
-  External correlation Id: 8359668370836900163
+  Session Id:              6f79c0647933404aaf8e458f9b99394c
+  Correlation Id:          f6e97d19d52fd7a1860143151bc71dbe
+  External correlation Id: 6852362153146058329
   Machine Id:              1Bt83mJDiMleMuAMUegGTrLHPqI=
-[Licensing::Module] Successfully connected to LicensingClient on channel: "LicenseClient-StephenSimmons" (connect: 0.37s, validation: 0.30s, handshake: 0.06s)
-[Licensing::IpcConnector] Successfully connected to: "LicenseClient-StephenSimmons-notifications" at "2026-10-26T23:22:32.5314156Z"
-[Licensing::Module] Connected to LicensingClient (PId: 42236, launch time: 0.01, total connection time: 0.73s)
+[Licensing::Module] Successfully connected to LicensingClient on channel: "LicenseClient-StephenSimmons" (connect: 0.37s, validation: 0.43s, handshake: 0.06s)
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-StephenSimmons-notifications" at "2026-10-27T00:19:50.8646137Z"
+[Licensing::Module] Connected to LicensingClient (PId: 22372, launch time: 0.01, total connection time: 0.86s)
 [Licensing::Module] Error: Access token is unavailable; failed to update
-[Package Manager] Connected to IPC stream "Upm-31712" after 0.4 seconds.
+[Package Manager] Connected to IPC stream "Upm-33148" after 0.5 seconds.
 [Licensing::Module] Licensing is not yet initialized.
 [Licensing::Client] Successfully resolved entitlement details
 [Licensing::Module] License group:
@@ -102,10 +102,10 @@ Waiting for clients to connect on \\.\pipe\Unity-LicenseClient-StephenSimmons, p
   Product: Unity Personal
   Type: Assigned
   Expiration: Unlimited
-[Licensing::Client] Successfully updated license, isAsync: True, time: 0.01
+[Licensing::Client] Successfully updated license, isAsync: True, time: 0.02
 [Licensing::Client] Successfully resolved entitlement details
-[Licensing::Module] Licensing Background thread has ended after 0.79s
-[Licensing::Module] Licensing is initialized (took 0.04s).
+[Licensing::Module] Licensing Background thread has ended after 0.94s
+[Licensing::Module] Licensing is initialized (took 0.07s).
 [Licensing::Client] Successfully resolved entitlement details
 Library Redirect Path: Library/
 Initialising UDS system complete:
@@ -141,7 +141,7 @@ Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/6000.6.7f1/Editor/Data/Managed
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/6000.6.7f1/Editor/Data/BCLExtensions/runtime/netstandard2.1'
 Mono path[2] = 'C:/Program Files/Unity/Hub/Editor/6000.6.7f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/6000.6.7f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56712
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56148
 CodeReloadManager initialized
 ImportWorker Server TCP listen port: 0
 AcceleratorClientConnectionCallback - disconnected - :0
@@ -150,32 +150,32 @@ Registering precompiled unity dll's ...
 Register platform support module: C:/Program Files/Unity/Hub/Editor/6000.6.7f1/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll
 Register platform support module: C:/Program Files/Unity/Hub/Editor/6000.6.7f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
 Register platform support module: C:/Program Files/Unity/Hub/Editor/6000.6.7f1/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll
-Registered in 0.004539 seconds.
+Registered in 0.007574 seconds.
 Native extension for Android target not found
 Native extension for WindowsStandalone target not found
 Native extension for WebGL target not found
 Package Manager log level set to [2]
 ScheduleIndexationOnStartup MainProcess:False IndexOnStartup:False
 Scripting: successfully reloaded assembly
-- Finished resetting the current domain, in  0.827 seconds
-Domain Reload Profiling: 1517ms
-	BeginReloadAssembly (159ms)
-		CreateAndSetChildDomain (7ms)
-	RebuildCommonClasses (6ms)
-	RebuildNativeTypeToScriptingClass (19ms)
-	initialDomainReloadingComplete (93ms)
-	LoadAllAssembliesAndSetupDomain (413ms)
-		LoadAssemblies (148ms)
-		TypeCache.Refresh (284ms)
-			TypeCache.ScanAssembly (268ms)
+- Finished resetting the current domain, in  1.147 seconds
+Domain Reload Profiling: 2119ms
+	BeginReloadAssembly (222ms)
+		CreateAndSetChildDomain (15ms)
+	RebuildCommonClasses (7ms)
+	RebuildNativeTypeToScriptingClass (25ms)
+	initialDomainReloadingComplete (127ms)
+	LoadAllAssembliesAndSetupDomain (588ms)
+		LoadAssemblies (201ms)
+		TypeCache.Refresh (410ms)
+			TypeCache.ScanAssembly (388ms)
 		AnalyzeDomain (1ms)
-	FinalizeReload (828ms)
+	FinalizeReload (1149ms)
 		SetupLoadedEditorAssemblies (0ms)
-			InitializePlatformSupportModulesInManaged (11ms)
-			BeforeProcessingInitializeOnLoad (126ms)
-			ProcessInitializeOnLoadAttributes (165ms)
-			ProcessInitializeOnLoadMethodAttributes (261ms)
-			EditorAssembliesLoaded (3ms)
+			InitializePlatformSupportModulesInManaged (19ms)
+			BeforeProcessingInitializeOnLoad (161ms)
+			ProcessInitializeOnLoadAttributes (230ms)
+			ProcessInitializeOnLoadMethodAttributes (359ms)
+			EditorAssembliesLoaded (4ms)
 [Licensing::Client] Successfully resolved entitlement details
 [Licensing::Client] Successfully resolved entitlement details
 Application.AssetDatabase Initial Refresh Start
@@ -232,10 +232,10 @@ Application.AssetDatabase Initial Refresh Start
 Starting: C:\Program Files\Unity\Hub\Editor\6000.6.7f1\Editor\Data\Tools\BuildPipeline\bee_backend.exe --ipc --defer-dag-verification --dagfile="Library/Bee/1300b0aE.dag" --continue-on-failure --profile="Library/Bee/backend1.traceevents" ScriptAssemblies
 WorkingDir: C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2
 DisplayProgressbar: Compiling Scripts
-ExitCode: 0 Duration: 1s883ms
+ExitCode: 0 Duration: 2s275ms
 [209/224    0s] ILPP-Configuration Library/ilpp-configuration.nevergeneratedoutput
 [216/224    0s] Csc Library/Bee/artifacts/1300b0aE.dag/Assembly-CSharp.dll (+2 others)
-Assets\Scripts\UBlade2Game.cs(52,13): warning CS0618: 'Object.FindObjectOfType<T>()' is obsolete: 'Object.FindObjectOfType has been deprecated. Use Object.FindAnyObjectByType instead.'
+Assets\Scripts\UBlade2Game.cs(149,13): warning CS0618: 'Object.FindObjectOfType<T>()' is obsolete: 'Object.FindObjectOfType has been deprecated. Use Object.FindAnyObjectByType instead.'
 [217/224    0s] ILPostProcess Library/Bee/artifacts/1300b0aE.dag/post-processed/Assembly-CSharp.dll (+pdb)
 Processing assembly Library/Bee/artifacts/1300b0aE.dag/Assembly-CSharp.dll, with 156 defines and 287 references
 
@@ -243,9 +243,9 @@ processors: zzzUnity.Burst.CodeGen.BurstILPostProcessor
 
 1 processor(s) skipped this assembly
 [218/224    0s] CopyFiles Library/ScriptAssemblies/Assembly-CSharp.pdb
-[219/224    0s] CopyFiles Library/ScriptAssemblies/Assembly-CSharp.dll
-[220/224    0s] Csc Library/Bee/artifacts/1300b0aE.dag/Assembly-CSharp-Editor.dll (+2 others)
-Assets\Editor\BuildUBlade2.cs(162,86): warning CS0618: 'AndroidArchitecture.X86_64' is obsolete: 'X86_64 is no longer supported.'
+[219/224    0s] Csc Library/Bee/artifacts/1300b0aE.dag/Assembly-CSharp-Editor.dll (+2 others)
+Assets\Editor\BuildUBlade2.cs(244,86): warning CS0618: 'AndroidArchitecture.X86_64' is obsolete: 'X86_64 is no longer supported.'
+[220/224    0s] CopyFiles Library/ScriptAssemblies/Assembly-CSharp.dll
 [221/224    0s] ILPostProcess Library/Bee/artifacts/1300b0aE.dag/post-processed/Assembly-CSharp-Editor.dll (+pdb)
 Processing assembly Library/Bee/artifacts/1300b0aE.dag/Assembly-CSharp-Editor.dll, with 154 defines and 304 references
 
@@ -254,104 +254,116 @@ processors: zzzUnity.Burst.CodeGen.BurstILPostProcessor
 1 processor(s) skipped this assembly
 [222/224    0s] CopyFiles Library/ScriptAssemblies/Assembly-CSharp-Editor.pdb
 [223/224    0s] CopyFiles Library/ScriptAssemblies/Assembly-CSharp-Editor.dll
-*** Tundra build success (1.85 seconds), 9 items updated, 224 evaluated
-Total cache size 49207320
-Assets\Scripts\UBlade2Game.cs(52,13): warning CS0618: 'Object.FindObjectOfType<T>()' is obsolete: 'Object.FindObjectOfType has been deprecated. Use Object.FindAnyObjectByType instead.'
-Assets\Editor\BuildUBlade2.cs(162,86): warning CS0618: 'AndroidArchitecture.X86_64' is obsolete: 'X86_64 is no longer supported.'
-Total cache size after purge 49207320, took 00:00:00.0306816
-AssetDatabase: script compilation time: 2.479302s
+*** Tundra build success (2.22 seconds), 9 items updated, 224 evaluated
+Assets\Scripts\UBlade2Game.cs(149,13): warning CS0618: 'Object.FindObjectOfType<T>()' is obsolete: 'Object.FindObjectOfType has been deprecated. Use Object.FindAnyObjectByType instead.'
+Assets\Editor\BuildUBlade2.cs(244,86): warning CS0618: 'AndroidArchitecture.X86_64' is obsolete: 'X86_64 is no longer supported.'
+Total cache size 50613152
+Total cache size after purge 50613152, took 00:00:00.0480527
+AssetDatabase: script compilation time: 3.313708s
 Begin MonoManager ReloadAssembly
 Native extension for Android target not found
 Native extension for WindowsStandalone target not found
 Native extension for WebGL target not found
 ScheduleIndexationOnStartup MainProcess:True IndexOnStartup:True
 Scripting: successfully reloaded assembly
-- Finished resetting the current domain, in  0.559 seconds
-Domain Reload Profiling: 1239ms
-	BeginReloadAssembly (294ms)
-		DisableScriptedObjects (34ms)
-		CreateAndSetChildDomain (49ms)
-	RebuildCommonClasses (10ms)
-	RebuildNativeTypeToScriptingClass (17ms)
-	initialDomainReloadingComplete (61ms)
-	LoadAllAssembliesAndSetupDomain (296ms)
-		LoadAssemblies (262ms)
-		TypeCache.Refresh (25ms)
-			TypeCache.ScanAssembly (17ms)
-		AnalyzeDomain (12ms)
-			BuildScriptInfoCaches (10ms)
-	FinalizeReload (561ms)
+- Finished resetting the current domain, in  0.847 seconds
+Domain Reload Profiling: 1729ms
+	BeginReloadAssembly (368ms)
+		DisableScriptedObjects (49ms)
+		CreateAndSetChildDomain (57ms)
+	RebuildCommonClasses (14ms)
+	RebuildNativeTypeToScriptingClass (24ms)
+	initialDomainReloadingComplete (81ms)
+	LoadAllAssembliesAndSetupDomain (393ms)
+		LoadAssemblies (348ms)
+		TypeCache.Refresh (32ms)
+			TypeCache.ScanAssembly (23ms)
+		AnalyzeDomain (16ms)
+			BuildScriptInfoCaches (14ms)
+	FinalizeReload (850ms)
 		SetupLoadedEditorAssemblies (0ms)
-			InitializePlatformSupportModulesInManaged (9ms)
-			BeforeProcessingInitializeOnLoad (111ms)
-			ProcessInitializeOnLoadAttributes (150ms)
-			ProcessInitializeOnLoadMethodAttributes (41ms)
-			AfterProcessingInitializeOnLoad (9ms)
-		AwakeInstancesAfterBackupRestoration (25ms)
+			InitializePlatformSupportModulesInManaged (12ms)
+			BeforeProcessingInitializeOnLoad (174ms)
+			ProcessInitializeOnLoadAttributes (238ms)
+			ProcessInitializeOnLoadMethodAttributes (66ms)
+			AfterProcessingInitializeOnLoad (12ms)
+		AwakeInstancesAfterBackupRestoration (37ms)
 Starting new worker id: 0 with log in C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Logs/AssetImportWorkerHW0.log
 
-Asset Pipeline Refresh (id=51c379d00a9e4cd449f5865358b8a98a): Total: 4.093 seconds - Initiated by InitialRefreshV2(ForceSynchronousImport)
+Asset Pipeline Refresh (id=59f8265b0995015479424b6a587e71cd): Total: 5.575 seconds - Initiated by InitialRefreshV2(ForceSynchronousImport)
 	(Values over 0.05ms)
 	Summary:
 		Imports: total=0 (actual=0, local cache=0, cache server=0)
-		Asset DB Process Time: managed=0 ms, native=774 ms
-		Asset DB Callback time: managed=78 ms, native=19 ms
-		Scripting: domain reloads=1, domain reload time=720 ms, compile time=2483 ms, other=16 ms
+		Asset DB Process Time: managed=0 ms, native=1169 ms
+		Asset DB Callback time: managed=97 ms, native=27 ms
+		Scripting: domain reloads=1, domain reload time=937 ms, compile time=3319 ms, other=24 ms
 		Project Asset Count: scripts=176, non-scripts=74
 		Asset File Changes: new=0, changed=1, moved=0, deleted=0
 		Scan Filter Count: 0
-	InvokePackagesCallback: 20.129ms
-	ApplyChangesToAssetFolders: 0.863ms
-	Scan: 42.967ms
-	Collect global state as custom dependencies: 13.004ms
-	OnSourceAssetsModified: 0.706ms
-	CategorizeScriptCompilationAssets: 5.517ms
-	ProcessAssetsWithTransientArtifactChanges: 5.416ms
-	CategorizeAssets: 1.488ms
-	CompileScripts: 2482.982ms
-	ImportOutOfDateAssets: 576.298ms (561.163ms without children)
-		UnloadImportedAssets: 1.398ms
-		EnsureUptoDateAssetsAreRegisteredWithGuidPM: 0.052ms
-		ImportSchedulerStart: 13.681ms
-	PostProcessAllAssets: 79.374ms
-		VCAutoAddAssetPostprocess 0.911ms
-		MonoPostProcessAllAssets: 77.950ms
-			AssetPostprocessor.OnPostprocessAllAssets 31.019ms
-			StyleCatalogPostProcessor.OnPostprocessAllAssets 10.719ms
-			WindowAssetPostprocessingWatcher.OnPostprocessAllAssets 8.272ms
-			BuilderAssetPostprocessor.OnPostprocessAllAssets 6.171ms
-			AssetChangedListener.OnPostprocessAllAssets 2.176ms
-			RetainedModeAssetPostprocessor.OnPostprocessAllAssets 1.653ms
-			EditModeScopePostprocessor.OnPostprocessAllAssets 0.949ms
-			SpeedTree9Postprocessor.OnPostprocessAllAssets 0.935ms
-			TextAssetPostProcessor.OnPostprocessAllAssets 0.654ms
-			ArtifactBrowserPostProcessor.OnPostprocessAllAssets 0.622ms
-			ReferencedClipsPostProcessor.OnPostprocessAllAssets 0.357ms
-			AudioMixerPostprocessor.OnPostprocessAllAssets 0.296ms
-			AssetEvents.OnPostprocessAllAssets 0.261ms
-			TerrainToolbarOverlayPostProcessor.OnPostprocessAllAssets 0.231ms
-			AssetDatabaseCallbacks.OnPostprocessAllAssets 0.182ms
-			SpeedTreePostProcessor.OnPostprocessAllAssets 0.175ms
-			ThemePostprocessor.OnPostprocessAllAssets 0.151ms
-			ConfigAssetsTracker.OnPostprocessAllAssets 0.148ms
-			SyncVS.PostprocessSyncProject 0.138ms
-			RenderPipelineGlobalSettingsPostprocessor.OnPostprocessAllAssets 0.132ms
-			ScenarioDriftAssetsTracker.OnPostprocessAllAssets 0.131ms
-			AudioContainerPostProcessor.OnPostprocessAllAssets 0.077ms
-	PostAssetChangesProfiler: 0.469ms
-	UnloadStreamsBegin: 1.656ms
-	Untracked: 829.549ms
+	InvokePackagesCallback: 28.340ms
+	ApplyChangesToAssetFolders: 1.255ms
+	Scan: 72.687ms
+	Collect global state as custom dependencies: 19.352ms
+	OnSourceAssetsModified: 0.969ms
+	CategorizeScriptCompilationAssets: 8.128ms
+	ProcessAssetsWithTransientArtifactChanges: 8.315ms
+	CategorizeAssets: 2.679ms
+	CompileScripts: 3318.503ms
+	ImportOutOfDateAssets: 869.534ms (850.339ms without children)
+		UnloadImportedAssets: 1.852ms
+		EnsureUptoDateAssetsAreRegisteredWithGuidPM: 0.093ms
+		ImportSchedulerStart: 17.243ms
+	PostProcessAllAssets: 98.235ms
+		VCAutoAddAssetPostprocess 1.089ms
+		MonoPostProcessAllAssets: 96.511ms
+			AssetPostprocessor.OnPostprocessAllAssets 43.500ms
+			StyleCatalogPostProcessor.OnPostprocessAllAssets 11.624ms
+			WindowAssetPostprocessingWatcher.OnPostprocessAllAssets 11.296ms
+			BuilderAssetPostprocessor.OnPostprocessAllAssets 7.119ms
+			AssetChangedListener.OnPostprocessAllAssets 2.583ms
+			RetainedModeAssetPostprocessor.OnPostprocessAllAssets 1.922ms
+			EditModeScopePostprocessor.OnPostprocessAllAssets 1.213ms
+			SpeedTree9Postprocessor.OnPostprocessAllAssets 1.073ms
+			TextAssetPostProcessor.OnPostprocessAllAssets 0.823ms
+			ArtifactBrowserPostProcessor.OnPostprocessAllAssets 0.785ms
+			AudioMixerPostprocessor.OnPostprocessAllAssets 0.409ms
+			ReferencedClipsPostProcessor.OnPostprocessAllAssets 0.389ms
+			AssetEvents.OnPostprocessAllAssets 0.305ms
+			TerrainToolbarOverlayPostProcessor.OnPostprocessAllAssets 0.284ms
+			AssetDatabaseCallbacks.OnPostprocessAllAssets 0.241ms
+			ScenarioDriftAssetsTracker.OnPostprocessAllAssets 0.220ms
+			SpeedTreePostProcessor.OnPostprocessAllAssets 0.217ms
+			ThemePostprocessor.OnPostprocessAllAssets 0.210ms
+			ConfigAssetsTracker.OnPostprocessAllAssets 0.198ms
+			SyncVS.PostprocessSyncProject 0.157ms
+			RenderPipelineGlobalSettingsPostprocessor.OnPostprocessAllAssets 0.146ms
+			AudioContainerPostProcessor.OnPostprocessAllAssets 0.102ms
+	PostAssetChangesProfiler: 0.591ms
+	UnloadStreamsBegin: 2.809ms
+	Untracked: 1098.599ms
 
 Application.AssetDatabase Initial Refresh End
-Scanning for USB devices : 4.649ms
+Scanning for USB devices : 4.512ms
 Initializing Unity extensions:
 [MODES] ModeService[none].Initialize
 [MODES] ModeService[none].LoadModes
 [MODES] Loading mode Default (0) for mode-current-id-UBlade2
 Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 504 unused Assets / (479.2 KB). Loaded Objects now: 1230.
-Memory consumption went from 231.0 MB to 230.5 MB.
-Total: 5.915500 ms (FindLiveObjects: 0.247000 ms CreateObjectMapping: 0.043500 ms MarkObjects: 5.179500 ms  DeleteObjects: 0.298700 ms)
+Unloading 512 unused Assets / (0.6 MB). Loaded Objects now: 1238.
+Memory consumption went from 229.6 MB to 229.0 MB.
+Total: 7.934900 ms (FindLiveObjects: 0.295900 ms CreateObjectMapping: 0.040900 ms MarkObjects: 6.934800 ms  DeleteObjects: 0.461900 ms)
+
+UBLADE2_MOBILE_SHADER_OK unlit-color unlit-texture always-included
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+BuildUBlade2:EnsureMobileShaders () (at Assets/Editor/BuildUBlade2.cs:124)
+BuildUBlade2:BuildAndroid () (at Assets/Editor/BuildUBlade2.cs:222)
+
+(Filename: Assets/Editor/BuildUBlade2.cs Line: 124)
 
 UBLADE2_ANDROID_ARCH None
 UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
@@ -360,9 +372,9 @@ UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOpt
 UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
 UnityEngine.Logger:Log (UnityEngine.LogType,object)
 UnityEngine.Debug:Log (object)
-BuildUBlade2:BuildAndroid () (at Assets/Editor/BuildUBlade2.cs:152)
+BuildUBlade2:BuildAndroid () (at Assets/Editor/BuildUBlade2.cs:232)
 
-(Filename: Assets/Editor/BuildUBlade2.cs Line: 152)
+(Filename: Assets/Editor/BuildUBlade2.cs Line: 232)
 
 UBLADE2_ANDROID_ARCH ARMv7
 UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
@@ -371,9 +383,9 @@ UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOpt
 UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
 UnityEngine.Logger:Log (UnityEngine.LogType,object)
 UnityEngine.Debug:Log (object)
-BuildUBlade2:BuildAndroid () (at Assets/Editor/BuildUBlade2.cs:152)
+BuildUBlade2:BuildAndroid () (at Assets/Editor/BuildUBlade2.cs:232)
 
-(Filename: Assets/Editor/BuildUBlade2.cs Line: 152)
+(Filename: Assets/Editor/BuildUBlade2.cs Line: 232)
 
 UBLADE2_ANDROID_ARCH ARM64
 UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
@@ -382,9 +394,9 @@ UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOpt
 UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
 UnityEngine.Logger:Log (UnityEngine.LogType,object)
 UnityEngine.Debug:Log (object)
-BuildUBlade2:BuildAndroid () (at Assets/Editor/BuildUBlade2.cs:152)
+BuildUBlade2:BuildAndroid () (at Assets/Editor/BuildUBlade2.cs:232)
 
-(Filename: Assets/Editor/BuildUBlade2.cs Line: 152)
+(Filename: Assets/Editor/BuildUBlade2.cs Line: 232)
 
 UBLADE2_ANDROID_ARCH X86
 UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
@@ -393,9 +405,9 @@ UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOpt
 UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
 UnityEngine.Logger:Log (UnityEngine.LogType,object)
 UnityEngine.Debug:Log (object)
-BuildUBlade2:BuildAndroid () (at Assets/Editor/BuildUBlade2.cs:152)
+BuildUBlade2:BuildAndroid () (at Assets/Editor/BuildUBlade2.cs:232)
 
-(Filename: Assets/Editor/BuildUBlade2.cs Line: 152)
+(Filename: Assets/Editor/BuildUBlade2.cs Line: 232)
 
 UBLADE2_ANDROID_ARCH X86_64
 UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
@@ -404,9 +416,9 @@ UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOpt
 UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
 UnityEngine.Logger:Log (UnityEngine.LogType,object)
 UnityEngine.Debug:Log (object)
-BuildUBlade2:BuildAndroid () (at Assets/Editor/BuildUBlade2.cs:152)
+BuildUBlade2:BuildAndroid () (at Assets/Editor/BuildUBlade2.cs:232)
 
-(Filename: Assets/Editor/BuildUBlade2.cs Line: 152)
+(Filename: Assets/Editor/BuildUBlade2.cs Line: 232)
 
 UBLADE2_ANDROID_ARCH All
 UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
@@ -415,9 +427,9 @@ UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOpt
 UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
 UnityEngine.Logger:Log (UnityEngine.LogType,object)
 UnityEngine.Debug:Log (object)
-BuildUBlade2:BuildAndroid () (at Assets/Editor/BuildUBlade2.cs:152)
+BuildUBlade2:BuildAndroid () (at Assets/Editor/BuildUBlade2.cs:232)
 
-(Filename: Assets/Editor/BuildUBlade2.cs Line: 152)
+(Filename: Assets/Editor/BuildUBlade2.cs Line: 232)
 
 UBLADE2_ANDROID_SDKROOT (bundled)
 UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
@@ -426,9 +438,9 @@ UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOpt
 UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
 UnityEngine.Logger:Log (UnityEngine.LogType,object)
 UnityEngine.Debug:Log (object)
-BuildUBlade2:BuildAndroid () (at Assets/Editor/BuildUBlade2.cs:154)
+BuildUBlade2:BuildAndroid () (at Assets/Editor/BuildUBlade2.cs:234)
 
-(Filename: Assets/Editor/BuildUBlade2.cs Line: 154)
+(Filename: Assets/Editor/BuildUBlade2.cs Line: 234)
 
 UBLADE2_ANDROID_JDKROOT (bundled)
 UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
@@ -437,9 +449,9 @@ UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOpt
 UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
 UnityEngine.Logger:Log (UnityEngine.LogType,object)
 UnityEngine.Debug:Log (object)
-BuildUBlade2:BuildAndroid () (at Assets/Editor/BuildUBlade2.cs:155)
+BuildUBlade2:BuildAndroid () (at Assets/Editor/BuildUBlade2.cs:235)
 
-(Filename: Assets/Editor/BuildUBlade2.cs Line: 155)
+(Filename: Assets/Editor/BuildUBlade2.cs Line: 235)
 
 UBLADE2_ANDROID_NDKROOT (bundled)
 UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
@@ -448,16 +460,27 @@ UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOpt
 UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
 UnityEngine.Logger:Log (UnityEngine.LogType,object)
 UnityEngine.Debug:Log (object)
-BuildUBlade2:BuildAndroid () (at Assets/Editor/BuildUBlade2.cs:156)
+BuildUBlade2:BuildAndroid () (at Assets/Editor/BuildUBlade2.cs:236)
 
-(Filename: Assets/Editor/BuildUBlade2.cs Line: 156)
+(Filename: Assets/Editor/BuildUBlade2.cs Line: 236)
 
-Asset Pipeline Refresh (id=0836f4557fd3e8846b05f33522065362): Total: 0.040 seconds - Initiated by RefreshV2(NoUpdateAssetOptions)
-Asset Pipeline Refresh (id=7ef27861491b2bf46a04161d316b2fb6): Total: 0.024 seconds - Initiated by RefreshV2(NoUpdateAssetOptions)
+UBLADE2_VERSION 2026.10.26.007
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+BuildUBlade2:BuildAndroid () (at Assets/Editor/BuildUBlade2.cs:241)
+
+(Filename: Assets/Editor/BuildUBlade2.cs Line: 241)
+
+Asset Pipeline Refresh (id=9e39fc4bdf47aee4a9391a9f0640ac02): Total: 0.010 seconds - Initiated by RefreshV2(NoUpdateAssetOptions)
+Asset Pipeline Refresh (id=e9aef137c9d06014fb07dd1bc27ce748): Total: 0.040 seconds - Initiated by RefreshV2(NoUpdateAssetOptions)
 AcceleratorClientConnectionCallback - disconnected - :0
 Importing 'GUID: 00000000000000004000000000000000 - Path: ProjectSettings/ProjectSettings.asset' with importer (LibraryAssetImporter)
-Imported 'GUID: 00000000000000004000000000000000' -> (Import Result ID: '325080dcc9ce8c46906c2fd911ed0d71') in 0.004 seconds [static dependencies only]. Details - ImportResultOutputID=054c890a8f4b6dddbea933bc5e4b7df4 DependenciesID=fc889ab9ed1be599460136b139e59660 StaticDependenciesID=4927ea0863cb871511b8c06ee6214230 
-Asset Pipeline Refresh (id=97a010b8878642e4b933de5cee9fcfea): Total: 0.021 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Imported 'GUID: 00000000000000004000000000000000' -> (Import Result ID: '8830beaae8fde951a16da58d2aebca4b') in 0.005 seconds [static dependencies only]. Details - ImportResultOutputID=054c890a8f4b6dddbea933bc5e4b7df4 DependenciesID=87e85b7411c12612add104fa5884d58f StaticDependenciesID=ea5955cff2888fd6f30e1a7fc9a069e3 
+Asset Pipeline Refresh (id=b6f3c18afe7344c4d82301da99775da0): Total: 0.028 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
 Target architecture x86_64 is no longer supported and has been removed.
 UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
 UnityEngine.StackTraceUtility:ExtractStackTrace ()
@@ -471,7 +494,7 @@ UnityEditor.Android.AndroidBuildPostprocessor:PrepareForBuild (UnityEditor.Build
 UnityEditor.PostprocessBuildPlayer:PrepareForBuild (intptr)
 UnityEditor.BuildPipeline:BuildPlayerInternal (string[],string,string,UnityEditor.BuildTargetGroup,UnityEditor.BuildTarget,int,UnityEditor.BuildOptions,string[],string[],bool)
 UnityEditor.BuildPipeline:BuildPlayer (UnityEditor.BuildPlayerOptions)
-BuildUBlade2:BuildAndroid () (at Assets/Editor/BuildUBlade2.cs:191)
+BuildUBlade2:BuildAndroid () (at Assets/Editor/BuildUBlade2.cs:273)
 
 (Filename: /home/bokken/build/output/unity/unity/PlatformDependent/AndroidPlayer/Editor/Managed/PostProcessAndroidPlayer.cs Line: 82)
 
@@ -481,9 +504,9 @@ Reporting tool paths:
  Android SDK: 'C:\Program Files\Unity\Hub\Editor\6000.6.7f1\Editor\Data\PlaybackEngines\AndroidPlayer\SDK'
  Android NDK: 'C:\Program Files\Unity\Hub\Editor\6000.6.7f1\Editor\Data\PlaybackEngines\AndroidPlayer\NDK'
  Gradle: 'C:\Program Files\Unity\Hub\Editor\6000.6.7f1\Editor\Data\PlaybackEngines\AndroidPlayer\Tools\gradle' (Gradle Version: '9.3.1' Android Plugin Version: '9.1.1')
-Android PostProcess task "Checking prerequisites" took 39.4693 ms
+Android PostProcess task "Checking prerequisites" took 54.5494 ms
 DisplayProgressbar: Detect Java Development Kit (JDK)
-Android PostProcess task "Detect Java Development Kit (JDK)" took 3.6494 ms
+Android PostProcess task "Detect Java Development Kit (JDK)" took 5.5648 ms
 DisplayProgressbar: Detecting Android SDK
 Worker ready: AssetImportWorkerHW0 0
 AndroidSDKTools:
@@ -495,32 +518,32 @@ AndroidSDKTools:
 
 	adb           : C:\Program Files\Unity\Hub\Editor\6000.6.7f1\Editor\Data\PlaybackEngines\AndroidPlayer\SDK\platform-tools\adb.exe
 
-Android PostProcess task "Detecting Android SDK" took 3652.9996 ms
+Android PostProcess task "Detecting Android SDK" took 3128.51 ms
 DisplayProgressbar: Detect Android NDK
-Android PostProcess task "Detect Android NDK" took 1.6081 ms
-Android PostProcess task "Trying to find a suitable Android device" took 0.3623 ms
+Android PostProcess task "Detect Android NDK" took 3.345 ms
+Android PostProcess task "Trying to find a suitable Android device" took 0.4618 ms
 DisplayProgressbar: Check resources
-Android PostProcess task "Check resources" took 0.2392 ms
+Android PostProcess task "Check resources" took 0.3185 ms
 DisplayProgressbar: Check Android Player Settings
-Android PostProcess task "Check Android Player Settings" took 2.2329 ms
+Android PostProcess task "Check Android Player Settings" took 3.1384 ms
 Launched and connected shader compiler UnityShaderCompiler.exe after 0.01 seconds
 Starting: C:\Program Files\Unity\Hub\Editor\6000.6.7f1\Editor\Data\Tools\BuildPipeline\bee_backend.exe --ipc --defer-dag-verification --dagfile="Library/Bee/1300b0aESkipCompile.dag" --continue-on-failure --profile="Library/Bee/backend1.traceevents" ScriptAssembliesAndTypeDB
 WorkingDir: C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2
 DisplayProgressbar: Compiling Scripts
-ExitCode: 0 Duration: 0s332ms
+ExitCode: 0 Duration: 0s444ms
 [2/3        0s] BuildPlayerDataGenerator Library/BuildPlayerData/Editor/TypeDb-All.json
-*** Tundra build success (0.30 seconds), 1 items updated, 3 evaluated
-Total cache size 49207320
-Total cache size after purge 49207320, took 00:00:00.0242262
-Asset Pipeline Refresh (id=036d776064aaade4e86029ae0e76acf0): Total: 0.010 seconds - Initiated by RefreshV2(NoUpdateAssetOptions)
+*** Tundra build success (0.40 seconds), 1 items updated, 3 evaluated
+Total cache size 50613152
+Total cache size after purge 50613152, took 00:00:00.0363353
+Asset Pipeline Refresh (id=416b78ec00299ba4e80f5d51290e912f): Total: 0.014 seconds - Initiated by RefreshV2(NoUpdateAssetOptions)
 [ScriptCompilation] Requested script compilation because: Recompiling scripts for player build.
 BuildPlayer: start building target 13
 Starting: C:\Program Files\Unity\Hub\Editor\6000.6.7f1\Editor\Data\Tools\BuildPipeline\bee_backend.exe --ipc --defer-dag-verification --dagfile="Library/Bee/1300b0aP.dag" --continue-on-failure --profile="Library/Bee/backend1.traceevents" ScriptAssembliesAndTypeDB
 WorkingDir: C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2
-ExitCode: 0 Duration: 1s264ms
+ExitCode: 0 Duration: 2s152ms
 [89/96      0s] ILPP-Configuration Library/ilpp-configuration.nevergeneratedoutput
 [90/96      0s] Csc Library/Bee/artifacts/1300b0aP.dag/Assembly-CSharp.dll (+2 others)
-Assets\Scripts\UBlade2Game.cs(52,13): warning CS0618: 'Object.FindObjectOfType<T>()' is obsolete: 'Object.FindObjectOfType has been deprecated. Use Object.FindAnyObjectByType instead.'
+Assets\Scripts\UBlade2Game.cs(149,13): warning CS0618: 'Object.FindObjectOfType<T>()' is obsolete: 'Object.FindObjectOfType has been deprecated. Use Object.FindAnyObjectByType instead.'
 [91/96      0s] ILPostProcess Library/Bee/artifacts/1300b0aP.dag/post-processed/Assembly-CSharp.dll (+pdb)
 Processing assembly Library/Bee/artifacts/1300b0aP.dag/Assembly-CSharp.dll, with 143 defines and 215 references
 
@@ -530,10 +553,10 @@ processors: zzzUnity.Burst.CodeGen.BurstILPostProcessor
 [92/96      0s] CopyFiles Library/Bee/PlayerScriptAssemblies/Assembly-CSharp.pdb
 [93/96      0s] CopyFiles Library/Bee/PlayerScriptAssemblies/Assembly-CSharp.dll
 [95/96      0s] BuildPlayerDataGenerator Library/BuildPlayerData/Player/RuntimeInitializeOnLoads.json (+1 other)
-*** Tundra build success (1.24 seconds), 6 items updated, 96 evaluated
-Assets\Scripts\UBlade2Game.cs(52,13): warning CS0618: 'Object.FindObjectOfType<T>()' is obsolete: 'Object.FindObjectOfType has been deprecated. Use Object.FindAnyObjectByType instead.'
-Total cache size 49207320
-Total cache size after purge 49207320, took 00:00:00.0198322
+*** Tundra build success (2.12 seconds), 6 items updated, 96 evaluated
+Assets\Scripts\UBlade2Game.cs(149,13): warning CS0618: 'Object.FindObjectOfType<T>()' is obsolete: 'Object.FindObjectOfType has been deprecated. Use Object.FindAnyObjectByType instead.'
+Total cache size 50613152
+Total cache size after purge 50613152, took 00:00:00.0267747
 Not rebuilding Data files -- no changes
 
 
@@ -765,182 +788,143 @@ Dependency assembly - System.Xml.XmlDocument.dll
 Dependency assembly - System.ComponentModel.dll
 
 DisplayProgressbar: Initializing
-Android PostProcess task "Initializing" took 1.16 ms
+Android PostProcess task "Initializing" took 1.288 ms
 DisplayProgressbar: Check gradle project collisions
-Android PostProcess task "Check gradle project collisions" took 0.257 ms
+Android PostProcess task "Check gradle project collisions" took 0.3221 ms
 DisplayProgressbar: Preparing banner
-Android PostProcess task "Preparing banner" took 0.346 ms
+Android PostProcess task "Preparing banner" took 0.5767 ms
     Call "UnityEditor.Android.AndroidHardwareProfilesManager.Setup" from assembly 'UnityEditor.Android.Extensions'
 Starting: C:\Program Files\Unity\Hub\Editor\6000.6.7f1\Editor\Data\Tools\BuildPipeline\bee_backend.exe --ipc --dagfile="Library/Bee/Player30567ef9.dag" --profile="Library/Bee/backend1.traceevents" Player
 WorkingDir: C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2
 DisplayProgressbar: Incremental Player Build
 [           0s] ComputeLeafInputSignature Lib_Android_arm64 Library/Bee/artifacts/Android/87lik/il2cpp.a [success cd30bbd9e9b06139342281b5d8045c95]
-[ 80/355    0s] AddBootConfigGUID Library/Bee/artifacts/Android/boot.config
-[ 81/355    0s] CopyFiles C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/assets/bin/Data/boot.config
-[ 82/355    3s] UnityLinker C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/artifacts/unitylinker_xy1a.traceevents
+[ 87/426    0s] AddBootConfigGUID Library/Bee/artifacts/Android/boot.config
+[ 88/426    0s] CopyFiles C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/assets/bin/Data/boot.config
+[ 89/426    3s] UnityLinker C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/artifacts/unitylinker_xy1a.traceevents
 C:\Program Files\Unity\Hub\Editor\6000.6.7f1\Editor\Data\il2cpp\build\deploy\UnityLinker.exe @Library\Bee\artifacts\rsp\8160495649868390111.rsp
-*** Tundra requires additional run (4.05 seconds), 3 items updated, 355 evaluated
+*** Tundra requires additional run (3.98 seconds), 3 items updated, 426 evaluated
 *** Additional run caused by: contents change of Library/Bee/artifacts/Android/ManagedStripped
-ExitCode: 4 Duration: 4s77ms
+ExitCode: 4 Duration: 4s14ms
 Starting: C:\Program Files\Unity\Hub\Editor\6000.6.7f1\Editor\Data\DotNetSdk\dotnet.exe "C:\Program Files\Unity\Hub\Editor\6000.6.7f1\Editor\Data\PlaybackEngines\AndroidPlayer\AndroidPlayerBuildProgram.exe" "C:/Program Files/Unity/Hub/Editor/6000.6.7f1/Editor/Data/PlaybackEngines/AndroidPlayer/Bee;C:/Program Files/Unity/Hub/Editor/6000.6.7f1/Editor/Data/Tools/BuildPipeline" "Library/Bee/Player30567ef9.dag.json" "Library/Bee/Player30567ef9-inputdata.json" "Library\Bee\buildprogram0.traceevents"
 WorkingDir: C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2
-ExitCode: 0 Duration: 0s621ms
+ExitCode: 0 Duration: 0s734ms
 Starting: C:\Program Files\Unity\Hub\Editor\6000.6.7f1\Editor\Data\Tools\BuildPipeline\bee_backend.exe --ipc --dagfile="Library/Bee/Player30567ef9.dag" --dagfilejson="Library\Bee\Player30567ef9.dag.json" --profile="Library/Bee/backend2.traceevents" Player
 WorkingDir: C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2
 [W] FindFirstFile() failed: C:\OneDrive\OneDrive - Cyber 7 Group\GHRepo\Games\UBlade2\unity\UBlade2\Library\Bee\artifacts\Android\il2cppOutput\cpp\Symbols
-Finished compiling graph: 548 nodes, 1387 flattened edges (1383 ToBuild, 5 ToUse), maximum node priority 2147483647
+Finished compiling graph: 619 nodes, 1599 flattened edges (1595 ToBuild, 5 ToUse), maximum node priority 2147483647
 [           0s] Delete 1 artifact files that are no longer in use. (like C:\OneDrive\OneDrive - Cyber 7 Group\GHRepo\Games\UBlade2\unity\UBlade2\Library\Bee\Android\Prj\IL2CPP\Il2CppBackup\Managed\icallsummary.txt)
-[126/354    0s] CopyFiles C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/Android/Prj/IL2CPP/Il2CppBackup/Managed/Assembly-CSharp.dll
-[127/354    0s] CopyFiles C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/Android/Prj/IL2CPP/Il2CppBackup/Managed/UnityEngine.dll
-[128/354    0s] CopyFiles C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/Android/Prj/IL2CPP/Il2CppBackup/Managed/UnityEngine.CoreModule.dll
+[155/425    0s] CopyFiles C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/Android/Prj/IL2CPP/Il2CppBackup/Managed/Assembly-CSharp.dll
 [           0s] ComputeLeafInputSignature Lib_Android_arm64 Library/Bee/artifacts/Android/87lik/il2cpp.a [success cd30bbd9e9b06139342281b5d8045c95]
-[130/354    0s] ExtractUsedFeatures Library/Bee/artifacts/Android/Features/UnityEngine-FeaturesChecked.txt
-[131/354    0s] ExtractUsedFeatures Library/Bee/artifacts/Android/Features/UnityEngine.CoreModule-FeaturesChecked.txt
-[132/354    0s] ExtractUsedFeatures Library/Bee/artifacts/Android/Features/Assembly-CSharp-FeaturesChecked.txt
-[133/354    0s] ICallRegistrationGenerator C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/artifacts/Android/il2cppOutput/UnityICallRegistration.cpp
-[134/354    0s] Compile UnityICallRegistration Library/Bee/artifacts/Android/libunity/arm64-v8a/UnityICallRegistration.o
-clang++: warning: '-x c++' after last input file has no effect [-Wunused-command-line-argument]
-[135/354    1s] IL2CPP_CodeGen C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/artifacts/il2cpp_conv_u5dv.traceevents
-C:\Program Files\Unity\Hub\Editor\6000.6.7f1\Editor\Data\il2cpp\build\deploy\il2cpp.exe --convert-to-cpp --assembly=Library/Bee/artifacts/Android/ManagedStripped/Assembly-CSharp.dll --assembly=Library/Bee/artifacts/Android/ManagedStripped/Mono.Security.dll --assembly=Library/Bee/artifacts/Android/ManagedStripped/mscorlib.dll --assembly=Library/Bee/artifacts/Android/ManagedStripped/System.Configuration.dll --assembly=Library/Bee/artifacts/Android/ManagedStripped/System.Core.dll --assembly=Library/Bee/artifacts/Android/ManagedStripped/System.dll --assembly=Library/Bee/artifacts/Android/ManagedStripped/System.Runtime.CompilerServices.Unsafe.dll --assembly=Library/Bee/artifacts/Android/ManagedStripped/System.Xml.dll --assembly=Library/Bee/artifacts/Android/ManagedStripped/Unity.Scripting.dll --assembly=Library/Bee/artifacts/Android/ManagedStripped/UnityEngine.AndroidJNIModule.dll --assembly=Library/Bee/artifacts/Android/ManagedStripped/UnityEngine.AnimationModule.dll --assembly=Library/Bee/artifacts/Android/ManagedStripped/UnityEngine.BurstModule.dll --assembly=Library/Bee/artifacts/Android/ManagedStripped/UnityEngine.ContentLoadModule.dll --assembly=Library/Bee/artifacts/Android/ManagedStripped/UnityEngine.CoreModule.dll --assembly=Library/Bee/artifacts/Android/ManagedStripped/UnityEngine.dll --assembly=Library/Bee/artifacts/Android/ManagedStripped/UnityEngine.InputLegacyModule.dll --assembly=Library/Bee/artifacts/Android/ManagedStripped/UnityEngine.JSONSerializeModule.dll --assembly=Library/Bee/artifacts/Android/ManagedStripped/UnityEngine.MathematicsModule.dll --assembly=Library/Bee/artifacts/Android/ManagedStripped/UnityEngine.PhysicsModule.dll --assembly=Library/Bee/artifacts/Android/ManagedStripped/UnityEngine.ScreenCaptureModule.dll --assembly=Library/Bee/artifacts/Android/ManagedStripped/UnityEngine.ScriptingModule.dll --assembly=Library/Bee/artifacts/Android/ManagedStripped/UnityEngine.U2DRuntimeModule.dll --generatedcppdir=C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/artifacts/Android/il2cppOutput/cpp --symbols-folder=C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/artifacts/Android/il2cppOutput/cpp/Symbols --enable-analytics --emit-null-checks --enable-array-bounds-check --dotnetprofile=unityaot-linux --usymtool-path=C:/Program Files/Unity/Hub/Editor/6000.6.7f1/Editor/Data/Tools\usymtool.exe --profiler-report --profiler-output-file=C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/artifacts/il2cpp_conv_u5dv.traceevents --print-command-line --static-lib-il2-cpp --data-folder=C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/artifacts/Android/il2cppOutput/data
-[216/354    0s] CopyFiles C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/Android/Prj/IL2CPP/Il2CppBackup/il2cppOutput/Il2CppMetadataRegistration.cpp
-[217/354    0s] CopyFiles C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/Android/Prj/IL2CPP/Il2CppBackup/il2cppOutput/Il2CppTypeDefinitions.c
-[220/354    0s] CopyFiles C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/assets/bin/Data/Managed/Resources/mscorlib.dll-resources.dat
-[225/354    0s] CopyFiles C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/Android/Prj/IL2CPP/Il2CppBackup/il2cppOutput/Il2CppGenericMethodPointerTable.c
-[228/354    0s] CopyFiles C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/Android/Prj/IL2CPP/Il2CppBackup/il2cppOutput/Il2CppMetadataUsage.cpp
-[229/354    0s] CopyFiles C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/Android/Prj/IL2CPP/Il2CppBackup/il2cppOutput/Il2CppGenericInstDefinitions.c
-[230/354    0s] CopyFiles C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/Android/Prj/IL2CPP/Il2CppBackup/il2cppOutput/Assembly-CSharp_CodeGen.c
-[233/354    0s] CopyFiles C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/Android/Prj/IL2CPP/Il2CppBackup/il2cppOutput/Il2CppInvokerTable.cpp
-[237/354    0s] CopyFiles C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/Android/Prj/IL2CPP/Il2CppBackup/il2cppOutput/Il2CppCCalculateFieldValues.cpp
-[240/354    0s] CopyFiles C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/Android/Prj/IL2CPP/Il2CppBackup/il2cppOutput/GenericMethods__2.cpp
-[242/354    0s] CopyFiles C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/Android/Prj/IL2CPP/Il2CppBackup/il2cppOutput/Assembly-CSharp.cpp
-[245/354    0s] CopyFiles C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/Android/Prj/IL2CPP/Il2CppBackup/il2cppOutput/Il2CppCCTypeValuesTable.c
-[271/354    0s] C_Android_arm64 Library/Bee/artifacts/Android/d8kzr/0iasehwwoxrd.o
-[274/354    0s] CopyFiles C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/artifacts/Android/il2cppOutput/build/arm64-v8a/Data/Resources/mscorlib.dll-resources.dat
-[280/354    0s] CopyFiles C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/Android/Prj/IL2CPP/Il2CppBackup/il2cppOutput/UnityEngine.CoreModule.cpp
-[282/354    0s] CopyFiles C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/Android/Prj/IL2CPP/Il2CppBackup/il2cppOutput/UnityEngine.CoreModule_CodeGen.c
-[283/354    0s] CopyFiles C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/Android/Prj/IL2CPP/Il2CppBackup/il2cppOutput/UnityEngine.CoreModule__1.cpp
-[284/354    0s] CopyFiles C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/Android/Prj/IL2CPP/Il2CppBackup/il2cppOutput/UnityEngine.CoreModule__2.cpp
-[294/354    0s] CopyFiles C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/Android/Prj/IL2CPP/Il2CppBackup/il2cppOutput/Il2CppCCFieldValuesTable.c
-[295/354    0s] CopyFiles C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/artifacts/Android/il2cppOutput/build/arm64-v8a/Data/Metadata/global-metadata.dat
-[307/354    0s] CopyFiles C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/assets/bin/Data/Managed/Metadata/global-metadata.dat
-[312/354    0s] CopyFiles C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/Android/Prj/IL2CPP/Il2CppBackup/il2cppOutput/Il2CppCodeRegistration.cpp
-[319/354    0s] CopyFiles C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/Android/Prj/IL2CPP/Il2CppBackup/il2cppOutput/Il2CppCCalculateTypeValues.cpp
-[320/354    1s] C_Android_arm64 Library/Bee/artifacts/Android/d8kzr/kabl8fz61zbz.o
-[321/354    1s] C_Android_arm64 Library/Bee/artifacts/Android/d8kzr/lqc0oywqb4ff.o
-[322/354    1s] C_Android_arm64 Library/Bee/artifacts/Android/d8kzr/244hwqwrtq1y.o
-[323/354    1s] GuidGenerator C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/assets/bin/Data/unity_app_guid
-[324/354    1s] C_Android_arm64 Library/Bee/artifacts/Android/d8kzr/a8cv4ijs1zgk.o
-[325/354    1s] C_Android_arm64 Library/Bee/artifacts/Android/d8kzr/ptnv8jzb8qtm.o
-[326/354    2s] C_Android_arm64 Library/Bee/artifacts/Android/d8kzr/29jcxx1cwx44.o
-[327/354    2s] Link libunity Library/Bee/artifacts/Android/libunity/arm64-v8a/unstripped/libunity.so
-[328/354    0s] Stripping Library/Bee/artifacts/Android/libunity/arm64-v8a/unstripped/libunity.so -> Library/Bee/artifacts/Android/libunity/arm64-v8a/stripped/libunity.so Library/Bee/artifacts/Android/libunity/arm64-v8a/stripped/libunity.so
-[329/354    0s] Generate Library/Bee/artifacts/Android/libunity/arm64-v8a/libunity.dbg.so from Library/Bee/artifacts/Android/libunity/arm64-v8a/unstripped/libunity.so Library/Bee/artifacts/Android/libunity/arm64-v8a/libunity.dbg.so
-[330/354    3s] C_Android_arm64 Library/Bee/artifacts/Android/d8kzr/sl94d1kqqje6.o
-[331/354    0s] Generate Library/Bee/artifacts/Android/libunity/arm64-v8a/libunity.sym.so from Library/Bee/artifacts/Android/libunity/arm64-v8a/libunity.dbg.so Library/Bee/artifacts/Android/libunity/arm64-v8a/libunity.sym.so
-[332/354    3s] C_Android_arm64 Library/Bee/artifacts/Android/d8kzr/90o3izo2cr5t.o
-[333/354    3s] C_Android_arm64 Library/Bee/artifacts/Android/d8kzr/exzka8kqkch6.o
-[334/354    3s] C_Android_arm64 Library/Bee/artifacts/Android/d8kzr/drycc51s9kf7.o
-[335/354    0s] Adding note Library/Bee/artifacts/Android/libunity/arm64-v8a/stripped/libunity.so -> C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/jniLibs/arm64-v8a/libunity.so C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/jniLibs/arm64-v8a/libunity.so
-[336/354    3s] C_Android_arm64 Library/Bee/artifacts/Android/d8kzr/eun0cxvd0u1o.o
-[337/354    4s] C_Android_arm64 Library/Bee/artifacts/Android/d8kzr/qzv25nhe7804.o
-[338/354    4s] C_Android_arm64 Library/Bee/artifacts/Android/d8kzr/05x3p0zraxyj.o
-[339/354    7s] C_Android_arm64 Library/Bee/artifacts/Android/d8kzr/zxdn5kjt6uh4.o
-[340/354    7s] C_Android_arm64 Library/Bee/artifacts/Android/d8kzr/nybt5z35mq6o.o
-[341/354    7s] C_Android_arm64 Library/Bee/artifacts/Android/d8kzr/6dgb7ryupa3p.o
-[342/354    8s] C_Android_arm64 Library/Bee/artifacts/Android/d8kzr/40ddrgw8qkp3.o
-[343/354    0s] Link_Android_arm64 Library/Bee/artifacts/Android/d8kzr/libil2cpp.so
-[344/354    0s] CopyFiles C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/artifacts/Android/il2cppOutput/build/arm64-v8a/libil2cpp.dbg.so
-[345/354    0s] CopyFiles Library/Bee/artifacts/objcopy_5lmi/libil2cpp.dbg.so
-[346/354    0s] NdkObjCopy Library/Bee/artifacts/objcopy_5lmi/stripped/libil2cpp.so
-[347/354    0s] NdkObjCopy Library/Bee/artifacts/objcopy_5lmi/libil2cpp.sym.so
-[348/354    0s] CopyFiles C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/artifacts/Android/il2cppOutput/build/arm64-v8a/libil2cpp.sym.so
-[349/354    0s] NdkObjCopy Library/Bee/artifacts/objcopy_5lmi/libil2cpp.so
-[350/354    0s] CopyFiles C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/artifacts/Android/il2cppOutput/build/arm64-v8a/libil2cpp.so
-[351/354    0s] CopyFiles C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/jniLibs/arm64-v8a/libil2cpp.so
-*** Tundra requires additional run (11.02 seconds), 64 items updated, 354 evaluated
-*** Additional run caused by: timestamp change of Library/Bee/artifacts/Android/Features/UnityEngine-FeaturesChecked.txt
+[158/425    0s] ExtractUsedFeatures Library/Bee/artifacts/Android/Features/Assembly-CSharp-FeaturesChecked.txt
+[159/425    1s] IL2CPP_CodeGen C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/artifacts/il2cpp_conv_u5dv.traceevents
+C:\Program Files\Unity\Hub\Editor\6000.6.7f1\Editor\Data\il2cpp\build\deploy\il2cpp.exe --convert-to-cpp --assembly=Library/Bee/artifacts/Android/ManagedStripped/Assembly-CSharp.dll --assembly=Library/Bee/artifacts/Android/ManagedStripped/Mono.Security.dll --assembly=Library/Bee/artifacts/Android/ManagedStripped/mscorlib.dll --assembly=Library/Bee/artifacts/Android/ManagedStripped/System.Configuration.dll --assembly=Library/Bee/artifacts/Android/ManagedStripped/System.Core.dll --assembly=Library/Bee/artifacts/Android/ManagedStripped/System.dll --assembly=Library/Bee/artifacts/Android/ManagedStripped/System.Runtime.CompilerServices.Unsafe.dll --assembly=Library/Bee/artifacts/Android/ManagedStripped/System.Xml.dll --assembly=Library/Bee/artifacts/Android/ManagedStripped/Unity.Scripting.dll --assembly=Library/Bee/artifacts/Android/ManagedStripped/UnityEngine.AndroidJNIModule.dll --assembly=Library/Bee/artifacts/Android/ManagedStripped/UnityEngine.AnimationModule.dll --assembly=Library/Bee/artifacts/Android/ManagedStripped/UnityEngine.AudioModule.dll --assembly=Library/Bee/artifacts/Android/ManagedStripped/UnityEngine.BurstModule.dll --assembly=Library/Bee/artifacts/Android/ManagedStripped/UnityEngine.ContentLoadModule.dll --assembly=Library/Bee/artifacts/Android/ManagedStripped/UnityEngine.CoreModule.dll --assembly=Library/Bee/artifacts/Android/ManagedStripped/UnityEngine.dll --assembly=Library/Bee/artifacts/Android/ManagedStripped/UnityEngine.ImageConversionModule.dll --assembly=Library/Bee/artifacts/Android/ManagedStripped/UnityEngine.IMGUIModule.dll --assembly=Library/Bee/artifacts/Android/ManagedStripped/UnityEngine.InputLegacyModule.dll --assembly=Library/Bee/artifacts/Android/ManagedStripped/UnityEngine.JSONSerializeModule.dll --assembly=Library/Bee/artifacts/Android/ManagedStripped/UnityEngine.MathematicsModule.dll --assembly=Library/Bee/artifacts/Android/ManagedStripped/UnityEngine.PhysicsModule.dll --assembly=Library/Bee/artifacts/Android/ManagedStripped/UnityEngine.ScreenCaptureModule.dll --assembly=Library/Bee/artifacts/Android/ManagedStripped/UnityEngine.ScriptingModule.dll --assembly=Library/Bee/artifacts/Android/ManagedStripped/UnityEngine.TextCoreFontEngineModule.dll --assembly=Library/Bee/artifacts/Android/ManagedStripped/UnityEngine.TextCoreTextEngineModule.dll --assembly=Library/Bee/artifacts/Android/ManagedStripped/UnityEngine.TextRenderingModule.dll --assembly=Library/Bee/artifacts/Android/ManagedStripped/UnityEngine.U2DRuntimeModule.dll --generatedcppdir=C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/artifacts/Android/il2cppOutput/cpp --symbols-folder=C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/artifacts/Android/il2cppOutput/cpp/Symbols --enable-analytics --emit-null-checks --enable-array-bounds-check --dotnetprofile=unityaot-linux --usymtool-path=C:/Program Files/Unity/Hub/Editor/6000.6.7f1/Editor/Data/Tools\usymtool.exe --profiler-report --profiler-output-file=C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/artifacts/il2cpp_conv_u5dv.traceevents --print-command-line --static-lib-il2-cpp --data-folder=C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/artifacts/Android/il2cppOutput/data
+[339/425    0s] CopyFiles C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/Android/Prj/IL2CPP/Il2CppBackup/il2cppOutput/Il2CppMetadataUsage.cpp
+[355/425    0s] CopyFiles C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/Android/Prj/IL2CPP/Il2CppBackup/il2cppOutput/Il2CppTypeDefinitions.c
+[374/425    0s] CopyFiles C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/assets/bin/Data/Managed/Resources/mscorlib.dll-resources.dat
+[375/425    0s] CopyFiles C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/Android/Prj/IL2CPP/Il2CppBackup/il2cppOutput/Assembly-CSharp_CodeGen.c
+[400/425    0s] CopyFiles C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/Android/Prj/IL2CPP/Il2CppBackup/il2cppOutput/Il2CppCCalculateFieldValues.cpp
+[401/425    0s] CopyFiles C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/artifacts/Android/il2cppOutput/build/arm64-v8a/Data/Resources/mscorlib.dll-resources.dat
+[403/425    0s] CopyFiles C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/Android/Prj/IL2CPP/Il2CppBackup/il2cppOutput/Il2CppCCalculateTypeValues.cpp
+[404/425    0s] CopyFiles C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/artifacts/Android/il2cppOutput/build/arm64-v8a/Data/Metadata/global-metadata.dat
+[405/425    0s] CopyFiles C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/Android/Prj/IL2CPP/Il2CppBackup/il2cppOutput/Assembly-CSharp__1.cpp
+[406/425    0s] CopyFiles C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/assets/bin/Data/Managed/Metadata/global-metadata.dat
+[407/425    0s] C_Android_arm64 Library/Bee/artifacts/Android/d8kzr/a8cv4ijs1zgk.o
+[408/425    0s] GuidGenerator C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/assets/bin/Data/unity_app_guid
+[409/425    1s] C_Android_arm64 Library/Bee/artifacts/Android/d8kzr/29jcxx1cwx44.o
+[410/425    1s] C_Android_arm64 Library/Bee/artifacts/Android/d8kzr/90o3izo2cr5t.o
+[411/425    2s] C_Android_arm64 Library/Bee/artifacts/Android/d8kzr/drycc51s9kf7.o
+[412/425    2s] C_Android_arm64 Library/Bee/artifacts/Android/d8kzr/eun0cxvd0u1o.o
+[413/425    2s] C_Android_arm64 Library/Bee/artifacts/Android/d8kzr/tvd9z7kj3x6a.o
+[414/425    0s] Link_Android_arm64 Library/Bee/artifacts/Android/d8kzr/libil2cpp.so
+[415/425    0s] CopyFiles Library/Bee/artifacts/objcopy_5lmi/libil2cpp.dbg.so
+[416/425    0s] CopyFiles C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/artifacts/Android/il2cppOutput/build/arm64-v8a/libil2cpp.dbg.so
+[417/425    0s] NdkObjCopy Library/Bee/artifacts/objcopy_5lmi/stripped/libil2cpp.so
+[418/425    0s] NdkObjCopy Library/Bee/artifacts/objcopy_5lmi/libil2cpp.sym.so
+[419/425    0s] CopyFiles C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/artifacts/Android/il2cppOutput/build/arm64-v8a/libil2cpp.sym.so
+[420/425    0s] NdkObjCopy Library/Bee/artifacts/objcopy_5lmi/libil2cpp.so
+[421/425    0s] CopyFiles C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/jniLibs/arm64-v8a/libil2cpp.so
+[422/425    0s] CopyFiles C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/artifacts/Android/il2cppOutput/build/arm64-v8a/libil2cpp.so
+*** Tundra requires additional run (6.07 seconds), 29 items updated, 425 evaluated
+*** Additional run caused by: timestamp change of Library/Bee/artifacts/Android/Features/Assembly-CSharp-FeaturesChecked.txt
 Starting: C:\Program Files\Unity\Hub\Editor\6000.6.7f1\Editor\Data\DotNetSdk\dotnet.exe "C:\Program Files\Unity\Hub\Editor\6000.6.7f1\Editor\Data\PlaybackEngines\AndroidPlayer\AndroidPlayerBuildProgram.exe" "C:/Program Files/Unity/Hub/Editor/6000.6.7f1/Editor/Data/PlaybackEngines/AndroidPlayer/Bee;C:/Program Files/Unity/Hub/Editor/6000.6.7f1/Editor/Data/Tools/BuildPipeline" "Library/Bee/Player30567ef9.dag.json" "Library/Bee/Player30567ef9-inputdata.json" "Library\Bee\buildprogram1.traceevents"
 WorkingDir: C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2
-ExitCode: 4 Duration: 11s
-ExitCode: 0 Duration: 0s522ms
+ExitCode: 4 Duration: 6s104ms
+ExitCode: 0 Duration: 0s752ms
 Starting: C:\Program Files\Unity\Hub\Editor\6000.6.7f1\Editor\Data\Tools\BuildPipeline\bee_backend.exe --ipc --dagfile="Library/Bee/Player30567ef9.dag" --dagfilejson="Library\Bee\Player30567ef9.dag.json" --profile="Library/Bee/backend3.traceevents" Player
 WorkingDir: C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2
-Finished compiling graph: 549 nodes, 1390 flattened edges (1386 ToBuild, 5 ToUse), maximum node priority 2147483647
-[141/355    0s] CopyFiles C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/Android/Prj/IL2CPP/Il2CppBackup/Managed/icallsummary.txt
+Finished compiling graph: 619 nodes, 1599 flattened edges (1595 ToBuild, 5 ToUse), maximum node priority 2147483647
 [           0s] ComputeLeafInputSignature Lib_Android_arm64 Library/Bee/artifacts/Android/87lik/il2cpp.a [success cd30bbd9e9b06139342281b5d8045c95]
-*** Tundra build success (0.17 seconds), 1 items updated, 355 evaluated
-ExitCode: 0 Duration: 0s200ms
-Total cache size 49207320
-Total cache size after purge 49207320, took 00:00:00.0154625
+*** Tundra build success (0.26 seconds), 0 items updated, 425 evaluated
+ExitCode: 0 Duration: 0s303ms
+Total cache size 50613152
+Total cache size after purge 50613152, took 00:00:00.0263583
 DisplayProgressbar: Calling IPostGenerateGradleAndroidProject callbacks
 Calling IPostGenerateGradleAndroidProject callbacks on 'C:\OneDrive\OneDrive - Cyber 7 Group\GHRepo\Games\UBlade2\unity\UBlade2\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary':
-Android PostProcess task "Calling IPostGenerateGradleAndroidProject callbacks" took 1.1374 ms
+Android PostProcess task "Calling IPostGenerateGradleAndroidProject callbacks" took 1.4863 ms
 DisplayProgressbar: Validate Gradle Project
-Android PostProcess task "Validate Gradle Project" took 0.8301 ms
-Android PostProcess task "Unity Services Symbol Upload" took 0.2643 ms
+Android PostProcess task "Validate Gradle Project" took 1.2183 ms
+Android PostProcess task "Unity Services Symbol Upload" took 0.4302 ms
 DisplayProgressbar: Building Gradle project
 Starting: C:\Program Files\Unity\Hub\Editor\6000.6.7f1\Editor\Data\PlaybackEngines\AndroidPlayer\OpenJDK\bin\java.exe -classpath "C:\Program Files\Unity\Hub\Editor\6000.6.7f1\Editor\Data\PlaybackEngines\AndroidPlayer\Tools\gradle\lib\gradle-launcher-9.3.1.jar" org.gradle.launcher.GradleMain "-Dorg.gradle.jvmargs=-Xmx4096m" "assembleRelease" 
 WorkingDir: C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/Android/Prj/IL2CPP/Gradle\launcher
 Build log was saved at 'C:\OneDrive\OneDrive - Cyber 7 Group\GHRepo\Games\UBlade2\unity\UBlade2\Library\Bee\Android\Prj\IL2CPP\Gradle\launcher\build\outputs\logs\unity-assembleRelease-build.log'
-Android PostProcess task "Building Gradle project" took 34932.2075 ms
+Android PostProcess task "Building Gradle project" took 30228.9798 ms
 DisplayProgressbar: Building Gradle Symbols
-Android PostProcess task "Building Gradle Symbols" took 0.2369 ms
+Android PostProcess task "Building Gradle Symbols" took 0.52 ms
 DisplayProgressbar: Processing Mapping File
-Android PostProcess task "Processing Mapping File" took 0.2755 ms
+Android PostProcess task "Processing Mapping File" took 0.5812 ms
 DisplayProgressbar: Moving output package(s)
 Deleting file 'C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Build/Android/UBlade2.apk'
 Copy 'C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Library/Bee/Android/Prj/IL2CPP/Gradle\launcher\build\outputs\apk\release\launcher-release.apk' -> 
  'C:/OneDrive/OneDrive - Cyber 7 Group/GHRepo/Games/UBlade2/unity/UBlade2/Build/Android/UBlade2.apk'
-Android PostProcess task "Moving output package(s)" took 12.0361 ms
-Android PostProcess task "Checking Symbols size" took 0.9762 ms
+Android PostProcess task "Moving output package(s)" took 19.6138 ms
+Android PostProcess task "Checking Symbols size" took 1.5085 ms
 
 -------------------------------------------------------------------------------
 Build Report
 Information on used Assets is not available, since player data was not rebuilt.
 Do a clean build to view the Asset build report information.
 -------------------------------------------------------------------------------
-[Licensing::Client] Successfully resolved entitlement details
 Unloading 4 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 37 unused Assets / (1.2 MB). Loaded Objects now: 1252.
-Memory consumption went from 246.6 MB to 245.4 MB.
-Total: 6.736500 ms (FindLiveObjects: 0.166400 ms CreateObjectMapping: 0.012700 ms MarkObjects: 6.033200 ms  DeleteObjects: 0.396000 ms)
+Unloading 37 unused Assets / (1.2 MB). Loaded Objects now: 1262.
+Memory consumption went from 247.5 MB to 246.3 MB.
+Total: 11.822000 ms (FindLiveObjects: 0.245800 ms CreateObjectMapping: 0.017800 ms MarkObjects: 10.661200 ms  DeleteObjects: 0.689000 ms)
 
 DisplayProgressNotification: Build Successful
 Build Finished, Result: Success.
 Unloading 0 Unused Serialized files (Serialized files now loaded: 0)
 Loaded scene 'Temp/__Backupscenes/0.backup'
-	Deserialize:            0.548 ms
-	Integration:            5.041 ms
-	Integration of assets:  0.002 ms
-	Thread Wait Time:       0.023 ms
-	Total Operation Time:   5.614 ms
-Unloading 0 unused Assets / (16.2 KB). Loaded Objects now: 1251.
-Memory consumption went from 242.7 MB to 242.7 MB.
-Total: 6.496800 ms (FindLiveObjects: 0.177400 ms CreateObjectMapping: 0.012300 ms MarkObjects: 5.889800 ms  DeleteObjects: 0.229800 ms)
+	Deserialize:            1.064 ms
+	Integration:            6.280 ms
+	Integration of assets:  0.003 ms
+	Thread Wait Time:       0.033 ms
+	Total Operation Time:   7.380 ms
+Unloading 0 unused Assets / (84 B). Loaded Objects now: 1261.
+Memory consumption went from 243.6 MB to 243.6 MB.
+Total: 9.530900 ms (FindLiveObjects: 0.254100 ms CreateObjectMapping: 0.016600 ms MarkObjects: 8.973000 ms  DeleteObjects: 0.012800 ms)
 
-[Licensing::Client] Successfully resolved entitlement details
-##utp:{"success":true,"type":"PlayerBuildInfo","version":2,"phase":"Immediate","time":1793057016546,"processId":31712,"steps":[{"description":"Call PrepareForBuild callbacks","duration":0},{"description":"Call internal build started callbacks","duration":0},{"description":"Preprocess Player","duration":13},{"description":"Save scenes before build","duration":0},{"description":"Prepare For Build","duration":3718},{"description":"ProducePlayerScriptAssemblies","duration":1817},{"description":"Verify Build setup","duration":75},{"description":"Prepare assets for target platform","duration":2},{"description":"Prepare splash screen","duration":1},{"description":"Run script only build","duration":17},{"description":"Build scripts DLLs","duration":43},{"description":"Postprocess built player","duration":51712},{"description":"Call Post-Process callbacks","duration":28}],"duration":57426}
-UBLADE2_ANDROID_BUILD Succeeded bytes=121607870
+##utp:{"success":true,"type":"PlayerBuildInfo","version":2,"phase":"Immediate","time":1793060448690,"processId":33148,"steps":[{"description":"Call PrepareForBuild callbacks","duration":1},{"description":"Call internal build started callbacks","duration":1},{"description":"Preprocess Player","duration":23},{"description":"Save scenes before build","duration":0},{"description":"Prepare For Build","duration":3219},{"description":"ProducePlayerScriptAssemblies","duration":2878},{"description":"Verify Build setup","duration":75},{"description":"Prepare assets for target platform","duration":2},{"description":"Prepare splash screen","duration":1},{"description":"Run script only build","duration":18},{"description":"Build scripts DLLs","duration":53},{"description":"Postprocess built player","duration":42554},{"description":"Call Post-Process callbacks","duration":38}],"duration":48863}
+UBLADE2_ANDROID_BUILD Succeeded bytes=151851060
 UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
 UnityEngine.StackTraceUtility:ExtractStackTrace ()
 UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
 UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
 UnityEngine.Logger:Log (UnityEngine.LogType,object)
 UnityEngine.Debug:Log (object)
-BuildUBlade2:BuildAndroid () (at Assets/Editor/BuildUBlade2.cs:192)
+BuildUBlade2:BuildAndroid () (at Assets/Editor/BuildUBlade2.cs:274)
 
-(Filename: Assets/Editor/BuildUBlade2.cs Line: 192)
+(Filename: Assets/Editor/BuildUBlade2.cs Line: 274)
 
-MonoPathRemapper: Attempts to remap: 3821; Successful remaps: 0
+MonoPathRemapper: Attempts to remap: 4101; Successful remaps: 0
 Serialized file version minimum: 23, current 23
 Starting: C:\Program Files\Unity\Hub\Editor\6000.6.7f1\Editor\Data\PlaybackEngines\AndroidPlayer\OpenJDK\bin\java.exe -classpath "C:\Program Files\Unity\Hub\Editor\6000.6.7f1\Editor\Data\PlaybackEngines\AndroidPlayer\Tools\gradle\lib\gradle-launcher-9.3.1.jar" org.gradle.launcher.GradleMain "-Dorg.gradle.jvmargs=-Xmx4096m" "--stop" 
 WorkingDir: 
 Build log was saved at 'C:\OneDrive\OneDrive - Cyber 7 Group\GHRepo\Games\UBlade2\unity\UBlade2\build\outputs\logs\unity---stop-build.log'
-Killing ADB server in 0.0687268 seconds.
+Killing ADB server in 0.0901182 seconds.
 AcceleratorClientConnectionCallback - disconnected - :0
 Importing 'GUID: 00000000000000004000000000000000 - Path: ProjectSettings/ProjectSettings.asset' with importer (LibraryAssetImporter)
-Imported 'GUID: 00000000000000004000000000000000' -> (Import Result ID: '2d83b1144b243dec29d1196f5ee48374') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=054c890a8f4b6dddbea933bc5e4b7df4 DependenciesID=9d2917db03a162668b3090cabebe4909 StaticDependenciesID=91f10fd8f3bdcb476bd475497c103211 
-Asset Pipeline Refresh (id=82d53d18d48533943af99c73ec7e19bf): Total: 0.013 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Imported 'GUID: 00000000000000004000000000000000' -> (Import Result ID: 'deb98e5824e2cc23f96d094101d17798') in 0.002 seconds [static dependencies only]. Details - ImportResultOutputID=054c890a8f4b6dddbea933bc5e4b7df4 DependenciesID=876a701b662b3732d6f3c949a5c6d7e7 StaticDependenciesID=bdc0d2a695cb3a70b8393aa92d541452 
+Asset Pipeline Refresh (id=72e8958dea147b04ea069b3eb1a37212): Total: 0.023 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
 [Physics::Module] Cleanup current backend.
 [Physics::Module] Id: 0xf2b8ea05
 Input System module state changed to: ShutdownInProgress.
@@ -956,21 +940,17 @@ Shut down UDS service system complete
 AcceleratorClientConnectionCallback - disconnected - :0
 Cleanup mono
 CodeReloadManager destroyed
-abort_threads: Failed aborting id: 00000000000076AC, mono_thread_manage will ignore it
+abort_threads: Failed aborting id: 00000000000072F0, mono_thread_manage will ignore it
 
-abort_threads: Failed aborting id: 00000000000097FC, mono_thread_manage will ignore it
+abort_threads: Failed aborting id: 0000000000005D48, mono_thread_manage will ignore it
 
-abort_threads: Failed aborting id: 00000000000067E8, mono_thread_manage will ignore it
+abort_threads: Failed aborting id: 00000000000072F0, mono_thread_manage will ignore it
 
-abort_threads: Failed aborting id: 00000000000076AC, mono_thread_manage will ignore it
+abort_threads: Failed aborting id: 0000000000005D48, mono_thread_manage will ignore it
 
-abort_threads: Failed aborting id: 00000000000097FC, mono_thread_manage will ignore it
-
-abort_threads: Failed aborting id: 00000000000067E8, mono_thread_manage will ignore it
-
-debugger-agent: Unable to listen on 3504
+debugger-agent: Unable to listen on 3516
 VBCSCompilerPreWarmer: requested VBCSCompiler shutdown
 Checking for leaked weakptr:
   Found no leaked weakptrs.
 [Package Manager] Server process was shutdown
-##utp:{"type":"MemoryLeaks","version":2,"phase":"Immediate","time":1793057019499,"processId":31712,"allocatedMemory":11826694,"memoryLabels":[{"Default":171761},{"Permanent":15516},{"NewDelete":70671},{"Thread":4198104},{"Manager":35485},{"VertexData":8},{"Geometry":824},{"Texture":24},{"Shader":842829},{"Material":132},{"GfxDevice":55968},{"Animation":952},{"Audio":1272},{"FreeType":8},{"FontEngine":736},{"Physics":1970},{"Physics2D":16},{"Serialization":16704},{"Input":42840},{"JobScheduler":256},{"TextLib":280},{"Mono":48},{"ScriptingNativeRuntime":1258384},{"BaseObject":48848},{"Resource":1444},{"Renderer":2504},{"Transform":4781},{"File":4416},{"WebCam":616},{"Culling":32},{"Terrain":11442},{"Wind":24},{"STL":40},{"String":1261209},{"StaticString":3808},{"Utility":2675350},{"Curl":2559},{"PoolAlloc":2168},{"AI":80},{"TypeTree":20997},{"ScriptManager":12656},{"CodeReload":448},{"RuntimeInitializeOnLoadManager":64},{"Sprites":102},{"SpriteAtlas":120},{"GI":7816},{"Director":8296},{"CloudService":7296},{"WebRequest":11431},{"VR":49650},{"SceneManager":608},{"Video":64},{"LazyScriptCache":32},{"Camera":729},{"Secure":2377},{"SerializationCache":9256},{"APIUpdating":10320},{"Subsystems":336},{"VirtualTexturing":57888},{"StaticSafetyDebugInfo":278528},{"Analytics":592},{"Hierarchy":1188},{"UIElements":40},{"CoreStats":14456},{"Identifiers":7152},{"EntityIdStore":33088},{"Gui":128},{"EditorUtility":94210},{"VersionControl":8},{"Undo":931},{"AssetDatabase":403505},{"AssetImporter":40},{"EditorGi":328},{"UnityConnect":40441},{"Upm":1912},{"UpmDiagnostics":8},{"AssetCompliance":96},{"DrivenProperties":72},{"LocalIPC":220},{"ProfilerEditor":9746},{"CoreBusinessMetrics":3626},{"Windowing":456},{"Licensing":1264},{"AssetReference":32},{"IPCStream":32}]}
+##utp:{"type":"MemoryLeaks","version":2,"phase":"Immediate","time":1793060452348,"processId":33148,"allocatedMemory":11960456,"memoryLabels":[{"Default":171761},{"Permanent":15516},{"NewDelete":70671},{"Thread":4198104},{"Manager":35485},{"VertexData":8},{"Geometry":824},{"Texture":24},{"Shader":842829},{"Material":132},{"GfxDevice":55968},{"Animation":952},{"Audio":1272},{"FreeType":8},{"FontEngine":736},{"Physics":1970},{"Physics2D":16},{"Serialization":16704},{"Input":42840},{"JobScheduler":256},{"TextLib":280},{"Mono":48},{"ScriptingNativeRuntime":1258384},{"BaseObject":48848},{"Resource":1444},{"Renderer":2504},{"Transform":4781},{"File":4416},{"WebCam":616},{"Culling":32},{"Terrain":11442},{"Wind":24},{"STL":40},{"String":1395017},{"StaticString":3808},{"Utility":2675350},{"Curl":2559},{"PoolAlloc":2168},{"AI":80},{"TypeTree":20997},{"ScriptManager":12656},{"CodeReload":448},{"RuntimeInitializeOnLoadManager":64},{"Sprites":102},{"SpriteAtlas":120},{"GI":7816},{"Director":8296},{"CloudService":7296},{"WebRequest":11385},{"VR":49650},{"SceneManager":608},{"Video":64},{"LazyScriptCache":32},{"Camera":729},{"Secure":2377},{"SerializationCache":9256},{"APIUpdating":10320},{"Subsystems":336},{"VirtualTexturing":57888},{"StaticSafetyDebugInfo":278528},{"Analytics":592},{"Hierarchy":1188},{"UIElements":40},{"CoreStats":14456},{"Identifiers":7152},{"EntityIdStore":33088},{"Gui":128},{"EditorUtility":94210},{"VersionControl":8},{"Undo":931},{"AssetDatabase":403505},{"AssetImporter":40},{"EditorGi":328},{"UnityConnect":40441},{"Upm":1912},{"UpmDiagnostics":8},{"AssetCompliance":96},{"DrivenProperties":72},{"LocalIPC":220},{"ProfilerEditor":9746},{"CoreBusinessMetrics":3626},{"Windowing":456},{"Licensing":1264},{"AssetReference":32},{"IPCStream":32}]}

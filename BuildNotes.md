@@ -1,6 +1,6 @@
 # BuildNotes - the changelog
 
-Current version: 2026.10.26.007
+Current version: 2026.10.26.008
 
 BuildNotes is UltraBlade 2's dated, versioned changelog (`<CHANGELOG>` in the pack). Newest entry first; versions
 are `YYYY.M.D.NNN` with a zero-padded sequence, and the next one is computed by
@@ -8,7 +8,7 @@ are `YYYY.M.D.NNN` with a zero-padded sequence, and the next one is computed by
 log these entries answer. Records are guarded by [`scripts/records_check.py`](./scripts/records_check.py) and run by
 [`scripts/check_all.py`](./scripts/check_all.py).
 
-## How versions 001-007 were assigned
+## How versions 001-008 were assigned
 
 No changelog existed before this bootstrap, so the bootstrap assigned `2026.10.26.001` to the repository-creation
 commit (the only commit already in `git log`) and `2026.10.26.002` to the pack application. `2026.10.26.003` (the
@@ -21,6 +21,48 @@ This changelog has **no generated documentation copies yet**. There is no genera
 regenerate; when the game arrives, its export and captures will be generated artefacts under gitignored `build/` and
 `artifacts/`. [`scripts/records_check.py`](./scripts/records_check.py) checks the source, its `Current version:` header
 and [`Retrace.md`](./Retrace.md); it will compare generated copies when they exist.
+
+## 2026.10.26.008
+
+**Deliver a playable PC production slice, close the deferred register, stamp a Windows release, and park mobile by
+operator decision.**
+
+- Date: 2026-10-26
+- Commit: this change (commit hash, push and CI run in the final report).
+- Change: implemented the playable production slice on top of the port: match rules/scoring/season (`MatchRules.cs`,
+  `LeagueData.cs`), AI opponent (`AiController.cs`), strike/stun/dash combat (`CombatSystem.cs`), neon IMGUI screens
+  (`GameUI.cs`), procedural audio (`GameAudio.cs`), keyboard/mouse/touch input (`GameInput.cs`) and the host
+  state machine/captures/league save test in `UBlade2Game.cs`. Added wrapper modes `match`, `league-test`,
+  `match-capture`, `menu-capture`, `ui-capture`; Android build/in-app capture support; Windows release packaging
+  (`scripts/ublade2_release.ps1`, PC-only); match/UI capture validators; the `ublade2.game` toolpack/slice and
+  `game.playable.slice` capability; secret scan, peer boundary check, dispatch-only engine workflow, UI standard,
+  rollback record and contract decision. Updated README/AGENTS/DEFERRED/UNITY-PORT/NOTES for the PC-only playable
+  release. The mobile target is parked by operator decision (2026-10-26) and is not part of the release.
+- Verification: Windows build `UBLADE2_VERSION 2026.10.26.008`, `UBLADE2_BUILD Succeeded bytes=97543422`. Legacy gate:
+  `UBLADE2_DEMO_OK exit=0` with `GYPSY_DEMO_OK collected=3`, `UBLADE2_CAPTURE_OK` and `CAPTURE_CHECK_OK`. Headless
+  match: `UBLADE2_MATCH_OK player=1 ai=2 winner=2 frames=176 phase=Ended` with `UBLADE2_MATCH_EVIDENCE passed=True`.
+  League save/load: `UBLADE2_LEAGUE_SAVE_OK round=1 wins=1 points=3 passed=True`. Captures: match
+  `MATCH_CAPTURE_CHECK_OK` (76.9% non-background, 349 colours), menu `MENU_CAPTURE_CHECK_OK`, six UI screenshots
+  `UI_CAPTURES_CHECK_OK screens=6` inspected (menu/league/settings/match/pause/result contact sheet). Release:
+  `UBLADE2_RELEASE_OK version=2026.10.26.008 package=dist/UBlade2-2026.10.26.008-win64.zip`; ZIP 50,871,958 bytes
+  SHA-256 `fef1d1b4be9c23f38633ffd568f8d81a6b0e43d6ae0c916112ec0d0cf80d7355`; player EXE SHA-256
+  `9806abde4a406ed68647e9505852c49f6aa72a372f4f084e2aa2821affea57a2`. Fast list: `checks: PASS (7/7)` with 12
+  manifests (3 toolpacks, 3 slices, 6 capabilities), `PASS secrets` and `PEER_BOUNDARY_OK peers=1`.
+- Deferred register: all items closed with evidence - D3 UI standard, D5 contract not applicable, D6 rollback +
+  league save proof, D7 peer guard, D8 secret scan, D9 dispatch-only engine workflow (activation pending a self-hosted
+  runner, not claimed as run), D10/D12 not applicable decisions, D11 stamped release, D14 playable slice, D15 mobile
+  parked by operator decision (PC-only). Earlier D1/D2/D4/D13 remain closed.
+- Not verified, and not claimed: the dispatch-only CI engine workflow has not run; the Windows release is unsigned
+  and has no installer; imported arena art/online play/deeper league/licensed media are future production work; mobile
+  is parked and is not claimed complete.
+- Note: the release was built from the working tree immediately before the release commit, so `release.json`
+  `gitHead` records the preceding commit (`03d60a5...`) and not the final release commit; the final commit/push/CI are
+  in the final report. This is exactly the dirty-worktree limitation documented in `docs/RELEASE.md`.
+- Method: four subagents produced the gameplay core, presentation modules, process scripts/docs and release packaging;
+  the Lead integrated, compiled, ran every gate, fixed the reported integration issues (settings difficulty and
+  fullscreen wiring, HUD round metadata, audio settings application, touch-on-desktop, ROLLBACK/implementation drift,
+  league save proof) and recorded the work.
+
 
 ## 2026.10.26.007
 

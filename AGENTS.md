@@ -6,17 +6,16 @@ Entry point for any model working in this repository. Read this file, then the d
 
 **UltraBlade 2** is the next UltraBlade game project. Its **production pipeline is Unity 6000.6.7f1 on Windows PC**:
 the new Unity project lives at [unity/UBlade2](./unity/UBlade2) and is pinned by
-[project.gypsy.json](./project.gypsy.json) (engine unity, version 6000.6.7f1, adapter unity-6, targets pc and mobile).
+[project.gypsy.json](./project.gypsy.json) (engine unity, version 6000.6.7f1, adapter unity-6, target pc).
 
 The first game — a modern remake of the 1996 future-sport classic *HyperBlade*, built with Godot 4.7.2 — lives in
 ProjectGypsy and remains the **legacy/reference implementation**. It was not deleted, modified or "migrated": this is
 a port with acceptance evidence, recorded in [docs/UNITY-PORT.md](./docs/UNITY-PORT.md).
 
-**Mobile is partially verified.** Unity Android Build Support is installed and a signed debug APK is built,
-installed and launched on the local API 35 emulator; on-device logcat shows `UBLADE2_START`, `UBLADE_HERO_OK` and the
-deterministic `GYPSY_DEMO_OK collected=3`. The emulator's Vulkan surface returns a near-black frame to `adb screencap`,
-so a clear mobile visual capture and physical-device launch are outstanding (UB2-D15). Do not claim a full mobile pass
-until that is captured.
+The playable production slice is the current game (menu, league match against an AI, scoring, strikes/stuns, arenas,
+procedural audio, settings, pause, results, season) with a stamped PC release. **Mobile is parked by operator
+decision** (2026-10-26, PC-only milestone): earlier Android build/launcher evidence is preserved but the target is not
+in the release and is not claimed complete (UB2-D15).
 
 ## What governs your work, in this order
 
@@ -96,16 +95,16 @@ re-bootstrap this repository.
 
 - **Never claim a check you did not run.** Report exactly what was verified, by what command, and what was not
   (§1.10, Part 11.2).
-- **Verify by running.** The Unity player build, headless demo and windowed capture are the evidence: use
-  `scripts/ublade2_unity.ps1 -Mode build|demo|capture` or the Gypsy toolpack/slice. Read back the frame that was
-  captured; do not describe it from expectation.
+- **Verify by running.** The Windows build, legacy demo/capture, headless match, league save test, match/menu/UI
+  captures and the release stamp are the evidence: use `scripts/ublade2_unity.ps1 -Mode
+  build|demo|capture|match|league-test|match-capture|menu-capture|ui-capture`, `scripts/ublade2_release.ps1` or the
+  Gypsy toolpack/slice. Read back the frame that was captured; do not describe it from expectation.
 - **This is a game, not a web app.** No design-language, mockup-first, visual-bar, viewport, token-lint,
   accessibility-pass or browser-gate rule applies until the addendum is restored or replaced by a recorded decision
   (Part 11.1, UB2-D3).
-- **Mobile is partially verified, not a full pass.** Android Build Support is installed; a signed debug APK builds,
-  installs and launches on the local API 35 emulator, and on-device logcat shows `UBLADE2_START`, `UBLADE_HERO_OK` and
-  `GYPSY_DEMO_OK collected=3`. The emulator's Vulkan surface returns a near-black `adb screencap`, so a clear mobile
-  visual capture and a physical-device run are outstanding (UB2-D15). Do not claim a full mobile visual pass.
+- **PC-only for this milestone; mobile is parked.** The operator directed that the game is PC only (2026-10-26).
+  Android Build Support/APK/launcher evidence exists from earlier work but mobile is not part of the release and must
+  not be claimed complete (UB2-D15). Do not attach an APK to the PC release.
 - **Do not modify the Gypsy checkout.** It is a read-only peer for this repository; work only here. Its records and
   its Godot game stay as they are.
 - **Record the work.** A change is not finished until its [Retrace.md](./Retrace.md) and
@@ -135,13 +134,16 @@ re-bootstrap this repository.
 
 ## What exists, and what does not
 
-**Exists:** the Unity 6000.6.7f1 project `unity/UBlade2`, Android Build Support with a signed debug APK installed and
-launched on a local API 35 emulator (on-device markers verified), the three-collectible gameplay demo, the Wayfarer hero port
-(23 bones, three clips, Smile, three 512² maps, LODGroup, generated hero prefab `WayfarerLOD.prefab`, spring cape), the Windows player build, the headless demo
-marker, the inspected 1280x720 capture, the Gypsy toolpack/slice/capability manifests, the port acceptance record,
-the working rules, the records, the fast check list, the tracked hook and the CI workflow.
+**Exists:** the Unity 6000.6.7f1 project `unity/UBlade2`, the playable production slice (menu, league match against an
+AI, HUD/score/timer, settings, pause, results, season, four arenas, procedural audio, strike/stun combat), the
+three-collectible legacy demo and the Wayfarer hero port (23 bones, three clips, Smile, three 512² maps, LODGroup,
+generated hero prefab `WayfarerLOD.prefab`, spring cape), the Windows player build, the headless demo marker, the
+inspected 1280x720 capture, the six-screen UI capture set, the stamped PC release, the Gypsy toolpack/slice/capability
+manifests, the acceptance record, the working rules, the records, the fast check list (7 checks, including secrets and
+peer boundary), the tracked hook, the CI workflow and the dispatch-only engine workflow.
 
-**Does not exist:** a clear mobile visual capture, a physical-device run (UB2-D15), the full production game surface
-(HUD, menu, pause/settings, audio, combat, teams, league content), a published contract artefact, rollback documents
-for a configurable layer, deploy preflight, a secret scanner, or a mechanised peer-project boundary guard. Do not claim any
-of them; the missing ones are in [DEFERRED.md](./DEFERRED.md) with the condition that unblocks them.
+**Does not exist:** a mobile release (parked, UB2-D15), imported arena/character art beyond the Wayfarer hero, online
+play, a deeper roster/league, licensed music/commentary, a gamepad mapping screen, an installer, a release code-signing
+certificate, or an activated self-hosted Unity runner for the dispatch-only engine workflow. Do not claim any of them;
+the limits are recorded in [DEFERRED.md](./DEFERRED.md), [docs/UNITY-PORT.md](./docs/UNITY-PORT.md) and
+[docs/RELEASE.md](./docs/RELEASE.md).

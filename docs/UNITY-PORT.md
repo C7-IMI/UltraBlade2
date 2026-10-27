@@ -1,11 +1,11 @@
 # UNITY PORT - Stage B acceptance record
 
-**Status: the gameplay, hero, build, demo and capture gates pass on Unity 6000.6.7f1 (Windows PC), and the
-port evidence is committed and pushed. Mobile is **partially verified**: Android Build Support is installed, a signed
-debug APK is built and apksigner-verified, and it installs, launches and produces the on-device UBlade2 and
-deterministic demo markers on a local API 35 emulator; a clear mobile visual capture and a physical-device run are
-outstanding (UB2-D15) and no full mobile visual pass is claimed. The ProjectGypsy Godot implementation was neither
-modified nor deleted; it remains the legacy/reference implementation.**
+**Status: UltraBlade 2 is a **PC-only playable game** on Unity 6000.6.7f1 with a stamped Windows release. The original
+port gates (build, hero, demo, capture, gameplay) still pass, and a playable production slice now ships: main menu,
+league matches against an AI, crystal scoring, strikes/stuns, four arenas, procedural audio, settings, pause, results
+and a four-round season. Mobile is **parked by operator decision** (2026-10-26); the earlier partial Android evidence
+is preserved but is not part of this release and is not claimed complete (UB2-D15). The ProjectGypsy Godot
+implementation was neither modified nor deleted; it remains the legacy/reference implementation.**
 
 This is a port with real acceptance evidence, not an engine toggle. Every claim below is attached to a command, a
 marker, a measurement or a file hash. What was not verified is named in "Limits".
@@ -186,7 +186,7 @@ prefabLodLevels=3, LOD triangles 1126/615/306), the demo marker, the hero runtim
 the 1280x720 PNG and the capture-check JSON.
 
 The repository's own check list now includes a `manifests` check that validates these local Gypsy manifests
-(schemas, ids, argv/artifact paths, validator kinds, step kinds, capability fields) — 9 manifests (2 toolpacks, 2 slices, 5 capabilities):
+(schemas, ids, argv/artifact paths, validator kinds, step kinds, capability fields) — 12 manifests (3 toolpacks, 3 slices, 6 capabilities):
 
     python scripts/check_all.py
     -> checks: PASS (5/5)
@@ -194,58 +194,66 @@ The repository's own check list now includes a `manifests` check that validates 
 Committed and pushed: `afae4804690a0d1356ca981f02d047d3c75c418c` (`origin/main`, public); GitHub Actions
 `checks` run `40408803952` succeeded in 14 s.
 
-## 7. Mobile: partial — module, APK, install, launch and on-device markers verified
+## 7. Mobile: parked by operator decision
 
-Unity **Android Build Support is installed** (2026-10-26) through the Unity CLI:
+The operator directed that UltraBlade 2 is a **PC-only game at the moment** (2026-10-26). Mobile is parked, not part of
+the release, and not claimed complete. The earlier work is preserved for a future pass:
 
-    "C:\Program Files\Unity Hub\resources\unity.exe" editors module add 6000.6.7f1 --module android \
-        --child-modules --accept-eula --non-interactive
+- Unity Android Build Support was installed with the Unity CLI (AndroidPlayer, OpenJDK 17, SDK, NDK, command-line
+  tools) and a signed debug APK of the game was built.
+- The ARM64 APK installed and launched on AVD `UBlade2_API35` (x86_64 API 35, libndk translation, adb over ports
+  40000/40001 because the host excludes 5554-5586) and on-device logcat showed `UBLADE2_START`, `UBLADE_HERO_OK` and the
+  deterministic `GYPSY_DEMO_OK collected=3`.
+- An in-app framebuffer capture (`Texture2D.ReadPixels`) produced a real 2400x1080 frame with clear HUD, scores,
+  timer and touch controls; the world itself renders very dark under the emulator's Vulkan surface.
+- `capabilities/engine.unity.port.mobile.json` is `planned`, the mobile toolpack/slice remain as future infrastructure,
+  and `project.gypsy.json` targets are `pc` only.
 
-which installed `AndroidPlayer`, OpenJDK 17.0.18, SDK build-tools 36.0.0, platform-tools 37.0.1, platforms 34/36/37,
-NDK r27c and command-line tools 16.0. The Android player settings set the bundle to `com.c7imi.ublade2`, IL2CPP,
-Vulkan, ARM64, minSdk 26, target 36 and debug signing.
+## 7b. Playable production slice (PC-only)
 
-The batchmode build printed `UBLADE2_ANDROID_BUILD Succeeded bytes=121948467`; the APK is 15,398,546 bytes,
-SHA-256 `894795f2672e639ae3502c86715a8d254f08cdcd087c90f35be70605cb349046`, and `apksigner verify` reports APK
-Signature Scheme v2 verified with the `CN=Android Debug` certificate.
+The playable slice is implemented in `unity/UBlade2/Assets/Scripts/` (`UBlade2Game.cs` host, `MatchRules.cs`,
+`LeagueData.cs`, `AiController.cs`, `CombatSystem.cs`, `GameUI.cs`, `GameAudio.cs`, `GameInput.cs`). Design and
+controls: `docs/GAME-DESIGN.md`; UI standard: `docs/UI-STANDARD.md`; rollback: `docs/ROLLBACK.md`; release:
+`docs/RELEASE.md`.
 
-Device: AVD `UBlade2_API35` (google_apis x86_64, API 35) on emulator 37.2.12 with WHPX. This host excludes the
-5554–5586 TCP range, so the emulator was started with `-ports 40000,40001` and adb connected to
-`127.0.0.1:40001` (serial `emulator-40000`). The ARM64-only Unity 6 player runs through the image's
-`libndk_translation.so` (`ro.product.cpu.abilist=x86_64,arm64-v8a`). The APK installed (`Success`) and launched; the
-on-device logcat contains:
+Measured evidence (all from the final Windows player, Unity bundle version `2026.10.26.008`):
 
-    UBLADE2_START demo=False crystals=3 unity=6000.6.7f1 screen=2400x1080 capture=none
-    UBLADE_HERO_OK lodLevels=3 bones=23 smile=Smile cape=3 lod0Tris=1126 lod1Tris=615 lod2Tris=306 animators=3 prefab=WayfarerLOD
-    UBLADE2_WORLD crystals=3 speed=6 hero=Wayfarer
+- build `UBLADE2_BUILD Succeeded bytes=97543422`, version marker `UBLADE2_VERSION 2026.10.26.008`;
+- legacy demo `UBLADE2_DEMO_OK exit=0` / `GYPSY_DEMO_OK collected=3`, hero capture `UBLADE2_CAPTURE_OK` and
+  `CAPTURE_CHECK_OK`;
+- headless match `UBLADE2_MATCH_OK player=1 ai=2 winner=2 frames=176 phase=Ended duration=20 target=2` with
+  `UBLADE2_MATCH_EVIDENCE passed=True`;
+- league save/load `UBLADE2_LEAGUE_SAVE_OK round=1 wins=1 points=3 passed=True`
+  (`artifacts/ublade2-pro/league-save.json`);
+- 1280x720 match capture `UBLADE2_MATCH_CAPTURE_OK`, `MATCH_CAPTURE_CHECK_OK` with 76.9% non-background and 349
+  colour buckets, inspected (HUD scores/timer, arena, player, red AI opponent);
+- 1280x720 menu capture `UBLADE2_MENU_CAPTURE_OK` / `MENU_CAPTURE_CHECK_OK`;
+- six UI screenshots `UBLADE2_UI_CAPTURE_OK` (menu, league, settings, match HUD, pause, result) and
+  `UI_CAPTURES_CHECK_OK screens=6`, inspected as a contact sheet;
+- release `UBLADE2_RELEASE_OK version=2026.10.26.008 package=dist/UBlade2-2026.10.26.008-win64.zip` (ZIP
+  50,871,958 bytes SHA-256 `fef1d1b4be9c23f38633ffd568f8d81a6b0e43d6ae0c916112ec0d0cf80d7355`; player EXE SHA-256
+  `9806abde4a406ed68647e9505852c49f6aa72a372f4f084e2aa2821affea57a2`), stamped in
+  `artifacts/ublade2-release/release.json`.
 
-The deterministic demo also runs on the device (launched with `--ez ublade2_demo true`):
-
-    UBLADE2_START demo=True crystals=3 unity=6000.6.7f1 screen=2400x1080 capture=none
-    GYPSY_DEMO_OK collected=3 frames=66
-
-Reproduce: `powershell -File scripts/ublade2_android.ps1 -Mode device` -> `UBLADE2_ANDROID_DEVICE_OK`;
-`-Mode demo` -> `UBLADE2_ANDROID_DEMO_OK`. Evidence: `artifacts/ublade2-mobile/screen.png` (2400x1080),
-`logcat-launch.txt`, `logcat-demo.txt`, `device-info.txt`; APK evidence in `artifacts/ublade2-android/`
-(`build.log`, `build.json`, `apk-hash.txt`, `apksignature.txt`, `apk-badging.txt`).
-
-**Outstanding (UB2-D15):** `adb shell screencap` returns a near-black frame for the emulator's Vulkan swapchain on
-this host — the hero silhouette is only faintly visible. The app is launched and every marker above is real, but a
-clear mobile visual capture and a physical-device run are not available, so **no full mobile visual pass is claimed**.
+The release is an unsigned development build of a prototype/playable slice; there is no installer, store listing or
+licensed media. Those limits are recorded in `docs/RELEASE.md` and `docs/GAME-DESIGN.md`.
 
 ## 8. Limits and things deliberately not done
 
-- This is the three-collectible gameplay contract plus the hero, not the full Godot production game: no HUD, menu,
-  pause/settings, audio, combat, teams or arena art were ported. Those remain future work and are not claimed.
+- The playable slice is a prototype scope: runtime-primitive arenas, one hero model, procedural audio, an offline
+  four-round league and no online play. Imported arena art, a deeper roster/league, licensed media, a gamepad mapping
+  screen and an installer are future production work and are not claimed.
 - LOD1/LOD2 only appear at distance (probe levels 1 and 2 at 8 m and 20 m); the capture is LOD0. LOD0 is the only mesh
   with the Smile blend shape (true of the source assets).
 - The hero's visible forward was initially 180 degrees from the controller (the first capture showed the face while
   moving away); the prefab now rotates the visual and the final capture was re-taken. The earlier frame is not cited.
 - The FBX LOD clips imported into Unity are named `Wayfarer_Rig|idle` etc.; the runtime animator uses the LOD0 FBX
   clips (`idle`/`run`/`reach`), so the naming does not affect the port. Recorded for a future cleanup.
-- Mobile is partially verified (section 7): Android Build Support installed, signed debug APK built and verified,
-  installed/launched on an API 35 emulator, and on-device UBLADE2/hero/demo markers captured. A clear mobile visual
-  capture and a physical-device run are outstanding (UB2-D15) and are not claimed.
+- Mobile is parked by operator decision (section 7): Android Build Support and a launched emulator pass exist from
+  earlier work, but mobile is not part of the PC-only release and is not claimed complete (UB2-D15).
+- The Unity engine-gate CI workflow (`.github/workflows/engine.yml`) is dispatch-only until a self-hosted
+  Unity-licensed runner exists; it has not run. The local wrapper/gates and the hosted fast CI are the actual evidence.
+- The Windows release is unsigned; the release stamp records the git HEAD and hashes but not a dirty-worktree flag.
 - The Unity player window is closed by the player itself (`Application.Quit(0)`); no process, browser or temp file was
   left running. The capture frame was written to a temp path by the player and copied into `artifacts/ublade2/` by the
   wrapper.
@@ -254,14 +262,16 @@ clear mobile visual capture and a physical-device run are not available, so **no
 
 | Gate | Required evidence | Status |
 | --- | --- | --- |
-| Project | `project.gypsy.json` pins Unity 6000.6.7f1/unity-6 and targets pc, mobile | **PASS** — section 2 |
-| Build | Windows player built by batchmode, build log success | **PASS** — `UBLADE2_BUILD Succeeded bytes=97467934` |
+| Project | `project.gypsy.json` pins Unity 6000.6.7f1/unity-6 and target pc | **PASS** — section 2 |
+| Build | Windows player built by batchmode, build log success | **PASS** — `UBLADE2_BUILD Succeeded bytes=97543422`, version 2026.10.26.008 |
 | Demo | exact `GYPSY_DEMO_OK collected=3` marker, exit 0 | **PASS** — `frames=67`, exit 0 |
 | Gameplay | 3 collectibles, movement/autopilot, no regression | **PASS** — three collects at frames 15/33/67 |
 | Hero | 23 bones, 3 clips, Smile, 512² maps, LODs, visible capture | **PASS** — section 4 |
 | Capture | 1280x720 frame inspected | **PASS** — 90.7% non-background in hero rect, inspected |
-| Mobile | module installed, APK built, launched, screenshot/logcat | **PARTIAL** — module installed; debug APK built/apksigner-verified; installed and launched on an API 35 emulator with on-device UBLADE2_START, UBLADE_HERO_OK and GYPSY_DEMO_OK collected=3 in logcat; the emulator Vulkan surface returns a near-black adb screencap, so a clear visual mobile pass is not claimed (UB2-D15) |
-| Records | Gypsy checks pass and evidence is committed | **PASS** — Gypsy checks pass; the port and its acceptance evidence are committed and pushed, the GitHub Actions `checks` gate is green, and the mobile follow-up evidence is in BuildNotes 2026.10.26.007 |
+| Playable | menu, league match, HUD, audio, pause/settings, results, season | **PASS** — headless match, match capture with HUD, six UI screenshots, league save/load runtime check (section 7b) |
+| Release | stamped Windows distributable with hashes | **PASS** — `UBLADE2_RELEASE_OK version=2026.10.26.008 win_sha256=fef1d1b4...0d7355`, release.json + release.txt |
+| Mobile | mobile target | **PARKED** — operator decision: PC-only for this milestone; earlier partial APK/launcher evidence preserved but not claimed complete (UB2-D15) |
+| Records | Gypsy checks pass and evidence is committed | **PASS** — `checks: PASS (7/7)`, 12 manifests valid (3 toolpacks, 3 slices, 6 capabilities); commit, push and CI result are recorded in the final report/BuildNotes 2026.10.26.008 |
 
 ## 10. Reproduce
 
@@ -270,13 +280,14 @@ clear mobile visual capture and a physical-device run are not available, so **no
     python scripts/gypsy_unity.py toolpacks check
     python scripts/gypsy_unity.py toolpacks run ublade2.unity
     python scripts/gypsy_unity.py slice run ublade2.unity
-    python scripts/gypsy_unity.py toolpacks run ublade2.unity.mobile   # requires the emulator
-    python scripts/gypsy_unity.py slice run ublade2.unity.mobile
+    python scripts/gypsy_unity.py toolpacks run ublade2.game
+    python scripts/gypsy_unity.py slice run ublade2.game
+    powershell -NoProfile -ExecutionPolicy Bypass -File scripts/ublade2_release.ps1
     python scripts/check_all.py
 
 Expected markers: `WAYFARER_IMPORT_OK`, `WAYFARER_PREFAB_OK`, `UBLADE2_BUILD Succeeded`, `GYPSY_DEMO_OK collected=3`,
-`UBLADE_HERO_RUNTIME_OK`, `CAPTURE_CHECK_OK`, `UBLADE2_SLICE_OK`, `UBLADE2_ANDROID_DEVICE_OK`,
-`UBLADE2_ANDROID_DEMO_OK`, `UBLADE2_GYPSY_CHECK exit=0`, `checks: PASS (5/5)`.
+`UBLADE_HERO_RUNTIME_OK`, `CAPTURE_CHECK_OK`, `UBLADE2_MATCH_OK`, `UBLADE2_LEAGUE_SAVE_OK`, `MATCH_CAPTURE_CHECK_OK`,
+`UI_CAPTURES_CHECK_OK`, `UBLADE2_RELEASE_OK`, `UBLADE2_GYPSY_CHECK exit=0`, `checks: PASS (7/7)`.
 
 ## 11. Provenance
 
@@ -292,5 +303,13 @@ Expected markers: `WAYFARER_IMPORT_OK`, `WAYFARER_PREFAB_OK`, `UBLADE2_BUILD Suc
 | `artifacts/ublade2-mobile/screen.png` | `f3ca3df3770291f84fed9c2369de462d3641442c3637094042094113cd68bf70` |
 | `artifacts/ublade2-mobile/logcat-launch.txt` | `91108e4b52c1689c66e81fc6adeacb9c76ec321759fd6293d6ee1b35b81915fd` |
 | `artifacts/ublade2-mobile/logcat-demo.txt` | `86ffc98d52653fc46d607b960a4fea126dac368fc8ea449548500cafb4bf879a` |
+| `unity/UBlade2/Build/UBlade2.exe` | `9806abde4a406ed68647e9505852c49f6aa72a372f4f084e2aa2821affea57a2` |
+| `artifacts/ublade2-pro/match.png` | `628455e145b8977da871f6fa3dfb04384ab6809a651cc46a5c13954fcc45228e` |
+| `artifacts/ublade2-pro/menu.png` | `5cabeb16dde42300e23e2ce4e87f32b10482f063eea1fdc213421ff818a2db42` |
+| `artifacts/ublade2-pro/match-runtime.json` | `533cf27cf071db45c5895ed2061439933c03c9aa1b39e647c9a8aaa2f6c7676b` |
+| `artifacts/ublade2-pro/league-save.json` | `228163edc7904987180237812afbfd1eefdd06ec762556b17500c2625207ffdf` |
+| `artifacts/ublade2-pro/ui-captures.json` | `24443a5a2a1d3cc4d3197a7d279d3c936de6be90dc82ded50a4c7b611faff5b6` |
+| `artifacts/ublade2-release/release.json` | `748f381c04f5ff5548f8469ef67e458bfff47eeaafba1a8b4bc3d71c4fcf0066` |
+| `dist/UBlade2-2026.10.26.008-win64.zip` | `fef1d1b4be9c23f38633ffd568f8d81a6b0e43d6ae0c916112ec0d0cf80d7355` |
 
 Unity build: `6000.6.7f1 (b22767f04f04)`; Blender: `5.2.3 LTS`; Python: `3.14.2`; Pillow: `12.0.0`.

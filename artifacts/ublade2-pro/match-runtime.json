@@ -1,0 +1,20 @@
+{
+    "schema": "ublade2.match.runtime/v1",
+    "passed": false,
+    "playerScore": 1,
+    "aiScore": 2,
+    "winner": 0,
+    "frames": 240,
+    "phase": "Playing",
+    "duration": 120.0,
+    "targetScore": 5,
+    "difficulty": 1,
+    "arena": "Neon Rink",
+    "round": 1,
+    "totalRounds": 4,
+    "playerTeam": "WAYFARERS",
+    "aiTeam": "RAZORWINGS",
+    "screen": "1280x720",
+    "unity": "6000.6.7f1",
+    "generatedAt": "2026-10-27T00:23:03Z"
+}

@@ -35,17 +35,18 @@ Begin MonoManager ReloadAssembly
 
 <RI> Input initialized.
 
-UnloadTime: 0.749800 ms
+UnloadTime: 0.729200 ms
+UBLADE_HERO_OK lodLevels=3 bones=23 smile=Smile cape=3 lod0Tris=1126 lod1Tris=615 lod2Tris=306 animators=3 prefab=WayfarerLOD
 UBLADE_HERO_OK lodLevels=3 bones=23 smile=Smile cape=3 lod0Tris=1126 lod1Tris=615 lod2Tris=306 animators=3 prefab=WayfarerLOD
 UBLADE2_WORLD crystals=3 speed=6 hero=Wayfarer
-UBLADE2_START demo=True crystals=3 unity=6000.6.7f1 screen=1280x720 capture=C:\Users\STEPHE~1\AppData\Local\Temp\ublade2-capture-frame.png
-UBLADE_LOD level=0 distance=5.17 height=0.376 transitionHeights=0.30/0.12/0.04
-UBLADE2_COLLECT collected=1 frames=15
-UBLADE2_COLLECT collected=2 frames=33
-UBLADE2_COLLECT collected=3 frames=67
-GYPSY_DEMO_OK collected=3 frames=67
+UBLADE2_START demo=True crystals=3 unity=6000.6.7f1 screen=1280x720 capture=C:\Users\STEPHE~1\AppData\Local\Temp\ublade2-capture-frame.png mode=demo
+UBLADE_LOD level=0 distance=5.17 height=0.353 transitionHeights=0.30/0.12/0.04
+UBLADE2_COLLECT collected=1 frames=8
+UBLADE2_COLLECT collected=2 frames=35
+UBLADE2_COLLECT collected=3 frames=59
+GYPSY_DEMO_OK collected=3 frames=59
 UBLADE2_CAPTURE_WRITTEN path=C:\Users\STEPHE~1\AppData\Local\Temp\ublade2-capture-frame.png
-UBLADE_HERO_RUNTIME_OK visible=True lod=0 smile=100.0 cape=3 rect=547,237,185x315 bones=23 lod0Tris=1126 lod1Tris=615 lod2Tris=306
+UBLADE_HERO_RUNTIME_OK visible=True lod=0 smile=100.0 cape=3 rect=549,244,176x296 bones=23 lod0Tris=1126 lod1Tris=615 lod2Tris=306
 [Physics::Module] Cleanup current backend.
 [Physics::Module] Id: 0xf2b8ea05
 Input System module state changed to: ShutdownInProgress.

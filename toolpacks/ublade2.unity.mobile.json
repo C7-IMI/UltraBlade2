@@ -50,7 +50,6 @@
       "artifacts": [
         "artifacts/ublade2-mobile/screen.png",
         "artifacts/ublade2-mobile/logcat-launch.txt",
-        "artifacts/ublade2-mobile/device-info.txt",
         "artifacts/ublade2-mobile/device-info.txt"
       ],
       "args": {
@@ -76,6 +75,30 @@
       ],
       "args": {
         "note": "launch with the ublade2_demo intent extra and validate GYPSY_DEMO_OK on-device"
+      }
+    },
+    {
+      "id": "capture",
+      "argv": [
+        "powershell",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "scripts/ublade2_android.ps1",
+        "-Mode",
+        "capture"
+      ],
+      "cwd": ".",
+      "timeout": 600,
+      "artifacts": [
+        "artifacts/ublade2-mobile/frame.png",
+        "artifacts/ublade2-mobile/logcat-capture.txt",
+        "artifacts/ublade2-mobile/capture-check.json",
+        "artifacts/ublade2-mobile/device-info.txt"
+      ],
+      "args": {
+        "note": "in-app framebuffer capture (Texture2D.ReadPixels) of the autoplay match with HUD/touch controls; marker UBLADE2_MOBILE_CAPTURE_OK"
       }
     }
   ],
@@ -134,6 +157,30 @@
       "kind": "text",
       "artifact": "artifacts/ublade2-android/apk-badging.txt",
       "contains": "package: name='com.c7imi.ublade2'"
+    },
+    {
+      "id": "capture-frame",
+      "kind": "png",
+      "artifact": "artifacts/ublade2-mobile/frame.png",
+      "minWidth": 1000,
+      "minHeight": 600
+    },
+    {
+      "id": "capture-marker",
+      "kind": "text",
+      "artifact": "artifacts/ublade2-mobile/logcat-capture.txt",
+      "contains": "UBLADE2_MOBILE_CAPTURE_OK"
+    },
+    {
+      "id": "capture-check",
+      "kind": "json",
+      "artifact": "artifacts/ublade2-mobile/capture-check.json",
+      "checks": [
+        {
+          "path": "passed",
+          "equals": true
+        }
+      ]
     }
   ]
 }

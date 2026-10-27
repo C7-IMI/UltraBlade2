@@ -1,0 +1,39 @@
+{
+  "schema": "ublade2.match.capture-check/v1",
+  "kind": "match",
+  "frame": "artifacts/ublade2-pro/match.png",
+  "passed": true,
+  "errors": [],
+  "warnings": [],
+  "generatedAt": "2026-10-27T00:23:05+00:00",
+  "width": 1280,
+  "height": 720,
+  "whole": {
+    "pixels": 921600,
+    "nonBackground": 708420,
+    "nonBackgroundRatio": 0.7687,
+    "saturated": 698096,
+    "distinctColors": 349
+  },
+  "hudStrip": {
+    "pixels": 153600,
+    "nonBackground": 9288,
+    "nonBackgroundRatio": 0.0605,
+    "saturated": 8503,
+    "distinctColors": 149
+  },
+  "heroRegion": {
+    "pixels": 153720,
+    "nonBackground": 148012,
+    "nonBackgroundRatio": 0.9629,
+    "saturated": 142242,
+    "distinctColors": 184
+  },
+  "match": {
+    "playerScore": 1,
+    "aiScore": 2,
+    "winner": 0,
+    "frames": 240,
+    "phase": "Playing"
+  }
+}

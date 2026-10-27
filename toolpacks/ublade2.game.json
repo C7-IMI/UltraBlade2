@@ -1,0 +1,364 @@
+{
+  "schema": "gypsy.toolpack/v1",
+  "id": "ublade2.game",
+  "name": "UltraBlade 2 playable production slice (Unity 6, Windows player)",
+  "tools": [
+    "Unity 6000.6.7f1",
+    "Windows Standalone Build Support",
+    "Pillow (capture validation)"
+  ],
+  "license": "Unity licence proven by batchmode; game and hero assets are the ProjectGypsy prototype the operator asked to port; procedural audio is generated at runtime",
+  "actions": [
+    {
+      "id": "build",
+      "argv": [
+        "powershell",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "scripts/ublade2_unity.ps1",
+        "-Mode",
+        "build"
+      ],
+      "cwd": ".",
+      "timeout": 1800,
+      "artifacts": [
+        "unity/UBlade2/Build/UBlade2.exe",
+        "artifacts/ublade2/build.log",
+        "artifacts/ublade2/hero-import.json",
+        "artifacts/ublade2/build.json"
+      ],
+      "args": {
+        "note": "Unity batchmode BuildUBlade2.Build, now with menu/match/league/audio/UI modules"
+      }
+    },
+    {
+      "id": "demo",
+      "argv": [
+        "powershell",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "scripts/ublade2_unity.ps1",
+        "-Mode",
+        "demo"
+      ],
+      "cwd": ".",
+      "timeout": 300,
+      "artifacts": [
+        "artifacts/ublade2/demo.log",
+        "artifacts/ublade2/hero-runtime.json"
+      ],
+      "args": {
+        "note": "legacy port contract: GYPSY_DEMO_OK collected=3 must still pass"
+      }
+    },
+    {
+      "id": "capture",
+      "argv": [
+        "powershell",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "scripts/ublade2_unity.ps1",
+        "-Mode",
+        "capture"
+      ],
+      "cwd": ".",
+      "timeout": 300,
+      "artifacts": [
+        "artifacts/ublade2/capture.log",
+        "artifacts/ublade2/frame.png",
+        "artifacts/ublade2/hero-runtime.json"
+      ],
+      "args": {
+        "note": "legacy 1280x720 hero capture"
+      }
+    },
+    {
+      "id": "capture-check",
+      "argv": [
+        "python",
+        "scripts/check_hero_capture.py",
+        "--frame",
+        "artifacts/ublade2/frame.png",
+        "--evidence",
+        "artifacts/ublade2/hero-runtime.json",
+        "--out",
+        "artifacts/ublade2/capture-check.json"
+      ],
+      "cwd": ".",
+      "timeout": 120,
+      "artifacts": [
+        "artifacts/ublade2/capture-check.json"
+      ],
+      "args": {
+        "note": "legacy hero pixel analysis"
+      }
+    },
+    {
+      "id": "match",
+      "argv": [
+        "powershell",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "scripts/ublade2_unity.ps1",
+        "-Mode",
+        "match"
+      ],
+      "cwd": ".",
+      "timeout": 300,
+      "artifacts": [
+        "artifacts/ublade2-pro/match.log",
+        "artifacts/ublade2-pro/match-runtime.json"
+      ],
+      "args": {
+        "note": "headless deterministic AI-vs-autopilot match; UBLADE2_MATCH_OK"
+      }
+    },
+    {
+      "id": "match-capture",
+      "argv": [
+        "powershell",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "scripts/ublade2_unity.ps1",
+        "-Mode",
+        "match-capture"
+      ],
+      "cwd": ".",
+      "timeout": 300,
+      "artifacts": [
+        "artifacts/ublade2-pro/match-capture.log",
+        "artifacts/ublade2-pro/match.png",
+        "artifacts/ublade2-pro/match-runtime.json",
+        "artifacts/ublade2-pro/match-capture.json"
+      ],
+      "args": {
+        "note": "windowed match with HUD at 1280x720; UBLADE2_MATCH_CAPTURE_OK"
+      }
+    },
+    {
+      "id": "menu-capture",
+      "argv": [
+        "powershell",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "scripts/ublade2_unity.ps1",
+        "-Mode",
+        "menu-capture"
+      ],
+      "cwd": ".",
+      "timeout": 300,
+      "artifacts": [
+        "artifacts/ublade2-pro/menu-capture.log",
+        "artifacts/ublade2-pro/menu.png",
+        "artifacts/ublade2-pro/menu-capture.json"
+      ],
+      "args": {
+        "note": "windowed main-menu capture at 1280x720; UBLADE2_MENU_CAPTURE_OK"
+      }
+    },
+    {
+      "id": "league-test",
+      "argv": [
+        "powershell",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "scripts/ublade2_unity.ps1",
+        "-Mode",
+        "league-test"
+      ],
+      "cwd": ".",
+      "timeout": 180,
+      "artifacts": [
+        "artifacts/ublade2-pro/league-test.log",
+        "artifacts/ublade2-pro/league-save.json"
+      ],
+      "args": {
+        "note": "runtime PlayerPrefs save/load check for the league season; UBLADE2_LEAGUE_SAVE_OK"
+      }
+    },
+    {
+      "id": "ui-capture",
+      "argv": [
+        "powershell",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "scripts/ublade2_unity.ps1",
+        "-Mode",
+        "ui-capture"
+      ],
+      "cwd": ".",
+      "timeout": 300,
+      "artifacts": [
+        "artifacts/ublade2-pro/ui-capture.log",
+        "artifacts/ublade2-pro/ui-captures.json",
+        "artifacts/ublade2-pro/ui/menu.png",
+        "artifacts/ublade2-pro/ui/league.png",
+        "artifacts/ublade2-pro/ui/settings.png",
+        "artifacts/ublade2-pro/ui/match.png",
+        "artifacts/ublade2-pro/ui/pause.png",
+        "artifacts/ublade2-pro/ui/result.png"
+      ],
+      "args": {
+        "note": "six 1280x720 UI screenshots: menu, league, settings, match HUD, pause, result"
+      }
+    }
+  ],
+  "validators": [
+    {
+      "id": "exe",
+      "kind": "file",
+      "artifact": "unity/UBlade2/Build/UBlade2.exe",
+      "minBytes": 500000
+    },
+    {
+      "id": "build-ok",
+      "kind": "text",
+      "artifact": "artifacts/ublade2/build.log",
+      "contains": "UBLADE2_BUILD Succeeded"
+    },
+    {
+      "id": "demo-marker",
+      "kind": "text",
+      "artifact": "artifacts/ublade2/demo.log",
+      "contains": "GYPSY_DEMO_OK collected=3"
+    },
+    {
+      "id": "hero-capture",
+      "kind": "json",
+      "artifact": "artifacts/ublade2/capture-check.json",
+      "checks": [
+        {
+          "path": "passed",
+          "equals": true
+        }
+      ]
+    },
+    {
+      "id": "match-marker",
+      "kind": "text",
+      "artifact": "artifacts/ublade2-pro/match.log",
+      "contains": "UBLADE2_MATCH_OK"
+    },
+    {
+      "id": "match-evidence",
+      "kind": "json",
+      "artifact": "artifacts/ublade2-pro/match-runtime.json",
+      "checks": [
+        {
+          "path": "passed",
+          "equals": true
+        },
+        {
+          "path": "phase",
+          "equals": "Ended"
+        },
+        {
+          "path": "frames",
+          "gte": 1
+        }
+      ]
+    },
+    {
+      "id": "match-frame",
+      "kind": "png",
+      "artifact": "artifacts/ublade2-pro/match.png",
+      "minWidth": 1280,
+      "minHeight": 720
+    },
+    {
+      "id": "match-capture-check",
+      "kind": "json",
+      "artifact": "artifacts/ublade2-pro/match-capture.json",
+      "checks": [
+        {
+          "path": "passed",
+          "equals": true
+        }
+      ]
+    },
+    {
+      "id": "match-capture-marker",
+      "kind": "text",
+      "artifact": "artifacts/ublade2-pro/match-capture.log",
+      "contains": "UBLADE2_MATCH_CAPTURE_OK"
+    },
+    {
+      "id": "menu-frame",
+      "kind": "png",
+      "artifact": "artifacts/ublade2-pro/menu.png",
+      "minWidth": 1280,
+      "minHeight": 720
+    },
+    {
+      "id": "menu-capture-check",
+      "kind": "json",
+      "artifact": "artifacts/ublade2-pro/menu-capture.json",
+      "checks": [
+        {
+          "path": "passed",
+          "equals": true
+        }
+      ]
+    },
+    {
+      "id": "menu-capture-marker",
+      "kind": "text",
+      "artifact": "artifacts/ublade2-pro/menu-capture.log",
+      "contains": "UBLADE2_MENU_CAPTURE_OK"
+    },
+    {
+      "id": "league-marker",
+      "kind": "text",
+      "artifact": "artifacts/ublade2-pro/league-test.log",
+      "contains": "UBLADE2_LEAGUE_SAVE_OK"
+    },
+    {
+      "id": "league-save",
+      "kind": "json",
+      "artifact": "artifacts/ublade2-pro/league-save.json",
+      "checks": [
+        {
+          "path": "passed",
+          "equals": true
+        },
+        {
+          "path": "wins",
+          "equals": 1
+        }
+      ]
+    },
+    {
+      "id": "ui-marker",
+      "kind": "text",
+      "artifact": "artifacts/ublade2-pro/ui-capture.log",
+      "contains": "UBLADE2_UI_CAPTURE_OK"
+    },
+    {
+      "id": "ui-captures",
+      "kind": "json",
+      "artifact": "artifacts/ublade2-pro/ui-captures.json",
+      "checks": [
+        {
+          "path": "passed",
+          "equals": true
+        }
+      ]
+    }
+  ]
+}

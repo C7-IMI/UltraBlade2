@@ -1,5 +1,5 @@
 param(
-  [ValidateSet("device","demo")] [string]$Mode = "device",
+  [ValidateSet("device","demo","capture")] [string]$Mode = "device",
   [string]$Serial = "",
   [string]$Evidence = "artifacts/ublade2-mobile"
 )
@@ -57,6 +57,31 @@ if ($Mode -eq "demo") {
   python scripts/normalize_evidence.py --paths artifacts/ublade2-mobile 2>&1 | Out-Null
   if (-not $found) { Write-Error "GYPSY_DEMO_OK marker missing"; exit 1 }
   Write-Output "UBLADE2_ANDROID_DEMO_OK marker=GYPSY_DEMO_OK collected=3 serial=$Serial"
+  exit 0
+}
+
+if ($Mode -eq "capture") {
+  & $adb -s $Serial shell am force-stop com.c7imi.ublade2 2>&1 | Out-Null
+  & $adb -s $Serial logcat -c 2>&1 | Out-Null
+  & $adb -s $Serial shell am start -n com.c7imi.ublade2/com.unity3d.player.UnityPlayerGameActivity --ez ublade2_capture true 2>&1
+  $deadline = (Get-Date).AddSeconds(150)
+  $remote = $null
+  while ((Get-Date) -lt $deadline) {
+    Start-Sleep -Seconds 3
+    $logText = (& $adb -s $Serial logcat -d 2>&1) -join [Environment]::NewLine
+    $match = [regex]::Match($logText, "UBLADE2_MOBILE_CAPTURE_OK path=([^\s]+)")
+    if ($match.Success) { $remote = $match.Groups[1].Value; break }
+  }
+  & $adb -s $Serial logcat -d 2>&1 | Out-File -FilePath (Join-Path $out "logcat-capture.txt") -Encoding utf8
+  if (-not $remote) { Write-Error "UBLADE2_MOBILE_CAPTURE_OK marker missing"; exit 1 }
+  Start-Sleep -Seconds 3
+  & $adb -s $Serial pull $remote (Join-Path $out "frame.png") 2>&1 | Select-Object -Last 1
+  & $adb -s $Serial shell am force-stop com.c7imi.ublade2 2>&1 | Out-Null
+  python scripts/normalize_evidence.py --paths artifacts/ublade2-mobile 2>&1 | Out-Null
+  if (-not (Test-Path (Join-Path $out "frame.png"))) { Write-Error "in-app capture frame missing"; exit 1 }
+  python scripts/check_mobile_capture.py --frame artifacts/ublade2-mobile/frame.png --logcat artifacts/ublade2-mobile/logcat-capture.txt --out artifacts/ublade2-mobile/capture-check.json 2>&1
+  if ($LASTEXITCODE -ne 0) { Write-Error "mobile capture check failed"; exit 1 }
+  Write-Output "UBLADE2_ANDROID_CAPTURE_OK serial=$Serial frame=artifacts/ublade2-mobile/frame.png"
   exit 0
 }
 

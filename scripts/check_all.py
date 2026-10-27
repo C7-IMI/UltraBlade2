@@ -342,6 +342,41 @@ def check_manifests():
     )
 
 
+def _run_script_check(script, identifier):
+    proc = subprocess.run(
+        [sys.executable, str(ROOT / "scripts" / script), "--root", str(ROOT)],
+        cwd=str(ROOT),
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+    )
+    lines = [line.rstrip() for line in (proc.stdout or "").splitlines() if line.strip()]
+    if proc.returncode != 0:
+        detail = lines or [
+            (proc.stderr or "").strip()
+            or "{} exited {}".format(script, proc.returncode)
+        ]
+        first = detail[0]
+        for prefix in ("FAIL {} - ".format(identifier), "FAIL "):
+            if first.startswith(prefix):
+                first = first[len(prefix):]
+                break
+        raise CheckFailed("\n".join([first] + detail[1:]))
+    prefix = "PASS {} - ".format(identifier)
+    if lines and lines[0].startswith(prefix):
+        return lines[0][len(prefix):]
+    return lines[-1] if lines else "{} exited 0".format(script)
+
+
+def check_secrets():
+    return _run_script_check("check_secrets.py", "secrets")
+
+
+def check_peers():
+    return _run_script_check("check_peer_boundary.py", "peers")
+
+
 def _invocations(path, label, problems):
     relative = path.relative_to(ROOT)
     if not path.is_file():
@@ -412,6 +447,16 @@ CHECKS = [
         "manifests",
         "toolpacks, slices and capabilities parse and satisfy the local Gypsy schemas",
         check_manifests,
+    ),
+    (
+        "secrets",
+        "git-tracked files carry no high-confidence credentials",
+        check_secrets,
+    ),
+    (
+        "peers",
+        "the project.gypsy.json peers exist, are git checkouts and are clean",
+        check_peers,
     ),
     (
         "callers",

@@ -11,6 +11,9 @@
     "artifacts/ublade2-mobile/screen.png",
     "artifacts/ublade2-mobile/logcat-launch.txt",
     "artifacts/ublade2-mobile/logcat-demo.txt",
+    "artifacts/ublade2-mobile/capture-check.json",
+    "artifacts/ublade2-mobile/frame.png",
+    "artifacts/ublade2-mobile/logcat-capture.txt",
     "artifacts/ublade2-mobile/capture-check.json"
   ],
   "steps": [

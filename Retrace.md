@@ -305,3 +305,33 @@ Each entry has:
   `capabilities/engine.unity.port.mobile.json` (partial), `docs/UNITY-PORT.md` section 7, `DEFERRED.md` UB2-D13
   closed / UB2-D15 open.
 
+## 7 - 2026-10-26
+
+- Request: "do it all, including finishing out the deferred list. Use slices. As many passes as it takes. Use
+  subagents. Do not stop until everything is completed and a playable build of the game is ready. Make your own
+  decisions. Full approval"
+- Status: Completed - the playable PC production slice, PC-only stamped release, deferred-register close-out and
+  verification evidence are recorded in BuildNotes 2026.10.26.008. Mobile is parked in entry 8 by the operator's
+  follow-up decision and is not claimed complete.
+- Version: 2026.10.26.008
+- Commit/evidence: this change (commit hash, push and CI in the final report). Key evidence:
+  `artifacts/ublade2-pro/` (match.log, match-runtime.json, match.png, match-capture.json, menu.png, league-test.log,
+  league-save.json, ui-captures.json, ui/*.png, contact sheet), `artifacts/ublade2/` (demo/capture/frame/hero
+  evidence), `artifacts/ublade2-release/release.json` and `release.txt`, `dist/UBlade2-2026.10.26.008-win64.zip`
+  (hash in BuildNotes), new `toolpacks/ublade2.game.json`, `slices/ublade2.game.json`,
+  `capabilities/game.playable.slice.json`, docs GAME-DESIGN/UI-STANDARD/ROLLBACK/CONTRACT-DECISION/RELEASE,
+  `scripts/check_secrets.py`, `scripts/check_peer_boundary.py`, `scripts/check_match_capture.py`,
+  `scripts/check_ui_captures.py`, `scripts/ublade2_release.ps1`, `.github/workflows/engine.yml`, and the
+  updated DEFERRED/UNITY-PORT/README/AGENTS/NOTES.
+
+## 8 - 2026-10-26
+
+- Request: "don't worry about a mobile version for now. It's a PC only game at the moment"
+- Status: Completed - the mobile target was parked by operator decision. `project.gypsy.json` targets are `pc`,
+  `capabilities/engine.unity.port.mobile.json` is `planned`, `DEFERRED.md` records the decision (UB2-D15), the release
+  packaging is PC-only, and the earlier Android evidence remains preserved but is not claimed as a completed mobile
+  release. No APK is part of the release.
+- Version: 2026.10.26.008
+- Commit/evidence: included in this change; evidence paths: `artifacts/ublade2-release/release.json` (platform
+  windows, mobile parked note), `docs/RELEASE.md`, `DEFERRED.md`, `docs/UNITY-PORT.md` sections 7 and 9.
+

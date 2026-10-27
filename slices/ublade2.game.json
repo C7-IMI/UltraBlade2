@@ -1,0 +1,47 @@
+{
+  "schema": "gypsy.slice/v1",
+  "id": "ublade2.game",
+  "project": ".",
+  "description": "UltraBlade 2 playable production slice: build the Windows player, keep the legacy three-crystal demo and hero capture green, run the headless AI match, capture the match with HUD and the main menu, validate the pixels and markers, then run the repository check list.",
+  "artifacts": [
+    "unity/UBlade2/Build/UBlade2.exe",
+    "artifacts/ublade2/build.log",
+    "artifacts/ublade2/demo.log",
+    "artifacts/ublade2/frame.png",
+    "artifacts/ublade2/hero-runtime.json",
+    "artifacts/ublade2/capture-check.json",
+    "artifacts/ublade2-pro/match.log",
+    "artifacts/ublade2-pro/match-runtime.json",
+    "artifacts/ublade2-pro/match.png",
+    "artifacts/ublade2-pro/match-capture.json",
+    "artifacts/ublade2-pro/menu.png",
+    "artifacts/ublade2-pro/menu-capture.json",
+    "artifacts/ublade2-pro/league-test.log",
+    "artifacts/ublade2-pro/league-save.json",
+    "artifacts/ublade2-pro/ui-capture.log",
+    "artifacts/ublade2-pro/ui-captures.json"
+  ],
+  "steps": [
+    {
+      "id": "game",
+      "kind": "toolpack",
+      "needs": [],
+      "required": true,
+      "timeout": 3600,
+      "args": {
+        "toolpack": "ublade2.game",
+        "path": "toolpacks/ublade2.game.json"
+      }
+    },
+    {
+      "id": "pack",
+      "kind": "check_all",
+      "needs": [
+        "game"
+      ],
+      "required": true,
+      "timeout": 180,
+      "args": {}
+    }
+  ]
+}

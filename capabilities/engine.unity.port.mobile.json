@@ -4,8 +4,8 @@
   "layer": "engine",
   "engine": "unity",
   "kind": "mobile",
-  "maturity": "partial",
-  "description": "UltraBlade 2 Unity Android debug APK: Android Build Support installed, signed debug APK built (com.c7imi.ublade2, minSdk 26, target 36, ARM64 IL2CPP, Vulkan), installed and launched on the local API 35 x86_64 emulator through the libndk ARM translation layer; on-device UBLADE2_START/UBLADE_HERO_OK markers and the deterministic GYPSY_DEMO_OK collected=3 marker were captured in logcat. The emulator's Vulkan surface returns a near-black frame to adb screencap, so the mobile screenshot is not a clear visual pass yet (UB2-D15).",
+  "maturity": "planned",
+  "description": "PARKED BY OPERATOR (2026-10-26): UltraBlade 2 is a PC-only game for this milestone. The earlier work proved Android Build Support installs, a signed debug APK builds/installs/launches on an API 35 emulator, on-device markers fire and an in-app framebuffer capture exists; clear world rendering on the emulator Vulkan surface is limited and the mobile target is not part of the playable release or claimed complete.",
   "requires": [
     "engine.unity.port.build",
     "unity.android.buildsupport",
@@ -33,12 +33,11 @@
     }
   ],
   "checks": [
-    "Android Build Support installed (Unity CLI modules list)",
-    "signed debug APK built and apksigner-verified",
-    "APK installed on the emulator",
-    "app launched; UBLADE2_START and UBLADE_HERO_OK in logcat",
-    "on-device demo prints GYPSY_DEMO_OK collected=3",
-    "clear mobile visual capture outstanding (UB2-D15)"
+    "Android Build Support installed and debug APK builds",
+    "APK installs and launches on the API 35 emulator",
+    "on-device UBLADE2_START / UBLADE_HERO_OK / GYPSY_DEMO_OK markers captured",
+    "in-app framebuffer capture exists (HUD/controls clear, world dark under emulator Vulkan)",
+    "mobile is parked by operator decision and is not part of the PC-only playable release"
   ],
   "provenance": {
     "record": [
@@ -52,7 +51,7 @@
     ]
   },
   "notes": [
-    "Emulator: AVD UBlade2_API35 (google_apis x86_64, API 35), adb over ports 40000/40001 because Windows excludes the 5554-5586 range on this host; libndk_translation.so provides arm64-v8a compatibility for the ARM64-only Unity 6 player.",
-    "adb screencap returns a near-black frame for the Vulkan swapchain on this emulator; the launch and markers are real. Registered as UB2-D15 (clear mobile visual capture / physical device)."
+    "Operator decision 2026-10-26: PC only for now; mobile work is retained for a future pass and must not be cited as a completed mobile release.",
+    "The mobile toolpack/slice remain valid infrastructure for that future pass."
   ]
 }

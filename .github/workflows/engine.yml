@@ -1,0 +1,34 @@
+name: engine-checks
+
+# This workflow runs the Unity engine gates on a self-hosted runner. It requires a machine
+# with Unity 6000.6.7f1 installed and an activated licence, plus the Gypsy checkout that
+# scripts/gypsy_unity.py imports read-only (GYPSY_HOME on the runner).
+#
+# No self-hosted Unity-licensed runner exists in this repository yet (UB2-D9), so this
+# workflow is deliberately dispatch-only: it cannot report a green engine gate that no
+# machine ran. It has not been run. Do not cite it as passing evidence
+# until a self-hosted Unity-licensed runner runs it and the logs are read.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  engine-checks:
+    name: Unity engine checks
+    runs-on: [self-hosted, unity]
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Gypsy project check
+        run: python scripts/gypsy_unity.py check
+      - name: Run the Unity toolpack
+        run: python scripts/gypsy_unity.py toolpacks run ublade2.unity
+      - name: Run the Unity slice
+        run: python scripts/gypsy_unity.py slice run ublade2.unity

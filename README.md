@@ -8,22 +8,30 @@ gameplay contract and hero.
 
 ## Status
 
-**Unity 6000.6.7f1, Windows PC.** The Unity project is [unity/UBlade2](./unity/UBlade2), pinned by
-[project.gypsy.json](./project.gypsy.json). The three-collectible gameplay contract and the Wayfarer hero pass their
-build, demo and capture gates; the full acceptance record, commands and measured evidence are in
-[docs/UNITY-PORT.md](./docs/UNITY-PORT.md).
+**Unity 6000.6.7f1, PC only.** The Unity project is [unity/UBlade2](./unity/UBlade2), pinned by
+[project.gypsy.json](./project.gypsy.json). The original three-collectible contract and Wayfarer hero gates still pass,
+and a **playable production slice** now ships: main menu, league matches against an AI, crystal scoring, strikes and
+stuns, four arenas, procedural audio, settings, pause, results and a four-round season, with a stamped Windows release.
+The full acceptance record, commands and measured evidence are in [docs/UNITY-PORT.md](./docs/UNITY-PORT.md); the
+mobile target is parked by operator decision (PC-only milestone, UB2-D15).
 
-- **Gameplay:** CharacterController movement, autopilot, three crystals, follow camera, deterministic demo printing
-  `GYPSY_DEMO_OK collected=3 frames=67` and exiting 0.
+- **Playable game:** main menu, settings, league table/season, AI opponent, three-crystal scoring, strike/stun combat,
+  dash, four arenas, HUD/score/timer, procedural audio, pause and result screens. Design and controls:
+  [docs/GAME-DESIGN.md](./docs/GAME-DESIGN.md); UI standard: [docs/UI-STANDARD.md](./docs/UI-STANDARD.md).
+- **Legacy port gate:** CharacterController movement, autopilot, three crystals, follow camera, deterministic demo
+  printing `GYPSY_DEMO_OK collected=3` and exiting 0 on the final build (`UBLADE2_DEMO_OK exit=0`).
 - **Hero:** 23 bones including `cape_a/b/c`, `idle`/`run`/`reach` clips, `Smile` blend shape, 512² maps, LODGroup
   1126/615/306 triangles, a generated hero prefab (`WayfarerLOD.prefab`) and spring cape.
 - **Evidence:** Windows player build, headless demo, windowed 1280x720 capture inspected visually and measured by
   pixel analysis.
-- **Mobile:** Android Build Support is installed; a signed debug APK (`com.c7imi.ublade2`, ARM64, Vulkan) is
-  built, installed and launched on a local API 35 emulator, and on-device logcat shows `UBLADE2_START`,
-  `UBLADE_HERO_OK` and `GYPSY_DEMO_OK collected=3`. The emulator's Vulkan surface returns a near-black frame to
-  `adb screencap`, so a clear mobile visual capture is still outstanding (UB2-D15); see
-  [docs/UNITY-PORT.md](./docs/UNITY-PORT.md) and `capabilities/engine.unity.port.mobile.json`.
+- **Release:** **PC-only** stamped release `UBLADE2_RELEASE_OK version=2026.10.26.008` (Windows ZIP
+  `dist/UBlade2-2026.10.26.008-win64.zip`, SHA-256 `fef1d1b4be9c23f38633ffd568f8d81a6b0e43d6ae0c916112ec0d0cf80d7355`);
+  see [docs/RELEASE.md](./docs/RELEASE.md) and `artifacts/ublade2-release/release.json`.
+- **Mobile:** parked by operator decision (2026-10-26, PC-only milestone). Earlier partial Android build/launcher
+  evidence is preserved but is not part of the release and is not claimed complete (UB2-D15); see
+  `capabilities/engine.unity.port.mobile.json`.
+- **Verification:** `checks: PASS (7/7)`, 12 local Gypsy manifests valid (3 toolpacks, 3 slices, 6 capabilities);
+  match/league/UI/release evidence is in `artifacts/ublade2-pro/` and `artifacts/ublade2-release/`.
 - **Work state:** committed and pushed; GitHub Actions `checks` is green and the working tree is clean. The current
   commit hashes and CI runs are recorded in [Retrace.md](./Retrace.md) and [BuildNotes.md](./BuildNotes.md).
 
@@ -34,7 +42,10 @@ build, demo and capture gates; the full acceptance record, commands and measured
 - [toolpacks/ublade2.unity.json](./toolpacks/ublade2.unity.json) — Gypsy toolpack (build, demo, capture, capture-check
   and their validators).
 - [slices/ublade2.unity.json](./slices/ublade2.unity.json) — the Gypsy slice (Unity toolpack, then the check list).
-- [capabilities](./capabilities) — Unity build/demo/capture and hero-import capability manifests.
+- [toolpacks/ublade2.game.json](./toolpacks/ublade2.game.json) — playable-slice toolpack (build, legacy demo/capture,
+  match, league save test, match/menu/UI captures and validators).
+- [slices/ublade2.game.json](./slices/ublade2.game.json) — the playable-slice Gypsy slice.
+- [capabilities](./capabilities) — Unity port, mobile (parked) and playable-slice capability manifests.
 
     python scripts/gypsy_unity.py check
     python scripts/gypsy_unity.py toolpacks run ublade2.unity

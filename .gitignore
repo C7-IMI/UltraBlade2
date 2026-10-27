@@ -33,3 +33,6 @@ unity/UBlade2/*.sln
 unity/UBlade2/.vs/
 # Unity IL2CPP build scratch
 unity/UBlade2/.utmp/
+
+# release packaging output
+dist/

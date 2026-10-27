@@ -1,0 +1,45 @@
+{
+  "schema": "ublade2.ui.captures/v1",
+  "dir": "artifacts/ublade2-pro/ui",
+  "passed": true,
+  "screens": {
+    "menu.png": {
+      "width": 1280,
+      "height": 720,
+      "nonBackgroundRatio": 0.0746,
+      "distinctColors": 97
+    },
+    "league.png": {
+      "width": 1280,
+      "height": 720,
+      "nonBackgroundRatio": 0.059,
+      "distinctColors": 75
+    },
+    "settings.png": {
+      "width": 1280,
+      "height": 720,
+      "nonBackgroundRatio": 0.0656,
+      "distinctColors": 78
+    },
+    "match.png": {
+      "width": 1280,
+      "height": 720,
+      "nonBackgroundRatio": 0.7453,
+      "distinctColors": 248
+    },
+    "pause.png": {
+      "width": 1280,
+      "height": 720,
+      "nonBackgroundRatio": 0.1067,
+      "distinctColors": 96
+    },
+    "result.png": {
+      "width": 1280,
+      "height": 720,
+      "nonBackgroundRatio": 0.0647,
+      "distinctColors": 113
+    }
+  },
+  "errors": [],
+  "generatedAt": "2026-10-27T00:23:26+00:00"
+}
