@@ -1,6 +1,6 @@
 # BuildNotes - the changelog
 
-Current version: 2026.10.26.011
+Current version: 2026.10.26.012
 
 BuildNotes is UltraBlade 2's dated, versioned changelog (`<CHANGELOG>` in the pack). Newest entry first; versions
 are `YYYY.M.D.NNN` with a zero-padded sequence, and the next one is computed by
@@ -8,7 +8,7 @@ are `YYYY.M.D.NNN` with a zero-padded sequence, and the next one is computed by
 log these entries answer. Records are guarded by [`scripts/records_check.py`](./scripts/records_check.py) and run by
 [`scripts/check_all.py`](./scripts/check_all.py).
 
-## How versions 001-011 were assigned
+## How versions 001-012 were assigned
 
 No changelog existed before this bootstrap, so the bootstrap assigned `2026.10.26.001` to the repository-creation
 commit (the only commit already in `git log`) and `2026.10.26.002` to the pack application. `2026.10.26.003` (the
@@ -21,6 +21,51 @@ This changelog has **no generated documentation copies yet**. There is no genera
 regenerate; when the game arrives, its export and captures will be generated artefacts under gitignored `build/` and
 `artifacts/`. [`scripts/records_check.py`](./scripts/records_check.py) checks the source, its `Current version:` header
 and [`Retrace.md`](./Retrace.md); it will compare generated copies when they exist.
+
+## 2026.10.26.012
+
+**Fix the failed first HyperBlade slice using REA analysis of the demo and the public source-level decompilation:
+giant curved drome, wide tracking camera, real WASD movement, larger animated skaters, and a new PC release.**
+
+- Date: 2026-10-27
+- Commit: this change (final hash/push/CI in the final report).
+- Request: the operator reported the slice "neither looks nor plays anything like the original HyperBlade": camera
+  too close, drome tiny versus the giant half-pipe original, controls stuck at the wall and WASD directions wrong,
+  skaters barely moving, "completely unplayable"; then asked to use the operator's `C7-IMI/rea` repository to analyse
+  the downloaded HyperBlade demo and apply the findings to UltraBlade 2.
+- REA pass: cloned `C7-IMI/rea` read-only under `.work/refs/rea` and ran its artifact/entropy/desktop providers.
+  Native decompilation was unavailable (no Ghidra/IDA; the Chocolatey Ghidra install failed on administrator/choco
+  locks), so REA produced demo inventory and byte-entropy Evidence and the public byte-matching decompilation
+  (`zach2good/hyperblade-decomp`) plus the 20XX port were used as the source-level ground truth. Analyzed the demo
+  files: `HYPER.EXE` 712,817 B SHA-256 `0bc0bd01...c7d2` (Director demo player, not the 860,160-byte game EXE) and
+  `HYPER.DIR` 2,003,612 B SHA-256 `0485535c...dcc8`; the DIR is a byte-swapped RIFX/MV93 Director movie with 189
+  chunks (60 Lscr, 56 CASt, 24 BITD, 13 THUM, 8 CLUT, 2 snd) and no plaintext gameplay constants. Full record:
+  `docs/REA-HYPERBLADE-ANALYSIS.md`.
+- Changes: arena enlarged to 66 x 110 m with a 20-ring, 6 m deep curved half-pipe bowl (flat around the goal ends), a
+  40 m inward faceted shell and raised goal/crease proportion; camera now uses the original 85-degree FOV, a
+  18 m/9 m player-tracking boom clamped inside the drome and looking at the player (no more spin with the player and
+  no more empty-shell views); WASD/arrows are camera-relative and the player follows the bowl surface; base speed
+  raised to 18 (22.5 effective), dromers 1.35x with stronger stride/torso animation; drome floor/wall materials
+  brightened to the grey flat-shaded reference look. Added `--play-test` real-keyboard test mode. New docs/REA
+  analysis and game-design/port updates.
+- Verification: all gates on the final build - `UBLADE2_BUILD Succeeded` with `UBLADE2_VERSION 2026.10.26.012`;
+  `UBLADE2_DEMO_OK`/`GYPSY_DEMO_OK collected=3` and `UBLADE2_CAPTURE_OK`/`CAPTURE_CHECK_OK`; headless match
+  `UBLADE2_MATCH_OK home=10 away=4 winner=1 frames=4639 periods=3 phase=Ended` (v2 evidence); Gauntlet
+  `UBLADE2_LEAGUE_SAVE_OK ... passed=True`; `MATCH_CAPTURE_CHECK_OK` (1280x720, wider 85-degree bowl view),
+  `MENU_CAPTURE_CHECK_OK` and `UI_CAPTURES_CHECK_OK screens=6`. Real-keyboard play-test log:
+  `UBLADE2_PLAY_TEST_START player=(-9,0.05,-20)` then W moved z from -20 to +18.81, A moved x to -18.68 and D moved
+  x back to +13; player never stuck. Evidence committed under `artifacts/ublade2-pro/` including
+  `play-test.log`. PC release `UBLADE2_RELEASE_OK version=2026.10.26.012`; ZIP 50,910,823 bytes SHA-256
+  `7eeff05760b54c2ef670ce4631b8fb0c8ce47695973a40e747003b63317b329f`; EXE SHA-256
+  `9806abde4a406ed68647e9505852c49f6aa72a372f4f084e2aa2821affea57a2`.
+- Limits: the bowl, skaters and goals remain procedural reconstructions, not original meshes; the two goal ends are
+  deliberately flatter so the small wall goals clear; the camera is a play-tested approximation, not the exact
+  bungee rig; REA could not decompile the demo EXE (provider unavailable) and the Director demo yields no playable
+  drome data; the full original weapon/permadeath/animation set is still approximated. Mobile remains parked (PC-only
+  operator decision).
+- Method: REA clone and artifact/entropy/desktop evidence; public decomp source and 20XX clone as read-only
+  references; Lead rebuilt arena/camera/movement/models directly, ran the gates, captured and inspected the frames.
+
 
 ## 2026.10.26.011
 

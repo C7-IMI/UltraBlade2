@@ -10,7 +10,7 @@ using UnityEngine;
 // hazards, score 2 (or 4 through the multiplier) across three periods.
 public class UBlade2Game : MonoBehaviour
 {
-    private const float BaseSpeed = 7.2f;
+    private const float BaseSpeed = 18f;
 
     private GameSettings settings;
     private LeagueData league;
@@ -40,6 +40,8 @@ public class UBlade2Game : MonoBehaviour
     private bool demo;
     private bool matchMode;
     private bool captureAutoplay;
+    private bool debugOverview;
+    private bool playTest;
     private bool leagueTest;
     private string capturePath;
     private string evidencePath;
@@ -173,6 +175,7 @@ public class UBlade2Game : MonoBehaviour
         Application.targetFrameRate = 60;
         demo = HasArg("--demo");
         matchMode = HasArg("--match");
+        playTest = HasArg("--play-test");
         leagueTest = HasArg("--league-test");
         matchCapturePath = GetArg("--match-capture=");
         menuCapturePath = GetArg("--menu-capture=");
@@ -228,6 +231,14 @@ public class UBlade2Game : MonoBehaviour
         BuildMenuWorld();
         worldReady = true;
 
+        if (playTest)
+        {
+            ranked = false;
+            screen = GameScreen.Match;
+            BeginMatch(false, 180f);
+            Debug.Log("UBLADE2_PLAY_TEST_START player=" + homeSkaters[0].transform.position);
+            return;
+        }
         if (matchMode)
         {
             league.ResetSeason();
@@ -350,8 +361,8 @@ public class UBlade2Game : MonoBehaviour
         drome = DromeBuilder.Build(transform, arena, homeTeam.primary, awayTeam.primary);
         dromeRoot = drome.root != null ? drome.root.gameObject : null;
         cam = Camera.main;
-        if (cam != null) cam.transform.position = new Vector3(0f, 13f, -30f);
-        RenderSettings.ambientLight = new Color(0.36f, 0.38f, 0.42f);
+        if (cam != null) cam.transform.position = new Vector3(0f, 26f, -44f);
+        RenderSettings.ambientLight = new Color(0.62f, 0.64f, 0.68f);
         SimulateMenuCamera();
         Debug.Log("UBLADE2_HYPERBLADE_WORLD team=" + homeTeam.id + " opponent=" + awayTeam.id + " arena=" + arena.env + " props=" + (drome.props != null ? drome.props.Length : 0));
     }
@@ -374,11 +385,11 @@ public class UBlade2Game : MonoBehaviour
             cam.clearFlags = CameraClearFlags.SolidColor;
         }
         cam.backgroundColor = new Color(0.02f, 0.02f, 0.03f);
-        cam.fieldOfView = 72f;
+        cam.fieldOfView = 85f;
         cam.nearClipPlane = 0.1f;
-        cam.farClipPlane = 300f;
-        cam.transform.position = new Vector3(0f, 6f, -18f);
-        RenderSettings.ambientLight = new Color(0.42f, 0.44f, 0.48f);
+        cam.farClipPlane = 1200f;
+        cam.transform.position = new Vector3(0f, 11.5f, -22f);
+        RenderSettings.ambientLight = new Color(0.72f, 0.74f, 0.78f);
 
         var matchConfig = new MatchConfig
         {
@@ -484,17 +495,17 @@ public class UBlade2Game : MonoBehaviour
         if (awayAi0 != null) awayAi0.Reset();
         if (awayAi1 != null) awayAi1.Reset();
         if (autopilotAi != null) autopilotAi.Reset();
-        if (homeGoalieVisual != null && arena != null) homeGoalieVisual.transform.position = new Vector3(0f, 0.05f, -arena.radiusZ + 2f);
-        if (awayGoalieVisual != null && arena != null) awayGoalieVisual.transform.position = new Vector3(0f, 0.05f, arena.radiusZ - 2f);
-        if (homeSkaters[0] != null) PlaceSkater(homeSkaters[0], new Vector3(-4f, 0.05f, -9f));
-        if (homeSkaters[1] != null) PlaceSkater(homeSkaters[1], new Vector3(4f, 0.05f, -11f));
-        if (awaySkaters[0] != null) PlaceSkater(awaySkaters[0], new Vector3(-4f, 0.05f, 9f));
-        if (awaySkaters[1] != null) PlaceSkater(awaySkaters[1], new Vector3(4f, 0.05f, 11f));
+        if (homeGoalieVisual != null && arena != null) homeGoalieVisual.transform.position = new Vector3(0f, 0.05f, drome != null ? drome.goalSouthMouth.z + 1.2f : -arena.radiusZ + 2f);
+        if (awayGoalieVisual != null && arena != null) awayGoalieVisual.transform.position = new Vector3(0f, 0.05f, drome != null ? drome.goalNorthMouth.z - 1.2f : arena.radiusZ - 2f);
+        if (homeSkaters[0] != null) PlaceSkater(homeSkaters[0], new Vector3(-9f, 0.05f, -20f));
+        if (homeSkaters[1] != null) PlaceSkater(homeSkaters[1], new Vector3(9f, 0.05f, -24f));
+        if (awaySkaters[0] != null) PlaceSkater(awaySkaters[0], new Vector3(-9f, 0.05f, 20f));
+        if (awaySkaters[1] != null) PlaceSkater(awaySkaters[1], new Vector3(9f, 0.05f, 24f));
         foreach (var skater in homeSkaters) if (skater != null) { skater.health = 150f; skater.stun = 0f; skater.downed = false; if (skater.go != null && skater.active) skater.go.SetActive(true); }
         foreach (var skater in awaySkaters) if (skater != null) { skater.health = 150f; skater.stun = 0f; skater.downed = false; if (skater.go != null && skater.active) skater.go.SetActive(true); }
         if (rok != null) rok.Reset(drome != null ? drome.rokSpawn : new Vector3(0f, 0.5f, 0f));
-        if (homeGoalie != null) homeGoalie.Reset(new Vector3(0f, 0.05f, -arena.radiusZ + 2.0f));
-        if (awayGoalie != null) awayGoalie.Reset(new Vector3(0f, 0.05f, arena.radiusZ - 2.0f));
+        if (homeGoalie != null) homeGoalie.Reset(new Vector3(0f, 0.05f, drome != null ? drome.goalSouthMouth.z + 1.2f : -arena.radiusZ + 2f));
+        if (awayGoalie != null) awayGoalie.Reset(new Vector3(0f, 0.05f, drome != null ? drome.goalNorthMouth.z - 1.2f : arena.radiusZ - 2f));
         multiplierLevel = 1;
         multiplierArmed = false;
         multiplierOwner = 0;
@@ -525,6 +536,10 @@ public class UBlade2Game : MonoBehaviour
                 return;
             }
             StepMatch(Time.deltaTime, false);
+            if (playTest && matchFrames % 30 == 0)
+            {
+                Debug.Log("UBLADE2_DEBUG_INPUT frame=" + matchFrames + " move=" + GameInput.Move + " player=" + homeSkaters[0].transform.position);
+            }
         }
         else if (screen == GameScreen.Paused && (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P)))
         {
@@ -541,9 +556,9 @@ public class UBlade2Game : MonoBehaviour
     {
         if (cam == null) return;
         var t = Time.time * 0.05f;
-        cam.transform.position = new Vector3(Mathf.Sin(t) * 16f, 11f, -28f);
+        cam.transform.position = new Vector3(Mathf.Sin(t) * 28f, 22f, -44f);
         cam.transform.LookAt(Vector3.zero);
-        cam.fieldOfView = 62f;
+        cam.fieldOfView = 85f;
     }
 
     private void StepMatch(float dt, bool autopilot)
@@ -578,6 +593,11 @@ public class UBlade2Game : MonoBehaviour
             }
         }
 
+        if (matchFrames % 120 == 0)
+        {
+            var renderers = drome.root != null ? drome.root.GetComponentsInChildren<Renderer>() : new Renderer[0];
+            Debug.Log("UBLADE2_DEBUG_STEP frame=" + matchFrames + " screen=" + screen + " camNull=" + (cam == null) + " camPos=" + (cam != null ? cam.transform.position.ToString() : "null") + " camEnabled=" + (cam != null && cam.enabled) + " target=" + (homeSkaters[0] != null ? homeSkaters[0].transform.position.ToString() : "null") + " drome=" + (drome.root != null ? drome.root.name : "NULL") + " renderers=" + renderers.Length + " radius=" + arena.radiusX + "x" + arena.radiusZ);
+        }
         if (matchFrames % 240 == 0 && rok != null)
         {
             var carrier = CarrierSkater(rok.CarrierIndex);
@@ -598,8 +618,8 @@ public class UBlade2Game : MonoBehaviour
         if (autopilot)
         {
             Vector3 move; bool attack; bool shoot; bool dash;
-            var homeGoal = new Vector3(0f, 0.05f, -arena.radiusZ + 2f);
-            var awayGoal = new Vector3(0f, 0.05f, arena.radiusZ - 2f);
+            var homeGoal = new Vector3(0f, 0.05f, drome != null ? drome.goalSouthMouth.z + 1.2f : -arena.radiusZ + 2f);
+            var awayGoal = new Vector3(0f, 0.05f, drome != null ? drome.goalNorthMouth.z - 1.2f : arena.radiusZ - 2f);
             ai.Think(dt, skater.transform.position, awayGoal, homeGoal, rok != null ? rok.Position : Vector3.zero,
                 rok != null && rok.State == RokState.Loose, HasRok(skater), OpponentHasRok(),
                 OpponentCarrierPosition(), out move, out attack, out shoot, out dash);
@@ -608,7 +628,12 @@ public class UBlade2Game : MonoBehaviour
             if (shoot) ShootRok(skater, awayGoal);
             return;
         }
-        var horizontal = new Vector3(GameInput.Move.x, 0f, GameInput.Move.y);
+        var input = GameInput.Move;
+        var forward = Vector3.ProjectOnPlane(cam != null ? cam.transform.forward : Vector3.forward, Vector3.up);
+        if (forward.sqrMagnitude < 0.001f) forward = Vector3.forward;
+        forward.Normalize();
+        var right = Vector3.Cross(Vector3.up, forward);
+        var horizontal = forward * input.y + right * input.x;
         var hasRok = HasRok(skater);
         if (hasRok)
         {
@@ -668,7 +693,7 @@ public class UBlade2Game : MonoBehaviour
     {
         if (skater == null || skater.downed) return;
         var definition = homeTeam.skaters[0];
-        var speed = BaseSpeed * (0.7f + definition.speed * 0.05f) * (speedburst ? 1.55f : 1f);
+        var speed = BaseSpeed * (0.7f + definition.speed * 0.05f) * (speedburst ? 1.55f : 1f) * 1.25f;
         var planar = new Vector3(direction.x, 0f, direction.z);
         if (planar.sqrMagnitude > 0.0001f)
         {
@@ -701,8 +726,9 @@ public class UBlade2Game : MonoBehaviour
             nz /= length;
             position.x = nx * (arena.radiusX - 1.3f);
             position.z = nz * (arena.radiusZ - 1.8f);
-            target.position = position;
         }
+        position.y = 0.05f + DromeBuilder.SurfaceY(position.x, position.z, arena.radiusX, arena.radiusZ);
+        target.position = position;
     }
 
     private void UpdateAiSkater(Skater skater, float dt, bool isHome, int index, AiController ai)
@@ -717,7 +743,7 @@ public class UBlade2Game : MonoBehaviour
             rok != null && rok.State == RokState.Loose, HasRok(skater), OpponentHasRok(),
             OpponentCarrierPosition(), out move, out attack, out shoot, out dash);
         var definition = (isHome ? homeTeam : awayTeam).skaters[index % 4];
-        var speed = BaseSpeed * (0.65f + definition.speed * 0.05f) * (dash ? 1.35f : 1f);
+        var speed = BaseSpeed * (0.65f + definition.speed * 0.05f) * (dash ? 1.35f : 1f) * 1.2f;
         if (move.sqrMagnitude > 0.001f && skater.transform != null)
         {
             skater.transform.position += move * speed * dt;
@@ -796,6 +822,8 @@ public class UBlade2Game : MonoBehaviour
     {
         if (rok == null) return;
         rok.Update(dt, true, arena.radiusX, arena.radiusZ);
+        var rokFloor = DromeBuilder.SurfaceY(rok.Position.x, rok.Position.z, arena.radiusX, arena.radiusZ);
+        if (rok.State != RokState.InGoal && rok.Position.y < rokFloor + 0.36f) { rok.Position.y = rokFloor + 0.36f; }
         if (rok.State == RokState.Loose || rok.State == RokState.InFlight)
         {
             var homeWasFlying = rok.State == RokState.InFlight;
@@ -1304,6 +1332,8 @@ public class UBlade2Game : MonoBehaviour
     private IEnumerator RunMatchCapture(string path, bool keepRunning)
     {
         ranked = false;
+        screen = GameScreen.Match;
+        debugOverview = false;
         BeginMatch(true, 180f);
         while (matchFrames < 430 && screen == GameScreen.Match)
         {
@@ -1370,6 +1400,7 @@ public class UBlade2Game : MonoBehaviour
         screen = GameScreen.League; UpdateMenuModel(); yield return new WaitForSeconds(0.4f); yield return CaptureUiFrame("league.png");
         screen = GameScreen.Settings; UpdateMenuModel(); yield return new WaitForSeconds(0.4f); yield return CaptureUiFrame("settings.png");
         ranked = false;
+        screen = GameScreen.Match;
         BeginMatch(true, 180f);
         for (int i = 0; i < 40; i++) StepMatch(Time.fixedDeltaTime, true);
         yield return new WaitForSeconds(0.3f); yield return CaptureUiFrame("match.png");
@@ -1626,10 +1657,27 @@ public class UBlade2Game : MonoBehaviour
             return;
         }
         if (cam == null || homeSkaters[0] == null || screen != GameScreen.Match && screen != GameScreen.Paused) return;
+        if (debugOverview)
+        {
+            cam.transform.position = new Vector3(0f, 70f, -5f);
+            cam.transform.LookAt(Vector3.zero);
+            return;
+        }
         var target = homeSkaters[0].transform;
-        var offset = target.rotation * new Vector3(1.0f, 2.1f, -4.4f);
-        cam.transform.position = Vector3.Lerp(cam.transform.position, target.position + offset, 9f * Time.deltaTime);
-        cam.transform.LookAt(target.position + new Vector3(0f, 1.35f, 0f));
+        var desired = target.position + new Vector3(0f, 9.0f, -18.0f);
+        float limitX = Mathf.Max(4f, arena.radiusX * 0.88f);
+        float limitZ = Mathf.Max(4f, arena.radiusZ * 0.88f);
+        float ex = desired.x / limitX;
+        float ez = desired.z / limitZ;
+        float radial = Mathf.Sqrt(ex * ex + ez * ez);
+        if (radial > 1f) { desired.x /= radial; desired.z /= radial; }
+        cam.transform.position = Vector3.Lerp(cam.transform.position, desired, 9f * Time.deltaTime);
+        cam.transform.LookAt(target.position + new Vector3(0f, 2.2f, 0f));
+        if (matchFrames % 120 == 0)
+        {
+            var evidenceRenderer = drome.root != null ? drome.root.GetComponentsInChildren<Renderer>() : new Renderer[0];
+            Debug.Log("UBLADE2_DEBUG_CAM frame=" + matchFrames + " cam=" + cam.transform.position + " target=" + target.position + " fov=" + cam.fieldOfView + " dromeRoot=" + (drome.root != null ? drome.root.name : "NULL") + " renderers=" + evidenceRenderer.Length + " radius=" + arena.radiusX + "x" + arena.radiusZ);
+        }
     }
 
     private static float HorizontalDistance(Vector3 a, Vector3 b)

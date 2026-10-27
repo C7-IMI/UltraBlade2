@@ -24,7 +24,7 @@ Direct3D:
     App VRAM Budget: 3347 MB
     Driver:          32.0.15.9730
 Begin MonoManager ReloadAssembly
-- Finished resetting the current domain, in  0.007 seconds
+- Finished resetting the current domain, in  0.006 seconds
 [Physics::Module] Selected backend (deferred post-plugins).
 [Physics::Module] Name: PhysX
 [Physics::Module] Id: 0xf2b8ea05
@@ -35,14 +35,19 @@ Begin MonoManager ReloadAssembly
 
 <RI> Input initialized.
 
-UnloadTime: 0.712500 ms
+Direct3D: detected that IDXGISwapChain::GetFrameStatistics is broken (it does not return proper timestamps). Delta time will now be calculated using cpu-side time stampling until the game window is moved.
+UnloadTime: 0.669400 ms
 UBLADE2_START demo=False crystals=0 unity=6000.6.7f1 screen=1280x720 capture=none mode=capture
 UBLADE2_HYPERBLADE_WORLD team=tokyo opponent=chico arena=CHIDRO props=31
 UBLADE2_MATCH_START home=tokyo away=toron arena=TORDRO periods=3 periodSeconds=180 ranked=False autoplay=True
-UBLADE2_DEBUG_PICKUP home index=0 name=Hashimoto frame=148
-UBLADE2_DEBUG_SHOT by=Hashimoto home=True power=0.83 frame=206
-UBLADE2_DEBUG_STATE frame=240 phase=Playing rokState=Loose carrier=- score=0-0
-UBLADE2_DEBUG_PICKUP away index=0 name=Kunkel frame=290
+UBLADE2_DEBUG_STEP frame=120 screen=Match camNull=False camPos=(-5.78, 9.56, -30.85) camEnabled=True target=(-4.75, 0.40, -10.56) drome=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_PICKUP home index=0 name=Hashimoto frame=139
+UBLADE2_DEBUG_SHOT by=Hashimoto home=True power=0.83 frame=214
+UBLADE2_DEBUG_GOAL north=True scoringTeam=1 rok=(0.07, 1.51, 53.43)
+UBLADE2_DEBUG_STEP frame=240 screen=Match camNull=False camPos=(-0.29, 10.28, 6.82) camEnabled=True target=(-0.27, 1.04, 22.29) drome=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_STATE frame=240 phase=GoalFlash rokState=InGoal carrier=- score=1-0
+UBLADE2_DEBUG_STEP frame=360 screen=Match camNull=False camPos=(-1.97, 9.12, -22.38) camEnabled=True target=(-0.93, 0.06, -2.07) drome=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_PICKUP home index=0 name=Hashimoto frame=361
 UBLADE2_MATCH_CAPTURE_OK path=C:\Users\STEPHE~1\AppData\Local\Temp\ublade2-match-capture-frame.png screen=1280x720 frames=430
 [Physics::Module] Cleanup current backend.
 [Physics::Module] Id: 0xf2b8ea05

@@ -64,22 +64,22 @@ public sealed class DromeInstance
 public static class DromeBuilder
 {
     /// <summary>Nominal clearance between the goal posts, in metres.</summary>
-    public const float GoalWidth = 5.2f;
+    public const float GoalWidth = 10.0f;
 
     /// <summary>Nominal clearance between the floor and the goal crossbar, in metres.</summary>
-    public const float GoalHeight = 3.2f;
+    public const float GoalHeight = 5.5f;
 
     /// <summary>Height of the rink wall, in metres.</summary>
-    public const float WallHeight = 7f;
+    public const float WallHeight = 40f;
 
     /// <summary>How far the top of the wall leans inward, as a fraction of the floor radius.</summary>
-    public const float WallTopScale = 0.93f;
+    public const float WallTopScale = 0.45f;
 
     /// <summary>Name of the generated child the builder owns.</summary>
     public const string RootObjectName = "Drome";
 
     private const int FloorSegments = 72;
-    private const int FloorRings = 9;
+    private const int FloorRings = 20;
     private const int WallSegments = 64;
     private const int CrowdSegments = 60;
     private const int CrowdTiers = 3;
@@ -87,11 +87,11 @@ public static class DromeBuilder
     private const int CrowdTrimSegments = 72;
     private const float GoalDepth = 2.4f;
     private const float WallThickness = 0.36f;
-    private const float CrowdBaseHeight = 7.2f;
+    private const float CrowdBaseHeight = 24f;
     private const float CrowdTierRise = 1.45f;
-    private const float StandsTopHeight = 14.4f;
-    private const float CeilingHeight = 19f;
-    private const float CeilingScale = 1.45f;
+    private const float StandsTopHeight = 44f;
+    private const float CeilingHeight = 90f;
+    private const float CeilingScale = 1.7f;
     private const float PropRadiusLimit = 0.92f;
     private const int PropSeed = 1996;
     private const float Deg2Rad = Mathf.Deg2Rad;
@@ -151,9 +151,10 @@ public static class DromeBuilder
 
         Transform colliderRoot = CreateGroup(root, "Colliders");
 
-        // Floor: one flat elliptical disc, 72 radial segments by 9 rings.
+        // Floor: a shallow elliptical half-pipe bowl (flat at the two goal ends so the
+        // small wall goals stay clear), painted and collided as one surface.
         var floorBuilder = new MeshBuilder();
-        floorBuilder.AddEllipseDisc(Vector3.zero, radiusX, radiusZ, FloorRings, FloorSegments, 0f, Vector3.up);
+        AddBowlFloor(floorBuilder, radiusX, radiusZ, BowlDepth, FloorRings, FloorSegments);
         Mesh floorMesh = floorBuilder.ToMesh("Drome Floor");
         GameObject floorObject = CreateMeshObject(root, "Floor", floorMesh, palette[Mat.Floor]);
         var floorCollider = floorObject.AddComponent<MeshCollider>();
@@ -307,7 +308,7 @@ public static class DromeBuilder
     {
         Color home = Lift(homeColor, 0.50f);
         Color away = Lift(awayColor, 0.50f);
-        Color floor = arena.floorColor;
+        Color floor = Color.Lerp(arena.floorColor, new Color(0.64f, 0.66f, 0.69f, 1f), 0.85f);
         Color crowd = new Color(0.085f, 0.09f, 0.105f, 1f);
 
         var palette = new Palette();
@@ -317,9 +318,9 @@ public static class DromeBuilder
         palette[Mat.MarkRed] = CreateMaterial(shader, "Mark Red", new Color(0.68f, 0.05f, 0.06f, 1f), 0f);
         palette[Mat.MarkBlue] = CreateMaterial(shader, "Mark Blue", new Color(0.08f, 0.18f, 0.48f, 1f), 0f);
         palette[Mat.StarRed] = CreateMaterial(shader, "Star Red", new Color(0.80f, 0.05f, 0.07f, 1f), 1.1f);
-        palette[Mat.WallDark] = CreateMaterial(shader, "Wall Dark", new Color(0.12f, 0.13f, 0.15f, 1f), 0f);
-        palette[Mat.WallRed] = CreateMaterial(shader, "Wall Red", new Color(0.50f, 0.04f, 0.05f, 1f), 0f);
-        palette[Mat.WallWhite] = CreateMaterial(shader, "Wall White", new Color(0.68f, 0.69f, 0.70f, 1f), 0f);
+        palette[Mat.WallDark] = CreateMaterial(shader, "Wall Dark", new Color(0.52f, 0.54f, 0.58f, 1f), 0f);
+        palette[Mat.WallRed] = CreateMaterial(shader, "Wall Red", new Color(0.72f, 0.06f, 0.07f, 1f), 0f);
+        palette[Mat.WallWhite] = CreateMaterial(shader, "Wall White", new Color(0.78f, 0.79f, 0.80f, 1f), 0f);
         palette[Mat.TeamHome] = CreateMaterial(shader, "Team Home", home, 0f);
         palette[Mat.TeamAway] = CreateMaterial(shader, "Team Away", away, 0f);
         palette[Mat.CrowdDark] = CreateMaterial(shader, "Crowd Dark", crowd, 0f);
@@ -577,6 +578,47 @@ public static class DromeBuilder
         return PanelMaterial(segment, midDeg, north, south);
     }
 
+    public const float BowlDepth = 6.0f;
+
+    // Same surface function the game uses for skater height. The bowl is deepest on the
+    // long sides and fades to flat around the two goal ends, keeping the small wall goals clear.
+    public static float SurfaceY(float x, float z, float radiusX, float radiusZ)
+    {
+        float nx = x / Mathf.Max(0.001f, radiusX);
+        float nz = z / Mathf.Max(0.001f, radiusZ);
+        float r = Mathf.Sqrt(nx * nx + nz * nz);
+        float endFade = Mathf.Clamp01((Mathf.Abs(nz) - 0.55f) / 0.45f);
+        return BowlDepth * r * r * (1f - 0.85f * endFade);
+    }
+
+    private static void AddBowlFloor(MeshBuilder mesh, float radiusX, float radiusZ, float depth, int rings, int segments)
+    {
+        rings = Mathf.Max(2, rings);
+        segments = Mathf.Max(8, segments);
+        for (int ring = 0; ring < rings; ring++)
+        {
+            float r0 = ring / (float)rings;
+            float r1 = (ring + 1) / (float)rings;
+            for (int segment = 0; segment < segments; segment++)
+            {
+                float a0 = segment * TwoPi / segments;
+                float a1 = (segment + 1) * TwoPi / segments;
+                Vector3 p00 = BowlPoint(radiusX, radiusZ, depth, r0, a0);
+                Vector3 p10 = BowlPoint(radiusX, radiusZ, depth, r1, a0);
+                Vector3 p11 = BowlPoint(radiusX, radiusZ, depth, r1, a1);
+                Vector3 p01 = BowlPoint(radiusX, radiusZ, depth, r0, a1);
+                mesh.AddQuadFacing(p00, p10, p11, p01, Vector3.up);
+            }
+        }
+    }
+
+    private static Vector3 BowlPoint(float radiusX, float radiusZ, float depth, float r, float angle)
+    {
+        float x = Mathf.Cos(angle) * radiusX * r;
+        float z = Mathf.Sin(angle) * radiusZ * r;
+        return new Vector3(x, SurfaceY(x, z, radiusX, radiusZ), z);
+    }
+
     private static void BuildMarkings(Batch batch, float radiusX, float radiusZ, GoalSpec north, GoalSpec south)
     {
         Matrix4x4 identity = Matrix4x4.identity;
@@ -592,7 +634,7 @@ public static class DromeBuilder
         // Centre face-off ellipse, outer red ring and the red six point star logo.
         white.AddArcBand(Vector3.zero, radiusX, radiusZ, 0.200f, 0.216f, 0f, 360f, 0.014f, FloorSegments, Vector3.up);
         red.AddArcBand(Vector3.zero, radiusX, radiusZ, 0.232f, 0.240f, 0f, 360f, 0.012f, FloorSegments, Vector3.up);
-        star.AddStar(Vector3.zero, 6, 3.35f, 1.30f, 0.030f, 90f, Vector3.up);
+        star.AddStar(Vector3.zero, 6, radiusX * 0.12f, radiusX * 0.045f, 0.030f, 90f, Vector3.up);
 
         // White, red and blue painted arcs curving to the two long ends, plus face-off dots.
         for (int end = 0; end < 2; end++)
@@ -626,7 +668,7 @@ public static class DromeBuilder
 
     private static void BuildWall(Batch batch, MeshBuilder collider, float radiusX, float radiusZ, GoalSpec north, GoalSpec south, float[] angles)
     {
-        float[] bands = { 0f, 0.55f, GoalHeight, 5.10f, 5.90f, WallHeight };
+        float[] bands = { 0f, 0.55f, GoalHeight, WallHeight * 0.22f, WallHeight * 0.26f, WallHeight };
         Matrix4x4 identity = Matrix4x4.identity;
 
         for (int index = 0; index < angles.Length; index++)

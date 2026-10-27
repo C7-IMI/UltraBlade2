@@ -355,3 +355,22 @@ Each entry has:
   `artifacts/ublade2-release/release.json`, `dist/UBlade2-2026.10.26.010-win64.zip`; research/work data in the
   git-ignored `.work/hyperblade-ref/` (manual OCR, CD data extraction, 2 research reports, ~450 video frames).
 
+## 10 - 2026-10-27
+
+- Request: "It neither looks nor plays anything like the original HyperBlade. Camera is zoomed too close. the
+  arena/drome is tiny compared to the large sprawling, giant half-pipe style one in the old game. The controls are
+  essentially non-working. I get stuck along the wall when trying to move. The WASD keys don't move the player in
+  the intended directions. The characters dont look at all like the reference material. They are supposed to be
+  skating around in an arena. The ones you made barely move. The game is completely unplayable." Then: "use rea in my
+  github repos to analyze the HyperBlade demo you downloaded" and "after you finish using rea on the hyperblade demo,
+  use what you found to update UltraBlade 2 (concepts, gameplay, visual style, models, animations, etc)."
+- Status: Completed - cloned and ran REA on the demo artifacts (native provider unavailable; documented honestly),
+  parsed the Director demo container, cross-checked the byte-matching decompilation and 20XX source, then rebuilt
+  the arena/camera/movement/model presentation and re-released the PC build. The changes are measured; the drome and
+  skaters are still reconstructions, not original assets.
+- Version: 2026.10.26.012
+- Commit/evidence: this change (final hash, push and CI in the final report). Evidence: `docs/REA-HYPERBLADE-ANALYSIS.md`,
+  `docs/GAME-DESIGN.md`, `docs/UNITY-PORT.md`, `artifacts/ublade2-pro/match.png`, `match-runtime.json` (10-4, periods=3),
+  `play-test.log`, six UI frames, legacy demo/capture artifacts, `artifacts/ublade2-release/release.json` and
+  `dist/UBlade2-2026.10.26.012-win64.zip`. REA evidence and clones remain git-ignored under `.work/refs/`.
+

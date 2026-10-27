@@ -1,12 +1,12 @@
 {
     "schema": "ublade2.match.runtime/v2",
     "passed": true,
-    "homeScore": 7,
-    "awayScore": 2,
-    "homeGoals": 7,
-    "awayGoals": 2,
+    "homeScore": 10,
+    "awayScore": 4,
+    "homeGoals": 10,
+    "awayGoals": 4,
     "winner": 1,
-    "frames": 4234,
+    "frames": 4639,
     "periods": 3,
     "phase": "Ended",
     "homeTeam": "tokyo",
@@ -14,5 +14,5 @@
     "arena": "TORDRO",
     "screen": "2854x1440",
     "unity": "6000.6.7f1",
-    "generatedAt": "2026-10-27T01:13:40Z"
+    "generatedAt": "2026-10-27T05:17:44Z"
 }

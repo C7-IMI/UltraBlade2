@@ -10,7 +10,7 @@
     "lod1Triangles": 615,
     "lod2Triangles": 306,
     "collected": 3,
-    "frames": 56,
+    "frames": 24,
     "heroRectX": 558,
     "heroRectY": 251,
     "heroRectWidth": 164,
@@ -19,5 +19,5 @@
     "screen": "1280x720",
     "unity": "6000.6.7f1",
     "captureFile": "C:\\Users\\STEPHE~1\\AppData\\Local\\Temp\\ublade2-capture-frame.png",
-    "generatedAt": "2026-10-27T01:09:09Z"
+    "generatedAt": "2026-10-27T05:16:10Z"
 }

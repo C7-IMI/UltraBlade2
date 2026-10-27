@@ -18,28 +18,28 @@
     "settings.png": {
       "width": 1280,
       "height": 720,
-      "nonBackgroundRatio": 0.1296,
-      "distinctColors": 112
+      "nonBackgroundRatio": 0.1252,
+      "distinctColors": 113
     },
     "match.png": {
       "width": 1280,
       "height": 720,
-      "nonBackgroundRatio": 0.5035,
-      "distinctColors": 232
+      "nonBackgroundRatio": 0.7017,
+      "distinctColors": 151
     },
     "pause.png": {
       "width": 1280,
       "height": 720,
-      "nonBackgroundRatio": 0.4992,
-      "distinctColors": 262
+      "nonBackgroundRatio": 0.7122,
+      "distinctColors": 135
     },
     "result.png": {
       "width": 1280,
       "height": 720,
-      "nonBackgroundRatio": 0.3265,
-      "distinctColors": 217
+      "nonBackgroundRatio": 0.5755,
+      "distinctColors": 142
     }
   },
   "errors": [],
-  "generatedAt": "2026-10-27T01:11:18+00:00"
+  "generatedAt": "2026-10-27T05:18:24+00:00"
 }

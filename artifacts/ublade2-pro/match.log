@@ -22,73 +22,166 @@ Begin MonoManager ReloadAssembly
 [Physics::Module] Integration Version: 1.0.0
 [Physics::Module] Threading Mode: Multi-Threaded
 Microsoft Media Foundation video decoding to texture disabled: graphics device is Null, only Direct3D 11 and Direct3D 12 (only on desktop) are supported for hardware-accelerated video decoding.
-UnloadTime: 0.460800 ms
+UnloadTime: 0.456800 ms
 UBLADE2_START demo=False crystals=0 unity=6000.6.7f1 screen=2854x1440 capture=none mode=match
 UBLADE2_HYPERBLADE_WORLD team=tokyo opponent=chico arena=CHIDRO props=31
 UBLADE2_MATCH_START home=tokyo away=toron arena=TORDRO periods=3 periodSeconds=20 ranked=False autoplay=True
-UBLADE2_DEBUG_PICKUP home index=0 name=Hashimoto frame=148
-UBLADE2_DEBUG_SHOT by=Hashimoto home=True power=0.83 frame=206
-UBLADE2_DEBUG_STATE frame=240 phase=Playing rokState=Loose carrier=- score=0-0
-UBLADE2_DEBUG_PICKUP away index=0 name=Kunkel frame=290
-UBLADE2_DEBUG_SHOT by=Kunkel home=False power=0.83 frame=461
-UBLADE2_DEBUG_STATE frame=480 phase=Playing rokState=Loose carrier=- score=0-0
-UBLADE2_DEBUG_PICKUP home index=0 name=Hashimoto frame=541
-UBLADE2_DEBUG_SHOT by=Hashimoto home=True power=0.83 frame=694
-UBLADE2_DEBUG_STATE frame=720 phase=Playing rokState=InFlight carrier=- score=0-0
-UBLADE2_DEBUG_GOAL north=True scoringTeam=1 rok=(0.32, 0.48, 24.52)
-UBLADE2_DEBUG_PICKUP home index=0 name=Hashimoto frame=849
-UBLADE2_DEBUG_SHOT by=Hashimoto home=True power=0.83 frame=897
-UBLADE2_DEBUG_GOAL north=True scoringTeam=1 rok=(0.77, 0.48, 24.48)
-UBLADE2_DEBUG_STATE frame=960 phase=GoalFlash rokState=InGoal carrier=- score=2-0
-UBLADE2_DEBUG_PICKUP home index=0 name=Hashimoto frame=1052
-UBLADE2_DEBUG_SHOT by=Hashimoto home=True power=0.83 frame=1100
-UBLADE2_DEBUG_PICKUP away index=1 name=Holliday frame=1183
-UBLADE2_DEBUG_STATE frame=1200 phase=Playing rokState=Carried carrier=Holliday score=2-0
-UBLADE2_DEBUG_STATE frame=1440 phase=Kickoff rokState=Loose carrier=- score=2-0
-UBLADE2_DEBUG_PICKUP home index=0 name=Hashimoto frame=1512
-UBLADE2_DEBUG_SHOT by=Hashimoto home=True power=0.83 frame=1560
-UBLADE2_DEBUG_PICKUP away index=0 name=Kunkel frame=1644
-UBLADE2_DEBUG_STATE frame=1680 phase=Playing rokState=Carried carrier=Kunkel score=2-0
-UBLADE2_DEBUG_SHOT by=Kunkel home=False power=0.83 frame=1804
-UBLADE2_DEBUG_GOAL north=False scoringTeam=2 rok=(0.78, 0.48, -24.53)
-UBLADE2_DEBUG_STATE frame=1920 phase=Playing rokState=Loose carrier=- score=2-1
-UBLADE2_DEBUG_PICKUP home index=0 name=Hashimoto frame=1959
-UBLADE2_DEBUG_SHOT by=Hashimoto home=True power=0.83 frame=2007
-UBLADE2_DEBUG_GOAL north=True scoringTeam=1 rok=(1.04, 0.46, 24.46)
-UBLADE2_DEBUG_STATE frame=2160 phase=Playing rokState=Loose carrier=- score=3-1
-UBLADE2_DEBUG_PICKUP home index=0 name=Hashimoto frame=2162
-UBLADE2_DEBUG_SHOT by=Hashimoto home=True power=0.83 frame=2210
-UBLADE2_DEBUG_PICKUP away index=0 name=Kunkel frame=2293
-UBLADE2_DEBUG_STATE frame=2400 phase=Playing rokState=Carried carrier=Kunkel score=3-1
-UBLADE2_DEBUG_SHOT by=Kunkel home=False power=0.83 frame=2452
-UBLADE2_DEBUG_GOAL north=False scoringTeam=2 rok=(0.59, 0.41, -24.48)
-UBLADE2_DEBUG_PICKUP home index=0 name=Hashimoto frame=2607
-UBLADE2_DEBUG_STATE frame=2640 phase=Playing rokState=Carried carrier=Hashimoto score=3-2
-UBLADE2_DEBUG_SHOT by=Hashimoto home=True power=0.83 frame=2655
-UBLADE2_DEBUG_GOAL north=True scoringTeam=1 rok=(1.31, 0.46, 24.44)
-UBLADE2_DEBUG_STATE frame=2880 phase=PeriodBreak rokState=Loose carrier=- score=4-2
-UBLADE2_DEBUG_PICKUP home index=0 name=Hashimoto frame=3038
-UBLADE2_DEBUG_SHOT by=Hashimoto home=True power=0.83 frame=3086
-UBLADE2_DEBUG_GOAL north=True scoringTeam=1 rok=(0.51, 0.45, 24.50)
-UBLADE2_DEBUG_STATE frame=3120 phase=GoalFlash rokState=InGoal carrier=- score=5-2
-UBLADE2_DEBUG_PICKUP home index=0 name=Hashimoto frame=3241
-UBLADE2_DEBUG_SHOT by=Hashimoto home=True power=0.83 frame=3289
-UBLADE2_DEBUG_GOAL north=True scoringTeam=1 rok=(0.53, 0.42, 24.50)
-UBLADE2_DEBUG_STATE frame=3360 phase=GoalFlash rokState=InGoal carrier=- score=6-2
-UBLADE2_DEBUG_PICKUP home index=0 name=Hashimoto frame=3444
-UBLADE2_DEBUG_SHOT by=Hashimoto home=True power=0.83 frame=3492
-UBLADE2_DEBUG_PICKUP away index=0 name=Kunkel frame=3576
-UBLADE2_DEBUG_STATE frame=3600 phase=Playing rokState=Carried carrier=Kunkel score=6-2
-UBLADE2_DEBUG_SHOT by=Kunkel home=False power=0.83 frame=3736
-UBLADE2_DEBUG_PICKUP home index=0 name=Hashimoto frame=3816
-UBLADE2_DEBUG_STATE frame=3840 phase=Playing rokState=Carried carrier=Hashimoto score=6-2
-UBLADE2_DEBUG_SHOT by=Hashimoto home=True power=0.83 frame=3969
-UBLADE2_DEBUG_GOAL north=True scoringTeam=1 rok=(1.14, 0.41, 24.50)
-UBLADE2_DEBUG_STATE frame=4080 phase=Playing rokState=Loose carrier=- score=7-2
-UBLADE2_DEBUG_PICKUP home index=0 name=Hashimoto frame=4124
-UBLADE2_DEBUG_SHOT by=Hashimoto home=True power=0.83 frame=4172
-UBLADE2_MATCH_END home=7 away=2 winner=1 frames=4234 periods=3
-UBLADE2_MATCH_OK home=7 away=2 winner=1 frames=4234 periods=3 phase=Ended
+UBLADE2_DEBUG_STEP frame=120 screen=Match camNull=False camPos=(-5.90, 9.57, -31.11) camEnabled=True target=(-4.75, 0.40, -10.56) drome=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_CAM frame=120 cam=(-5.73, 9.54, -30.73) target=(-4.75, 0.40, -10.56) fov=85 dromeRoot=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_PICKUP home index=0 name=Hashimoto frame=139
+UBLADE2_DEBUG_SHOT by=Hashimoto home=True power=0.83 frame=214
+UBLADE2_DEBUG_GOAL north=True scoringTeam=1 rok=(0.07, 1.51, 53.43)
+UBLADE2_DEBUG_STEP frame=240 screen=Match camNull=False camPos=(-0.29, 10.30, 7.10) camEnabled=True target=(-0.27, 1.04, 22.29) drome=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_STATE frame=240 phase=GoalFlash rokState=InGoal carrier=- score=1-0
+UBLADE2_DEBUG_CAM frame=240 cam=(-0.29, 10.26, 6.68) target=(-0.27, 1.04, 22.29) fov=85 dromeRoot=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_PICKUP home index=0 name=Hashimoto frame=359
+UBLADE2_DEBUG_STEP frame=360 screen=Match camNull=False camPos=(-1.63, 9.11, -21.62) camEnabled=True target=(-0.71, 0.06, -1.08) drome=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_CAM frame=360 cam=(-1.49, 9.10, -21.24) target=(-0.71, 0.06, -1.08) fov=85 dromeRoot=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_SHOT by=Hashimoto home=True power=0.83 frame=431
+UBLADE2_DEBUG_GOAL north=True scoringTeam=1 rok=(-1.13, 1.53, 53.33)
+UBLADE2_DEBUG_STEP frame=480 screen=Match camNull=False camPos=(-0.34, 9.40, -4.95) camEnabled=True target=(-0.37, 0.26, 10.30) drome=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_STATE frame=480 phase=GoalFlash rokState=InGoal carrier=- score=2-0
+UBLADE2_DEBUG_CAM frame=480 cam=(-0.35, 9.38, -5.36) target=(-0.37, 0.26, 10.30) fov=85 dromeRoot=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_PICKUP home index=0 name=Hashimoto frame=576
+UBLADE2_DEBUG_STEP frame=600 screen=Match camNull=False camPos=(-0.60, 9.20, -9.92) camEnabled=True target=(-0.55, 0.28, 10.82) drome=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_CAM frame=600 cam=(-0.59, 9.21, -9.51) target=(-0.55, 0.28, 10.82) fov=85 dromeRoot=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_SHOT by=Hashimoto home=True power=0.83 frame=648
+UBLADE2_DEBUG_GOAL north=True scoringTeam=1 rok=(0.35, 1.53, 53.35)
+UBLADE2_DEBUG_STEP frame=720 screen=Match camNull=False camPos=(0.10, 9.07, -16.85) camEnabled=True target=(0.13, 0.06, -1.60) drome=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_STATE frame=720 phase=GoalFlash rokState=InGoal carrier=- score=3-0
+UBLADE2_DEBUG_CAM frame=720 cam=(0.10, 9.06, -17.27) target=(0.13, 0.06, -1.60) fov=85 dromeRoot=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_PICKUP home index=0 name=Hashimoto frame=793
+UBLADE2_DEBUG_STEP frame=840 screen=Match camNull=False camPos=(-0.43, 9.86, 1.98) camEnabled=True target=(-0.39, 1.08, 22.73) drome=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_CAM frame=840 cam=(-0.42, 9.89, 2.39) target=(-0.39, 1.08, 22.73) fov=85 dromeRoot=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_SHOT by=Hashimoto home=True power=0.83 frame=865
+UBLADE2_DEBUG_GOAL north=True scoringTeam=1 rok=(0.72, 1.53, 53.33)
+UBLADE2_DEBUG_STEP frame=960 screen=Match camNull=False camPos=(0.33, 9.09, -22.60) camEnabled=True target=(0.33, 0.09, -4.70) drome=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_STATE frame=960 phase=GoalFlash rokState=InGoal carrier=- score=4-0
+UBLADE2_DEBUG_CAM frame=960 cam=(0.33, 9.09, -22.62) target=(0.33, 0.09, -4.70) fov=85 dromeRoot=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_PICKUP home index=0 name=Hashimoto frame=1010
+UBLADE2_DEBUG_STEP frame=1080 screen=Match camNull=False camPos=(-0.27, 10.90, 13.55) camEnabled=True target=(-0.23, 2.07, 34.63) drome=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_CAM frame=1080 cam=(-0.27, 10.92, 14.01) target=(-0.23, 2.07, 34.63) fov=85 dromeRoot=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_CAM frame=1080 cam=(-0.26, 10.94, 14.40) target=(-0.23, 2.07, 34.63) fov=85 dromeRoot=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_SHOT by=Hashimoto home=True power=0.83 frame=1082
+UBLADE2_DEBUG_PICKUP away index=0 name=Kunkel frame=1114
+UBLADE2_DEBUG_STEP frame=1200 screen=Match camNull=False camPos=(-0.43, 9.32, -6.59) camEnabled=True target=(-0.41, 0.20, 8.75) drome=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_STATE frame=1200 phase=Playing rokState=Carried carrier=Kunkel score=4-0
+UBLADE2_DEBUG_CAM frame=1200 cam=(-0.42, 9.30, -6.99) target=(-0.41, 0.20, 8.75) fov=85 dromeRoot=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_CAM frame=1200 cam=(-0.42, 9.29, -7.33) target=(-0.41, 0.20, 8.75) fov=85 dromeRoot=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_SHOT by=Kunkel home=False power=0.83 frame=1294
+UBLADE2_DEBUG_GOAL north=False scoringTeam=2 rok=(0.73, 1.57, -53.09)
+UBLADE2_DEBUG_STEP frame=1320 screen=Match camNull=False camPos=(0.09, 10.90, -48.40) camEnabled=True target=(0.23, 1.67, -49.73) drome=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_CAM frame=1320 cam=(0.10, 10.87, -48.40) target=(0.23, 1.67, -49.73) fov=85 dromeRoot=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_CAM frame=1320 cam=(0.11, 10.84, -48.40) target=(0.23, 1.67, -49.73) fov=85 dromeRoot=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_PICKUP home index=0 name=Hashimoto frame=1437
+UBLADE2_DEBUG_STEP frame=1440 screen=Match camNull=False camPos=(-1.43, 9.10, -20.97) camEnabled=True target=(-0.70, 0.05, -0.04) drome=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_STATE frame=1440 phase=Playing rokState=Carried carrier=Hashimoto score=4-1
+UBLADE2_DEBUG_CAM frame=1440 cam=(-1.32, 9.09, -20.53) target=(-0.70, 0.05, -0.04) fov=85 dromeRoot=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_CAM frame=1440 cam=(-1.23, 9.08, -20.16) target=(-0.70, 0.05, -0.04) fov=85 dromeRoot=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_STEP frame=1560 screen=Match camNull=False camPos=(-0.24, 11.03, 15.59) camEnabled=True target=(-0.24, 2.03, 33.59) drome=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_CAM frame=1560 cam=(-0.24, 11.03, 15.59) target=(-0.24, 2.03, 33.59) fov=85 dromeRoot=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_STEP frame=1680 screen=Match camNull=False camPos=(-9.00, 9.05, -38.00) camEnabled=True target=(-9.00, 0.05, -20.00) drome=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_STATE frame=1680 phase=Kickoff rokState=Loose carrier=- score=4-1
+UBLADE2_DEBUG_CAM frame=1680 cam=(-9.00, 9.05, -38.00) target=(-9.00, 0.05, -20.00) fov=85 dromeRoot=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_PICKUP home index=0 name=Hashimoto frame=1746
+UBLADE2_DEBUG_STEP frame=1800 screen=Match camNull=False camPos=(-0.38, 10.14, 5.33) camEnabled=True target=(-0.34, 1.43, 26.35) drome=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_CAM frame=1800 cam=(-0.38, 10.19, 5.78) target=(-0.34, 1.43, 26.35) fov=85 dromeRoot=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_SHOT by=Hashimoto home=True power=0.83 frame=1818
+UBLADE2_DEBUG_PICKUP away index=0 name=Kunkel frame=1850
+UBLADE2_DEBUG_STEP frame=1920 screen=Match camNull=False camPos=(-0.33, 9.68, -0.29) camEnabled=True target=(-0.32, 0.49, 14.96) drome=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_STATE frame=1920 phase=Playing rokState=Carried carrier=Kunkel score=4-1
+UBLADE2_DEBUG_CAM frame=1920 cam=(-0.33, 9.66, -0.70) target=(-0.32, 0.49, 14.96) fov=85 dromeRoot=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_SHOT by=Kunkel home=False power=0.83 frame=2027
+UBLADE2_DEBUG_STEP frame=2040 screen=Match camNull=False camPos=(-0.08, 11.13, -48.38) camEnabled=True target=(-0.13, 2.11, -43.00) drome=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_CAM frame=2040 cam=(-0.08, 11.13, -48.38) target=(-0.13, 2.11, -43.00) fov=85 dromeRoot=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_GOAL north=False scoringTeam=2 rok=(-0.93, 1.50, -53.52)
+UBLADE2_DEBUG_STEP frame=2160 screen=Match camNull=False camPos=(-4.25, 9.35, -27.57) camEnabled=True target=(-3.05, 0.19, -6.79) drome=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_STATE frame=2160 phase=Playing rokState=Loose carrier=- score=4-2
+UBLADE2_DEBUG_CAM frame=2160 cam=(-4.07, 9.32, -27.16) target=(-3.05, 0.19, -6.79) fov=85 dromeRoot=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_PICKUP home index=0 name=Hashimoto frame=2171
+UBLADE2_DEBUG_SHOT by=Hashimoto home=True power=0.83 frame=2243
+UBLADE2_DEBUG_GOAL north=True scoringTeam=1 rok=(-1.01, 1.53, 53.34)
+UBLADE2_DEBUG_STEP frame=2280 screen=Match camNull=False camPos=(-0.27, 9.82, 1.52) camEnabled=True target=(-0.29, 0.59, 16.51) drome=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_CAM frame=2280 cam=(-0.27, 9.78, 1.07) target=(-0.29, 0.59, 16.51) fov=85 dromeRoot=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_PICKUP home index=0 name=Hashimoto frame=2388
+UBLADE2_DEBUG_STEP frame=2400 screen=Match camNull=False camPos=(-0.79, 9.07, -16.30) camEnabled=True target=(-0.63, 0.09, 4.61) drome=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_STATE frame=2400 phase=Playing rokState=Carried carrier=Hashimoto score=5-2
+UBLADE2_DEBUG_CAM frame=2400 cam=(-0.76, 9.08, -15.86) target=(-0.63, 0.09, 4.61) fov=85 dromeRoot=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_SHOT by=Hashimoto home=True power=0.83 frame=2460
+UBLADE2_DEBUG_PICKUP away index=0 name=Kunkel frame=2492
+UBLADE2_DEBUG_STEP frame=2520 screen=Match camNull=False camPos=(-0.33, 11.13, 19.26) camEnabled=True target=(-0.32, 2.09, 35.14) drome=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_CAM frame=2520 cam=(-0.33, 11.12, 18.95) target=(-0.32, 2.09, 35.14) fov=85 dromeRoot=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_STEP frame=2640 screen=Match camNull=False camPos=(-0.12, 9.81, -37.43) camEnabled=True target=(-0.11, 1.04, -22.30) drome=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_STATE frame=2640 phase=Playing rokState=Carried carrier=Kunkel score=5-2
+UBLADE2_DEBUG_CAM frame=2640 cam=(-0.12, 9.84, -37.86) target=(-0.11, 1.04, -22.30) fov=85 dromeRoot=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_SHOT by=Kunkel home=False power=0.83 frame=2669
+UBLADE2_DEBUG_GOAL north=False scoringTeam=2 rok=(-1.17, 1.50, -53.51)
+UBLADE2_DEBUG_STEP frame=2760 screen=Match camNull=False camPos=(-0.36, 10.33, -48.40) camEnabled=True target=(-0.52, 1.37, -52.31) drome=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_CAM frame=2760 cam=(-0.36, 10.34, -48.40) target=(-0.52, 1.37, -52.31) fov=85 dromeRoot=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_PICKUP home index=0 name=Hashimoto frame=2813
+UBLADE2_DEBUG_STEP frame=2880 screen=Match camNull=False camPos=(-0.29, 10.81, 12.23) camEnabled=True target=(-0.25, 2.01, 33.07) drome=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_STATE frame=2880 phase=Playing rokState=Carried carrier=Hashimoto score=5-3
+UBLADE2_DEBUG_CAM frame=2880 cam=(-0.28, 10.84, 12.65) target=(-0.25, 2.01, 33.07) fov=85 dromeRoot=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_SHOT by=Hashimoto home=True power=0.83 frame=2885
+UBLADE2_DEBUG_GOAL north=True scoringTeam=1 rok=(0.47, 1.53, 53.34)
+UBLADE2_DEBUG_STEP frame=3000 screen=Match camNull=False camPos=(-6.52, 9.81, -33.34) camEnabled=True target=(-7.09, 0.82, -15.75) drome=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_CAM frame=3000 cam=(-6.60, 9.81, -33.40) target=(-7.09, 0.82, -15.75) fov=85 dromeRoot=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_PICKUP home index=0 name=Hashimoto frame=3030
+UBLADE2_DEBUG_STEP frame=3120 screen=Match camNull=False camPos=(-7.37, 9.05, -34.28) camEnabled=True target=(-9.00, 0.05, -20.00) drome=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_STATE frame=3120 phase=PeriodBreak rokState=Loose carrier=- score=6-3
+UBLADE2_DEBUG_CAM frame=3120 cam=(-7.62, 9.05, -34.84) target=(-9.00, 0.05, -20.00) fov=85 dromeRoot=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_STEP frame=3240 screen=Match camNull=False camPos=(-8.35, 9.78, -36.56) camEnabled=True target=(-7.51, 0.91, -16.70) drome=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_CAM frame=3240 cam=(-8.23, 9.80, -36.28) target=(-7.51, 0.91, -16.70) fov=85 dromeRoot=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_PICKUP home index=0 name=Hashimoto frame=3272
+UBLADE2_DEBUG_SHOT by=Hashimoto home=True power=0.83 frame=3344
+UBLADE2_DEBUG_STEP frame=3360 screen=Match camNull=False camPos=(-0.19, 10.78, 11.88) camEnabled=True target=(-0.18, 1.54, 27.38) drome=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_STATE frame=3360 phase=Playing rokState=InFlight carrier=- score=6-3
+UBLADE2_DEBUG_CAM frame=3360 cam=(-0.19, 10.74, 11.51) target=(-0.18, 1.54, 27.38) fov=85 dromeRoot=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_GOAL north=True scoringTeam=1 rok=(0.49, 1.53, 53.34)
+UBLADE2_DEBUG_STEP frame=3480 screen=Match camNull=False camPos=(-3.86, 9.29, -26.59) camEnabled=True target=(-2.63, 0.16, -5.84) drome=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_CAM frame=3480 cam=(-3.67, 9.27, -26.18) target=(-2.63, 0.16, -5.84) fov=85 dromeRoot=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_CAM frame=3480 cam=(-3.52, 9.26, -25.83) target=(-2.63, 0.16, -5.84) fov=85 dromeRoot=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_PICKUP home index=0 name=Hashimoto frame=3489
+UBLADE2_DEBUG_SHOT by=Hashimoto home=True power=0.83 frame=3561
+UBLADE2_DEBUG_GOAL north=True scoringTeam=1 rok=(1.24, 1.54, 53.30)
+UBLADE2_DEBUG_STEP frame=3600 screen=Match camNull=False camPos=(0.03, 9.74, 0.49) camEnabled=True target=(0.09, 0.53, 15.48) drome=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_STATE frame=3600 phase=GoalFlash rokState=InGoal carrier=- score=8-3
+UBLADE2_DEBUG_CAM frame=3600 cam=(0.04, 9.71, 0.04) target=(0.09, 0.53, 15.48) fov=85 dromeRoot=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_PICKUP home index=0 name=Hashimoto frame=3706
+UBLADE2_DEBUG_STEP frame=3720 screen=Match camNull=False camPos=(-0.74, 9.08, -15.35) camEnabled=True target=(-0.62, 0.12, 5.65) drome=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_CAM frame=3720 cam=(-0.72, 9.09, -14.90) target=(-0.62, 0.12, 5.65) fov=85 dromeRoot=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_SHOT by=Hashimoto home=True power=0.83 frame=3778
+UBLADE2_DEBUG_PICKUP away index=0 name=Kunkel frame=3810
+UBLADE2_DEBUG_STEP frame=3840 screen=Match camNull=False camPos=(-0.51, 11.12, 18.71) camEnabled=True target=(-0.50, 2.05, 34.10) drome=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_STATE frame=3840 phase=Playing rokState=Carried carrier=Kunkel score=8-3
+UBLADE2_DEBUG_CAM frame=3840 cam=(-0.51, 11.11, 18.32) target=(-0.50, 2.05, 34.10) fov=85 dromeRoot=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_STEP frame=3960 screen=Match camNull=False camPos=(-0.19, 9.89, -38.38) camEnabled=True target=(-0.17, 1.08, -22.82) drome=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_CAM frame=3960 cam=(-0.19, 9.92, -38.74) target=(-0.17, 1.08, -22.82) fov=85 dromeRoot=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_SHOT by=Kunkel home=False power=0.83 frame=3988
+UBLADE2_DEBUG_GOAL north=False scoringTeam=2 rok=(-1.04, 1.55, -53.20)
+UBLADE2_DEBUG_STEP frame=4080 screen=Match camNull=False camPos=(-0.32, 10.37, -48.40) camEnabled=True target=(-0.46, 1.37, -52.31) drome=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_STATE frame=4080 phase=GoalFlash rokState=InGoal carrier=- score=8-4
+UBLADE2_DEBUG_CAM frame=4080 cam=(-0.32, 10.37, -48.40) target=(-0.46, 1.37, -52.31) fov=85 dromeRoot=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_PICKUP home index=0 name=Hashimoto frame=4131
+UBLADE2_DEBUG_STEP frame=4200 screen=Match camNull=False camPos=(-0.28, 10.87, 13.17) camEnabled=True target=(-0.24, 2.05, 34.11) drome=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_CAM frame=4200 cam=(-0.27, 10.90, 13.61) target=(-0.24, 2.05, 34.11) fov=85 dromeRoot=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_SHOT by=Hashimoto home=True power=0.83 frame=4203
+UBLADE2_DEBUG_GOAL north=True scoringTeam=1 rok=(-1.10, 1.53, 53.33)
+UBLADE2_DEBUG_STEP frame=4320 screen=Match camNull=False camPos=(-6.70, 9.80, -33.32) camEnabled=True target=(-6.66, 0.73, -14.81) drome=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_STATE frame=4320 phase=Playing rokState=Loose carrier=- score=9-4
+UBLADE2_DEBUG_CAM frame=4320 cam=(-6.70, 9.79, -33.25) target=(-6.66, 0.73, -14.81) fov=85 dromeRoot=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_PICKUP home index=0 name=Hashimoto frame=4348
+UBLADE2_DEBUG_SHOT by=Hashimoto home=True power=0.83 frame=4420
+UBLADE2_DEBUG_STEP frame=4440 screen=Match camNull=False camPos=(-0.20, 10.60, 10.13) camEnabled=True target=(-0.19, 1.32, 25.31) drome=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_CAM frame=4440 cam=(-0.20, 10.56, 9.71) target=(-0.19, 1.32, 25.31) fov=85 dromeRoot=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_GOAL north=True scoringTeam=1 rok=(-0.25, 1.53, 53.36)
+UBLADE2_DEBUG_STEP frame=4560 screen=Match camNull=False camPos=(-2.93, 9.20, -24.51) camEnabled=True target=(-1.78, 0.10, -3.95) drome=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_STATE frame=4560 phase=Playing rokState=Loose carrier=- score=10-4
+UBLADE2_DEBUG_CAM frame=4560 cam=(-2.76, 9.18, -24.13) target=(-1.78, 0.10, -3.95) fov=85 dromeRoot=Drome renderers=33 radius=33x55
+UBLADE2_DEBUG_PICKUP home index=0 name=Hashimoto frame=4565
+UBLADE2_DEBUG_SHOT by=Hashimoto home=True power=0.83 frame=4637
+UBLADE2_MATCH_END home=10 away=4 winner=1 frames=4639 periods=3
+UBLADE2_MATCH_OK home=10 away=4 winner=1 frames=4639 periods=3 phase=Ended
 [Physics::Module] Cleanup current backend.
 [Physics::Module] Id: 0xf2b8ea05
 Input System module state changed to: ShutdownInProgress.

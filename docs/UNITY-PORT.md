@@ -220,10 +220,12 @@ manual OCR and the three operator-provided YouTube captures analysed frame by fr
 
 What ships in the playable slice:
 
-- **Elliptical drome**: runtime-generated ellipse floor/props, a curved inward-leaning shell/wall with a lip, small
-  goals cut into the long ends, radial/concentric livery with the central red star and end fields, and the per-drome
-  prop layout. No boards/glass/stands were added; the visible crowd/jumbotron was deliberately removed to match the
-  in-game video evidence.
+- **Elliptical half-pipe**: a 66 x 110 m curved bowl floor (20 rings, 6 m deep on the long sides, fading flat near
+  the goal ends), a 40 m inward-leaning faceted shell with a lip, small goals cut into the long ends, radial/
+  concentric livery with a large central red star and end fields, and the per-drome prop layout. The camera uses the
+  original game's 85-degree FOV and a player-following boom clamped inside the shell. No boards/glass/stands were
+  added; the visible crowd/jumbotron was deliberately removed to match the in-game video evidence. The REA-led
+  reference pass and its limits are in `docs/REA-HYPERBLADE-ANALYSIS.md`.
 - **Sport**: carried/thrown rok, charged power shot (Space) and quick shot (F), pass (C), speedburst (D/Shift),
   jump (E), jak attack (S/right mouse), substitutions (1/2), 2 forwards + AI goalie per side with a five-man roster,
   three periods, **1/2/4-point goals** through the multiplier (and multiplier nullification), injuries/fatalities
@@ -239,17 +241,17 @@ What ships in the playable slice:
   stat screen (PTS FGM FGA FG% 2X 4X POSS INT MULT INJ FAT / SHT SAV ERR %). Menus were restyled to the brushed-steel
   HyperBlade look.
 
-Measured evidence from the final Windows player (Unity bundle version 2026.10.26.010 unless the release is rebuilt):
+Measured evidence from the final Windows player (Unity bundle version 2026.10.26.012):
 
-- build and version markers: `UBLADE2_BUILD Succeeded` and `UBLADE2_VERSION 2026.10.26.010`;
+- build and version markers: `UBLADE2_BUILD Succeeded` and `UBLADE2_VERSION 2026.10.26.012`;
 - legacy gate: `UBLADE2_DEMO_OK exit=0` / `GYPSY_DEMO_OK collected=3`, `UBLADE2_CAPTURE_OK` and `CAPTURE_CHECK_OK`;
 - headless three-period match: `UBLADE2_MATCH_OK home=<n> away=<n> winner=<n> frames=<n> periods=3 phase=Ended` with a
-  `ublade2.match.runtime/v2` evidence JSON (the final numbers are in BuildNotes 2026.10.26.010 and
-  `artifacts/ublade2-pro/match-runtime.json`);
+  `ublade2.match.runtime/v2` evidence JSON: `home=10 away=4 winner=1 frames=4639 periods=3 phase=Ended`
+  (`artifacts/ublade2-pro/match-runtime.json`);
 - league/Gauntlet save proof: `UBLADE2_LEAGUE_SAVE_OK ... passed=True`;
 - 1280x720 match capture `MATCH_CAPTURE_CHECK_OK`, menu capture `MENU_CAPTURE_CHECK_OK` and six UI screenshots
   `UI_CAPTURES_CHECK_OK screens=6` inspected (elliptical drome, goals, dromers, HUD, roster, radar, stats screen);
-- PC-only release stamp `UBLADE2_RELEASE_OK version=2026.10.26.010` with the ZIP/EXE hashes recorded in
+- PC-only release stamp `UBLADE2_RELEASE_OK version=2026.10.26.012` with the ZIP/EXE hashes recorded in
   `artifacts/ublade2-release/release.json` and BuildNotes.
 
 Honest limits: original assets/code/textures/audio/FMV are not shipped; this is a source-data-driven homage. The
@@ -289,7 +291,7 @@ DEFERRED.md and docs/GAME-DESIGN.md rather than claimed.
 | Hero | 23 bones, 3 clips, Smile, 512² maps, LODs, visible capture | **PASS** — section 4 |
 | Capture | 1280x720 frame inspected | **PASS** — 90.7% non-background in hero rect, inspected |
 | Playable | HyperBlade-style sport on an elliptical drome, menu/HUD/pause/settings/results/stat screen | **PASS** — headless three-period match 7-2, match capture with the elliptical drome and HUD, six UI screenshots, Gauntlet save/load check, 14 data-derived teams/dromes (section 7b) |
-| Release | stamped Windows distributable with hashes | **PASS** — `UBLADE2_RELEASE_OK version=2026.10.26.010 win_sha256=2bb791a8...054b1d`, release.json + release.txt |
+| Release | stamped Windows distributable with hashes | **PASS** — `UBLADE2_RELEASE_OK version=2026.10.26.012 win_sha256=7eeff057...7b329f`, release.json + release.txt |
 | Mobile | mobile target | **PARKED** — operator decision: PC-only for this milestone; earlier partial APK/launcher evidence preserved but not claimed complete (UB2-D15) |
 | Records | Gypsy checks pass and evidence is committed | **PASS** — `checks: PASS (7/7)`, 12 manifests valid (3 toolpacks, 3 slices, 6 capabilities); commit, push and CI result are recorded in the final report/BuildNotes 2026.10.26.008 |
 
@@ -324,13 +326,14 @@ Expected markers: `WAYFARER_IMPORT_OK`, `WAYFARER_PREFAB_OK`, `UBLADE2_BUILD Suc
 | `artifacts/ublade2-mobile/logcat-launch.txt` | `91108e4b52c1689c66e81fc6adeacb9c76ec321759fd6293d6ee1b35b81915fd` |
 | `artifacts/ublade2-mobile/logcat-demo.txt` | `86ffc98d52653fc46d607b960a4fea126dac368fc8ea449548500cafb4bf879a` |
 | `unity/UBlade2/Build/UBlade2.exe` | `9806abde4a406ed68647e9505852c49f6aa72a372f4f084e2aa2821affea57a2` |
-| `artifacts/ublade2-pro/match.png` | `f737e95d9da806dfda611a9dc77a31e2c1a2c9dec8dc53a0edd43a2d04b0e57c` |
-| `artifacts/ublade2-pro/menu.png` | `6fe8c440a96319654b51eb6a508329ddfa4e7e0af3fcf0d36f35268269238294` |
-| `artifacts/ublade2-pro/match-runtime.json` | `eec6524951ccbc9c16d5e259385d25874db6d6037d65f1915bb21dc94957ca57` |
+| `artifacts/ublade2-pro/match.png` | `526adeeb008e6032ca6e56b136ebb71c141a37c2c703ae8a0c0126b249ebd6b9` |
+| `artifacts/ublade2-pro/menu.png` | `a7017f7f8b89fa05a060a1adb702f853ad580474ff6380a60d7630cf4ebc473e` |
+| `artifacts/ublade2-pro/match-runtime.json` | `aed7a757ba208db2d1629d9a538c68459482ab55b3570bc9138e5515aaa60c35` |
 | `artifacts/ublade2-pro/league-save.json` | `485f6d2371181ea315624b2d63494140577d42532ccdabe710cf430444c4d006` |
-| `artifacts/ublade2-pro/ui-captures.json` | `eba8814a291a198f93a6409e7be8bee695c7ef1da118c3a525c398e13562a388` |
-| `artifacts/ublade2-pro/ui/contact-sheet.png` | `55d1e08aa8b9eba04ebd992773a755df16a7bcb7b741f64786489fb14669b7b4` |
-| `artifacts/ublade2-release/release.json` | `d038c8fe03c0a048e299a809632339d5e33a4decd89c6567d1000294e9924030` |
-| `dist/UBlade2-2026.10.26.010-win64.zip` | `2bb791a82f72f4c6f1c79bbdccb734aff0b55a074271cd079cbbc01e33054b1d` |
+| `artifacts/ublade2-pro/ui-captures.json` | `bb54894db49558c65eb514a3a3f86962f4801257ce73f08fdeeea6c4ba039169` |
+| `artifacts/ublade2-pro/ui/contact-sheet.png` | `69ea290ce60fd8be39694dd6a216926b5a33b5cf051a49d8ad261a5f7b721020` |
+| `artifacts/ublade2-pro/play-test.log` | `b14a82314b5da49c55c98081967419a363f2c8fe7a9b6cd64ff21072850e07ef` |
+| `artifacts/ublade2-release/release.json` | `7d756115055389524e3fff7ae19e8a22778ffa83ca82b6f98ceb069bc40e65d5` |
+| `dist/UBlade2-2026.10.26.012-win64.zip` | `7eeff05760b54c2ef670ce4631b8fb0c8ce47695973a40e747003b63317b329f` |
 
 Unity build: `6000.6.7f1 (b22767f04f04)`; Blender: `5.2.3 LTS`; Python: `3.14.2`; Pillow: `12.0.0`.

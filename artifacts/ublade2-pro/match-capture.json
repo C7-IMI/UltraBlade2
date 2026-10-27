@@ -5,35 +5,35 @@
   "passed": true,
   "errors": [],
   "warnings": [],
-  "generatedAt": "2026-10-27T01:13:58+00:00",
+  "generatedAt": "2026-10-27T05:18:05+00:00",
   "width": 1280,
   "height": 720,
   "whole": {
     "pixels": 921600,
-    "nonBackground": 387370,
-    "nonBackgroundRatio": 0.4203,
-    "saturated": 153947,
-    "distinctColors": 378
+    "nonBackground": 613960,
+    "nonBackgroundRatio": 0.6662,
+    "saturated": 331827,
+    "distinctColors": 308
   },
   "hudStrip": {
     "pixels": 153600,
-    "nonBackground": 13441,
-    "nonBackgroundRatio": 0.0875,
-    "saturated": 8131,
-    "distinctColors": 153
+    "nonBackground": 48266,
+    "nonBackgroundRatio": 0.3142,
+    "saturated": 8720,
+    "distinctColors": 178
   },
   "heroRegion": {
     "pixels": 153720,
-    "nonBackground": 108137,
-    "nonBackgroundRatio": 0.7035,
-    "saturated": 42620,
-    "distinctColors": 148
+    "nonBackground": 148904,
+    "nonBackgroundRatio": 0.9687,
+    "saturated": 96294,
+    "distinctColors": 77
   },
   "match": {
     "playerScore": null,
     "aiScore": null,
     "winner": 1,
-    "frames": 4234,
+    "frames": 4639,
     "phase": "Ended"
   }
 }

@@ -35,12 +35,13 @@ Begin MonoManager ReloadAssembly
 
 <RI> Input initialized.
 
-UnloadTime: 0.721400 ms
+UnloadTime: 0.811200 ms
 UBLADE2_START demo=True crystals=3 unity=6000.6.7f1 screen=1280x720 capture=C:\Users\STEPHE~1\AppData\Local\Temp\ublade2-capture-frame.png mode=demo
 UBLADE_HERO_OK lodLevels=3 bones=23 smile=Smile cape=3 lod0Tris=1126 lod1Tris=615 lod2Tris=306 animators=3 prefab=WayfarerLOD
-UBLADE2_WORLD crystals=3 speed=7.2 hero=Wayfarer
+UBLADE2_WORLD crystals=3 speed=18 hero=Wayfarer
 UBLADE_LOD level=0 distance=5.53 height=0.330 transitionHeights=0.30/0.12/0.04
-GYPSY_DEMO_OK collected=3 frames=56
+GYPSY_DEMO_OK collected=3 frames=24
+Direct3D: detected that IDXGISwapChain::GetFrameStatistics is broken (it does not return proper timestamps). Delta time will now be calculated using cpu-side time stampling until the game window is moved.
 UBLADE2_CAPTURE_WRITTEN path=C:\Users\STEPHE~1\AppData\Local\Temp\ublade2-capture-frame.png
 UBLADE_HERO_RUNTIME_OK visible=True lod=0 bones=23 rect=558,251,164x276
 [Physics::Module] Cleanup current backend.

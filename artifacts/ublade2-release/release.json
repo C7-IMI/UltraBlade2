@@ -1,16 +1,16 @@
 {
     "schema":  "ublade2.release/v1",
     "platform":  "windows",
-    "version":  "2026.10.26.010",
-    "generatedAt":  "2026-10-27T01:11:48Z",
+    "version":  "2026.10.26.012",
+    "generatedAt":  "2026-10-27T05:15:56Z",
     "unityVersion":  "6000.6.7f1",
-    "gitHead":  "717c5251ae0f92996cda98a9b5b5ad457705c607",
+    "gitHead":  "6327f11077f7bf44d567272b09511b24a81897c6",
     "windowsExe":  "unity/UBlade2/Build/UBlade2.exe",
     "windowsExeSha256":  "9806abde4a406ed68647e9505852c49f6aa72a372f4f084e2aa2821affea57a2",
     "windowsZip":  {
-                       "path":  "dist/UBlade2-2026.10.26.010-win64.zip",
-                       "bytes":  50909631,
-                       "sha256":  "2bb791a82f72f4c6f1c79bbdccb734aff0b55a074271cd079cbbc01e33054b1d"
+                       "path":  "dist/UBlade2-2026.10.26.012-win64.zip",
+                       "bytes":  50910823,
+                       "sha256":  "7eeff05760b54c2ef670ce4631b8fb0c8ce47695973a40e747003b63317b329f"
                    },
     "passed":  true,
     "note":  "PC-only playable slice; unsigned development build. Android/mobile is parked by the operator decision of 2026-10-26 and is not part of this release."

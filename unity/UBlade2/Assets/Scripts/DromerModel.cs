@@ -18,12 +18,13 @@ public sealed class DromerRig : MonoBehaviour
         var amount = Mathf.Clamp01(speed / 8f);
         phase += Time.deltaTime * (4f + amount * 6f);
         var swing = Mathf.Sin(phase) * 0.35f * amount;
-        if (leftLeg != null) leftLeg.localRotation = Quaternion.Euler(swing * 55f, 0f, 0f);
-        if (rightLeg != null) rightLeg.localRotation = Quaternion.Euler(-swing * 55f, 0f, 0f);
-        if (rightArm != null) rightArm.localRotation = Quaternion.Euler(-swing * 40f, 0f, 0f);
+        if (leftLeg != null) leftLeg.localRotation = Quaternion.Euler(swing * 68f + 8f, 0f, swing * 4f);
+        if (rightLeg != null) rightLeg.localRotation = Quaternion.Euler(-swing * 68f + 8f, 0f, -swing * 4f);
+        if (rightArm != null) rightArm.localRotation = Quaternion.Euler(-swing * 48f, 0f, -8f);
         if (torso != null)
         {
-            torso.localRotation = Quaternion.Euler(amount * 8f, 0f, swing * 4f);
+            torso.localRotation = Quaternion.Euler(amount * 14f + 4f, swing * 7f, swing * 6f);
+            torso.localPosition = new Vector3(0f, 1.25f + Mathf.Abs(swing) * 0.06f, 0f);
         }
         if (slashTimer > 0f)
         {

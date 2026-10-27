@@ -28,7 +28,8 @@
     "artifacts/ublade2-pro/ui/result.png",
     "artifacts/ublade2-pro/ui/league.png",
     "artifacts/ublade2-pro/ui/settings.png",
-    "artifacts/ublade2-pro/ui/match.png"
+    "artifacts/ublade2-pro/ui/match.png",
+    "artifacts/ublade2-pro/play-test.log"
   ],
   "steps": [
     {

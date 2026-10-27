@@ -39,7 +39,9 @@
     "legacy GYPSY_DEMO_OK collected=3 and hero capture remain green",
     "headless 3-period match scores and prints UBLADE2_MATCH_OK with a v2 evidence JSON",
     "14 teams and 14 dromes generated from the original game data",
-    "1280x720 match capture shows the elliptical drome, HUD and players",
+    "large elliptical half-pipe drome with a 40m shell and 6m curved floor",
+    "85-degree player-tracking camera and camera-relative WASD, verified by a real-keyboard play-test",
+    "1280x720 match capture shows the half-pipe drome, goals, skaters and HUD",
     "six UI screenshots show menu, league, settings, match HUD, pause and result/stats",
     "league/Gauntlet save-load runtime check passes"
   ],
@@ -51,7 +53,9 @@
       "artifacts/ublade2-pro/match.png",
       "artifacts/ublade2-pro/ui/",
       "unity/UBlade2/Assets/Scripts/TeamCatalog.cs",
-      "unity/UBlade2/Assets/Scripts/ArenaCatalog.cs"
+      "unity/UBlade2/Assets/Scripts/ArenaCatalog.cs",
+      "docs/REA-HYPERBLADE-ANALYSIS.md",
+      "artifacts/ublade2-pro/play-test.log"
     ]
   },
   "notes": [

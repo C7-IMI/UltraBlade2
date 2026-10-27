@@ -21,14 +21,16 @@ team and drome catalogs are generated into `TeamCatalog.cs` and `ArenaCatalog.cs
 
 ## Drome
 
-- Runtime-built **elliptical bowl** from `DromeBuilder.cs`: an ellipse floor (72 segments x 9 rings), a curved wall
-  band that leans inward to a lip, small goals cut into the wall at the long ends with recessed cases and nets,
-  painted radial/concentric livery (central red star, concentric arcs, end fields, creases), and the drome props
-  from the original `DATA/*.ENV` files.
-- Proportions follow the help-file dimensions (220 x 135 x 70 ft) mapped to a 48 x 29.5 unit ellipse; the catalog
-  scales the original environment coordinates by 0.10 (x) and 0.1273 (z).
-- The camera is a low continuous third-person chase with no broadcast cuts or celebrations, matching the capture
-  evidence.
+- Runtime-built **elliptical half-pipe** from `DromeBuilder.cs`: a 20-ring curved bowl floor (6 m deep on the long
+  sides, fading flat around the two goal ends), a 40 m inward-leaning faceted shell with a lip, small goals cut into
+  the wall at the long ends with recessed cases and nets, painted radial/concentric livery (central red star,
+  concentric arcs, end fields, creases), and the drome props from the original `DATA/*.ENV` files.
+- Proportions follow the help-file dimensions (220 x 135 x 70 ft) mapped to a 66 x 110 m elliptical bowl; the
+  catalog scales the original environment coordinates by 2.2 from the first generated pass. Skaters follow the bowl
+  surface height, and the camera is a wide 85-degree chase 18 m back rather than the old close 58-degree view.
+- The camera is a continuous third-person chase with no broadcast cuts or celebrations. It uses the original
+  game's 85-degree field of view, tracks the player with a clamped boom inside the shell, and widens enough to show
+  the bowl; the old spin-with-player camera and 58-degree close view were removed.
 
 ## Controls (mapped from the original DATA/BOOIE.INI + DFTKEYBD.CFG)
 
