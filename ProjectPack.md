@@ -16,7 +16,7 @@ Two audiences, one document:
   Part 6 is how to run the whole thing.
 
 **Revision:** 2.5 · 2026-10-23 · *the portable body; a copy keeps this line as it was taken, and if it differs from
-the source line the copy is behind — see §8.2.* **This copy:** UltraBlade 2, revision **UB2-1**, 2026-10-26.
+the source line the copy is behind — see §8.2.* **This copy:** UltraBlade 2, revision **UB2-2**, 2026-11-01.
 
 **This copy is UltraBlade 2's.** It was taken from **ProjectGypsy's `ProjectPack.md` revision PG-1** (2026-10-25,
 SHA-256 `09AEA2CA0BBE30521413FD910C92080915E75A40D0706231A57170A85EF5AF1C`), which is itself a copy of **C7NTRY's pack revision 2.5** (2026-10-23, SHA-256
@@ -29,11 +29,13 @@ is claimed here until a recorded decision restores the addendum or replaces it w
 **What changed in this copy.** The header was re-authored for this repository, and Part 11 was re-authored from
 ProjectGypsy's overlay (which itself came from C7NTRY's 24-rule Part 11). The placeholders, the §8.1 decisions, the
 §8.2 inventory, the C7NTRY-rule mapping and the parked-interface list are in
-[`ProjectPack-NOTES.md`](./ProjectPack-NOTES.md).
+[`ProjectPack-NOTES.md`](./ProjectPack-NOTES.md). **UB2-2** adds the operator's research-escalation rule (§10.15) and
+its project-local Gypsy extension.
 
 **Revision history.** The base pack's history is C7NTRY's (1.0 → 2.5). **PG-1** (2026-10-25) is ProjectGypsy's copy:
 it parked the interface material and re-authored Part 11 for a game. **UB2-1** (2026-10-26) is this copy: taken from
 ProjectGypsy's PG-1, header and Part 11 re-authored for UltraBlade 2, and the pack applied here for the first time.
+**UB2-2** (2026-11-01) adds the operator's standing rule §10.15 (research escalation and Gypsy extension).
 
 **The rule of the pack itself:** when a rule here stops being true for the project it is being used on, it changes
 in the same commit as the code that changed it. A rule nobody can point at in the code is a wish.
@@ -1380,6 +1382,32 @@ a screenshot in a hurry is doing the same thing, in any project, whatever the sh
 ## 10.13 A client or UI claim is only made after loading it
 
 - A protocol test is not a client flow. Load the real client/browser, read the result back, and state what was not run.
+
+## 10.15 A blocked task escalates research and extends Gypsy
+
+**Trigger:** a task cannot be completed with the current tools, plugins, extensions, resources or methods after a
+genuine attempt, or an attempt has failed in a way that shows the instrument is wrong rather than the instruction.
+
+- **Do not stop at "can't".** First research additional tools, plugins, extensions, resources and methods: official
+documentation, engine/tool manuals, catalogues, community write-ups, papers and talks, and comparable shipped work.
+- **Install and verify when approved.** With the operator's full approval (or a specific approval for the install or
+elevation), install the missing instrument, check its licence, provenance, version and rollback, and prove it on a
+small verification spike before touching the production asset.
+- **Extend Gypsy with the reusable part.** Add the finding as a project-local capability and, where it is runnable, a
+toolpack action and slice. Never modify the Gypsy checkout (`GYPSY_HOME`); this repository's `toolpacks/`,
+`capabilities/` and `slices/` are the extension point.
+- **Record all of it.** The prompt log says what was blocked; the changelog says what was found, installed, used,
+rejected and extended. A failed method stays in the record, not in the shipped build.
+- **Verify with the check list.** Run `python scripts/check_all.py`, the relevant
+`python scripts/gypsy_unity.py capabilities|toolpacks check|toolpacks run|slice run` command, and the proof the task
+needs. A research note is not a completion.
+- **Limits.** External accounts, credentials, subscriptions and third-party targets still need the operator; never
+fake a completion, never copy peer-project data, and never treat an install as a result.
+
+This repository's extension for the rule is `capabilities/process.research.escalation.json`,
+`toolpacks/ublade2.research.json`, `slices/ublade2.research.json`, `scripts/research_inventory.py` and
+[`docs/RESEARCH-ESCALATION.md`](./docs/RESEARCH-ESCALATION.md). Rule 10.14 remains the parked interface rule from the
+source copy; this rule is 10.15 so the parked reference is not renumbered.
 
 # Part 11 — Repository standing rules
 

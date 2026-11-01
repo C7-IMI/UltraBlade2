@@ -12,10 +12,10 @@ here: the project's side lives here, and the pack's parked interface material li
 | Held by | this repository (UltraBlade 2) |
 | Base | ProjectGypsy's `ProjectPack.md` revision **PG-1**, 2026-10-25, SHA-256 `09AEA2CA0BBE30521413FD910C92080915E75A40D0706231A57170A85EF5AF1C` |
 | Base of the base | C7NTRY's `ProjectPack.md` revision **2.5**, 2026-10-23, SHA-256 `FC5754DDCDB25535B6808042291C083B6B0BC13F27E36EC8035945AEB70ABE65` |
-| This copy | revision **UB2-1**, 2026-10-26 — Parts 1–10 carried, the header re-authored, Part 11 re-authored for this repository |
+| This copy | revision **UB2-2**, 2026-11-01 — Parts 1–10 carried, the header re-authored, Part 11 re-authored for this repository; operator rule §10.15 added |
 | Interface material | **parked, not in force** — inherited from ProjectGypsy; `ProjectPack-ADDENDUM-Interface.md` (source SHA-256 `1FA4DD1D7ED0753CF635A0ACF8FBC1FD4F42DA922CA9EA30CD6AF7F974F39121`) |
 | Product | a **game** — not a website, not a web application; the production pipeline is **Unity 6000.6.7f1, Windows PC**, pinned by `project.gypsy.json`. The first game (Godot 4.7.2) stays in ProjectGypsy as the reference. A playable production slice (menu, league/AI match, HUD, audio, settings, pause, results, season) and a stamped PC release exist; mobile is parked by operator decision (`DEFERRED.md` UB2-D15) |
-| Last applied | 2026-10-26 — the pack was copied and applied in the change that created this file; Stage B was then completed against it (Unity 6000.6.7f1, PC), without changing the pack |
+| Last applied | 2026-11-01 — operator rule §10.15 (research escalation and Gypsy extension) was added to Part 10; the earlier 2026-10-26 application and Stage B are unchanged |
 
 ## What was carried, and what changed
 
@@ -31,6 +31,11 @@ so the reason for parking holds. Two things were re-authored for this repository
 Nothing was declined or parked that ProjectGypsy had not already declined or parked. The interface addendum carries
 only provenance-line edits (its title, "parked by" line, "why it is parked" line, the deferred id and the restore-step
 revision number); every rule block in it is verbatim. The Unity port changed project facts, not the pack.
+
+**UB2-2** adds one operator rule, **§10.15 — a blocked task escalates research and extends Gypsy** — to Part 10, and
+its runnable extension (`capabilities/process.research.escalation.json`, `toolpacks/ublade2.research.json`,
+`slices/ublade2.research.json`, `scripts/research_inventory.py` and `docs/RESEARCH-ESCALATION.md`). It does not
+rewrite a portable rule.
 
 ## §11 mapping — what ProjectGypsy's Part 11 became here
 
@@ -101,7 +106,11 @@ claimed; the full production game surface is not ported (**UB2-D14**).
   source; §2.6–§2.8 (when assets or distributables exist); §2.13 reversibility; §2.14–§2.16 permissions, sweeps and
   secrets; §2.17–§2.19 reproducibility, evidence and budget; §2.20 scale-and-move; §2.21–§2.30 operations (when a
   deploy or running service exists); §2.31 itself; §2.32 text and encoding; §2.33/§2.34 peer separation and context
-  limits; Part 10 (operator's rules); Part 12; and Part 11 in this copy.
+  limits; Part 10 (operator's rules, including §10.15 research escalation); Part 12; and Part 11 in this copy.
+- **Research escalation, mechanised:** `python scripts/gypsy_unity.py capabilities` validates
+  `capabilities/process.research.escalation.json`; `python scripts/gypsy_unity.py toolpacks run ublade2.research` runs
+  the inventory action and its JSON validator; `python scripts/gypsy_unity.py slice run ublade2.research` runs it with
+  the check list. The rule is §10.15 in `ProjectPack.md`; the full note is `docs/RESEARCH-ESCALATION.md`.
 - **Mechanised today:** `python scripts/check_all.py` — records guard, tracked-text encoding, relative Markdown
   links, the local Gypsy manifest schemas (toolpacks, slices, capabilities) and the hook/CI caller-coverage guard.
   The engine gates are mechanised through Gypsy: `python scripts/gypsy_unity.py toolpacks run ublade2.unity` and

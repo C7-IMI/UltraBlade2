@@ -1,6 +1,6 @@
 # BuildNotes - the changelog
 
-Current version: 2026.10.26.012
+Current version: 2026.11.1.001
 
 BuildNotes is UltraBlade 2's dated, versioned changelog (`<CHANGELOG>` in the pack). Newest entry first; versions
 are `YYYY.M.D.NNN` with a zero-padded sequence, and the next one is computed by
@@ -21,6 +21,29 @@ This changelog has **no generated documentation copies yet**. There is no genera
 regenerate; when the game arrives, its export and captures will be generated artefacts under gitignored `build/` and
 `artifacts/`. [`scripts/records_check.py`](./scripts/records_check.py) checks the source, its `Current version:` header
 and [`Retrace.md`](./Retrace.md); it will compare generated copies when they exist.
+
+## 2026.11.1.001
+
+**ProjectPack UB2-2: research escalation and the Gypsy extension.**
+
+- Date: 2026-11-01
+- Operator rule §10.15 added to Part 10: a blocked task must research additional tools, plugins,
+  extensions, resources and methods; install and verify them when approved; extend Gypsy with the
+  reusable part; record the block and the finding.
+- ProjectPack revision bumped to **UB2-2**; ProjectPack-NOTES records the rule, the revision and the
+  in-force statement.
+- Gypsy extension: `capabilities/process.research.escalation.json`,
+  `toolpacks/ublade2.research.json`, `slices/ublade2.research.json`,
+  `scripts/research_inventory.py` and `docs/RESEARCH-ESCALATION.md`.
+- Researched and recorded the world-space bmesh brush-stroke method (Blender Copilot
+  `sculpt_brush_stroke`: draw/clay/flatten/crease/grab) and the official Blender sculpt operator API
+  as the next instrument for local head/helmet forms; added them to the inventory and the escalation doc.
+- README/Gypsy counts updated (4 toolpacks, 4 slices, 7 capabilities); `workstream/state/` ignored.
+- Verified: `python scripts/research_inventory.py` OK; `python scripts/gypsy_unity.py capabilities`
+  OK (7 capabilities, 0 errors); `python scripts/gypsy_unity.py toolpacks check` OK (4 toolpacks, 0
+  errors); `python scripts/gypsy_unity.py toolpacks run ublade2.research` passed; `python
+  scripts/gypsy_unity.py slice run ublade2.research` passed; `python scripts/gypsy_unity.py check`
+  PASS; `python scripts/check_all.py` PASS (7/7).
 
 ## 2026.10.26.012
 

@@ -1,0 +1,51 @@
+{
+  "schema": "gypsy.toolpack/v1",
+  "id": "ublade2.research",
+  "name": "UltraBlade 2 research escalation inventory",
+  "tools": [
+    "Python 3 standard library",
+    "web research (operator-approved)",
+    "Blender/SculptForge when the blocked task is asset work"
+  ],
+  "license": "Project-local; this action vendors no third-party tool.",
+  "actions": [
+    {
+      "id": "inventory",
+      "argv": [
+        "python",
+        "scripts/research_inventory.py",
+        "--out",
+        "artifacts/research/inventory.json"
+      ],
+      "cwd": ".",
+      "timeout": 120,
+      "artifacts": [
+        "artifacts/research/inventory.json"
+      ],
+      "args": {
+        "note": "emit resources, methods and the Gypsy extension for ProjectPack rule 10.15"
+      }
+    }
+  ],
+  "validators": [
+    {
+      "id": "inventory-json",
+      "kind": "json",
+      "artifact": "artifacts/research/inventory.json",
+      "checks": [
+        {
+          "path": "schema",
+          "equals": "ublade2.research-inventory/v1"
+        },
+        {
+          "path": "rule",
+          "equals": "10.15"
+        },
+        {
+          "path": "gypsy_extension.toolpack",
+          "equals": "ublade2.research"
+        }
+      ]
+    }
+  ]
+}

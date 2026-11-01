@@ -1,0 +1,52 @@
+{
+  "schema": "gypsy.capability/v1",
+  "id": "process.research.escalation",
+  "layer": "process",
+  "kind": "research",
+  "maturity": "stable",
+  "description": "When a task cannot be completed with the current tools or methods after a genuine attempt, research additional tools/plugins/extensions/resources/methods, install and verify them when approved, then extend Gypsy with the reusable capability/toolpack/slice.",
+  "requires": [
+    "network access for web research (or an offline reference set when unavailable)",
+    "operator approval for installs or elevated operations",
+    "scripts/research_inventory.py"
+  ],
+  "inputs": [
+    {
+      "name": "blocked-task",
+      "type": "text"
+    },
+    {
+      "name": "failure-evidence",
+      "type": "text"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "research-inventory",
+      "type": "file"
+    },
+    {
+      "name": "gypsy-extension",
+      "type": "manifest"
+    }
+  ],
+  "checks": [
+    "python scripts/research_inventory.py --out artifacts/research/inventory.json",
+    "python scripts/gypsy_unity.py capabilities",
+    "python scripts/gypsy_unity.py toolpacks check",
+    "python scripts/check_all.py"
+  ],
+  "provenance": {
+    "record": [
+      "capabilities/process.research.escalation.json",
+      "toolpacks/ublade2.research.json",
+      "slices/ublade2.research.json",
+      "artifacts/research/inventory.json",
+      "docs/RESEARCH-ESCALATION.md"
+    ],
+    "pack_rule": "ProjectPack.md Part 10, rule 10.15"
+  },
+  "notes": [
+    "This capability is the Gypsy extension for the operator's research-escalation rule; it does not modify GYPSY_HOME."
+  ]
+}

@@ -15,6 +15,9 @@ reference/
 __pycache__/
 *.pyc
 
+# Gypsy local run state
+workstream/state/
+
 # OS / editor
 .DS_Store
 Thumbs.db

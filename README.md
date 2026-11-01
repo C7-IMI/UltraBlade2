@@ -39,7 +39,7 @@ acceptance record: [docs/UNITY-PORT.md](./docs/UNITY-PORT.md). The mobile target
 - **Mobile:** parked by operator decision (2026-10-26, PC-only milestone). Earlier partial Android build/launcher
   evidence is preserved but is not part of the release and is not claimed complete (UB2-D15); see
   `capabilities/engine.unity.port.mobile.json`.
-- **Verification:** `checks: PASS (7/7)`, 12 local Gypsy manifests valid (3 toolpacks, 3 slices, 6 capabilities);
+- **Verification:** `checks: PASS (7/7)`, 15 local Gypsy manifests valid (4 toolpacks, 4 slices, 7 capabilities);
   match/league/UI/release evidence is in `artifacts/ublade2-pro/` and `artifacts/ublade2-release/`.
 - **Work state:** committed and pushed; GitHub Actions `checks` is green and the working tree is clean. The current
   commit hashes and CI runs are recorded in [Retrace.md](./Retrace.md) and [BuildNotes.md](./BuildNotes.md).
@@ -48,6 +48,7 @@ acceptance record: [docs/UNITY-PORT.md](./docs/UNITY-PORT.md). The mobile target
 
 - [docs/UNITY-PORT.md](./docs/UNITY-PORT.md) — acceptance record, evidence, commands, limits.
 - [docs/REA-HYPERBLADE-ANALYSIS.md](./docs/REA-HYPERBLADE-ANALYSIS.md) — REA analysis of the demo plus the camera/arena/decomp findings used for the fidelity fix.
+- [docs/RESEARCH-ESCALATION.md](./docs/RESEARCH-ESCALATION.md) — the operator's research-escalation rule and its Gypsy extension.
 - [unity/UBlade2](./unity/UBlade2) — the Unity 6000.6.7f1 project.
 - [toolpacks/ublade2.unity.json](./toolpacks/ublade2.unity.json) — Gypsy toolpack (build, demo, capture, capture-check
   and their validators).
@@ -55,7 +56,9 @@ acceptance record: [docs/UNITY-PORT.md](./docs/UNITY-PORT.md). The mobile target
 - [toolpacks/ublade2.game.json](./toolpacks/ublade2.game.json) — playable-slice toolpack (build, legacy demo/capture,
   match, league save test, match/menu/UI captures and validators).
 - [slices/ublade2.game.json](./slices/ublade2.game.json) — the playable-slice Gypsy slice.
-- [capabilities](./capabilities) — Unity port, mobile (parked) and playable-slice capability manifests.
+- [toolpacks/ublade2.research.json](./toolpacks/ublade2.research.json) — research-escalation inventory toolpack.
+- [slices/ublade2.research.json](./slices/ublade2.research.json) — research-escalation slice.
+- [capabilities](./capabilities) — Unity port, mobile (parked), playable-slice and research-escalation capability manifests.
 
     python scripts/gypsy_unity.py check
     python scripts/gypsy_unity.py toolpacks run ublade2.unity
@@ -64,7 +67,7 @@ acceptance record: [docs/UNITY-PORT.md](./docs/UNITY-PORT.md). The mobile target
 
 ## Working rules
 
-This project is governed by the **ProjectPack**, copied from ProjectGypsy and applied here as revision UB2-1:
+This project is governed by the **ProjectPack**, copied from ProjectGypsy and applied here as revision UB2-2:
 
 - [ProjectPack.md](./ProjectPack.md) — the standing rules; Parts 1-10 are the portable pack, Part 11 is this
   repository's overlay.

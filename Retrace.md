@@ -374,3 +374,24 @@ Each entry has:
   `play-test.log`, six UI frames, legacy demo/capture artifacts, `artifacts/ublade2-release/release.json` and
   `dist/UBlade2-2026.10.26.012-win64.zip`. REA evidence and clones remain git-ignored under `.work/refs/`.
 
+
+## 11 - 2026-11-01
+
+- Request: "new standing rule. From now on, if you can't do something, extensively research additional
+  tools/plugins/extensions/resources/methods/ideas to complete the task. Then extend gypsy with whatever you
+  find/use/discover. Add to the projectpack as well"
+- Status: Completed - added operator rule §10.15 to ProjectPack Part 10 (UB2-2), recorded it in
+  ProjectPack-NOTES, and extended Gypsy with capability `process.research.escalation`, toolpack
+  `ublade2.research`, slice `ublade2.research`, `scripts/research_inventory.py` and
+  `docs/RESEARCH-ESCALATION.md`. The capability/toolpack/slice validate and run; the inventory action emits
+  `artifacts/research/inventory.json`. The Gypsy checkout was not modified.
+- Version: 2026.11.1.001
+- Discovered method: world-space bmesh brush strokes (Blender Copilot `sculpt_brush_stroke`:
+  draw/clay/flatten/crease/grab) plus the official Blender sculpt operator API; recorded in the inventory and
+  `docs/RESEARCH-ESCALATION.md` for the next local-form sculpt pass.
+- Commit/evidence: this change; evidence `python scripts/check_all.py` (PASS 7/7),
+  `python scripts/gypsy_unity.py capabilities` (7 capabilities, 0 errors),
+  `python scripts/gypsy_unity.py toolpacks check` (4 toolpacks, 0 errors),
+  `python scripts/gypsy_unity.py toolpacks run ublade2.research` passed,
+  `python scripts/gypsy_unity.py slice run ublade2.research` passed,
+  `python scripts/gypsy_unity.py check` PASS.

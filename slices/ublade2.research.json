@@ -1,0 +1,32 @@
+{
+  "schema": "gypsy.slice/v1",
+  "id": "ublade2.research",
+  "project": ".",
+  "description": "Research-escalation slice: emit the resource/method inventory and run the repository check list. This is the reusable Gypsy extension for ProjectPack rule 10.15.",
+  "artifacts": [
+    "artifacts/research/inventory.json"
+  ],
+  "steps": [
+    {
+      "id": "research",
+      "kind": "toolpack",
+      "needs": [],
+      "required": true,
+      "timeout": 180,
+      "args": {
+        "toolpack": "ublade2.research",
+        "path": "toolpacks/ublade2.research.json"
+      }
+    },
+    {
+      "id": "pack",
+      "kind": "check_all",
+      "needs": [
+        "research"
+      ],
+      "required": true,
+      "timeout": 180,
+      "args": {}
+    }
+  ]
+}
